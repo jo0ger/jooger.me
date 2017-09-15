@@ -1,0 +1,189 @@
+.markdown-body {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  color: $text-color;
+  font-family: $font-family-markdown;
+  font-size: 16px;
+  font-weight 300
+  line-height: 1.8;
+  word-wrap: break-word;
+}
+
+.markdown-body::before {
+  display: table;
+  content: ""
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: ""
+}
+
+.markdown-body>*:first-child {
+  margin-top: 0 !important
+}
+
+.markdown-body>*:last-child {
+  margin-bottom: 0 !important
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none
+}
+
+.markdown-body {
+  position: relative;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+.markdown-body h1,
+.markdown-body h2 {
+  text-transform: uppercase;
+}
+.markdown-body h1 a:hover,
+.markdown-body h2 a:hover {
+  border-bottom: 3px solid #666;
+}
+.markdown-body h1 {
+  font-size: 32px;
+  margin: 0 0 45px;
+  letter-spacing: 1px;
+}
+.markdown-body h2 {
+  font-size: 24px;
+  margin: 60px 0 30px;
+  position: relative;
+}
+.markdown-body h2:before {
+  content: '';
+  border-left: 5px solid $blue;
+  position: absolute;
+  left: -15px;
+  height: 75%;
+  top: 12%;
+}
+.markdown-body h3 {
+  margin: 30px 0 15px;
+}
+.markdown-body .date {
+  font-family: "Montserrat", "Helvetica Neue", "Hiragino Sans GB", "LiHei Pro", Arial, sans-serif;
+  font-size: 13px;
+  color: #999;
+  margin: 0 0 30px;
+  letter-spacing: 1px;
+}
+
+.markdown-body p,
+.markdown-body ul,
+.markdown-body ol {
+  margin: 1em 0 1.5em;
+}
+.markdown-body strong {
+  font-weight: 600;
+  color: #444;
+}
+.markdown-body ol {
+  padding-left: 1.6em;
+}
+.markdown-body ul {
+  padding-left: 15px;
+  list-style-type: none;
+}
+.markdown-body ul li:before {
+  position: absolute;
+  font-weight: 600;
+  content: " · ";
+  margin: 0;
+  left: 0;
+}
+// .markdown-body a {
+//   color: #f66;
+//   border-bottom: 2px solid transparent;
+// }
+// .markdown-body a:hover {
+//   color: #f33;
+//   border-bottom-color: #f33;
+// }
+.markdown-body .highlight,
+.markdown-body .highlight table {
+  margin: 0;
+  width: 100%;
+}
+.markdown-body .highlight {
+  overflow-x: auto;
+}
+.markdown-body .highlight table,
+.markdown-body .highlight tr,
+.markdown-body .highlight td {
+  padding: 0;
+  border-collapse: collapse;
+}
+.markdown-body code {
+  // font-family: "Roboto Mono", "Menlo", "Consolas", monospace;
+  font-size: 13px;
+  background-color: #f7f7f7;
+  padding: 0 10px;
+  margin: 0 5px;
+  border-radius: 2px;
+}
+.markdown-body pre {
+  // font-family: "Roboto Mono", "Menlo", "Consolas", monospace;
+  font-size: 13px;
+  overflow-x: auto;
+  text-align: left;
+  padding: 15px 25px;
+  background-color: #f7f7f7;
+  line-height: 1.5em;
+}
+.markdown-body .code pre {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+.markdown-body .gutter pre {
+  padding: 15px 0 15px 15px;
+  color: #75715e;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+.markdown-body blockquote {
+  margin: 2em 0;
+  padding-left: 30px;
+  border-left: 5px solid #e6e6e6;
+}
+.markdown-body blockquote p {
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.8em;
+  color: #999;
+}
+.markdown-body img {
+  display: block;
+  max-width: 100%;
+}
+
+.markdown-body {
+  ul
+  ol {
+    list-style none
+  }
+
+  ul.code-line {
+    position absolute
+    left 0
+    top 0
+    margin 0
+    padding 15px 0 15px 10px
+    color alpha($black, .2)
+    line-height 1.5em
+    text-align right
+    list-style none
+
+    .line {
+      &::before {
+        display none
+      }
+    }
+  }
+}

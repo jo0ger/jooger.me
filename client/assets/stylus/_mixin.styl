@@ -1,0 +1,37 @@
+flexLayout(dir = row, justify-content = center, align-items = center, wrap = nowrap) {
+  display: flex;
+  flex-direction: dir;
+  justify-content: justify-content;
+  align-items: align-items;
+  flex-wrap: nowrap;
+}
+
+full() {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+textOverflow() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+lineLimit(line = 2) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: line;
+  -webkit-box-orient: vertical;
+}
+
+bordered(position = bottom, thick = 1px, style = solid, color = $grey) {
+  $avaliable = bottom top left right
+  if position in $avaliable {
+    border-{position} thick style color
+  } else {
+    border thick style color
+  }
+}
