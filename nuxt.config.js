@@ -31,6 +31,7 @@ module.exports = {
   },
   css: [
     'normalize.css',
+    'swiper/dist/css/swiper.css',
     { src: '~assets/stylus/index.styl', lang: 'stylus' }
   ],
   loading: { color: '#0088f5' },
@@ -43,6 +44,7 @@ module.exports = {
     ]
   },
   plugins: [
+    { src: '~plugins/swiper.js', ssr: false }
   ],
   router: {
     linkActiveClass: 'active'

@@ -22,7 +22,8 @@
     "marked": "^0.3.6",
     "normalize.css": "^7.0.0",
     "nuxt": "^1.0.0-rc9",
-    "source-map-support": "^0.4.15"
+    "source-map-support": "^0.4.15",
+    "vue-awesome-swiper": "^2.6.4"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",

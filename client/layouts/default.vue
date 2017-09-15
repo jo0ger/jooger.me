@@ -1,52 +1,26 @@
 <template>
-  <div>
-    <nuxt/>
-    <my-footer/>
+  <div class="app">
+    <div class="app-main">
+      <LayoutHeader></LayoutHeader>
+      <LayoutBanner></LayoutBanner>
+      <div class="container">
+        <keep-alive>
+          <nuxt></nuxt>
+        </keep-alive>
+      </div>
+      <LayoutFooter></LayoutFooter>
+    </div>
   </div>
 </template>
 
 <script>
-import MyFooter from '../components/Footer.vue'
+  import { LayoutHeader, LayoutBanner, LayoutFooter } from '~/components/Layout'
 
-export default {
-  components: {
-    MyFooter
+  export default {
+    name: 'Default',
+    components: { LayoutHeader, LayoutBanner, LayoutFooter }
   }
-}
 </script>
 
-<style>
-.container
-{
-  margin: 0;
-  width: 100%;
-  padding: 100px 0;
-  text-align: center;
-}
-
-.button, .button:visited
-{
-  display: inline-block;
-  color: #3B8070;
-  letter-spacing: 1px;
-  background-color: #fff;
-  border: 2px solid #3B8070;
-  text-decoration: none;
-  text-transform: uppercase;
-  padding: 15px 45px;
-}
-
-.button:hover, .button:focus
-{
-  color: #fff;
-  background-color: #3B8070;
-}
-
-.title
-{
-  color: #505153;
-  font-weight: 300;
-  font-size: 2.5em;
-  margin: 0;
-}
+<style lang="stylus" scoped>
 </style>
