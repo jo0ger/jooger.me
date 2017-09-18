@@ -65,11 +65,17 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ function(module, exports) {
+
+module.exports = require("axios");
+
+/***/ },
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
 var isProd = "development" === 'production';
@@ -88,26 +94,26 @@ module.exports = {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }, { rel: 'stylesheet', href: '//at.alicdn.com/t/font_268993_tu4k21igcspgmn29.css' }]
   },
   css: ['normalize.css', 'swiper/dist/css/swiper.css', { src: '~assets/stylus/index.styl', lang: 'stylus' }],
-  loading: { color: '#0088f5' },
+  // loading: '~/components/Common/PageLoading',
+  loading: { color: '#2196f3' },
   build: {
     vendor: ['axios', 'bezier-easing', 'highlight.js', 'marked']
   },
-  plugins: [{ src: '~plugins/swiper.js', ssr: false }],
+  plugins: [{ src: '~plugins/router.js', ssr: false }, { src: '~plugins/filter.js' }, { src: '~plugins/swiper.js', ssr: false }, { src: '~plugins/image.js', ssr: false }],
   router: {
     linkActiveClass: 'active'
-  },
-  transition: {
-    name: 'fade',
-    mode: 'out-in'
-  }
-};
+    // transition: {
+    //   name: 'fade',
+    //   mode: 'out-in'
+    // }
+  } };
 
 /***/ },
-/* 1 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__controllers__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__controllers__ = __webpack_require__(9);
 /**
  * @desc server routes
  * @author Jooger <zzy1198258955@163.com>
@@ -125,25 +131,146 @@ module.exports = {
 };
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports) {
 
 module.exports = require("koa");
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports) {
 
 module.exports = require("koa-router");
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 module.exports = require("nuxt");
 
 /***/ },
-/* 5 */
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * @desc App Config
+ * @author Jooger <zzy1198258955@163.com>
+ * @date 8 Sep 2017
+ */
+
+// const isProd = process.env.NODE_ENV === 'production'
+
+/* harmony default export */ exports["a"] = {
+  service: {
+    url: '/',
+    method: 'get',
+    baseURL: '/api',
+    // baseURL: isProd ? 'http://api.jooger.me/v1.0' : 'http://localhost:5000/v1.0',
+    // baseURL: process.env.baseUrl,
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    withCredentials: true,
+    timeout: 120000,
+    responseType: 'json',
+    proxy: {
+      host: '127.0.0.1',
+      port: process.env.PORT || 3000
+    }
+  }
+};
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(6);
+/* unused harmony export fetcher */
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return CODE; });
+/**
+ * @desc Api service
+ * @author Jooger <zzy1198258955@163.com>
+ * @date 8 Sep 2017
+ */
+
+
+
+
+var logMsg = function logMsg() {
+  var msg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+
+  if (msg) {
+    console.info(msg);
+  }
+};
+
+var fetcher = __WEBPACK_IMPORTED_MODULE_0_axios___default.a.create(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].service);
+
+var CODE = {
+  FAILED: -1,
+  SUCCESS: 0,
+  UNAUTHORIZED: 401
+};
+
+fetcher.interceptors.request.use(function (config) {
+  return config;
+}, function (err) {
+  return Promise.reject(err);
+});
+
+fetcher.interceptors.response.use(function (response) {
+  if (!response || !response.data) {
+    return logMsg('服务器异常', 'error');
+  }
+  switch (response.data.code) {
+    case CODE.UNAUTHORIZED:
+      logMsg(response.data.message, 'error');
+      break;
+    case CODE.FAILED:
+      logMsg(response.data.message, 'error');
+      break;
+    case CODE.SUCCESS:
+      if (response.config.method.toLocaleUpperCase() !== 'GET') {
+        logMsg(response.data.message);
+      }
+      break;
+    default:
+      break;
+  }
+  return Object.assign({
+    success: response.data && response.data.code === CODE.SUCCESS
+  }, response.data);
+}, function (error) {
+  var status = error.response && error.response.status || error.code;
+  var message = error.message ? error.message : '\u8BF7\u6C42\u9519\u8BEF' + (status ? '\uFF0Ccode:' + status : '');
+  logMsg(message, 'error');
+  return error.response || {
+    code: CODE.FAILED,
+    message: message
+  };
+});
+
+var wrap = function wrap(url) {
+  var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'get';
+  return function () {
+    var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    return fetcher.request(Object.assign({}, config, { method: type, url: url }));
+  };
+};
+
+/* unused harmony default export */ var _unused_webpack_default_export = {
+  article: {
+    fetchList: wrap('/articles')
+  }
+};
+
+/***/ },
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -155,19 +282,22 @@ module.exports = require("nuxt");
 
 /* harmony default export */ exports["a"] = {
   repo: 'git-hook-test',
-  owner: 'jo0ger'
+  owner: 'jo0ger',
+  clientId: 'b4983366c4c7549a09f1',
+  clientSecret: '76fd8c26a21659d7eb925af0ed3498eabed49277'
 };
 
 /***/ },
-/* 6 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__posts_config__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__posts_config__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__client_service__ = __webpack_require__(7);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return postController; });
 
 
@@ -182,30 +312,64 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
  */
 
 
+// import fm from 'front-matter'
 
+
+var imageReg = /^!\[((?:\[[^\]]*\]|[^[\]]|\](?=[^[]*\]))*)\]\(\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*\)/;
 
 var postController = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
-    var res;
+    var _ctx$query, page, _ctx$query$per_page, per_page, res, link, prev, _next, articles;
+
     return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
+            _ctx$query = ctx.query, page = _ctx$query.page, _ctx$query$per_page = _ctx$query.per_page, per_page = _ctx$query$per_page === undefined ? 12 : _ctx$query$per_page;
+            _context.next = 3;
             return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://api.github.com/repos/' + __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].owner + '/' + __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].repo + '/issues', {
               params: {
-                state: 'all',
-                sort: 'created'
+                filter: 'created',
+                state: 'open',
+                sort: 'created',
+                direction: 'desc',
+                client_id: __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].clientId,
+                client_secret: __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].clientSecret,
+                page: page,
+                per_page: per_page
               }
             }).catch(function (err) {
               return console.error(err);
             });
 
-          case 2:
+          case 3:
             res = _context.sent;
 
-            ctx.status = res.status;
-            ctx.body = res.data;
+
+            if (res) {
+              link = res.headers.link || '';
+
+              console.log(res.headers, link);
+              prev = link.includes('rel="prev"');
+              _next = link.includes('rel="next"');
+              articles = res.data.map(function (item) {
+                item.body = articleParser(item.body);
+                return item;
+              });
+              // ctx.response.set('Accept', 'application/vnd.github.squirrel-girl-preview')
+
+              ctx.status = res.status;
+              ctx.body = {
+                code: __WEBPACK_IMPORTED_MODULE_3__client_service__["a" /* CODE */].SUCCESS,
+                data: {
+                  list: articles,
+                  pagination: { prev: prev, next: _next }
+                }
+              };
+            } else {
+              ctx.status = 200;
+              ctx.body = { code: __WEBPACK_IMPORTED_MODULE_3__client_service__["a" /* CODE */].FAILED };
+            }
 
           case 5:
           case 'end':
@@ -220,38 +384,47 @@ var postController = function () {
   };
 }();
 
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(9);
-
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-module.exports = require("axios");
-
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-module.exports = require("regenerator-runtime");
+function articleParser(content) {
+  var data = {};
+  var splits = content.split('\r\n');
+  var thumb = splits[0];
+  var cap = imageReg.exec(thumb);
+  if (cap) {
+    data.thumb = cap[2];
+    data.content = content.split(thumb)[1];
+  } else {
+    data.content = content;
+  }
+  return data;
+}
 
 /***/ },
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(12);
+
+
+/***/ },
+/* 11 */,
+/* 12 */
+/***/ function(module, exports) {
+
+module.exports = require("regenerator-runtime");
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa_router__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes__ = __webpack_require__(2);
 
 
 
@@ -262,7 +435,7 @@ var host = process.env.HOST || '127.0.0.1';
 var port = process.env.PORT || 3000;
 
 // Import and Set Nuxt.js options
-var config = __webpack_require__(0);
+var config = __webpack_require__(1);
 config.dev = !(app.env === 'production');
 
 // Instantiate nuxt.js

@@ -5,15 +5,22 @@
         <span>JOOGER</span>
       </router-link>
       <nav class="navigation">
-        <a class="search">
+        <a class="search" v-if="isBlogPage">
           <span class="icon"></span>
         </a>
-        <a class="trigger">
+        <a class="trigger" :class="{ active: showMenu }" @click="handleToggleMenu">
           <span class="line"></span>
           <span class="line"></span>
           <span class="line"></span>
         </a>
       </nav>
+    </div>
+    <div class="menu" :class="{ active: showMenu }">
+      <ul class="list">
+        <li class="item" v-for="item in menus" :key="item.key">
+          <a :to="item.path" @click="handleGo(item)">{{ item.title }}</a>
+        </li>
+      </ul>
     </div>
   </header>
 </template>
@@ -22,7 +29,29 @@
   export default {
     name: 'Layout-Header',
     data () {
-      return {}
+      const menus = [
+        { key: 'home', title: '首页', path: '/' },
+        { key: 'blog', title: '博客', path: '/blog' },
+        { key: 'about', title: '关于', path: '/about' }
+      ]
+      return {
+        menus,
+        showMenu: false
+      }
+    },
+    computed: {
+      isBlogPage () {
+        return this.$route.name === 'blog'
+      }
+    },
+    methods: {
+      handleToggleMenu () {
+        this.showMenu = !this.showMenu
+      },
+      handleGo ({ path }) {
+        this.$router.push(path)
+        this.showMenu = false
+      }
     }
   }
 </script>
@@ -40,10 +69,31 @@
 
     .wrapper {
       flexLayout(, space-between)
+      position relative
       width 100%
       max-width 1440px
       margin 0 auto
-      padding 0 100px
+      z-index 1
+
+      @media (max-width: 1640px) {
+        padding 0 100px
+      }
+
+      @media (max-width: 1366px) and (min-width: 769px) {
+        padding 0 65px
+      }
+
+      @media (max-width: 768px) and (min-width: 480px) {
+        padding 0 40px
+      }
+
+      @media (max-width: 479px) {
+        padding 0 30px
+      }
+
+      .logo {
+        color $blue
+      }
 
       .navigation {
         flexLayout(, space-between)
@@ -98,7 +148,7 @@
             }
           }
 
-          &:hover {
+          &.active {
             .line {
               &:nth-of-type(1) {
                 width 24px
@@ -114,6 +164,40 @@
             }
           }
         }
+      }
+
+    }
+    .menu {
+      position fixed
+      top 0
+      right 0
+      bottom 0
+      left 0
+      width 100%
+      height 100%
+      background $white
+      transform translate3d(0, -100%, 0)
+      transition transform .8s cubic-bezier(.85,0,.15,1)
+
+      .list {
+        position absolute
+        width auto
+        top 50%
+        left 50%
+        transform translate(-50%, -50%)
+        .item {
+          margin 0 auto
+          font-size 3.5rem
+          color $text-color
+
+          &:hover {
+            color $blue
+          }
+        }
+      }
+
+      &.active {
+        transform translate3d(0, 0, 0)
       }
     }
   }

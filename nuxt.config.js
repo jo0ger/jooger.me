@@ -34,7 +34,8 @@ module.exports = {
     'swiper/dist/css/swiper.css',
     { src: '~assets/stylus/index.styl', lang: 'stylus' }
   ],
-  loading: { color: '#0088f5' },
+  // loading: '~/components/Common/PageLoading',
+  loading: { color: '#2196f3' },
   build: {
     vendor: [
       'axios',
@@ -44,13 +45,16 @@ module.exports = {
     ]
   },
   plugins: [
-    { src: '~plugins/swiper.js', ssr: false }
+    { src: '~plugins/router.js', ssr: false },
+    { src: '~plugins/filter.js' },
+    { src: '~plugins/swiper.js', ssr: false },
+    { src: '~plugins/image.js', ssr: false }
   ],
   router: {
     linkActiveClass: 'active'
-  },
-  transition: {
-    name: 'fade',
-    mode: 'out-in'
   }
+  // transition: {
+  //   name: 'fade',
+  //   mode: 'out-in'
+  // }
 }

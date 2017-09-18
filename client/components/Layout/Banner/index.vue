@@ -25,10 +25,7 @@
           speed: 1000,
           loop: true,
           grabCursor: true,
-          pagination: '.swiper-pagination',
-          onSlideChangeEnd: swiper => {
-            console.log('onSlideChangeEnd', swiper.realIndex)
-          }
+          pagination: '.swiper-pagination'
         }
       }
     },
@@ -52,6 +49,7 @@
     right 0
     bottom 0
     left 0
+    z-index 1
 
     .swiper-container {
       width 100%
@@ -61,6 +59,7 @@
         background-repeat no-repeat
         background-size cover
         background-position center center
+        opacity .8
 
         img {
           display none
