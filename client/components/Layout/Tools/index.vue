@@ -2,6 +2,7 @@
   <div class="tools">
     <div class="wrapper">
       <div class="tool-list">
+        <a class="tool-item back" @click="handleGoBack"></a>
         <a class="tool-item go-to-top" :class="{ active: showGoToTop }" @click.prevent.stop="handleGoToTop"></a>
       </div>
     </div>
@@ -32,8 +33,11 @@
         window.addEventListener('scroll', this._goToTopScrollHandler, false)
         this._goToTopScrollHandler()
       },
+      handleGoBack () {
+        this.$router.back()
+      },
       handleGoToTop () {
-        scrollTo(0, 500, { easing: easing['ease-in-out'] })
+        scrollTo(0, 500, { easing: easing['fuck'] })
       }
     }
   }
@@ -58,18 +62,51 @@
           width 50px
           height @width
           line-height @width
+          margin-top 10px
           border-radius 100%
           text-align center
           background alpha($white, .8)
           color $text-color-secondary
+          box-shadow 0 20px 40px -15px alpha($black, .1)
 
-          &:hover {
-            color $blue
+          &::before
+          &::after {
+            border-radius 2px
+          }
+
+          &.back {
+            &::before
+            &::after {
+              content ''
+              position absolute
+              top 50%
+              left 50%
+              display block
+              width 16px
+              height 2px
+              background $text-color-secondary
+              opacity .6
+              transform-origin center center
+              transform translate(-50%, -50%) rotate(45deg)
+              transition opacity .3s $ease 
+            }
+
+            &::after {
+              transform translate(-50%, -50%) rotate(-45deg)
+            }
+
+            &:hover {
+              transform scale(.9)
+              &::before
+              &::after {
+                opacity 1
+              }
+            }
           }
 
           &.go-to-top {
-            box-shadow 0 20px 40px -15px alpha($black, .1)
             transform translateX(300%)
+            transition-timing-function cubic-bezier(.85,0,.15,1)
 
             &::after {
               content ''
@@ -81,8 +118,10 @@
               height @width
               border 2px solid $text-color-secondary
               border-width 2px 2px 0 0
+              opacity .6
               transform translate(-50%, -3px) rotate(-45deg)
               transform-origin center center
+              transition opacity .3s $ease
             }
 
             &.active {
@@ -90,6 +129,9 @@
 
               &:hover {
                 transform translateX(0) scale(.9)
+                &::after {
+                  opacity 1
+                }
               }
             }
           }
