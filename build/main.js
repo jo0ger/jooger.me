@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -127,7 +127,8 @@ module.exports = {
     ctx.response.set('Content-Type', 'application/json;charset=utf-8');
     return next();
   });
-  router.get('articles', '/api/articles', __WEBPACK_IMPORTED_MODULE_0__controllers__["a" /* postController */]);
+  router.get('article-list', '/articles', __WEBPACK_IMPORTED_MODULE_0__controllers__["a" /* default */].postController.list);
+  router.get('article-detail', '/article/:number', __WEBPACK_IMPORTED_MODULE_0__controllers__["a" /* default */].postController.item);
 };
 
 /***/ },
@@ -265,7 +266,10 @@ var wrap = function wrap(url) {
 
 /* unused harmony default export */ var _unused_webpack_default_export = {
   article: {
-    fetchList: wrap('/articles')
+    fetchList: wrap('/articles'),
+    fetchDetail: function fetchDetail(id) {
+      return wrap('/article/' + id);
+    }
   }
 };
 
@@ -298,7 +302,6 @@ var wrap = function wrap(url) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__posts_config__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__client_service__ = __webpack_require__(7);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return postController; });
 
 
 var _this = this;
@@ -317,15 +320,17 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var imageReg = /^!\[((?:\[[^\]]*\]|[^[\]]|\](?=[^[]*\]))*)\]\(\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*\)/;
 
-var postController = function () {
+var postController = { list: {}, item: {} };
+
+postController.list = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
-    var _ctx$query, page, _ctx$query$per_page, per_page, res, link, prev, _next, articles;
+    var _ctx$query, _ctx$query$page, page, _ctx$query$per_page, per_page, res, link, prev, _next, articles;
 
     return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _ctx$query = ctx.query, page = _ctx$query.page, _ctx$query$per_page = _ctx$query.per_page, per_page = _ctx$query$per_page === undefined ? 12 : _ctx$query$per_page;
+            _ctx$query = ctx.query, _ctx$query$page = _ctx$query.page, page = _ctx$query$page === undefined ? 1 : _ctx$query$page, _ctx$query$per_page = _ctx$query.per_page, per_page = _ctx$query$per_page === undefined ? 12 : _ctx$query$per_page;
             _context.next = 3;
             return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://api.github.com/repos/' + __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].owner + '/' + __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].repo + '/issues', {
               params: {
@@ -348,8 +353,6 @@ var postController = function () {
 
             if (res) {
               link = res.headers.link || '';
-
-              console.log(res.headers, link);
               prev = link.includes('rel="prev"');
               _next = link.includes('rel="next"');
               articles = res.data.map(function (item) {
@@ -363,7 +366,7 @@ var postController = function () {
                 code: __WEBPACK_IMPORTED_MODULE_3__client_service__["a" /* CODE */].SUCCESS,
                 data: {
                   list: articles,
-                  pagination: { prev: prev, next: _next }
+                  pagination: { prev: prev, next: _next, page: Number(page), per_page: per_page }
                 }
               };
             } else {
@@ -379,8 +382,56 @@ var postController = function () {
     }, _callee, _this);
   }));
 
-  return function postController(_x, _x2) {
+  return function (_x, _x2) {
     return _ref.apply(this, arguments);
+  };
+}();
+
+postController.item = function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
+    var number, res, detail;
+    return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            number = ctx.params.number;
+            _context2.next = 3;
+            return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://api.github.com/repos/' + __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].owner + '/' + __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].repo + '/issues/' + number, {
+              params: {
+                client_id: __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].clientId,
+                client_secret: __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].clientSecret
+              }
+            }).catch(function (err) {
+              return console.error(err);
+            });
+
+          case 3:
+            res = _context2.sent;
+
+            if (res) {
+              detail = res.data;
+
+              detail.body = articleParser(detail.body);
+              ctx.status = res.status;
+              ctx.body = {
+                code: __WEBPACK_IMPORTED_MODULE_3__client_service__["a" /* CODE */].SUCCESS,
+                data: detail
+              };
+            } else {
+              ctx.status = 200;
+              ctx.body = { code: __WEBPACK_IMPORTED_MODULE_3__client_service__["a" /* CODE */].FAILED };
+            }
+
+          case 5:
+          case 'end':
+            return _context2.stop();
+        }
+      }
+    }, _callee2, _this);
+  }));
+
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
   };
 }();
 
@@ -395,25 +446,29 @@ function articleParser(content) {
   } else {
     data.content = content;
   }
+  data._content = content;
   return data;
 }
+
+/* harmony default export */ exports["a"] = {
+  postController: postController
+};
 
 /***/ },
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(12);
+module.exports = __webpack_require__(11);
 
 
 /***/ },
-/* 11 */,
-/* 12 */
+/* 11 */
 /***/ function(module, exports) {
 
 module.exports = require("regenerator-runtime");
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -465,7 +520,9 @@ app.use(function (ctx, next) {
   });
 });
 
-var router = new __WEBPACK_IMPORTED_MODULE_1_koa_router___default.a();
+var router = new __WEBPACK_IMPORTED_MODULE_1_koa_router___default.a({
+  prefix: '/api'
+});
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__routes__["a" /* default */])(router);
 app.use(router.routes(), router.allowedMethods());
 

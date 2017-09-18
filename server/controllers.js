@@ -10,8 +10,10 @@ import config from '../posts.config'
 import { CODE } from '../client/service'
 const imageReg = /^!\[((?:\[[^\]]*\]|[^[\]]|\](?=[^[]*\]))*)\]\(\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*\)/
 
-export const postController = async (ctx, next) => {
-  const { page, per_page = 12 } = ctx.query
+const postController = { list: {}, item: {} }
+
+postController.list = async (ctx, next) => {
+  const { page = 1, per_page = 12 } = ctx.query
   const res = await axios.get(`https://api.github.com/repos/${config.owner}/${config.repo}/issues`, {
     params: {
       filter: 'created',
@@ -27,7 +29,6 @@ export const postController = async (ctx, next) => {
 
   if (res) {
     const link = res.headers.link || ''
-    console.log(res.headers, link)
     let prev = link.includes('rel="prev"')
     let next = link.includes('rel="next"')
     const articles = res.data.map(item => {
@@ -40,8 +41,30 @@ export const postController = async (ctx, next) => {
       code: CODE.SUCCESS,
       data: {
         list: articles,
-        pagination: { prev, next }
+        pagination: { prev, next, page: Number(page), per_page }
       }
+    }
+  } else {
+    ctx.status = 200
+    ctx.body = { code: CODE.FAILED }
+  }
+}
+
+postController.item = async (ctx, next) => {
+  const number = ctx.params.number
+  const res = await axios.get(`https://api.github.com/repos/${config.owner}/${config.repo}/issues/${number}`, {
+    params: {
+      client_id: config.clientId,
+      client_secret: config.clientSecret
+    }
+  }).catch(err => console.error(err))
+  if (res) {
+    const detail = res.data
+    detail.body = articleParser(detail.body)
+    ctx.status = res.status
+    ctx.body = {
+      code: CODE.SUCCESS,
+      data: detail
     }
   } else {
     ctx.status = 200
@@ -60,5 +83,10 @@ function articleParser (content) {
   } else {
     data.content = content
   }
+  data._content = content
   return data
+}
+
+export default {
+  postController
 }

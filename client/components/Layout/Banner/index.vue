@@ -74,3 +74,12 @@
 
   }
 </style>
+
+<style lang="stylus">
+  @import '~assets/stylus/_var'
+
+  .swiper-pagination-bullet-active {
+    background $base-color
+  }
+  
+</style>

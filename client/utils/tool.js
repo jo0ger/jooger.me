@@ -99,18 +99,6 @@ export const fmtDateFromNow = ms => {
   return result
 }
 
-export const getExtendItem = (obj = {}, key = '') => {
-  if (typeof key === 'string') {
-    key = [key]
-  }
-  const _extends = obj.extends
-  if (_extends) {
-    const extend = _extends.find(item => key.includes(item.key))
-    return extend ? extend.value : ''
-  }
-  return ''
-}
-
 // 获取target的scroll top
 export const getScroll = (target, top) => {
   const prop = top ? 'pageYOffset' : 'pageXOffset'

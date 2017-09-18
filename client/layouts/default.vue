@@ -29,9 +29,10 @@
       }
     },
     head () {
+      const classes = ['blog']
       return {
         bodyAttrs: {
-          class: this.$route.name
+          class: classes.find(item => this.$route.name.includes(item))
         }
       }
     },
@@ -55,7 +56,7 @@
 
   .app {
     &-main {
-      padding-top 80px
+      padding-top 70px
     }
 
     .container {

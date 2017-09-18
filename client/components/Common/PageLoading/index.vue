@@ -140,7 +140,7 @@
         display block
         height 100%
         width 0
-        background $blue
+        background $base-color
         // background #ff3b30
         transition width .2s, opacity .2s
         // transform-origin left center
