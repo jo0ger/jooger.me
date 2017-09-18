@@ -7,16 +7,19 @@
 const START_PAGE_LOADING = 'START_PAGE_LOADING'
 const STOP_PAGE_LOADING = 'STOP_PAGE_LOADING'
 const PAGE_LOADED = 'PAGE_LOADED'
+const SET_OVERLAY = 'SET_OVERLAY'
 
 export const state = () => ({
   page: {
     loading: false,
     loaded: false
-  }
+  },
+  overlay: false
 })
 
 export const getters = {
-  page: state => state.page
+  page: state => state.page,
+  showOverlay: state => state.overlay
 }
 
 export const mutations = {
@@ -25,5 +28,6 @@ export const mutations = {
     state.page.loaded = false
   },
   [STOP_PAGE_LOADING]: state => (state.page.loading = false),
-  [PAGE_LOADED]: state => (state.page.loaded = true)
+  [PAGE_LOADED]: state => (state.page.loaded = true),
+  [SET_OVERLAY]: (state, show = false) => (state.overlay = show)
 }

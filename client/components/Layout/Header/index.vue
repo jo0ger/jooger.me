@@ -5,10 +5,10 @@
         <span>JOOGER</span>
       </router-link>
       <nav class="navigation">
-        <a class="search" v-if="isBlogPage">
+        <a class="search" v-if="isBlogPage" @click.prevent.stop="handleToggleSearch">
           <span class="icon"></span>
         </a>
-        <a class="trigger" :class="{ active: showMenu }" @click="handleToggleMenu">
+        <a class="trigger" :class="{ active: showMenu }" @click.prevent.stop="handleToggleMenu">
           <span class="line"></span>
           <span class="line"></span>
           <span class="line"></span>
@@ -18,11 +18,11 @@
     <div class="menu" :class="{ active: showMenu }">
       <ul class="list">
         <li class="item" v-for="item in menus" :key="item.key">
-          <a :to="item.path" @click="handleGo(item)">{{ item.title }}</a>
+          <a :to="item.path" @click.prevent.stop="handleGo(item)">{{ item.title }}</a>
         </li>
       </ul>
     </div>
-    <div class="search-pane">
+    <div class="search-pane" :class="{ active: showSearch }">
       <form class="search-form" role="search" action=""
         @submit.stop.prevent="handleSearch">
         <input class="search-input"
@@ -52,6 +52,7 @@
       return {
         menus,
         showMenu: false,
+        showSearch: false,
         keyword: ''
       }
     },
@@ -69,7 +70,14 @@
         this.showMenu = false
       },
       handleSearch () {},
-      handleToggleSearch () {}
+      handleToggleSearch () {
+        this.showSearch = !this.showSearch
+        this.$store.commit('app/SET_OVERLAY', this.showSearch)
+        this.$refs.searchInput[this.showSearch ? 'focus' : 'blur']()
+        if (!this.showSearch) {
+          this.$nextTick(() => (this.keyword = ''))
+        }
+      }
     }
   }
 </script>
@@ -235,6 +243,7 @@
       right 0
       left 0
       background $white
+      transform translateY(-100%)
       transition transform .8s cubic-bezier(.85,0,.15,1)
 
       .search-form {
@@ -300,7 +309,6 @@
           }
 
           &:hover {
-            color $text-color
             &::before
             &::after {
               opacity 1
@@ -308,6 +316,10 @@
           }
           
         }
+      }
+
+      &.active {
+        transform translateY(0)
       }
     }
   }

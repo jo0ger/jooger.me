@@ -34,7 +34,8 @@ export const easing = {
   linear: [0.00, 0.0, 1.00, 1.0],
   'ease-in': [0.55, 0.055, 0.675, 0.19],
   'ease-out': [0.215, 0.61, 0.355, 1],
-  'ease-in-out': [0.645, 0.045, 0.355, 1]
+  'ease-in-out': [0.645, 0.045, 0.355, 1],
+  fuck: [0.85, 0, 0.15, 1]
 }
 
 // 参考 https://github.com/surmon-china/surmon.me/blob/master/utils/scroll-to-anywhere.js

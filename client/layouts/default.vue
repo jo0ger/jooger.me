@@ -12,18 +12,20 @@
       </main>
       <LayoutTools></LayoutTools>
       <PageLoading></PageLoading>
+      <LayoutOverlay></LayoutOverlay>
       <LayoutFooter></LayoutFooter>
     </div>
   </div>
 </template>
 
 <script>
-  import { LayoutHeader, LayoutBanner, LayoutFooter, LayoutTools } from '~/components/Layout'
+
+  import { LayoutHeader, LayoutBanner, LayoutFooter, LayoutTools, LayoutOverlay } from '~/components/Layout'
   import { PageLoading } from '~/components/Common'
 
   export default {
     name: 'Default',
-    components: { LayoutHeader, LayoutBanner, LayoutFooter, PageLoading, LayoutTools },
+    components: { LayoutHeader, LayoutBanner, LayoutFooter, PageLoading, LayoutTools, LayoutOverlay },
     data () {
       return {
         pageLoading: false
