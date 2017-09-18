@@ -38,7 +38,6 @@
       setThumb () {
         return this.$imgLoad(this.data.body.thumb, {
           success: () => {
-            console.log(111)
             this.thumb = this.data.body.thumb
           },
           load: () => {

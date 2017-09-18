@@ -2,7 +2,7 @@
   <div class="tools">
     <div class="wrapper">
       <div class="tool-list">
-        <a class="tool-item back" @click="handleGoBack"></a>
+        <a class="tool-item back" @click="handleGoBack" v-if="showBack"></a>
         <a class="tool-item go-to-top" :class="{ active: showGoToTop }" @click.prevent.stop="handleGoToTop"></a>
       </div>
     </div>
@@ -19,6 +19,11 @@
         goToTopThreshold: 200,
         showGoToTop: false
       }
+    },
+    computed: {
+      showBack () {
+        return ['blog-article-id'].includes(this.$route.name)
+      },
     },
     mounted () {
       this.init()

@@ -1,7 +1,7 @@
 <template>
   <section class="home-page">
     <div class="banner-content">
-      <h1 class="title">一见如故，再见陌路</h1>
+      <h1 class="title">离人回首，灯火阑珊</h1>
       <h3 class="subtitle">欢迎访问我的个人网站</h3>
     </div>
     <div class="page-content">
@@ -17,20 +17,6 @@
       await new Promise((resolve) => {
         setTimeout(() => resolve(), 500)
       })
-    },
-    mounted () {
-      // axios.get('/api/articles').then(data => {
-      //   console.log(data)
-      // })
-      // axios.request({
-      //   url: 'https://api.github.com/repos/jo0ger/git-hook-test/issues',
-      //   params: {
-      //     state: 'all',
-      //     sort: 'created'
-      //   }
-      // }).then(data => {
-      //   console.log(data)
-      // })
     }
   }
 </script>

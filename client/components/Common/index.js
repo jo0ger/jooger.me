@@ -4,5 +4,4 @@
  * @date 15 Sep 2017
  */
 
-export { default as PageLoading } from './PageLoading'
 export * from './Article'

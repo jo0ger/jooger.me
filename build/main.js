@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -300,8 +300,10 @@ var wrap = function wrap(url) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__posts_config__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__client_service__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_fetch__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_node_fetch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__posts_config__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__client_service__ = __webpack_require__(7);
 
 
 var _this = this;
@@ -315,6 +317,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
  */
 
 
+
 // import fm from 'front-matter'
 
 
@@ -324,30 +327,37 @@ var postController = { list: {}, item: {} };
 
 postController.list = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
-    var _ctx$query, _ctx$query$page, page, _ctx$query$per_page, per_page, res, link, prev, _next, articles;
+    var _ctx$query, _ctx$query$page, page, _ctx$query$per_page, per_page, _ctx$query$search, search, res, q, link, prev, _next, articles, _link, _prev, _next2, _articles;
 
     return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _ctx$query = ctx.query, _ctx$query$page = _ctx$query.page, page = _ctx$query$page === undefined ? 1 : _ctx$query$page, _ctx$query$per_page = _ctx$query.per_page, per_page = _ctx$query$per_page === undefined ? 12 : _ctx$query$per_page;
-            _context.next = 3;
-            return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://api.github.com/repos/' + __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].owner + '/' + __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].repo + '/issues', {
+            _ctx$query = ctx.query, _ctx$query$page = _ctx$query.page, page = _ctx$query$page === undefined ? 1 : _ctx$query$page, _ctx$query$per_page = _ctx$query.per_page, per_page = _ctx$query$per_page === undefined ? 12 : _ctx$query$per_page, _ctx$query$search = _ctx$query.search, search = _ctx$query$search === undefined ? '' : _ctx$query$search;
+            res = null;
+
+            if (!search) {
+              _context.next = 11;
+              break;
+            }
+
+            q = search + ' type:issue state:open in:title,body author:' + __WEBPACK_IMPORTED_MODULE_3__posts_config__["a" /* default */].owner;
+
+            console.log(q);
+            _context.next = 7;
+            return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://api.github.com/search/issues', {
               params: {
-                filter: 'created',
-                state: 'open',
+                q: q,
                 sort: 'created',
-                direction: 'desc',
-                client_id: __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].clientId,
-                client_secret: __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].clientSecret,
+                order: 'asc',
+                client_id: __WEBPACK_IMPORTED_MODULE_3__posts_config__["a" /* default */].clientId,
+                client_secret: __WEBPACK_IMPORTED_MODULE_3__posts_config__["a" /* default */].clientSecret,
                 page: page,
                 per_page: per_page
               }
-            }).catch(function (err) {
-              return console.error(err);
             });
 
-          case 3:
+          case 7:
             res = _context.sent;
 
 
@@ -355,7 +365,49 @@ postController.list = function () {
               link = res.headers.link || '';
               prev = link.includes('rel="prev"');
               _next = link.includes('rel="next"');
-              articles = res.data.map(function (item) {
+              articles = res.data.items.map(function (item) {
+                item.body = articleParser(item.body);
+                return item;
+              });
+
+              ctx.status = res.status;
+              ctx.body = {
+                code: __WEBPACK_IMPORTED_MODULE_4__client_service__["a" /* CODE */].SUCCESS,
+                data: {
+                  list: articles,
+                  pagination: { prev: prev, next: _next, page: Number(page), per_page: per_page },
+                  total: res.data.total_count
+                }
+              };
+            }
+            _context.next = 15;
+            break;
+
+          case 11:
+            _context.next = 13;
+            return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://api.github.com/repos/' + __WEBPACK_IMPORTED_MODULE_3__posts_config__["a" /* default */].owner + '/' + __WEBPACK_IMPORTED_MODULE_3__posts_config__["a" /* default */].repo + '/issues', {
+              params: {
+                filter: 'created',
+                state: 'open',
+                sort: 'created',
+                direction: 'desc',
+                client_id: __WEBPACK_IMPORTED_MODULE_3__posts_config__["a" /* default */].clientId,
+                client_secret: __WEBPACK_IMPORTED_MODULE_3__posts_config__["a" /* default */].clientSecret,
+                page: page,
+                per_page: per_page
+              }
+            }).catch(function (err) {
+              return console.error(err);
+            });
+
+          case 13:
+            res = _context.sent;
+
+            if (res) {
+              _link = res.headers.link || '';
+              _prev = _link.includes('rel="prev"');
+              _next2 = _link.includes('rel="next"');
+              _articles = res.data.map(function (item) {
                 item.body = articleParser(item.body);
                 return item;
               });
@@ -363,18 +415,22 @@ postController.list = function () {
 
               ctx.status = res.status;
               ctx.body = {
-                code: __WEBPACK_IMPORTED_MODULE_3__client_service__["a" /* CODE */].SUCCESS,
+                code: __WEBPACK_IMPORTED_MODULE_4__client_service__["a" /* CODE */].SUCCESS,
                 data: {
-                  list: articles,
-                  pagination: { prev: prev, next: _next, page: Number(page), per_page: per_page }
+                  list: _articles,
+                  pagination: { prev: _prev, next: _next2, page: Number(page), per_page: per_page }
                 }
               };
-            } else {
-              ctx.status = 200;
-              ctx.body = { code: __WEBPACK_IMPORTED_MODULE_3__client_service__["a" /* CODE */].FAILED };
             }
 
-          case 5:
+          case 15:
+
+            if (!res) {
+              ctx.status = 200;
+              ctx.body = { code: __WEBPACK_IMPORTED_MODULE_4__client_service__["a" /* CODE */].FAILED };
+            }
+
+          case 16:
           case 'end':
             return _context.stop();
         }
@@ -396,10 +452,10 @@ postController.item = function () {
           case 0:
             number = ctx.params.number;
             _context2.next = 3;
-            return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://api.github.com/repos/' + __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].owner + '/' + __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].repo + '/issues/' + number, {
+            return __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://api.github.com/repos/' + __WEBPACK_IMPORTED_MODULE_3__posts_config__["a" /* default */].owner + '/' + __WEBPACK_IMPORTED_MODULE_3__posts_config__["a" /* default */].repo + '/issues/' + number, {
               params: {
-                client_id: __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].clientId,
-                client_secret: __WEBPACK_IMPORTED_MODULE_2__posts_config__["a" /* default */].clientSecret
+                client_id: __WEBPACK_IMPORTED_MODULE_3__posts_config__["a" /* default */].clientId,
+                client_secret: __WEBPACK_IMPORTED_MODULE_3__posts_config__["a" /* default */].clientSecret
               }
             }).catch(function (err) {
               return console.error(err);
@@ -414,12 +470,12 @@ postController.item = function () {
               detail.body = articleParser(detail.body);
               ctx.status = res.status;
               ctx.body = {
-                code: __WEBPACK_IMPORTED_MODULE_3__client_service__["a" /* CODE */].SUCCESS,
+                code: __WEBPACK_IMPORTED_MODULE_4__client_service__["a" /* CODE */].SUCCESS,
                 data: detail
               };
             } else {
               ctx.status = 200;
-              ctx.body = { code: __WEBPACK_IMPORTED_MODULE_3__client_service__["a" /* CODE */].FAILED };
+              ctx.body = { code: __WEBPACK_IMPORTED_MODULE_4__client_service__["a" /* CODE */].FAILED };
             }
 
           case 5:
@@ -458,17 +514,23 @@ function articleParser(content) {
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(11);
+module.exports = __webpack_require__(12);
 
 
 /***/ },
 /* 11 */
 /***/ function(module, exports) {
 
-module.exports = require("regenerator-runtime");
+module.exports = require("node-fetch");
 
 /***/ },
 /* 12 */
+/***/ function(module, exports) {
+
+module.exports = require("regenerator-runtime");
+
+/***/ },
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";

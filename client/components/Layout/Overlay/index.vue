@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="page-overlay" v-show="showOverlay"></div>
+    <div class="page-overlay" v-show="showOverlay" @click.prevent.stop="handleClick"></div>
   </transition>
 </template>
 
@@ -12,6 +12,12 @@
       ...mapGetters({
         showOverlay: 'app/showOverlay'
       })
+    },
+    methods: {
+      handleClick () {
+        this.$store.commit('app/SET_SEARCH', false)
+        this.$store.commit('app/SET_OVERLAY', false)
+      }
     }
   }
 </script>

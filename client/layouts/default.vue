@@ -11,7 +11,6 @@
         </div>
       </main>
       <LayoutTools></LayoutTools>
-      <PageLoading></PageLoading>
       <LayoutOverlay></LayoutOverlay>
       <LayoutFooter></LayoutFooter>
     </div>
@@ -21,16 +20,10 @@
 <script>
 
   import { LayoutHeader, LayoutBanner, LayoutFooter, LayoutTools, LayoutOverlay } from '~/components/Layout'
-  import { PageLoading } from '~/components/Common'
 
   export default {
     name: 'Default',
-    components: { LayoutHeader, LayoutBanner, LayoutFooter, PageLoading, LayoutTools, LayoutOverlay },
-    data () {
-      return {
-        pageLoading: false
-      }
-    },
+    components: { LayoutHeader, LayoutBanner, LayoutFooter, LayoutTools, LayoutOverlay },
     head () {
       const classes = ['blog']
       return {
