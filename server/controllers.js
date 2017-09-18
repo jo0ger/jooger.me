@@ -5,15 +5,60 @@
  */
 
 import axios from 'axios'
+// import fm from 'front-matter'
 import config from '../posts.config'
+import { CODE } from '../client/service'
+const imageReg = /^!\[((?:\[[^\]]*\]|[^[\]]|\](?=[^[]*\]))*)\]\(\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*\)/
 
 export const postController = async (ctx, next) => {
+  const { page, per_page = 12 } = ctx.query
   const res = await axios.get(`https://api.github.com/repos/${config.owner}/${config.repo}/issues`, {
     params: {
-      state: 'all',
-      sort: 'created'
+      filter: 'created',
+      state: 'open',
+      sort: 'created',
+      direction: 'desc',
+      client_id: config.clientId,
+      client_secret: config.clientSecret,
+      page,
+      per_page
     }
   }).catch(err => console.error(err))
-  ctx.status = res.status
-  ctx.body = res.data
+
+  if (res) {
+    const link = res.headers.link || ''
+    console.log(res.headers, link)
+    let prev = link.includes('rel="prev"')
+    let next = link.includes('rel="next"')
+    const articles = res.data.map(item => {
+      item.body = articleParser(item.body)
+      return item
+    })
+    // ctx.response.set('Accept', 'application/vnd.github.squirrel-girl-preview')
+    ctx.status = res.status
+    ctx.body = {
+      code: CODE.SUCCESS,
+      data: {
+        list: articles,
+        pagination: { prev, next }
+      }
+    }
+  } else {
+    ctx.status = 200
+    ctx.body = { code: CODE.FAILED }
+  }
+}
+
+function articleParser (content) {
+  const data = {}
+  const splits = content.split('\r\n')
+  const thumb = splits[0]
+  let cap = imageReg.exec(thumb)
+  if (cap) {
+    data.thumb = cap[2]
+    data.content = content.split(thumb)[1]
+  } else {
+    data.content = content
+  }
+  return data
 }

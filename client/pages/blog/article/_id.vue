@@ -1,10 +1,10 @@
 <template>
-  <footer class="footer"></footer>
+
 </template>
 
 <script>
   export default {
-    name: 'Layout-Footer',
+    name: 'Blog-Article',
     data () {
       return {}
     }
