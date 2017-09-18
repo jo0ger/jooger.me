@@ -1,18 +1,16 @@
 <template>
   <article class="article-item">
-    <div class="wrapper">
-      <router-link class="article-link" :to="`/article/${data.number}`">
-        <div class="cover">
-          <img :src="thumb" alt="" class="thumb-cover">
-        </div>
-      </router-link>
+    <router-link class="article-link" :to="`article/${data.number}`" append>
+      <div class="cover">
+        <img :src="thumb" alt="" class="thumb-cover">
+      </div>
       <header class="caption">
         <div class="meta">
           <time class="time" :datatitme="data.created_at">{{ data.created_at | fmtDate('yyyy-MM-dd') }}</time>
         </div>
         <h3 class="title">{{ data.title }}</h3>
       </header>
-    </div>
+    </router-link>
   </article>
 </template>
 
@@ -61,24 +59,22 @@
 
   .article-item {
     padding 20px
-    .wrapper {
+    transition transform .3s $ease
+    .article-link {
+      display block
       margin-bottom 20px
       background $white
       border-radius 10px
       overflow hidden
 
-      .article-link {
+      .cover {
+        height 180px
+        overflow hidden
 
-        .cover {
-          height 180px
-          overflow hidden
-
-          & > img {
-            width 100%
-            min-height 100%
-          }
+        & > img {
+          width 100%
+          min-height 100%
         }
-
       }
 
       .caption {
@@ -98,6 +94,11 @@
         }
       }
     }
+
+    &:hover {
+      transform scale(.98)
+    }
   }
+
 
 </style>

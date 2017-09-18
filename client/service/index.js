@@ -64,6 +64,7 @@ const wrap = (url, type = 'get') => (config = {}) => fetcher.request({ ...config
 
 export default {
   article: {
-    fetchList: wrap('/articles')
+    fetchList: wrap('/articles'),
+    fetchDetail: id => wrap(`/article/${id}`)
   }
 }

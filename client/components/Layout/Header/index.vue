@@ -65,7 +65,16 @@
     z-index 9999
     top 0
     width 100%
+    margin-bottom 80px
     padding 20px 0
+
+    @media (max-width: 1366px) and (min-width: 769px) {
+      margin-bottom 40px
+    }
+
+    @media (max-width: 768px){
+      margin-bottom 0
+    }
 
     .wrapper {
       flexLayout(, space-between)
@@ -92,7 +101,7 @@
       }
 
       .logo {
-        color $blue
+        color $base-color
       }
 
       .navigation {
@@ -112,7 +121,7 @@
             display block
             width 16px
             height @width
-            border 2px solid $blue
+            border 2px solid $base-color
             border-radius 100%
             transform rotate(-45deg)
 
@@ -123,7 +132,7 @@
               left 5px
               width 2px
               height 7px
-              background $blue
+              background $base-color
             }
           }
         }
@@ -134,7 +143,7 @@
             display block
             height 2px
             margin 2px 0
-            background $blue
+            background $base-color
             transition all .3s $ease
 
             &:nth-of-type(1) {
@@ -191,7 +200,7 @@
           color $text-color
 
           &:hover {
-            color $blue
+            color $base-color
           }
         }
       }

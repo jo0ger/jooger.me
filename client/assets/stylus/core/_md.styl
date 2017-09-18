@@ -1,4 +1,7 @@
 .markdown-body {
+  position: relative;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   color: $text-color;
@@ -32,12 +35,6 @@
   color: inherit;
   text-decoration: none
 }
-
-.markdown-body {
-  position: relative;
-  padding-bottom: 30px;
-  margin-bottom: 30px;
-}
 .markdown-body h1,
 .markdown-body h2 {
   text-transform: uppercase;
@@ -58,7 +55,7 @@
 }
 .markdown-body h2:before {
   content: '';
-  border-left: 5px solid $blue;
+  border-left: 5px solid $base-color;
   position: absolute;
   left: -15px;
   height: 75%;

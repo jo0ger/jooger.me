@@ -38,7 +38,9 @@ app.use((ctx, next) => {
   })
 })
 
-const router = new Router()
+const router = new Router({
+  prefix: '/api'
+})
 routes(router)
 app.use(router.routes(), router.allowedMethods())
 
