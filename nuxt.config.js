@@ -34,8 +34,8 @@ module.exports = {
     'swiper/dist/css/swiper.css',
     { src: '~assets/stylus/index.styl', lang: 'stylus' }
   ],
-  // loading: '~/components/Common/PageLoading',
-  loading: { color: '#2196f3' },
+  loading: '~/components/Common/PageLoading',
+  // loading: { color: '#2196f3' },
   build: {
     vendor: [
       'axios',

@@ -7,3 +7,4 @@
 export { default as LayoutHeader } from './Header'
 export { default as LayoutBanner } from './Banner'
 export { default as LayoutFooter } from './Footer'
+export { default as LayoutTools } from './Tools'

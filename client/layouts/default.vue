@@ -10,6 +10,7 @@
           </keep-alive>
         </div>
       </main>
+      <LayoutTools></LayoutTools>
       <PageLoading></PageLoading>
       <LayoutFooter></LayoutFooter>
     </div>
@@ -17,12 +18,12 @@
 </template>
 
 <script>
-  import { LayoutHeader, LayoutBanner, LayoutFooter } from '~/components/Layout'
+  import { LayoutHeader, LayoutBanner, LayoutFooter, LayoutTools } from '~/components/Layout'
   import { PageLoading } from '~/components/Common'
 
   export default {
     name: 'Default',
-    components: { LayoutHeader, LayoutBanner, LayoutFooter, PageLoading },
+    components: { LayoutHeader, LayoutBanner, LayoutFooter, PageLoading, LayoutTools },
     data () {
       return {
         pageLoading: false

@@ -94,8 +94,8 @@ module.exports = {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }, { rel: 'stylesheet', href: '//at.alicdn.com/t/font_268993_tu4k21igcspgmn29.css' }]
   },
   css: ['normalize.css', 'swiper/dist/css/swiper.css', { src: '~assets/stylus/index.styl', lang: 'stylus' }],
-  // loading: '~/components/Common/PageLoading',
-  loading: { color: '#2196f3' },
+  loading: '~/components/Common/PageLoading',
+  // loading: { color: '#2196f3' },
   build: {
     vendor: ['axios', 'bezier-easing', 'highlight.js', 'marked']
   },

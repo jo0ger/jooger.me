@@ -10,7 +10,7 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    name: 'PageLoading',
+    name: 'Common-PageLoading',
     data () {
       return {
         duration: 5000,
@@ -98,6 +98,8 @@
   @import '~assets/stylus/_mixin'
 
   .page-loading {
+    position relative
+    z-index 9999
 
     &::before,
     &::after {
