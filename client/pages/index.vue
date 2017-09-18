@@ -13,6 +13,11 @@
   import axios from 'axios'
   export default {
     name: 'Home',
+    async fetch () {
+      await new Promise((resolve) => {
+        setTimeout(() => resolve(), 500)
+      })
+    },
     mounted () {
       // axios.get('/api/articles').then(data => {
       //   console.log(data)
