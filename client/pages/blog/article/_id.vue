@@ -56,8 +56,9 @@
         if (pageHeader) {
           if (!this._resizeHandler) {
             this._resizeHandler = debounce(e => {
+              console.log(e)
               this.headerHeight = parseInt(window.getComputedStyle(pageHeader).marginBottom) || 0
-            }, 200, true)
+            }, 200, false)
           }
           window.addEventListener('resize', this._resizeHandler, false)
           this._resizeHandler()
@@ -77,6 +78,7 @@
     border-radius 10px
     background $white
     box-shadow 0 10px 40px -15px alpha($black, .05)
+    transition all .3s $ease
 
     .detail {
       .header {

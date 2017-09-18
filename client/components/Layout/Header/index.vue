@@ -23,7 +23,7 @@
       </ul>
     </div>
     <div class="search-pane" :class="{ active: showSearch }">
-      <form class="search-form" role="search" action=""
+      <div class="search-form" role="search"
         @submit.stop.prevent="handleSearch">
         <input class="search-input"
           ref="searchInput"
@@ -35,12 +35,14 @@
           v-model.trim="keyword"
           @keyup.enter="handleSearch">
         <a class="close" @click.prevent.stop="handleToggleSearch"></a>
-      </form>
+      </div>
     </div>
   </header>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     name: 'Layout-Header',
     data () {
@@ -52,30 +54,47 @@
       return {
         menus,
         showMenu: false,
-        showSearch: false,
         keyword: ''
       }
     },
     computed: {
+      ...mapGetters({
+        articleListFetching: 'article/listFetching',
+        showSearch: 'app/showSearch'
+      }),
       isBlogPage () {
         return this.$route.name.includes('blog')
       }
     },
     methods: {
+      setSearch (show) {
+        this.$store.commit('app/SET_SEARCH', show)
+        this.$store.commit('app/SET_OVERLAY', this.showSearch)
+      },
       handleToggleMenu () {
         this.showMenu = !this.showMenu
+        if (this.showMenu) {
+          this.setSearch(false)
+        }
       },
       handleGo ({ path }) {
         this.$router.push(path)
         this.showMenu = false
       },
-      handleSearch () {},
       handleToggleSearch () {
-        this.showSearch = !this.showSearch
-        this.$store.commit('app/SET_OVERLAY', this.showSearch)
+        this.setSearch(!this.showSearch)
         this.$refs.searchInput[this.showSearch ? 'focus' : 'blur']()
         if (!this.showSearch) {
           this.$nextTick(() => (this.keyword = ''))
+        } else {
+          this.showMenu = false
+        }
+      },
+      handleSearch () {
+        if (this.keyword && !this.articleListFetching) {
+          this.setSearch(false)
+          this.$router.push(`/blog/search/${this.keyword}`)
+          this.keyword = ''
         }
       }
     }
@@ -203,6 +222,7 @@
       }
 
     }
+
     .menu {
       position fixed
       top 0
@@ -212,7 +232,7 @@
       width 100%
       height 100%
       background $white
-      transform translate3d(0, -100%, 0)
+      transform translate3d(0, 100%, 0)
       transition transform .8s cubic-bezier(.85,0,.15,1)
 
       .list {
@@ -225,15 +245,32 @@
           margin 0 auto
           font-size 3.5rem
           color $text-color
+          opacity 0
+          text-align center
+          transform translate3d(0, 90px, 0)
+          transition all .5s $ease-out
 
           &:hover {
             color $base-color
+          }
+
+          for n in (1..3) {
+            &:nth-child({n}) {
+              transition-delay .5s + (.1 * (n - 1))s
+            }
           }
         }
       }
 
       &.active {
         transform translate3d(0, 0, 0)
+
+        .list {
+          .item {
+            opacity 1
+            transform translate3d(0, 0, 0)
+          }
+        }
       }
     }
 

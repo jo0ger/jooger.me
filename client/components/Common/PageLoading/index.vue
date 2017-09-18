@@ -37,34 +37,31 @@
     },
     methods: {
       start () {
+        console.log('start')
         this.loading = true
         this._cut = 10000 / Math.floor(this.duration)
         if (this.timer) {
           clearInterval(this.timer)
+          this.timer = null
           this.progress = 0
         }
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            resolve()
-            this.timer = setInterval(() => {
-              this._increase(this._cut * Math.random())
-              if (this.progress >= 95) {
-                this.finish()
-              }
-            }, 100)
-          }, 600)
-        })
+        if (this._delayTimer) {
+          clearTimeout(this._delayTimer)
+          this._delayTimer = null
+        }
+        this._delayTimer = setTimeout(() => {
+          this.timer = setInterval(() => {
+            this._increase(this._cut * Math.random())
+            if (this.progress >= 95) {
+              this.finish()
+            }
+          }, 100)
+        }, 600)
       },
       finish () {
-        if (this.timer) {
-          this.hide()
-        } else {
-          const timerWatcher = this.$watch('timer', () => {
-            setTimeout(() => {
-              this.hide()
-            }, 100)
-          })
-        }
+        console.log('finish')
+        this.progress = 100
+        this.hide()
       },
       fail () {
         this.canSuccess = false
@@ -76,15 +73,16 @@
         this.progress -= Math.floor(num)
       },
       hide () {
-        this.progress = 100
+        console.log(this.timer)
+        clearTimeout(this._delayTimer)
         clearInterval(this.timer)
         this.timer = null
+        this._delayTimer = null
         setTimeout(() => {
           this.loading = false
           this.$nextTick(() => {
             setTimeout(() => {
               this.progress = 0
-              this.$store.commit('app/PAGE_LOADED')
             }, 200)
           })
         }, 500)
@@ -140,8 +138,8 @@
 
       .progress {
         display block
-        height 100%
         width 0
+        height 100%
         background $base-color
         // background #ff3b30
         transition width .2s, opacity .2s

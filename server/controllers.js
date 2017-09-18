@@ -5,6 +5,7 @@
  */
 
 import axios from 'axios'
+import fetch from 'node-fetch'
 // import fm from 'front-matter'
 import config from '../posts.config'
 import { CODE } from '../client/service'
@@ -13,38 +14,75 @@ const imageReg = /^!\[((?:\[[^\]]*\]|[^[\]]|\](?=[^[]*\]))*)\]\(\s*<?([\s\S]*?)>
 const postController = { list: {}, item: {} }
 
 postController.list = async (ctx, next) => {
-  const { page = 1, per_page = 12 } = ctx.query
-  const res = await axios.get(`https://api.github.com/repos/${config.owner}/${config.repo}/issues`, {
-    params: {
-      filter: 'created',
-      state: 'open',
-      sort: 'created',
-      direction: 'desc',
-      client_id: config.clientId,
-      client_secret: config.clientSecret,
-      page,
-      per_page
-    }
-  }).catch(err => console.error(err))
-
-  if (res) {
-    const link = res.headers.link || ''
-    let prev = link.includes('rel="prev"')
-    let next = link.includes('rel="next"')
-    const articles = res.data.map(item => {
-      item.body = articleParser(item.body)
-      return item
+  const { page = 1, per_page = 12, search = '' } = ctx.query
+  let res = null
+  if (search) {
+    const q = `${search} type:issue state:open in:title,body author:${config.owner}`
+    console.log(q)
+    res = await axios.get('https://api.github.com/search/issues', {
+      params: {
+        q,
+        sort: 'created',
+        order: 'asc',
+        client_id: config.clientId,
+        client_secret: config.clientSecret,
+        page,
+        per_page
+      }
     })
-    // ctx.response.set('Accept', 'application/vnd.github.squirrel-girl-preview')
-    ctx.status = res.status
-    ctx.body = {
-      code: CODE.SUCCESS,
-      data: {
-        list: articles,
-        pagination: { prev, next, page: Number(page), per_page }
+
+    if (res) {
+      const link = res.headers.link || ''
+      let prev = link.includes('rel="prev"')
+      let next = link.includes('rel="next"')
+      const articles = res.data.items.map(item => {
+        item.body = articleParser(item.body)
+        return item
+      })
+      ctx.status = res.status
+      ctx.body = {
+        code: CODE.SUCCESS,
+        data: {
+          list: articles,
+          pagination: { prev, next, page: Number(page), per_page },
+          total: res.data.total_count,
+        }
       }
     }
   } else {
+    res = await axios.get(`https://api.github.com/repos/${config.owner}/${config.repo}/issues`, {
+      params: {
+        filter: 'created',
+        state: 'open',
+        sort: 'created',
+        direction: 'desc',
+        client_id: config.clientId,
+        client_secret: config.clientSecret,
+        page,
+        per_page
+      }
+    }).catch(err => console.error(err))
+    if (res) {
+      const link = res.headers.link || ''
+      let prev = link.includes('rel="prev"')
+      let next = link.includes('rel="next"')
+      const articles = res.data.map(item => {
+        item.body = articleParser(item.body)
+        return item
+      })
+      // ctx.response.set('Accept', 'application/vnd.github.squirrel-girl-preview')
+      ctx.status = res.status
+      ctx.body = {
+        code: CODE.SUCCESS,
+        data: {
+          list: articles,
+          pagination: { prev, next, page: Number(page), per_page }
+        }
+      }
+    }
+  }
+
+  if (!res) {
     ctx.status = 200
     ctx.body = { code: CODE.FAILED }
   }

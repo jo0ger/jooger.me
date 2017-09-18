@@ -1,5 +1,9 @@
 <template>
-  <section class="blog-page">
+  <section class="search-page">
+    <header class="search-header">
+      <h1 class="text">Search</h1>
+      <h3 class="keyword">{{ $route.params.keyword }}</h3>
+    </header>
     <div class="article-list">
       <CommonArticleItem
         class="flex-item"
@@ -22,10 +26,13 @@
   import { CommonArticleItem } from '~/components/Common'
 
   export default {
-    name: 'Blog-page',
-    async fetch ({ store }) {
+    name: 'Blog-Search',
+    validate ({ params }) {
+      return !!params.keyword
+    },
+    async fetch ({ store, params }) {
       await store.dispatch('article/fetchList', {
-        page: store.getters['article/pagination'].page
+        search: params.keyword
       })
     },
     components: {
@@ -37,9 +44,6 @@
         articleListFetching: 'article/listFetching',
         pagination: 'article/pagination'
       })
-    },
-    beforeDestroy () {
-      // this.$store.commit('article/CLEAR_LIST')
     },
     methods: {
       handleTurnPage (delta, ok) {
@@ -62,7 +66,26 @@
   @import '~assets/stylus/_var'
   @import '~assets/stylus/_mixin'
 
-  .blog-page {
+  .search-page {
+
+    .search-header {
+      margin 50px auto 120px
+      text-align center
+
+      .text {
+        font-size 5rem
+        font-weight 700
+        opacity .1
+        letter-spacing 5px
+      }
+
+      .keyword {
+        font-size 1.375rem
+        opacity .5
+        letter-spacing 2px
+      }
+    }
+
     .article-list {
       flexLayout(,flex-start,,wrap)
       margin 0 -20px

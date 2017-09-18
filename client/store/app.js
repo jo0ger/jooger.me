@@ -6,28 +6,26 @@
 
 const START_PAGE_LOADING = 'START_PAGE_LOADING'
 const STOP_PAGE_LOADING = 'STOP_PAGE_LOADING'
-const PAGE_LOADED = 'PAGE_LOADED'
 const SET_OVERLAY = 'SET_OVERLAY'
+const SET_SEARCH = 'SET_SEARCH'
 
 export const state = () => ({
-  page: {
-    loading: false,
-    loaded: false
-  },
-  overlay: false
+  pageLoading: false,
+  overlay: false,
+  search: false
 })
 
 export const getters = {
-  page: state => state.page,
-  showOverlay: state => state.overlay
+  pageLoading: state => state.pageLoading,
+  showOverlay: state => state.overlay,
+  showSearch: state => state.search
 }
 
 export const mutations = {
   [START_PAGE_LOADING]: state => {
-    state.page.loading = true
-    state.page.loaded = false
+    state.pageLoading = true
   },
-  [STOP_PAGE_LOADING]: state => (state.page.loading = false),
-  [PAGE_LOADED]: state => (state.page.loaded = true),
-  [SET_OVERLAY]: (state, show = false) => (state.overlay = show)
+  [STOP_PAGE_LOADING]: state => (state.pageLoading = false),
+  [SET_OVERLAY]: (state, show = false) => (state.overlay = show),
+  [SET_SEARCH]: (state, show = false) => (state.search = show)
 }
