@@ -1,47 +1,31 @@
 <template>
-  <section class="container">
-    <img src="../assets/img/logo.png" alt="Nuxt.js Logo" class="logo" />
-    <h1 class="title">
-      This page is loaded from the {{ name }}
-    </h1>
-    <h2 class="info" v-if="name === 'client'">
-      Please refresh the page
-    </h2>
-    <nuxt-link class="button" to="/">
-      Home page
-    </nuxt-link>
+  <section class="about-page">
+    <div class="banner-content">
+      <h1 class="title">离人回首，灯火阑珊</h1>
+      <h3 class="subtitle">欢迎访问我的个人网站</h3>
+    </div>
+    <div class="page-content">
+    </div>
   </section>
 </template>
+
 <script>
-export default {
-  name: 'About',
-  asyncData ({ req }) {
-    return {
-      name: req ? 'server' : 'client'
-    }
-  },
-  head () {
-    return {
-      title: `About Page (${this.name}-side)`
+  export default {
+    name: 'About',
+    async fetch () {
+      await new Promise((resolve) => {
+        setTimeout(() => resolve(), 500)
+      })
     }
   }
-}
 </script>
 
-<style scoped>
-.title
-{
-  margin-top: 50px;
-}
-.info
-{
-  font-weight: 300;
-  color: #9aabb1;
-  margin: 0;
-  margin-top: 10px;
-}
-.button
-{
-  margin-top: 50px;
-}
+<style lang="stylus" scoped>
+  @import '~assets/stylus/_var'
+  @import '~assets/stylus/_mixin'
+
+  .about-page {
+    color $white
+  }
+
 </style>

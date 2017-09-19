@@ -4,13 +4,35 @@
  * @date 15 Sep 2017
  */
 
-import { articleController } from './controllers'
+import config from '../config'
+import { articleController, userController } from './controllers'
 
 export default router => {
   router.use('*', (ctx, next) => {
+    const { request, response } = ctx
+    const allowedOrigins = config.server.allowedOrigins
+    const origin = request.get('origin') || ''
+    const allowed = origin.includes('localhost') ||
+      (process.env.NODE_ENV === 'development' && request.query._DEV_) ||
+      allowedOrigins.find(item => origin.includes(item))
+    if (allowed) {
+      response.set('Access-Control-Allow-Origin', origin)
+    }
     ctx.response.set('Content-Type', 'application/json;charset=utf-8')
+    response.set("Access-Control-Allow-Methods", "PUT,PATCH,POST,GET,DELETE,OPTIONS")
+
+    if (request.method === 'OPTIONS') {
+      ctx.status = 200
+      ctx.body = 'ok'
+      return
+    }
+    
     return next()
   })
-  router.get('article-list', '/articles', articleController.list)
-  router.get('article-detail', '/article/:number', articleController.item)
+
+  router.all('article-list', '/articles', articleController.list)
+  router.all('article-detail', '/article/:number', articleController.item)
+  router.all('article-like', '/article/:number/like', articleController.like)
+
+  router.all('user-me', '/user/me', userController.me)
 }

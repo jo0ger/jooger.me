@@ -98,6 +98,12 @@ var baseService = {
       FAILED: -1,
       SUCCESS: 0,
       UNAUTHORIZED: 401
+    },
+    github: {
+      owner: 'jo0ger',
+      repo: 'git-hook-test',
+      clientId: 'b4983366c4c7549a09f1',
+      clientSecret: '76fd8c26a21659d7eb925af0ed3498eabed49277'
     }
   },
   client: {
@@ -110,15 +116,10 @@ var baseService = {
     })
   },
   server: {
+    allowedOrigins: ['jooger.me', 'www.jooger.me', 'blog.jooger.me'],
     service: Object.assign({}, baseService, {
       baseURL: 'https://api.github.com/'
-    }),
-    github: {
-      owner: 'jo0ger',
-      repo: 'git-hook-test',
-      clientId: 'b4983366c4c7549a09f1',
-      clientSecret: '76fd8c26a21659d7eb925af0ed3498eabed49277'
-    }
+    })
   }
 };
 
@@ -268,7 +269,7 @@ module.exports = {
   build: {
     vendor: ['axios', 'bezier-easing', 'highlight.js', 'marked']
   },
-  plugins: [{ src: '~plugins/router.js', ssr: false }, { src: '~plugins/filter.js' }, { src: '~plugins/swiper.js', ssr: false }, { src: '~plugins/image.js', ssr: false }],
+  plugins: [{ src: '~plugins/filter.js' }, { src: '~plugins/swiper.js', ssr: false }, { src: '~plugins/image.js', ssr: false }],
   router: {
     linkActiveClass: 'active'
     // transition: {
@@ -282,7 +283,8 @@ module.exports = {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__controllers__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__controllers__ = __webpack_require__(10);
 /**
  * @desc server routes
  * @author Jooger <zzy1198258955@163.com>
@@ -291,13 +293,37 @@ module.exports = {
 
 
 
+
 /* harmony default export */ exports["a"] = function (router) {
   router.use('*', function (ctx, next) {
+    var request = ctx.request,
+        response = ctx.response;
+
+    var allowedOrigins = __WEBPACK_IMPORTED_MODULE_0__config__["a" /* default */].server.allowedOrigins;
+    var origin = request.get('origin') || '';
+    var allowed = origin.includes('localhost') || "development" === 'development' && request.query._DEV_ || allowedOrigins.find(function (item) {
+      return origin.includes(item);
+    });
+    if (allowed) {
+      response.set('Access-Control-Allow-Origin', origin);
+    }
     ctx.response.set('Content-Type', 'application/json;charset=utf-8');
+    response.set("Access-Control-Allow-Methods", "PUT,PATCH,POST,GET,DELETE,OPTIONS");
+
+    if (request.method === 'OPTIONS') {
+      ctx.status = 200;
+      ctx.body = 'ok';
+      return;
+    }
+
     return next();
   });
-  router.get('article-list', '/articles', __WEBPACK_IMPORTED_MODULE_0__controllers__["a" /* articleController */].list);
-  router.get('article-detail', '/article/:number', __WEBPACK_IMPORTED_MODULE_0__controllers__["a" /* articleController */].item);
+
+  router.all('article-list', '/articles', __WEBPACK_IMPORTED_MODULE_1__controllers__["a" /* articleController */].list);
+  router.all('article-detail', '/article/:number', __WEBPACK_IMPORTED_MODULE_1__controllers__["a" /* articleController */].item);
+  router.all('article-like', '/article/:number/like', __WEBPACK_IMPORTED_MODULE_1__controllers__["a" /* articleController */].like);
+
+  router.all('user-me', '/user/me', __WEBPACK_IMPORTED_MODULE_1__controllers__["b" /* userController */].me);
 };
 
 /***/ },
@@ -350,13 +376,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var mdImageReg = /^!\[((?:\[[^\]]*\]|[^[\]]|\](?=[^[]*\]))*)\]\(\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*\)/;
 
-var articleCtrl = { list: {}, item: {} };
+var articleCtrl = { list: {}, item: {}, like: {} };
 
-var _config$server$github = __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].server.github,
-    owner = _config$server$github.owner,
-    repo = _config$server$github.repo,
-    clientId = _config$server$github.clientId,
-    clientSecret = _config$server$github.clientSecret;
+var _config$common$github = __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].common.github,
+    owner = _config$common$github.owner,
+    repo = _config$common$github.repo,
+    clientId = _config$common$github.clientId,
+    clientSecret = _config$common$github.clientSecret;
 
 
 articleCtrl.list.GET = function () {
@@ -395,14 +421,14 @@ articleCtrl.list.GET = function () {
             res = _context.sent;
 
 
-            if (res) {
+            if (res && res.data) {
               link = res.headers.link || '';
               prev = link.includes('rel="prev"');
               _next = link.includes('rel="next"');
-              articles = res.data.items.map(function (item) {
+              articles = res.data.items ? res.data.items.map(function (item) {
                 item.body = articleParser(item.body);
                 return item;
-              });
+              }) : [];
 
               __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["d" /* handleSuccess */])({
                 ctx: ctx,
@@ -439,7 +465,7 @@ articleCtrl.list.GET = function () {
           case 14:
             res = _context.sent;
 
-            if (res) {
+            if (res && res.data) {
               _link = res.headers.link || '';
               _prev = _link.includes('rel="prev"');
               _next2 = _link.includes('rel="next"');
@@ -487,6 +513,9 @@ articleCtrl.item.GET = function () {
             number = ctx.params.number;
             _context2.next = 3;
             return __WEBPACK_IMPORTED_MODULE_2__utils__["b" /* fetcher */].get('/repos/' + owner + '/' + repo + '/issues/' + number, {
+              headers: {
+                Accept: 'application/vnd.github.squirrel-girl-preview'
+              },
               params: {
                 client_id: clientId,
                 client_secret: clientSecret
@@ -498,7 +527,7 @@ articleCtrl.item.GET = function () {
           case 3:
             res = _context2.sent;
 
-            if (res) {
+            if (res && res.data) {
               detail = res.data;
 
               detail.body = articleParser(detail.body);
@@ -523,6 +552,108 @@ articleCtrl.item.GET = function () {
   };
 }();
 
+articleCtrl.like.GET = function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx, next) {
+    var number, res;
+    return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            number = ctx.params.number;
+            _context3.next = 3;
+            return __WEBPACK_IMPORTED_MODULE_2__utils__["b" /* fetcher */].get('/repos/' + owner + '/' + repo + '/issues/' + number + '/reactions', {
+              headers: {
+                Accept: 'application/vnd.github.squirrel-girl-preview'
+              },
+              params: {
+                content: 'heart',
+                per_page: 99999,
+                client_id: clientId,
+                client_secret: clientSecret
+              }
+            }).catch(function (err) {
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx, err: err });
+            });
+
+          case 3:
+            res = _context3.sent;
+
+
+            if (res && res.data) {
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["d" /* handleSuccess */])({
+                ctx: ctx,
+                data: {
+                  list: res.data,
+                  isLiked: !!res.data.find(function (item) {
+                    return item.user.login === owner;
+                  })
+                }
+              });
+            } else {
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx });
+            }
+
+          case 5:
+          case 'end':
+            return _context3.stop();
+        }
+      }
+    }, _callee3, _this);
+  }));
+
+  return function (_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+articleCtrl.like.POST = function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(ctx, next) {
+    var number, res;
+    return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            number = ctx.params.number;
+            _context4.next = 3;
+            return __WEBPACK_IMPORTED_MODULE_2__utils__["b" /* fetcher */].post('/repos/' + owner + '/' + repo + '/issues/' + number + '/reactions', {
+              content: 'heart',
+              client_id: clientId,
+              client_secret: clientSecret
+            }, {
+              headers: {
+                Accept: 'application/vnd.github.squirrel-girl-preview'
+              },
+              params: {
+                client_id: clientId,
+                client_secret: clientSecret
+              }
+            }).catch(function (err) {
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx, err: err });
+            });
+
+          case 3:
+            res = _context4.sent;
+
+
+            if (res && res.data) {
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["d" /* handleSuccess */])({ ctx: ctx });
+            } else {
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx });
+            }
+
+          case 5:
+          case 'end':
+            return _context4.stop();
+        }
+      }
+    }, _callee4, _this);
+  }));
+
+  return function (_x7, _x8) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
 function articleParser(content) {
   var data = {};
   var splits = content.split('\r\n');
@@ -540,50 +671,73 @@ function articleParser(content) {
 
 /* harmony default export */ exports["a"] = {
   list: function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx, next) {
-      return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee5(ctx, next) {
+      return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
-              _context3.next = 2;
+              _context5.next = 2;
               return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["e" /* handleRequest */])({ ctx: ctx, next: next, type: articleCtrl.list });
 
             case 2:
             case 'end':
-              return _context3.stop();
+              return _context5.stop();
           }
         }
-      }, _callee3, _this);
+      }, _callee5, _this);
     }));
 
-    function list(_x5, _x6) {
-      return _ref3.apply(this, arguments);
+    function list(_x9, _x10) {
+      return _ref5.apply(this, arguments);
     }
 
     return list;
   }(),
   item: function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee4(ctx, next) {
-      return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee6(ctx, next) {
+      return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
-              _context4.next = 2;
+              _context6.next = 2;
               return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["e" /* handleRequest */])({ ctx: ctx, next: next, type: articleCtrl.item });
 
             case 2:
             case 'end':
-              return _context4.stop();
+              return _context6.stop();
           }
         }
-      }, _callee4, _this);
+      }, _callee6, _this);
     }));
 
-    function item(_x7, _x8) {
-      return _ref4.apply(this, arguments);
+    function item(_x11, _x12) {
+      return _ref6.apply(this, arguments);
     }
 
     return item;
+  }(),
+  like: function () {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee7(ctx, next) {
+      return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.next = 2;
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["e" /* handleRequest */])({ ctx: ctx, next: next, type: articleCtrl.like });
+
+            case 2:
+            case 'end':
+              return _context7.stop();
+          }
+        }
+      }, _callee7, _this);
+    }));
+
+    function like(_x13, _x14) {
+      return _ref7.apply(this, arguments);
+    }
+
+    return like;
   }()
 };
 
@@ -594,11 +748,14 @@ function articleParser(content) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__article__ = __webpack_require__(9);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__article__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user__ = __webpack_require__(15);
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__user__["a"]; });
 /**
  * @desc Controllers entry
  * @author Jooger <zzy1198258955@163.com>
  * @date 19 Sep 2017
  */
+
 
 
 
@@ -708,6 +865,105 @@ app.use(router.routes(), router.allowedMethods());
 
 app.listen(port, host);
 console.log('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils__ = __webpack_require__(1);
+
+
+var _this = this;
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+/**
+ * @desc User controller
+ * @author Jooger <zzy1198258955@163.com>
+ * @date 19 Sep 2017
+ */
+
+
+
+var _config$common$github = __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].common.github,
+    owner = _config$common$github.owner,
+    clientId = _config$common$github.clientId,
+    clientSecret = _config$common$github.clientSecret;
+
+var userCtrl = { me: {} };
+
+userCtrl.me.GET = function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
+    var res;
+    return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return __WEBPACK_IMPORTED_MODULE_2__utils__["b" /* fetcher */].get('/users/' + owner, {
+              params: {
+                client_id: clientId,
+                client_secret: clientSecret
+              }
+            }).catch(function (err) {
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx, err: err });
+            });
+
+          case 2:
+            res = _context.sent;
+
+
+            if (res && res.data) {
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["d" /* handleSuccess */])({
+                ctx: ctx,
+                data: res.data
+              });
+            } else {
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx });
+            }
+
+          case 4:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, _this);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+/* harmony default export */ exports["a"] = {
+  me: function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
+      return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["e" /* handleRequest */])({ ctx: ctx, next: next, type: userCtrl.me });
+
+            case 2:
+            case 'end':
+              return _context2.stop();
+          }
+        }
+      }, _callee2, _this);
+    }));
+
+    function me(_x3, _x4) {
+      return _ref2.apply(this, arguments);
+    }
+
+    return me;
+  }()
+};
 
 /***/ }
 /******/ ]);

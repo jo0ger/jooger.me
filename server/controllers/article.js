@@ -9,9 +9,9 @@ import { fetcher, handleRequest, handleSuccess, handleError } from '../utils'
 
 const mdImageReg = /^!\[((?:\[[^\]]*\]|[^[\]]|\](?=[^[]*\]))*)\]\(\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*\)/
 
-const articleCtrl = { list: {}, item: {} }
+const articleCtrl = { list: {}, item: {}, like: {} }
 
-const { owner, repo, clientId, clientSecret } = config.server.github
+const { owner, repo, clientId, clientSecret } = config.common.github
 
 articleCtrl.list.GET = async (ctx, next) => {
   const { page = 1, per_page = 12, search = '', labels = '' } = ctx.query
@@ -30,14 +30,14 @@ articleCtrl.list.GET = async (ctx, next) => {
       }
     }).catch(err => handleError({ ctx, err }))
 
-    if (res) {
+    if (res && res.data) {
       const link = res.headers.link || ''
       let prev = link.includes('rel="prev"')
       let next = link.includes('rel="next"')
-      const articles = res.data.items.map(item => {
+      const articles = res.data.items ? res.data.items.map(item => {
         item.body = articleParser(item.body)
         return item
-      })
+      }) : []
       handleSuccess({
         ctx,
         data: {
@@ -63,7 +63,7 @@ articleCtrl.list.GET = async (ctx, next) => {
     }
     res = await fetcher.get(`/repos/${owner}/${repo}/issues`, { params })
       .catch(err => handleError({ ctx, err }))
-    if (res) {
+    if (res && res.data) {
       const link = res.headers.link || ''
       let prev = link.includes('rel="prev"')
       let next = link.includes('rel="next"')
@@ -90,18 +90,75 @@ articleCtrl.list.GET = async (ctx, next) => {
 articleCtrl.item.GET = async (ctx, next) => {
   const number = ctx.params.number
   const res = await fetcher.get(`/repos/${owner}/${repo}/issues/${number}`, {
+    headers: {
+      Accept: 'application/vnd.github.squirrel-girl-preview'
+    },
     params: {
       client_id: clientId,
       client_secret: clientSecret
     }
   }).catch(err => handleError({ ctx, err }))
-  if (res) {
+  if (res && res.data) {
     const detail = res.data
     detail.body = articleParser(detail.body)
     handleSuccess({
       ctx,
       data: detail
     })
+  } else {
+    handleError({ ctx })
+  }
+}
+
+articleCtrl.like.GET = async (ctx, next) => {
+  const number = ctx.params.number
+  const res = await fetcher.get(`/repos/${owner}/${repo}/issues/${number}/reactions`, {
+    headers: {
+      Accept: 'application/vnd.github.squirrel-girl-preview'
+    },
+    params: {
+      content: 'heart',
+      per_page: 99999,
+      client_id: clientId,
+      client_secret: clientSecret
+    }
+  }).catch(err => handleError({ ctx, err }))
+
+  if (res && res.data) {
+    handleSuccess({
+      ctx,
+      data: {
+        list: res.data,
+        isLiked: !!res.data.find(item => item.user.login === owner)
+      }
+    })
+  } else {
+    handleError({ ctx })
+  }
+}
+
+articleCtrl.like.POST = async (ctx, next) => {
+  const number = ctx.params.number
+  const res = await fetcher.post(
+    `/repos/${owner}/${repo}/issues/${number}/reactions`,
+    {
+      content: 'heart',
+      client_id: clientId,
+      client_secret: clientSecret
+    },
+    {
+      headers: {
+        Accept: 'application/vnd.github.squirrel-girl-preview'
+      },
+      params: {
+        client_id: clientId,
+        client_secret: clientSecret
+      }
+    }
+  ).catch(err => handleError({ ctx, err }))
+
+  if (res && res.data) {
+    handleSuccess({ ctx })
   } else {
     handleError({ ctx })
   }
@@ -128,5 +185,8 @@ export default {
   },
   item: async (ctx, next) => {
     await handleRequest({ ctx, next, type: articleCtrl.item })
+  },
+  like: async (ctx, next) => {
+    await handleRequest({ ctx, next, type: articleCtrl.like })
   }
 }

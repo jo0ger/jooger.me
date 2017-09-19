@@ -13,6 +13,10 @@ const FETCH_DETAIL_REQUEST = 'FETCH_DETAIL_REQUEST'
 const FETCH_DETAIL_SUCCESS = 'FETCH_DETAIL_SUCCESS'
 const FETCH_DETAIL_FAILURE = 'FETCH_DETAIL_FAILURE'
 const CLEAR_DETAIL = 'CLEAR_DETAIL'
+const FETCH_LIKES_SUCCESS = 'FETCH_LIKES_SUCCESS'
+const LIKE_REQUEST = 'LIKE_REQUEST'
+const LIKE_SUCCESS = 'LIKE_SUCCESS'
+const LIKE_FAILURE = 'LIKE_FAILURE'
 
 export const state = () => ({
   list: {
@@ -22,7 +26,10 @@ export const state = () => ({
   },
   detail: {
     fetching: false,
-    data: null
+    liking: false,
+    data: null,
+    likes: [],
+    isLiked: false
   }
 })
 
@@ -31,7 +38,10 @@ export const getters = {
   listFetching: state => state.list.fetching,
   pagination: state => state.list.pagination,
   detail: state => state.detail.data,
-  detailFetching: state => state.detail.fetching
+  detailFetching: state => state.detail.fetching,
+  detailLiking: state => state.detail.liking,
+  detailLikes: state => state.detail.likes,
+  detailLiked: state => state.detail.isLiked
 }
 
 export const mutations = {
@@ -50,7 +60,24 @@ export const mutations = {
   },
   [CLEAR_DETAIL]: state => {
     state.detail.fetching = false
+    state.detail.liking = false
     state.detail.data = null
+    state.detail.likes = []
+    state.detail.isLiked = false
+  },
+  [FETCH_LIKES_SUCCESS]: (state, { list, isLiked }) => {
+    state.detail.likes = list
+    state.detail.isLiked = isLiked
+  },
+  [LIKE_REQUEST]: state => (state.detail.liking = true),
+  [LIKE_FAILURE]: state => (state.detail.liking = false),
+  [LIKE_SUCCESS]: (state, data) => {
+    state.detail.liking = false
+    if (state.detail.reactions) {
+      state.detail.reactions.heart++
+    }
+    const article = state.list.data.findIndex(item => item.id === state.detail.id)
+    article && article.reactions && article.reactions.heart++
   }
 }
 
@@ -73,11 +100,29 @@ export const actions = {
       return
     }
     commit(FETCH_DETAIL_REQUEST)
-    const { success, data } = await Service.article.fetchDetail(id)().catch(err => commit(FETCH_DETAIL_FAILURE, err))
+    const [{ success, data }] = await Promise.all([
+      Service.article.fetchDetail(id)()
+      // TODO: 完善github issue like
+      // Service.article.fetchLikes(id)()
+    ]).catch(err => commit(FETCH_DETAIL_FAILURE, err))
     if (success) {
       commit(FETCH_DETAIL_SUCCESS, data)
+      // commit(FETCH_LIKES_SUCCESS, likes.data)
     } else {
       commit(FETCH_DETAIL_FAILURE)
+    }
+    return success
+  },
+  async like ({ commit, state }, id) {
+    if (state.detail.liking) {
+      return
+    }
+    commit(LIKE_REQUEST)
+    const { success, data } = await Service.article.like(id)().catch(err => commit(LIKE_FAILURE, err))
+    if (success) {
+      commit(LIKE_SUCCESS, data)
+    } else {
+      commit(LIKE_FAILURE)
     }
     return success
   }

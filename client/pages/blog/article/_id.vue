@@ -17,6 +17,21 @@
             <span class="text">{{ item.name }}</span>
           </router-link>
         </div>
+        <div class="actions">
+          <!-- <a class="action-item like" :class="{ 'is-liked': liked }" @click="handleLike">
+            <i class="iconfont icon-like-fill"></i>
+            <span class="text">喜欢</span>
+            <span class="count">({{ articleDetail.reactions.heart }})</span>
+          </a> -->
+          <!-- <a class="action-item reward">
+            <i class="iconfont icon-reward"></i>
+            <span class="text">打赏</span>
+          </a> -->
+          <a class="action-item share">
+            <i class="iconfont icon-share"></i>
+            <span class="text">分享</span>
+          </a>
+        </div>
       </article>
     </div>
     <div class="comments-pane">
@@ -59,7 +74,8 @@
     computed: {
       ...mapGetters({
         articleDetail: 'article/detail',
-        articleDetailFetching: 'article/detailFetching'
+        articleDetailFetching: 'article/detailFetching',
+        liked: 'article/detailLiked'
       }),
       style () {
         return {
@@ -88,6 +104,11 @@
           }
           window.addEventListener('resize', this._resizeHandler, false)
           this._resizeHandler()
+        }
+      },
+      handleLike () {
+        if (!this.liked) {
+          this.$store.dispatch('article/like', this.articleDetail.number)
         }
       }
     }
@@ -148,6 +169,67 @@
               background alpha($base-color, .8)
               color $white
             }
+          }
+        }
+
+        .actions {
+          margin 60px 0 0
+          text-align center
+
+          .action-item {
+            display inline-block
+            height 30px
+            line-height @height
+            margin 5px
+            padding 0 15px
+            font-size .8rem
+            border 1px solid
+            border-radius 3px
+
+            .iconfont {
+              margin-right 5px
+              font-size .8rem
+            }
+
+            &.like {
+              border-color $red
+              color @border-color
+
+              &.is-liked {
+                background-color $red
+                color $white
+                cursor default
+              }
+            }
+
+            &.reward {
+              border-color $green
+              color @border-color
+            }
+
+            &.share {
+              border-color $blue
+              color @border-color
+            }
+
+            &:hover
+            &:active {
+              &.like {
+                background-color $red
+                color $white
+              }
+
+              &.reward {
+                background-color $green
+                color $white
+              }
+
+              &.share {
+                background-color $blue
+                color $white
+              }
+            }
+            
           }
         }
       }
