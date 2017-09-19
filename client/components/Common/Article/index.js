@@ -5,3 +5,4 @@
  */
 
 export { default as CommonArticleItem } from './Item'
+export { default as CommonArticleList } from './List'

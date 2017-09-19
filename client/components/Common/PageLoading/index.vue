@@ -37,7 +37,6 @@
     },
     methods: {
       start () {
-        console.log('start')
         this.loading = true
         this._cut = 10000 / Math.floor(this.duration)
         if (this.timer) {
@@ -59,7 +58,6 @@
         }, 600)
       },
       finish () {
-        console.log('finish')
         this.progress = 100
         this.hide()
       },
@@ -73,7 +71,6 @@
         this.progress -= Math.floor(num)
       },
       hide () {
-        console.log(this.timer)
         clearTimeout(this._delayTimer)
         clearInterval(this.timer)
         this.timer = null

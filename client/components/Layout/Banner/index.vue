@@ -20,14 +20,23 @@
           require('~/static/image/pexels-photo-90639.jpeg')
         ],
         swiperOption: {
-          autoplay: 5000,
+          autoplay: 3500,
           initialSlide: 1,
           speed: 1000,
+          setWrapperSize: true,
           loop: true,
           grabCursor: true,
-          pagination: '.swiper-pagination'
+          pagination: '.swiper-pagination',
+          paginationClickable: true,
+          autoplayDisableOnInteraction: false,
+          observeParents: true,
+          preloadImages: false,
+          lazyLoading: true
         }
       }
+    },
+    mounted () {
+      window.resizeTo(0, 0)
     },
     methods: {
       getStyle (banner) {

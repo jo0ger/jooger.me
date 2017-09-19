@@ -190,7 +190,7 @@
             margin 0
             border-radius 1px
             background $base-color
-            transition all .3s $ease
+            transition all .3s $fuck
 
             &:nth-of-type(1) {
               width 22px
