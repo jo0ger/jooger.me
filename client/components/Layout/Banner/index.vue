@@ -40,8 +40,8 @@
       this._timer = setTimeout(() => {
         // HACK: 如果上一个页面有滚动条的话，那么会导致swiper没有覆盖整个可见视窗，会在右侧留下滚动条宽度的间隙
         // 只能这样hack了，500毫秒是试出来的
-        const e = document.createEvent("Event");
-        e.initEvent("resize", true, true);
+        const e = document.createEvent('Event')
+        e.initEvent('resize', true, true)
         window.dispatchEvent(e)
       }, 500)
     },
