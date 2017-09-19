@@ -61,7 +61,6 @@
     transition transform .3s $ease
     .article-link {
       display block
-      margin-bottom 20px
       background $white
       border-radius 10px
       overflow hidden

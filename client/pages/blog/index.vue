@@ -23,20 +23,6 @@
 
   export default {
     name: 'Blog-page',
-    head () {
-      let classes = ''
-      if (this.mobileLayout) {
-        classes += 'is-mobile'
-        if (this.mobileSidebar) {
-          classes += ' show-sidebar'
-        }
-      }
-      return {
-        bodyAttrs: {
-          class: classes + ' blog'
-        }
-      }
-    },
     async fetch ({ store }) {
       await store.dispatch('article/fetchList', {
         page: store.getters['article/pagination'].page

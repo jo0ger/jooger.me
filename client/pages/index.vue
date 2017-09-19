@@ -1,9 +1,5 @@
 <template>
   <section class="home-page">
-    <div class="banner-content">
-      <h1 class="title">离人回首，灯火阑珊</h1>
-      <h3 class="subtitle">欢迎访问我的个人网站</h3>
-    </div>
     <div class="page-content">
     </div>
   </section>

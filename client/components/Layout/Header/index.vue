@@ -125,7 +125,7 @@
       flexLayout(, space-between)
       position relative
       width 100%
-      max-width 1440px
+      max-width $content-max-width
       margin 0 auto
       z-index 1
 
@@ -242,13 +242,25 @@
         left 50%
         transform translate(-50%, -50%)
         .item {
-          margin 0 auto
-          font-size 3.5rem
+          margin 0 auto 20px
           color $text-color
+          font-size 4.0625rem
           opacity 0
           text-align center
           transform translate3d(0, 90px, 0)
           transition all .5s $ease-out
+
+          @media (max-width: 1366px) and (min-width: 769px) {
+            font-size 3.5rem
+          }
+
+          @media (max-width: 768px) and (min-width: 480px) {
+            font-size 2.25rem
+          }
+
+          @media (max-width: 479px) {
+            font-size 1.8rem
+          }
 
           &:hover {
             color $base-color
@@ -286,7 +298,7 @@
       .search-form {
         position relative
         width 100%
-        max-width 1440px
+        max-width $content-max-width
 
         @media (max-width: 1640px) {
           padding 0 100px
