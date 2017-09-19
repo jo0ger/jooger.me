@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade">
+  <transition name="fade-overlay">
     <div class="page-overlay" v-show="showOverlay" @click.prevent.stop="handleClick"></div>
   </transition>
 </template>

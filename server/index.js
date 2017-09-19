@@ -1,21 +1,27 @@
 import Koa from 'koa'
 import Router from 'koa-router'
+import httpLogger from 'koa-logger'
+import respond from 'koa-respond'
 import { Nuxt, Builder } from 'nuxt'
 import routes from './routes'
+import config from '../config'
+import nuxtConfig from '../nuxt.config'
+import { logger } from './utils'
+
+global.logger = logger
 
 const app = new Koa()
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
-// Import and Set Nuxt.js options
-let config = require('../nuxt.config.js')
-config.dev = !(app.env === 'production')
+// Set Nuxt.js options
+nuxtConfig.dev = !(app.env === 'production')
 
 // Instantiate nuxt.js
-const nuxt = new Nuxt(config)
+const nuxt = new Nuxt(nuxtConfig)
 
 // Build in development
-if (config.dev) {
+if (nuxtConfig.dev) {
   const builder = new Builder(nuxt)
   builder.build().catch(e => {
     console.error(e) // eslint-disable-line no-console
@@ -23,6 +29,23 @@ if (config.dev) {
   })
 }
 
+app.use(httpLogger())
+app.use(respond({
+  methods: {
+    success: (ctx, body) => {
+      body = Object.assign({}, {
+        code: config.common.code.SUCCESS
+      }, body)
+      ctx.send(200, body)
+    },
+    failed: (ctx, body) => {
+      body = Object.assign({}, {
+        code: config.common.code.FAILED
+      }, body)
+      ctx.send(200, body)
+    }
+  }
+}))
 app.use((ctx, next) => {
   if (ctx.url.includes('/api')) {
     return next()
