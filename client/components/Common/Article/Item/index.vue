@@ -32,10 +32,10 @@
       }
     },
     mounted () {
-      this.setThumb()
+      this.loadThumb()
     },
     methods: {
-      setThumb () {
+      loadThumb () {
         return this.$imgLoad(this.data.body.thumb, {
           success: () => {
             this.thumb = this.data.body.thumb
