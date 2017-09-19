@@ -5,3 +5,4 @@
  */
 
 export { default as articleController } from './article'
+export { default as userController } from './user'

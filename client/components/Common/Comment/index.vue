@@ -26,7 +26,7 @@
     methods: {
       init () {
         if (!this._gitalk) {
-          const github = config.server.github
+          const github = config.common.github
           const Gitalk = require('gitalk')
           this._gitalk = new Gitalk({
             clientID: github.clientId,

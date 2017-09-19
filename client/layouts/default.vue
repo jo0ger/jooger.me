@@ -20,28 +20,37 @@
 </template>
 
 <script>
-
+  import { mapGetters } from 'vuex'
   import { LayoutHeader, LayoutBanner, LayoutFooter, LayoutTools, LayoutOverlay } from '~/components/Layout'
 
   export default {
     name: 'Default',
     components: { LayoutHeader, LayoutBanner, LayoutFooter, LayoutTools, LayoutOverlay },
     head () {
-      const classes = ['blog']
+      let classes = ''
+      if (this.mobileLayout) {
+        classes += 'is-mobile'
+        if (this.mobileSidebar) {
+          classes += ' show-sidebar'
+        }
+      }
       return {
         bodyAttrs: {
-          class: classes.find(item => this.$route.name.includes(item))
+          class: classes
         }
       }
     },
     computed: {
+      ...mapGetters({
+        mobileLayout: 'app/mobileLayout',
+        mobileSidebar: 'app/mobileSidebar'
+      }),
       showBannerPage () {
-        return ['index'].includes(this.$route.name)
+        return ['index', 'about'].includes(this.$route.name)
       },
       containerStyle () {
         return {
           marginTop: this.showBannerPage ? '60vh' : 0
-          // padding: this.showBannerPage
         }
       }
     }

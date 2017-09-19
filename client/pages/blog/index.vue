@@ -23,6 +23,20 @@
 
   export default {
     name: 'Blog-page',
+    head () {
+      let classes = ''
+      if (this.mobileLayout) {
+        classes += 'is-mobile'
+        if (this.mobileSidebar) {
+          classes += ' show-sidebar'
+        }
+      }
+      return {
+        bodyAttrs: {
+          class: classes + ' blog'
+        }
+      }
+    },
     async fetch ({ store }) {
       await store.dispatch('article/fetchList', {
         page: store.getters['article/pagination'].page
@@ -33,10 +47,15 @@
     },
     computed: {
       ...mapGetters({
+        mobileLayout: 'app/mobileLayout',
+        mobileSidebar: 'app/mobileSidebar',
         articleList: 'article/list',
         articleListFetching: 'article/listFetching',
         pagination: 'article/pagination'
       })
+    },
+    mounted () {
+      console.log(this)
     },
     beforeDestroy () {
       // this.$store.commit('article/CLEAR_LIST')

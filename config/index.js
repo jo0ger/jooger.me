@@ -23,6 +23,12 @@ export default {
       FAILED: -1,
       SUCCESS: 0,
       UNAUTHORIZED: 401
+    },
+    github: {
+      owner: 'jo0ger',
+      repo: 'git-hook-test',
+      clientId: 'b4983366c4c7549a09f1',
+      clientSecret: '76fd8c26a21659d7eb925af0ed3498eabed49277'
     }
   },
   client: {
@@ -35,14 +41,13 @@ export default {
     })
   },
   server: {
+    allowedOrigins: [
+      'jooger.me',
+      'www.jooger.me',
+      'blog.jooger.me'
+    ],
     service: Object.assign({}, baseService, {
       baseURL: 'https://api.github.com/'
-    }),
-    github: {
-      owner: 'jo0ger',
-      repo: 'git-hook-test',
-      clientId: 'b4983366c4c7549a09f1',
-      clientSecret: '76fd8c26a21659d7eb925af0ed3498eabed49277'
-    }
+    })
   }
 }
