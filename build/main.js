@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -129,9 +129,9 @@ var baseService = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_simple_node_logger__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_simple_node_logger__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_simple_node_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_simple_node_logger__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return fetcher; });
@@ -240,7 +240,7 @@ function handleError(_ref4) {
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(13);
+module.exports = __webpack_require__(12);
 
 
 /***/ },
@@ -282,7 +282,7 @@ module.exports = {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__controllers__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__controllers__ = __webpack_require__(10);
 /**
  * @desc server routes
  * @author Jooger <zzy1198258955@163.com>
@@ -307,26 +307,25 @@ module.exports = {
 module.exports = require("koa");
 
 /***/ },
-/* 6 */,
-/* 7 */
+/* 6 */
 /***/ function(module, exports) {
 
 module.exports = require("koa-respond");
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports) {
 
 module.exports = require("koa-router");
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports) {
 
 module.exports = require("nuxt");
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -353,6 +352,13 @@ var mdImageReg = /^!\[((?:\[[^\]]*\]|[^[\]]|\](?=[^[]*\]))*)\]\(\s*<?([\s\S]*?)>
 
 var articleCtrl = { list: {}, item: {} };
 
+var _config$server$github = __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].server.github,
+    owner = _config$server$github.owner,
+    repo = _config$server$github.repo,
+    clientId = _config$server$github.clientId,
+    clientSecret = _config$server$github.clientSecret;
+
+
 articleCtrl.list.GET = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
     var _ctx$query, _ctx$query$page, page, _ctx$query$per_page, per_page, _ctx$query$search, search, _ctx$query$labels, labels, res, q, link, prev, _next, articles, params, _link, _prev, _next2, _articles;
@@ -369,15 +375,15 @@ articleCtrl.list.GET = function () {
               break;
             }
 
-            q = search + ' type:issue state:open in:title,body author:' + __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].server.github.owner + ' repo:' + __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].server.github.repo;
+            q = search + ' type:issue is:public state:open in:title,body author:' + owner + ' repo:' + owner + '/' + repo;
             _context.next = 6;
             return __WEBPACK_IMPORTED_MODULE_2__utils__["b" /* fetcher */].get('/search/issues', {
               params: {
                 q: q,
                 sort: 'created',
                 order: 'asc',
-                client_id: __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].server.github.clientId,
-                client_secret: __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].server.github.clientSecret,
+                client_id: clientId,
+                client_secret: clientSecret,
                 page: page,
                 per_page: per_page
               }
@@ -416,8 +422,8 @@ articleCtrl.list.GET = function () {
               state: 'open',
               sort: 'created',
               direction: 'desc',
-              client_id: __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].server.github.clientId,
-              client_secret: __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].server.github.clientSecret,
+              client_id: clientId,
+              client_secret: clientSecret,
               page: page,
               per_page: per_page
             };
@@ -426,7 +432,7 @@ articleCtrl.list.GET = function () {
               params.labels = labels;
             }
             _context.next = 14;
-            return __WEBPACK_IMPORTED_MODULE_2__utils__["b" /* fetcher */].get('/repos/' + __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].server.github.owner + '/' + __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].server.github.repo + '/issues', { params: params }).catch(function (err) {
+            return __WEBPACK_IMPORTED_MODULE_2__utils__["b" /* fetcher */].get('/repos/' + owner + '/' + repo + '/issues', { params: params }).catch(function (err) {
               return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx, err: err });
             });
 
@@ -480,10 +486,10 @@ articleCtrl.item.GET = function () {
           case 0:
             number = ctx.params.number;
             _context2.next = 3;
-            return __WEBPACK_IMPORTED_MODULE_2__utils__["b" /* fetcher */].get('/repos/' + __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].server.github.owner + '/' + __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].server.github.repo + '/issues/' + number, {
+            return __WEBPACK_IMPORTED_MODULE_2__utils__["b" /* fetcher */].get('/repos/' + owner + '/' + repo + '/issues/' + number, {
               params: {
-                client_id: __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].server.github.clientId,
-                client_secret: __WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].server.github.clientSecret
+                client_id: clientId,
+                client_secret: clientSecret
               }
             }).catch(function (err) {
               return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx, err: err });
@@ -582,11 +588,11 @@ function articleParser(content) {
 };
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__article__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__article__ = __webpack_require__(9);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__article__["a"]; });
 /**
  * @desc Controllers entry
@@ -597,36 +603,36 @@ function articleParser(content) {
 
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports) {
 
 module.exports = require("axios");
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports) {
 
 module.exports = require("regenerator-runtime");
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports) {
 
 module.exports = require("simple-node-logger");
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa_router__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_respond__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_respond__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_respond___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_koa_respond__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_nuxt__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config__ = __webpack_require__(0);

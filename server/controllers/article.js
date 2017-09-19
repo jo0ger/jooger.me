@@ -11,18 +11,20 @@ const mdImageReg = /^!\[((?:\[[^\]]*\]|[^[\]]|\](?=[^[]*\]))*)\]\(\s*<?([\s\S]*?
 
 const articleCtrl = { list: {}, item: {} }
 
+const { owner, repo, clientId, clientSecret } = config.server.github
+
 articleCtrl.list.GET = async (ctx, next) => {
   const { page = 1, per_page = 12, search = '', labels = '' } = ctx.query
   let res = null
   if (search) {
-    const q = `${search} type:issue state:open in:title,body author:${config.server.github.owner} repo:${config.server.github.repo}`
+    const q = `${search} type:issue is:public state:open in:title,body author:${owner} repo:${owner}/${repo}`
     res = await fetcher.get('/search/issues', {
       params: {
         q,
         sort: 'created',
         order: 'asc',
-        client_id: config.server.github.clientId,
-        client_secret: config.server.github.clientSecret,
+        client_id: clientId,
+        client_secret: clientSecret,
         page,
         per_page
       }
@@ -51,15 +53,15 @@ articleCtrl.list.GET = async (ctx, next) => {
       state: 'open',
       sort: 'created',
       direction: 'desc',
-      client_id: config.server.github.clientId,
-      client_secret: config.server.github.clientSecret,
+      client_id: clientId,
+      client_secret: clientSecret,
       page,
       per_page
     }
     if (labels) {
       params.labels = labels
     }
-    res = await fetcher.get(`/repos/${config.server.github.owner}/${config.server.github.repo}/issues`, { params })
+    res = await fetcher.get(`/repos/${owner}/${repo}/issues`, { params })
       .catch(err => handleError({ ctx, err }))
     if (res) {
       const link = res.headers.link || ''
@@ -87,10 +89,10 @@ articleCtrl.list.GET = async (ctx, next) => {
 
 articleCtrl.item.GET = async (ctx, next) => {
   const number = ctx.params.number
-  const res = await fetcher.get(`/repos/${config.server.github.owner}/${config.server.github.repo}/issues/${number}`, {
+  const res = await fetcher.get(`/repos/${owner}/${repo}/issues/${number}`, {
     params: {
-      client_id: config.server.github.clientId,
-      client_secret: config.server.github.clientSecret
+      client_id: clientId,
+      client_secret: clientSecret
     }
   }).catch(err => handleError({ ctx, err }))
   if (res) {

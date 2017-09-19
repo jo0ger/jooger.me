@@ -2,7 +2,9 @@
   <div class="app">
     <div class="app-main">
       <LayoutHeader></LayoutHeader>
-      <LayoutBanner v-show="showBannerPage"></LayoutBanner>
+      <keep-alive>
+        <LayoutBanner v-if="showBannerPage"></LayoutBanner>
+      </keep-alive>
       <main class="container" :style="containerStyle">
         <div class="wrapper">
           <keep-alive>
