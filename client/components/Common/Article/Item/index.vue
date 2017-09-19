@@ -1,6 +1,6 @@
 <template>
   <article class="article-item">
-    <router-link class="article-link" :to="`article/${data.number}`" append>
+    <router-link class="article-link" :to="`/blog/article/${data.number}`">
       <div class="cover">
         <img :src="thumb" alt="" class="thumb-cover">
       </div>

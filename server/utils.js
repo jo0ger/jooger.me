@@ -33,7 +33,7 @@ export async function handleRequest ({ ctx, type, next }) {
 }
 
 export function handleSuccess ({ ctx, message = '请求成功', data = {} }) {
-  logger.info(message)
+  logger.info(`接口：${ctx.path}，结果： ${message}`)
   ctx.success({
     message,
     data: data || {}
@@ -41,7 +41,7 @@ export function handleSuccess ({ ctx, message = '请求成功', data = {} }) {
 }
 
 export function handleError ({ ctx, message = '请求失败', err = {} }, end = false) {
-  logger.error(message)
+  logger.error(`接口：${ctx.path}，结果： ${message}`)
   Object.keys(err).length && console.error(err)
   !end && ctx.failed({
     message,

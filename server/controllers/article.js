@@ -12,7 +12,7 @@ const mdImageReg = /^!\[((?:\[[^\]]*\]|[^[\]]|\](?=[^[]*\]))*)\]\(\s*<?([\s\S]*?
 const articleCtrl = { list: {}, item: {} }
 
 articleCtrl.list.GET = async (ctx, next) => {
-  const { page = 1, per_page = 12, search = '' } = ctx.query
+  const { page = 1, per_page = 12, search = '', labels = '' } = ctx.query
   let res = null
   if (search) {
     const q = `${search} type:issue state:open in:title,body author:${config.server.github.owner} repo:${config.server.github.repo}`
@@ -26,7 +26,7 @@ articleCtrl.list.GET = async (ctx, next) => {
         page,
         per_page
       }
-    })
+    }).catch(err => handleError({ ctx, err }))
 
     if (res) {
       const link = res.headers.link || ''
@@ -46,18 +46,21 @@ articleCtrl.list.GET = async (ctx, next) => {
       })
     }
   } else {
-    res = await fetcher.get(`/repos/${config.server.github.owner}/${config.server.github.repo}/issues`, {
-      params: {
-        filter: 'created',
-        state: 'open',
-        sort: 'created',
-        direction: 'desc',
-        client_id: config.server.github.clientId,
-        client_secret: config.server.github.clientSecret,
-        page,
-        per_page
-      }
-    }).catch(err => console.error(err))
+    const params = {
+      filter: 'created',
+      state: 'open',
+      sort: 'created',
+      direction: 'desc',
+      client_id: config.server.github.clientId,
+      client_secret: config.server.github.clientSecret,
+      page,
+      per_page
+    }
+    if (labels) {
+      params.labels = labels
+    }
+    res = await fetcher.get(`/repos/${config.server.github.owner}/${config.server.github.repo}/issues`, { params })
+      .catch(err => handleError({ ctx, err }))
     if (res) {
       const link = res.headers.link || ''
       let prev = link.includes('rel="prev"')
