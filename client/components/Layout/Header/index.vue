@@ -233,7 +233,7 @@
       height 100%
       background $white
       transform translate3d(0, 100%, 0)
-      transition transform .8s cubic-bezier(.85,0,.15,1)
+      transition transform .8s $fuck
 
       .list {
         position absolute
@@ -256,7 +256,7 @@
 
           for n in (1..3) {
             &:nth-child({n}) {
-              transition-delay .5s + (.1 * (n - 1))s
+              transition-delay .5s + (.08 * (n - 1))s
             }
           }
         }
@@ -281,7 +281,7 @@
       left 0
       background $white
       transform translateY(-100%)
-      transition transform .8s cubic-bezier(.85,0,.15,1)
+      transition transform .8s $fuck
 
       .search-form {
         position relative

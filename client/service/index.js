@@ -5,7 +5,7 @@
  */
 
 import Axios from 'axios'
-import config from '../config'
+import config from '../../config'
 
 const logMsg = (msg = '', type = 'success') => {
   if (msg) {
@@ -13,7 +13,7 @@ const logMsg = (msg = '', type = 'success') => {
   }
 }
 
-export const fetcher = Axios.create(config.service)
+export const fetcher = Axios.create(config.client.service)
 
 export const CODE = {
   FAILED: -1,

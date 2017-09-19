@@ -5,27 +5,24 @@
  */
 
 import axios from 'axios'
-import fetch from 'node-fetch'
 // import fm from 'front-matter'
-import config from '../posts.config'
-import { CODE } from '../client/service'
+import config from '../config'
 const imageReg = /^!\[((?:\[[^\]]*\]|[^[\]]|\](?=[^[]*\]))*)\]\(\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*\)/
-
+const fetcher = axios.create(config.server.service)
 const postController = { list: {}, item: {} }
 
 postController.list = async (ctx, next) => {
   const { page = 1, per_page = 12, search = '' } = ctx.query
   let res = null
   if (search) {
-    const q = `${search} type:issue state:open in:title,body author:${config.owner}`
-    console.log(q)
-    res = await axios.get('https://api.github.com/search/issues', {
+    const q = `${search} type:issue state:open in:title,body author:${config.server.github.owner} repo:${config.server.github.repo}`
+    res = await fetcher.get('/search/issues', {
       params: {
         q,
         sort: 'created',
         order: 'asc',
-        client_id: config.clientId,
-        client_secret: config.clientSecret,
+        client_id: config.server.github.clientId,
+        client_secret: config.server.github.clientSecret,
         page,
         per_page
       }
@@ -41,7 +38,7 @@ postController.list = async (ctx, next) => {
       })
       ctx.status = res.status
       ctx.body = {
-        code: CODE.SUCCESS,
+        code: config.common.code.SUCCESS,
         data: {
           list: articles,
           pagination: { prev, next, page: Number(page), per_page },
@@ -50,14 +47,14 @@ postController.list = async (ctx, next) => {
       }
     }
   } else {
-    res = await axios.get(`https://api.github.com/repos/${config.owner}/${config.repo}/issues`, {
+    res = await fetcher.get(`/repos/${config.server.github.owner}/${config.server.github.repo}/issues`, {
       params: {
         filter: 'created',
         state: 'open',
         sort: 'created',
         direction: 'desc',
-        client_id: config.clientId,
-        client_secret: config.clientSecret,
+        client_id: config.server.github.clientId,
+        client_secret: config.server.github.clientSecret,
         page,
         per_page
       }
@@ -73,7 +70,7 @@ postController.list = async (ctx, next) => {
       // ctx.response.set('Accept', 'application/vnd.github.squirrel-girl-preview')
       ctx.status = res.status
       ctx.body = {
-        code: CODE.SUCCESS,
+        code: config.common.code.SUCCESS,
         data: {
           list: articles,
           pagination: { prev, next, page: Number(page), per_page }
@@ -84,16 +81,16 @@ postController.list = async (ctx, next) => {
 
   if (!res) {
     ctx.status = 200
-    ctx.body = { code: CODE.FAILED }
+    ctx.body = { code: config.common.code.FAILED }
   }
 }
 
 postController.item = async (ctx, next) => {
   const number = ctx.params.number
-  const res = await axios.get(`https://api.github.com/repos/${config.owner}/${config.repo}/issues/${number}`, {
+  const res = await fetcher.get(`/repos/${config.server.github.owner}/${config.server.github.repo}/issues/${number}`, {
     params: {
-      client_id: config.clientId,
-      client_secret: config.clientSecret
+      client_id: config.server.github.clientId,
+      client_secret: config.server.github.clientSecret
     }
   }).catch(err => console.error(err))
   if (res) {
@@ -101,12 +98,12 @@ postController.item = async (ctx, next) => {
     detail.body = articleParser(detail.body)
     ctx.status = res.status
     ctx.body = {
-      code: CODE.SUCCESS,
+      code: config.common.code.SUCCESS,
       data: detail
     }
   } else {
     ctx.status = 200
-    ctx.body = { code: CODE.FAILED }
+    ctx.body = { code: config.common.code.FAILED }
   }
 }
 

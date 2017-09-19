@@ -92,12 +92,9 @@
           font-weight 700
         }
       }
-    }
-
-    &:hover {
-      transform scale(.98)
+      &:hover {
+        transform scale(.98)
+      }
     }
   }
-
-
 </style>

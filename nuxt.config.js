@@ -32,6 +32,7 @@ module.exports = {
   css: [
     'normalize.css',
     'swiper/dist/css/swiper.css',
+    'gitalk/dist/gitalk.css',
     { src: '~assets/stylus/index.styl', lang: 'stylus' }
   ],
   loading: '~/components/Common/PageLoading',

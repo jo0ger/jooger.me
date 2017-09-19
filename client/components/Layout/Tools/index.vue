@@ -70,7 +70,7 @@
           margin-top 10px
           border-radius 100%
           text-align center
-          background alpha($white, .8)
+          background $white
           color $text-color-secondary
           box-shadow 0 20px 40px -15px alpha($black, .1)
 
@@ -111,7 +111,7 @@
 
           &.go-to-top {
             transform translateX(300%)
-            transition-timing-function cubic-bezier(.85,0,.15,1)
+            transition-timing-function $fuck
 
             &::after {
               content ''
