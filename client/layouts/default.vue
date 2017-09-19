@@ -7,16 +7,18 @@
       </keep-alive>
       <main class="container" :style="containerStyle">
         <div class="wrapper">
-          <div class="banner-content" v-if="showBannerPage">
+          <div class="banner-content" :style="bannerContentStyle" v-if="showBannerPage">
             <h1 class="title">{{ option.title }}</h1>
             <h3 class="subtitle">{{ option.subtitle }}</h3>
           </div>
-          <keep-alive>
-            <nuxt></nuxt>
-          </keep-alive>
+          <div class="page-content">
+            <keep-alive>
+              <nuxt></nuxt>
+            </keep-alive>
+          </div>
         </div>
       </main>
-      <LayoutTools></LayoutTools>
+      <LayoutTools v-if="!showBannerPage"></LayoutTools>
       <LayoutOverlay></LayoutOverlay>
       <LayoutFooter></LayoutFooter>
     </div>
@@ -50,12 +52,25 @@
         mobileLayout: 'app/mobileLayout',
         mobileSidebar: 'app/mobileSidebar'
       }),
+      isHomePage () {
+        return this.$route.name === 'index'
+      },
+      isAboutPage () {
+        return this.$route.name === 'about'
+      },
       showBannerPage () {
         return ['index', 'about'].includes(this.$route.name)
       },
       containerStyle () {
         return {
-          marginTop: this.showBannerPage ? '60vh' : 0
+          position: this.isAboutPage ? 'static' : 'relative',
+          marginTop: this.isHomePage ? '60vh' : 0,
+          paddingTop: this.isAboutPage ? '100vh' : 0
+        }
+      },
+      bannerContentStyle () {
+        return {
+          top: this.isAboutPage ? '60vh' : 0
         }
       }
     }
@@ -67,9 +82,6 @@
   @import '~assets/stylus/_mixin'
 
   .app {
-    &-main {
-      padding-top 70px
-    }
 
     .container {
       position relative
@@ -91,6 +103,10 @@
 
         @media (max-width: 479px) {
           padding 0 30px
+        }
+
+        .page-content {
+          position relative
         }
       }
     }
