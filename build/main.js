@@ -107,6 +107,8 @@ var baseService = {
     }
   },
   client: {
+    title: '离人回首，灯火阑珊',
+    subtitle: '欢迎访问我的个人网站',
     service: Object.assign({}, baseService, {
       baseURL: '/api',
       proxy: {
@@ -269,7 +271,7 @@ module.exports = {
   build: {
     vendor: ['axios', 'bezier-easing', 'highlight.js', 'marked']
   },
-  plugins: [{ src: '~plugins/filter.js' }, { src: '~plugins/swiper.js', ssr: false }, { src: '~plugins/image.js', ssr: false }],
+  plugins: [{ src: '~plugins/option.js' }, { src: '~plugins/filter.js' }, { src: '~plugins/swiper.js', ssr: false }, { src: '~plugins/image.js', ssr: false }],
   router: {
     linkActiveClass: 'active'
     // transition: {

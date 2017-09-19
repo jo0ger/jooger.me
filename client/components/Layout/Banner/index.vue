@@ -7,6 +7,7 @@
       </div>
       <div class="swiper-pagination swiper-pagination-bullets"></div>
     </div>
+    <!-- <a class="trigger"></a> -->
   </div>
 </template>
 
@@ -20,9 +21,9 @@
           require('~/static/image/pexels-photo-90639.jpeg')
         ],
         swiperOption: {
-          autoplay: 3500,
+          autoplay: 5000,
           initialSlide: 1,
-          speed: 1000,
+          speed: 1500,
           setWrapperSize: true,
           loop: true,
           grabCursor: true,
@@ -36,7 +37,19 @@
       }
     },
     mounted () {
-      window.resizeTo(0, 0)
+      this._timer = setTimeout(() => {
+        // HACK: 如果上一个页面有滚动条的话，那么会导致swiper没有覆盖整个可见视窗，会在右侧留下滚动条宽度的间隙
+        // 只能这样hack了，500毫秒是试出来的
+        const e = document.createEvent("Event");
+        e.initEvent("resize", true, true);
+        window.dispatchEvent(e)
+      }, 500)
+    },
+    beforeDestroy () {
+      if (this._timer) {
+        clearTimeout(this._timer)
+        this._timer = null
+      }
     },
     methods: {
       getStyle (banner) {
@@ -81,6 +94,49 @@
       }
     }
 
+
+    .trigger {
+      position absolute
+      display block
+      bottom 10px
+      left 50%
+      width 50px
+      height @width
+      margin-left -(@width / 2)
+      z-index 1
+      animation bounce 2s infinite
+
+      &::before
+      &::after {
+        content ''
+        position absolute
+        display block
+        top 50%
+        left 50%
+        width 15px
+        height 2px
+        background $white
+        transform translate(-78%, -50%) rotate(45deg)
+        transform-origin center center
+      }
+
+      &::after {
+        transform translate(-22%, -50%) rotate(-45deg)
+      }
+    }
+
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform translateY(0)
+    }
+    40% {
+      transform translateY(-10px)
+    }
+    60% {
+      transform translateY(-5px)
+    }
   }
 </style>
 

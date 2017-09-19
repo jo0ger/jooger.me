@@ -32,6 +32,8 @@ export default {
     }
   },
   client: {
+    title: '离人回首，灯火阑珊',
+    subtitle: '欢迎访问我的个人网站',
     service: Object.assign({}, baseService, {
       baseURL: '/api',
       proxy: {

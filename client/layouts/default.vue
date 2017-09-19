@@ -7,6 +7,10 @@
       </keep-alive>
       <main class="container" :style="containerStyle">
         <div class="wrapper">
+          <div class="banner-content" v-if="showBannerPage">
+            <h1 class="title">{{ option.title }}</h1>
+            <h3 class="subtitle">{{ option.subtitle }}</h3>
+          </div>
           <keep-alive>
             <nuxt></nuxt>
           </keep-alive>
@@ -34,9 +38,10 @@
           classes += ' show-sidebar'
         }
       }
+      const lightPage = ['blog'].find(item => this.$route.name.includes(item))
       return {
         bodyAttrs: {
-          class: classes
+          class: classes + lightPage || ''
         }
       }
     },
@@ -69,16 +74,12 @@
     .container {
       position relative
       width 100%
-      max-width 1440px
+      max-width $content-max-width
       margin 0 auto
       z-index 1
 
       .wrapper {
         width 100%
-
-        @media (max-width: 1640px) {
-          padding 0 100px
-        }
 
         @media (max-width: 1366px) and (min-width: 769px) {
           padding 0 65px
