@@ -74,13 +74,16 @@ button,input,select,textarea {
   color inherit
 }
 
-h1, h2, h3, h4, h5, h6 {
-  margin 0
-  padding 0
-  line-height 1.5
-  color $heading-color
-  font-family $font-family-headings
-  font-weight normal
+for n in 1...6 {
+  h{n} {
+    margin 0
+    padding 0
+    line-height 1.5
+    color $heading-color
+    font-family $font-family-headings
+    font-weight bold
+    font-size (1rem + (6 - n) * 0.2rem)
+  }
 }
 
 .link {

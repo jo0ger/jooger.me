@@ -1,17 +1,24 @@
 <template>
   <div class="banner">
-    <div class="swiper-container" v-swiper:mySwiper="swiperOption">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="item in banners" :key="item" :style="getStyle(item)">
+    <div class="banner-swiper" v-if="showSwiper">
+      <div class="swiper-container" v-swiper:mySwiper="swiperOption">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="item in banners" :key="item" :style="getSwiperStyle(item)">
+          </div>
         </div>
+        <div class="swiper-pagination swiper-pagination-bullets"></div>
       </div>
-      <div class="swiper-pagination swiper-pagination-bullets"></div>
     </div>
-    <!-- <a class="trigger"></a> -->
+    <div class="banner-bg" :style="bannerBgStyle" v-else></div>
+    <transition name="fade">
+      <a class="trigger" v-if="showTrigger" @click.prevent.stop="handleGoToContent"></a>
+    </transition>
   </div>
 </template>
 
 <script>
+  import { scrollTo, easing } from '~/utils'
+
   export default {
     name: 'Layout-Banner',
     data () {
@@ -33,29 +40,79 @@
           observeParents: true,
           preloadImages: false,
           lazyLoading: true
+        },
+        showContent: false,
+        contentDelta: 80
+      }
+    },
+    computed: {
+      isAboutPage () {
+        return this.$route.name === 'about'
+      },
+      showSwiper () {
+        return !this.isAboutPage
+      },
+      showTrigger () {
+        return !this.showContent && this.isAboutPage
+      },
+      bannerBgStyle () {
+        return this.isAboutPage ? {
+          backgroundImage: `url(${this.banners[0]})`,
+          opacity: this.showContent ? 0.3 : 0.5,
+          filter: this.showContent ? 'blur(10px)' : null
+        } : null
+      }
+    },
+    watch: {
+      showSwiper (val) {
+        if (val) {
+          this.triggerResize()
         }
       }
     },
     mounted () {
-      this._timer = setTimeout(() => {
-        // HACK: 如果上一个页面有滚动条的话，那么会导致swiper没有覆盖整个可见视窗，会在右侧留下滚动条宽度的间隙
-        // 只能这样hack了，500毫秒是试出来的
-        const e = document.createEvent('Event')
-        e.initEvent('resize', true, true)
-        window.dispatchEvent(e)
-      }, 500)
+      this.init()
     },
     beforeDestroy () {
       if (this._timer) {
         clearTimeout(this._timer)
         this._timer = null
       }
+      if (this._scrollerHandler) {
+        window.removeEventListener('scroll', this._scrollerHandler)
+        this._scrollerHandler = null
+      }
     },
     methods: {
-      getStyle (banner) {
+      init () {
+        this.triggerResize()
+        if (!this._scrollerHandler) {
+          this._scrollerHandler = e => {
+            this.showContent = window.pageYOffset >= this.contentDelta
+          }
+        }
+        window.addEventListener('scroll', this._scrollerHandler, false)
+        this._scrollerHandler()
+      },
+      getSwiperStyle (banner) {
         return {
           backgroundImage: `url(${banner})`
         }
+      },
+      triggerResize () {
+        if (this._timer) {
+          clearTimeout(this._timer)
+        }
+        this._timer = setTimeout(() => {
+          // HACK: 如果上一个页面有滚动条的话，那么会导致swiper没有覆盖整个可见视窗，会在右侧留下滚动条宽度的间隙
+          // 只能这样hack了，500毫秒是试出来的
+          const e = document.createEvent('HTMLEvents')
+          e.initEvent('resize', true, true)
+          window.dispatchEvent(e)
+        }, 500)
+      },
+      handleGoToContent () {
+        scrollTo(window.innerHeight, 800, { easing: easing['fuck'] })
       }
     }
   }
@@ -71,7 +128,13 @@
     right 0
     bottom 0
     left 0
-    z-index 1
+    z-index 0
+
+    .banner-swiper
+    .banner-bg {
+      width 100%
+      height @width
+    }
 
     .swiper-container {
       width 100%
@@ -94,6 +157,14 @@
       }
     }
 
+    .banner-bg {
+      background-repeat no-repeat
+      background-size cover
+      background-position center center
+      opacity .8
+      transition all .5s $ease-out
+    }
+
 
     .trigger {
       position absolute
@@ -104,7 +175,7 @@
       height @width
       margin-left -(@width / 2)
       z-index 1
-      animation bounce 2s infinite
+      animation bounce2 2s infinite
 
       &::before
       &::after {
@@ -136,6 +207,16 @@
     }
     60% {
       transform translateY(-5px)
+    }
+  }
+
+  @keyframes bounce2 {
+    0%, 100% {
+      transform translateY(15px)
+    }
+
+    50% {
+      transform translateY(0)
     }
   }
 </style>
