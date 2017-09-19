@@ -9,6 +9,14 @@
           <h1 class="title">{{ articleDetail.title }}</h1>
         </header>
         <div class="content md-body" v-html="marked(articleDetail.body._content)"></div>
+        <div class="tags" v-if="articleDetail.labels && articleDetail.labels.length">
+          <router-link class="tag-item"
+            v-for="item in articleDetail.labels"
+            :key="item.id"
+            :to="`/blog/tag/${item.name}`">
+            <span class="text">{{ item.name }}</span>
+          </router-link>
+        </div>
       </article>
     </div>
     <div class="comments-pane">
@@ -116,6 +124,30 @@
 
           .title {
             font-size 1.2rem
+          }
+        }
+
+        .content {
+          padding-bottom 30px
+          border-bottom 1px solid $grey
+        }
+
+        .tags {
+          margin-top 10px
+
+          .tag-item {
+            display inline-block
+            margin 5px 10px 0 0
+            padding 5px 10px
+            background $grey
+            border-radius 4px
+            font-size .8rem
+            transition all .3s $ease
+
+            &:hover {
+              background alpha($base-color, .8)
+              color $white
+            }
           }
         }
       }

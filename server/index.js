@@ -1,6 +1,5 @@
 import Koa from 'koa'
 import Router from 'koa-router'
-import httpLogger from 'koa-logger'
 import respond from 'koa-respond'
 import { Nuxt, Builder } from 'nuxt'
 import routes from './routes'
@@ -29,7 +28,6 @@ if (nuxtConfig.dev) {
   })
 }
 
-app.use(httpLogger())
 app.use(respond({
   methods: {
     success: (ctx, body) => {
