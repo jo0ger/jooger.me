@@ -4,7 +4,7 @@
       <CommonArticleItem
         class="flex-item"
         v-for="item in articleList"
-        :key="item._id"
+        :key="item.id"
         :data="item">
       </CommonArticleItem>
     </div>
@@ -46,7 +46,6 @@
         if (!ok) {
           return
         }
-        console.log(delta)
         const { page, per_page } = this.pagination
         let nextPage = page + delta
         if (nextPage < 1) {

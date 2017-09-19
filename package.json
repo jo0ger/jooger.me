@@ -4,6 +4,10 @@
   "description": "Nuxt.js project",
   "author": "Jooger <zzy1198258955@163.com>",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jo0ger/jooger.me.git"
+  },
   "scripts": {
     "dev": "backpack dev",
     "build": "nuxt build && backpack build",
@@ -15,7 +19,6 @@
     "axios": "^0.16.2",
     "bezier-easing": "^2.0.3",
     "cross-env": "^5.0.1",
-    "front-matter": "^2.2.0",
     "gitalk": "git+https://github.com/jo0ger/gitalk.git",
     "highlight.js": "^9.12.0",
     "koa": "^2.3.0",
