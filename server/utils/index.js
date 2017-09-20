@@ -4,6 +4,7 @@
  * @date 19 Sep 2017
  */
 
+import path from 'path'
 import axios from 'axios'
 import simpleNodeLogger from 'simple-node-logger'
 import config from '../../config'
@@ -17,7 +18,7 @@ export const fetcher = axios.create(config.server.service)
 export const logger = (process.env.NODE_ENV === 'production' && process.env.log)
   ? simpleNodeLogger.createRollingFileLogger({
     timestampFormat,
-    logDirectory: './logs',
+    logDirectory: path.resolve(__dirname, '..', 'logs'),
     fileNamePattern: '<DATE>.log'
   })
   : simpleNodeLogger.createSimpleLogger({

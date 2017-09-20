@@ -132,13 +132,15 @@ var baseService = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_simple_node_logger__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_simple_node_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_simple_node_logger__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__marked__ = __webpack_require__(12);
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "f", function() { return __WEBPACK_IMPORTED_MODULE_4__marked__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_simple_node_logger__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_simple_node_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_simple_node_logger__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__marked__ = __webpack_require__(12);
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "f", function() { return __WEBPACK_IMPORTED_MODULE_5__marked__["a"]; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return fetcher; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return logger; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "e", function() { return handleRequest; });
@@ -160,15 +162,16 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
+
 var timestampFormat = 'YYYY-MM-DD HH:mm:ss';
 
-var fetcher = __WEBPACK_IMPORTED_MODULE_1_axios___default.a.create(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].server.service);
+var fetcher = __WEBPACK_IMPORTED_MODULE_2_axios___default.a.create(__WEBPACK_IMPORTED_MODULE_4__config__["a" /* default */].server.service);
 
 var logger =  false ? simpleNodeLogger.createRollingFileLogger({
   timestampFormat: timestampFormat,
-  logDirectory: './logs',
+  logDirectory: path.resolve(__dirname, '..', 'logs'),
   fileNamePattern: '<DATE>.log'
-}) : __WEBPACK_IMPORTED_MODULE_2_simple_node_logger___default.a.createSimpleLogger({
+}) : __WEBPACK_IMPORTED_MODULE_3_simple_node_logger___default.a.createSimpleLogger({
   timestampFormat: timestampFormat
 });
 
@@ -1169,6 +1172,12 @@ app.use(router.routes(), router.allowedMethods());
 
 app.listen(port, host);
 console.log('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
+
+/***/ },
+/* 33 */
+/***/ function(module, exports) {
+
+module.exports = require("path");
 
 /***/ }
 /******/ ]);
