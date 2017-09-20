@@ -34,16 +34,27 @@ renderer.heading = function (text, level) {
   return `<h${level} id="${generateId()}">${text}</h${level}>`
 }
 
-renderer.link = (href, title, text) => {
+renderer.link = function (href, title, text) {
   const isOrigin = href.indexOf('jooger.me') > -1
-  const textIsImage = /(<img.*?)>/gi.test(text)
+  const isImage = /(<img.*?)>/gi.test(text)
   return `
     <a href=${href}
     target="_blank"
-    class="${textIsImage ? 'img-link' : 'link'}"
+    class="${isImage ? 'img-link' : 'link'}"
+    ${isImage && 'onclick=""'}
     title="${title || ''}"
     ${isOrigin ? '' : 'rel="external nofollow"'}>${text}</a>
-  `
+  `.replace(/\s+/g, ' ').replace('\n', '')
+}
+
+renderer.image = function (href, title, text) {
+  return `
+    <img class="image-view"
+      src="${href}"
+      title="${title || text || 'jooger.me'}"
+      alt="${text || title || href}"
+    ${this.options.xhtml ? '/' : ''}>
+  `.replace(/\s+/g, ' ').replace('\n', '')
 }
 
 renderer.code = function (code, lang, escaped) {
