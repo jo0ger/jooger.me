@@ -15,8 +15,8 @@ module.exports = {
         COMMON_VARIABLE: 'true'
       },
       env_production: {
-        NODE_ENV: 'production',
-        log: true
+        NODE_ENV: 'production'
+        // log: true
       }
     }
   ],
