@@ -5,7 +5,7 @@
  */
 
 import config from '../../config'
-import { fetcher, handleRequest, handleSuccess, handleError } from '../utils'
+import { fetcher, handleRequest, handleSuccess, handleError, marked } from '../utils'
 
 const mdImageReg = /^!\[((?:\[[^\]]*\]|[^[\]]|\](?=[^[]*\]))*)\]\(\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*\)/
 
@@ -171,11 +171,8 @@ function articleParser (content) {
   let cap = mdImageReg.exec(thumb)
   if (cap) {
     data.thumb = cap[2]
-    data.content = content.split(thumb)[1]
-  } else {
-    data.content = content
   }
-  data._content = content
+  data.content = marked(content)
   return data
 }
 

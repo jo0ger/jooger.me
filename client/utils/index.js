@@ -7,4 +7,3 @@
 export * from './tool'
 export * from './scrollTo'
 export * from './ua'
-export { default as marked } from './marked'

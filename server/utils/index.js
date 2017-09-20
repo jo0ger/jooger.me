@@ -6,7 +6,9 @@
 
 import axios from 'axios'
 import simpleNodeLogger from 'simple-node-logger'
-import config from '../config'
+import config from '../../config'
+
+export { default as marked } from './marked'
 
 const timestampFormat = 'YYYY-MM-DD HH:mm:ss'
 
@@ -18,8 +20,8 @@ export const logger = (process.env.NODE_ENV === 'production' && process.env.log)
     logDirectory: './logs',
     fileNamePattern: '<DATE>.log'
   })
-  : new simpleNodeLogger.createSimpleLogger({
-    timestampFormat,
+  : simpleNodeLogger.createSimpleLogger({
+    timestampFormat
   })
 
 export async function handleRequest ({ ctx, type, next }) {
