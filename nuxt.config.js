@@ -36,10 +36,11 @@ module.exports = {
     { src: '~assets/stylus/index.styl', lang: 'stylus' }
   ],
   loading: '~/components/Common/PageLoading',
-  // loading: { color: '#2196f3' },
   build: {
+    analyze: true,
     vendor: [
       'axios',
+      'swiper',
       'bezier-easing',
       'highlight.js',
       'marked'
@@ -55,9 +56,9 @@ module.exports = {
   ],
   router: {
     linkActiveClass: 'active'
+  },
+  transition: {
+    name: 'fade',
+    mode: 'out-in'
   }
-  // transition: {
-  //   name: 'fade',
-  //   mode: 'out-in'
-  // }
 }
