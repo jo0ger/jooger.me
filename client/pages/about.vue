@@ -107,6 +107,18 @@
       max-width 60%
       margin 0 auto 80px
 
+      @media (max-width: 1366px) and (min-width: 769px) {
+        max-width 70%
+      }
+
+      @media (max-width: 768px) and (min-width: 480px) {
+        max-width 80%
+      }
+
+      @media (max-width: 479px) {
+        max-width 90%
+      }
+
       hr {
         display block
         height 2px
@@ -157,6 +169,7 @@
             }
 
             .per {
+              line-height 1
               opacity 0
               transform translate(-50%, -50%) scale(0)
             }
@@ -172,6 +185,33 @@
               .per {
                 opacity 1
                 transform translate(-50%, -50%) scale(1)
+              }
+            }
+
+            @media (max-width: 1366px) and (min-width: 769px) {
+              width 80px
+              height @width
+              margin 0 15px
+              .icon {
+                font-size 1.8rem
+              }
+            }
+
+            @media (max-width: 768px) and (min-width: 480px) {
+              width 65px
+              height @width
+              margin 0 10px
+              .icon {
+                font-size 1.6rem
+              }
+            }
+
+            @media (max-width: 479px) {
+              width 50px
+              height @width
+              margin 0 5px
+              .icon {
+                font-size 1.4rem
               }
             }
           }

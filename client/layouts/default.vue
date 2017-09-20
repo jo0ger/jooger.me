@@ -43,7 +43,7 @@
       const lightPage = ['blog'].find(item => this.$route.name.includes(item))
       return {
         bodyAttrs: {
-          class: classes + lightPage || ''
+          class: classes + ' ' + lightPage || ''
         }
       }
     },
@@ -65,7 +65,7 @@
         return {
           position: this.isAboutPage ? 'static' : 'relative',
           marginTop: this.isHomePage ? '60vh' : 0,
-          paddingTop: this.isAboutPage ? '100vh' : 0
+          paddingTop: this.isAboutPage ? '100vh' : (this.mobileLayout ? '70px' : '100px')
         }
       },
       bannerContentStyle () {
@@ -92,6 +92,7 @@
 
       .wrapper {
         width 100%
+        padding 0 100px
 
         @media (max-width: 1366px) and (min-width: 769px) {
           padding 0 65px
@@ -102,7 +103,7 @@
         }
 
         @media (max-width: 479px) {
-          padding 0 30px
+          padding 0 15px
         }
 
         .page-content {

@@ -58,6 +58,10 @@
     bottom 50px
     z-index 100
 
+    @media (max-width: 1366px) {
+      display none
+    }
+
     .wrapper {
       position relative
       .tool-list {
@@ -140,7 +144,7 @@
               }
             }
           }
-          
+
         }
       }
     }
