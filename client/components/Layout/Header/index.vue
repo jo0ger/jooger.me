@@ -127,11 +127,9 @@
       width 100%
       max-width $content-max-width
       margin 0 auto
+      padding 0 100px
       z-index 1
 
-      @media (max-width: 1640px) {
-        padding 0 100px
-      }
 
       @media (max-width: 1366px) and (min-width: 769px) {
         padding 0 65px

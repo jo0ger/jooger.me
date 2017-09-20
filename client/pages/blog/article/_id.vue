@@ -120,7 +120,7 @@
   @import '~assets/stylus/_mixin'
 
   .blog-article-page {
-    margin 0 5% 5% 5%
+    margin 0
     transition all .3s $ease
 
     .article-pane
@@ -129,6 +129,18 @@
       border-radius 10px
       background $white
       box-shadow 0 10px 40px -15px alpha($black, .05)
+
+      @media (max-width: 1366px) and (min-width: 769px) {
+        padding 65px
+      }
+
+      @media (max-width: 768px) and (min-width: 480px) {
+        padding 40px
+      }
+
+      @media (max-width: 479px) {
+        padding 25px
+      }
     }
 
     .article-pane {

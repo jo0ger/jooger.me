@@ -51,3 +51,46 @@
 <style lang="stylus" scoped>
 
 </style>
+
+<style lang="stylus">
+  @import '~assets/stylus/_var'
+  @import '~assets/stylus/_mixin'
+
+  .gt-container {
+
+    .gt-avatar {
+      border-radius 3px
+      overflow hidden
+
+      img {
+        transition all .5s $ease
+        &:hover {
+          transform scale(1.2)
+        }
+      }
+    }
+
+    .gt-comment-content {
+      background-color $grey2 !important
+
+      .markdown-body {
+        -webkit-text-size-adjust 100%
+        text-size-adjust 100%
+        font-family $font-family-markdown
+        font-weight 300
+        word-wrap break-word
+      }
+    }
+
+    .gt-btn {
+      background $blue
+    }
+
+    .gt-svg {
+      svg {
+        fill $blue
+      }
+    }
+  }
+
+</style>
