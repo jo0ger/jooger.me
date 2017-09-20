@@ -37,7 +37,7 @@ module.exports = {
   ],
   loading: '~/components/Common/PageLoading',
   build: {
-    analyze: true,
+    analyze: false,
     vendor: [
       'axios',
       'swiper',
