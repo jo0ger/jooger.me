@@ -5,7 +5,7 @@
  */
 
 import config from '../config'
-import { articleController, userController } from './controllers'
+import { articleController, userController, hookController, optionController } from './controllers'
 
 export default router => {
   router.use('*', (ctx, next) => {
@@ -30,9 +30,13 @@ export default router => {
     return next()
   })
 
+  router.all('/webhook/option', hookController.option)
+
   router.all('article-list', '/articles', articleController.list)
   router.all('article-detail', '/article/:number', articleController.item)
   router.all('article-like', '/article/:number/like', articleController.like)
 
   router.all('user-me', '/user/me', userController.me)
+
+  router.all('option', '/option', optionController)
 }

@@ -11,6 +11,10 @@ import config from '../../config'
 
 export { default as marked } from './marked'
 
+export { default as exec } from './exec'
+
+export { default as loadOption } from './loadOption'
+
 const timestampFormat = 'YYYY-MM-DD HH:mm:ss'
 
 export const fetcher = axios.create(config.server.service)

@@ -4,7 +4,6 @@
  * @date 19 Sep 2017
  */
 
-// const isProd = process.env.NODE_ENV === 'production'
 const baseService = {
   url: '/',
   method: 'get',
@@ -28,12 +27,17 @@ export default {
       owner: 'jo0ger',
       repo: 'git-hook-test',
       clientId: 'b4983366c4c7549a09f1',
-      clientSecret: '76fd8c26a21659d7eb925af0ed3498eabed49277'
+      clientSecret: '76fd8c26a21659d7eb925af0ed3498eabed49277',
+      repoLocalDir: '../posts'
+    },
+    command: {
+      PULL: 'git pull ',
+      ADD: 'git add . ',
+      COMMIT: 'git commit -m "update" ',
+      PUSH: 'git push '
     }
   },
   client: {
-    title: '离人回首，灯火阑珊',
-    subtitle: '欢迎访问我的个人网站',
     service: Object.assign({}, baseService, {
       baseURL: '/api',
       proxy: {

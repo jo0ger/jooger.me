@@ -6,3 +6,5 @@
 
 export { default as articleController } from './article'
 export { default as userController } from './user'
+export { default as hookController } from './hook'
+export { default as optionController } from './option'

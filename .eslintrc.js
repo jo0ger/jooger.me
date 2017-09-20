@@ -14,5 +14,7 @@ module.exports = {
   rules: {
     strict: [0, "global"]
   },
-  globals: {}
+  globals: {
+    logger: true
+  }
 }

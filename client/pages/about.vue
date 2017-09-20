@@ -53,17 +53,6 @@
         </li>
       </ul>
     </div>
-    <div class="block">
-      <h3>Contact</h3>
-      <hr>
-      <ul class="contact-list">
-        <li class="contact-item" v-for="item in contacts" :key="item.title">
-          <a class="info" :href="item.url" target="_blank">
-            <i class="icon iconfont" :class="[`icon-${item.icon}`]"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
   </section>
 </template>
 
@@ -107,13 +96,6 @@
       ...mapGetters({
         me: 'me/me'
       })
-    },
-    created () {
-      this._originSubtitle = this.option.subtitle
-      this.option.subtitle = 'ABOUT ME'
-    },
-    beforeDestroy () {
-      this.option.subtitle = this._originSubtitle
     },
     methods: {
       getSkillWaveStyle ({ per }) {
