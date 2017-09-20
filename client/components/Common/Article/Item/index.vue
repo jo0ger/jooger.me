@@ -88,7 +88,7 @@
           display inline
           line-height 1.8
           margin 5px auto 0
-          font-size .875rem
+          font-size 1rem
         }
       }
       &:hover {

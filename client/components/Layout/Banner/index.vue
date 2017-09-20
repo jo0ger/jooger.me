@@ -73,6 +73,9 @@
     mounted () {
       this.init()
     },
+    updated () {
+      this.triggerResize()
+    },
     beforeDestroy () {
       if (this._timer) {
         clearTimeout(this._timer)

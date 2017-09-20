@@ -53,14 +53,14 @@
       ]
       return {
         menus,
-        showMenu: false,
         keyword: ''
       }
     },
     computed: {
       ...mapGetters({
         articleListFetching: 'article/listFetching',
-        showSearch: 'app/showSearch'
+        showSearch: 'app/showSearch',
+        showMenu: 'app/showMenu'
       }),
       isBlogPage () {
         return this.$route.name.includes('blog')
@@ -72,14 +72,14 @@
         this.$store.commit('app/SET_OVERLAY', this.showSearch)
       },
       handleToggleMenu () {
-        this.showMenu = !this.showMenu
+        this.$store.commit('app/SET_MENU', !this.showMenu)
         if (this.showMenu) {
           this.setSearch(false)
         }
       },
       handleGo ({ path }) {
         this.$router.push(path)
-        this.showMenu = false
+        this.$store.commit('app/SET_MENU', false)
       },
       handleToggleSearch () {
         this.setSearch(!this.showSearch)
@@ -299,10 +299,8 @@
         position relative
         width 100%
         max-width $content-max-width
-
-        @media (max-width: 1640px) {
-          padding 0 100px
-        }
+        margin 0 auto
+        padding 0 100px
 
         @media (max-width: 1366px) and (min-width: 769px) {
           padding 0 65px
@@ -330,12 +328,24 @@
 
         .close {
           position absolute
-          right 75px
+          right 100px
           bottom 10px
           width 20px
           height @width
           cursor pointer
           transform translateY(-50%)
+
+          @media (max-width: 1366px) and (min-width: 769px) {
+            right 65px
+          }
+
+          @media (max-width: 768px) and (min-width: 480px) {
+            right 40px
+          }
+
+          @media (max-width: 479px) {
+            right 30px
+          }
 
           &::before
           &::after {

@@ -40,12 +40,6 @@
         pagination: 'article/pagination'
       })
     },
-    mounted () {
-      console.log(this)
-    },
-    beforeDestroy () {
-      // this.$store.commit('article/CLEAR_LIST')
-    },
     methods: {
       handleTurnPage (delta, ok) {
         if (!ok) {
