@@ -5,9 +5,10 @@ import { Nuxt, Builder } from 'nuxt'
 import routes from './routes'
 import config from '../config'
 import nuxtConfig from '../nuxt.config'
-import { logger } from './utils'
+import { logger, loadOption } from './utils'
 
 global.logger = logger
+global.option = loadOption() || {}
 
 const app = new Koa()
 const host = process.env.HOST || '127.0.0.1'
@@ -44,6 +45,7 @@ app.use(respond({
     }
   }
 }))
+
 app.use((ctx, next) => {
   if (ctx.url.includes('/api')) {
     return next()

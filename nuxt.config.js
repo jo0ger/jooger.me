@@ -47,7 +47,6 @@ module.exports = {
     ]
   },
   plugins: [
-    { src: '~plugins/option.js' },
     { src: '~plugins/router.js' },
     { src: '~plugins/filter.js' },
     { src: '~plugins/swiper.js', ssr: false },

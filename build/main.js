@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 32);
+/******/ 	return __webpack_require__(__webpack_require__.s = 40);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -79,7 +79,6 @@ module.exports =
  * @date 19 Sep 2017
  */
 
-// const isProd = process.env.NODE_ENV === 'production'
 var baseService = {
   url: '/',
   method: 'get',
@@ -103,12 +102,17 @@ var baseService = {
       owner: 'jo0ger',
       repo: 'git-hook-test',
       clientId: 'b4983366c4c7549a09f1',
-      clientSecret: '76fd8c26a21659d7eb925af0ed3498eabed49277'
+      clientSecret: '76fd8c26a21659d7eb925af0ed3498eabed49277',
+      repoLocalDir: '../posts'
+    },
+    command: {
+      PULL: 'git pull ',
+      ADD: 'git add . ',
+      COMMIT: 'git commit -m "update" ',
+      PUSH: 'git push '
     }
   },
   client: {
-    title: '离人回首，灯火阑珊',
-    subtitle: '欢迎访问我的个人网站',
     service: Object.assign({}, baseService, {
       baseURL: '/api',
       proxy: {
@@ -132,20 +136,24 @@ var baseService = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_simple_node_logger__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_simple_node_logger__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_simple_node_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_simple_node_logger__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__marked__ = __webpack_require__(12);
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "f", function() { return __WEBPACK_IMPORTED_MODULE_5__marked__["a"]; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return fetcher; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__marked__ = __webpack_require__(18);
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "h", function() { return __WEBPACK_IMPORTED_MODULE_5__marked__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "e", function() { return __WEBPACK_IMPORTED_MODULE_6__exec__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__exec__ = __webpack_require__(16);
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_7__loadOption__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__loadOption__ = __webpack_require__(17);
+/* harmony export (binding) */ __webpack_require__.d(exports, "g", function() { return fetcher; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return logger; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "e", function() { return handleRequest; });
-/* harmony export (immutable) */ exports["d"] = handleSuccess;
-/* harmony export (immutable) */ exports["c"] = handleError;
+/* harmony export (binding) */ __webpack_require__.d(exports, "d", function() { return handleRequest; });
+/* harmony export (immutable) */ exports["c"] = handleSuccess;
+/* harmony export (immutable) */ exports["f"] = handleError;
 
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -155,6 +163,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
  * @author Jooger <zzy1198258955@163.com>
  * @date 19 Sep 2017
  */
+
+
+
+
 
 
 
@@ -250,11 +262,23 @@ function handleError(_ref4) {
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(30);
+module.exports = __webpack_require__(38);
 
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+module.exports = require("path");
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+module.exports = require("fs");
+
+/***/ },
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 var isProd = "development" === 'production';
@@ -278,7 +302,7 @@ module.exports = {
     analyze: false,
     vendor: ['axios', 'swiper', 'bezier-easing', 'highlight.js', 'marked']
   },
-  plugins: [{ src: '~plugins/option.js' }, { src: '~plugins/router.js' }, { src: '~plugins/filter.js' }, { src: '~plugins/swiper.js', ssr: false }, { src: '~plugins/image-load.js', ssr: false }, { src: '~plugins/image-popup.js', ssr: false }],
+  plugins: [{ src: '~plugins/router.js' }, { src: '~plugins/filter.js' }, { src: '~plugins/swiper.js', ssr: false }, { src: '~plugins/image-load.js', ssr: false }, { src: '~plugins/image-popup.js', ssr: false }],
   router: {
     linkActiveClass: 'active'
   },
@@ -289,12 +313,12 @@ module.exports = {
 };
 
 /***/ },
-/* 4 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__controllers__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__controllers__ = __webpack_require__(13);
 /**
  * @desc server routes
  * @author Jooger <zzy1198258955@163.com>
@@ -329,39 +353,43 @@ module.exports = {
     return next();
   });
 
-  router.all('article-list', '/articles', __WEBPACK_IMPORTED_MODULE_1__controllers__["a" /* articleController */].list);
-  router.all('article-detail', '/article/:number', __WEBPACK_IMPORTED_MODULE_1__controllers__["a" /* articleController */].item);
-  router.all('article-like', '/article/:number/like', __WEBPACK_IMPORTED_MODULE_1__controllers__["a" /* articleController */].like);
+  router.all('/webhook/option', __WEBPACK_IMPORTED_MODULE_1__controllers__["a" /* hookController */].option);
 
-  router.all('user-me', '/user/me', __WEBPACK_IMPORTED_MODULE_1__controllers__["b" /* userController */].me);
+  router.all('article-list', '/articles', __WEBPACK_IMPORTED_MODULE_1__controllers__["b" /* articleController */].list);
+  router.all('article-detail', '/article/:number', __WEBPACK_IMPORTED_MODULE_1__controllers__["b" /* articleController */].item);
+  router.all('article-like', '/article/:number/like', __WEBPACK_IMPORTED_MODULE_1__controllers__["b" /* articleController */].like);
+
+  router.all('user-me', '/user/me', __WEBPACK_IMPORTED_MODULE_1__controllers__["c" /* userController */].me);
+
+  router.all('option', '/option', __WEBPACK_IMPORTED_MODULE_1__controllers__["d" /* optionController */]);
 };
-
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
-
-module.exports = require("koa");
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-module.exports = require("koa-respond");
 
 /***/ },
 /* 7 */
 /***/ function(module, exports) {
 
-module.exports = require("koa-router");
+module.exports = require("koa");
 
 /***/ },
 /* 8 */
 /***/ function(module, exports) {
 
-module.exports = require("nuxt");
+module.exports = require("koa-respond");
 
 /***/ },
 /* 9 */
+/***/ function(module, exports) {
+
+module.exports = require("koa-router");
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+module.exports = require("nuxt");
+
+/***/ },
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -413,7 +441,7 @@ articleCtrl.list.GET = function () {
 
             q = search + ' type:issue is:public state:open in:title,body author:' + owner + ' repo:' + owner + '/' + repo;
             _context.next = 6;
-            return __WEBPACK_IMPORTED_MODULE_2__utils__["b" /* fetcher */].get('/search/issues', {
+            return __WEBPACK_IMPORTED_MODULE_2__utils__["g" /* fetcher */].get('/search/issues', {
               params: {
                 q: q,
                 sort: 'created',
@@ -424,7 +452,7 @@ articleCtrl.list.GET = function () {
                 per_page: per_page
               }
             }).catch(function (err) {
-              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx, err: err });
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["f" /* handleError */])({ ctx: ctx, err: err });
             });
 
           case 6:
@@ -440,7 +468,7 @@ articleCtrl.list.GET = function () {
                 return item;
               }) : [];
 
-              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["d" /* handleSuccess */])({
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleSuccess */])({
                 ctx: ctx,
                 data: {
                   list: articles,
@@ -468,8 +496,8 @@ articleCtrl.list.GET = function () {
               params.labels = labels;
             }
             _context.next = 14;
-            return __WEBPACK_IMPORTED_MODULE_2__utils__["b" /* fetcher */].get('/repos/' + owner + '/' + repo + '/issues', { params: params }).catch(function (err) {
-              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx, err: err });
+            return __WEBPACK_IMPORTED_MODULE_2__utils__["g" /* fetcher */].get('/repos/' + owner + '/' + repo + '/issues', { params: params }).catch(function (err) {
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["f" /* handleError */])({ ctx: ctx, err: err });
             });
 
           case 14:
@@ -485,7 +513,7 @@ articleCtrl.list.GET = function () {
               });
               // ctx.response.set('Accept', 'application/vnd.github.squirrel-girl-preview')
 
-              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["d" /* handleSuccess */])({
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleSuccess */])({
                 ctx: ctx,
                 data: {
                   list: _articles,
@@ -497,7 +525,7 @@ articleCtrl.list.GET = function () {
           case 16:
 
             if (!res) {
-              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx });
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["f" /* handleError */])({ ctx: ctx });
             }
 
           case 17:
@@ -522,7 +550,7 @@ articleCtrl.item.GET = function () {
           case 0:
             number = ctx.params.number;
             _context2.next = 3;
-            return __WEBPACK_IMPORTED_MODULE_2__utils__["b" /* fetcher */].get('/repos/' + owner + '/' + repo + '/issues/' + number, {
+            return __WEBPACK_IMPORTED_MODULE_2__utils__["g" /* fetcher */].get('/repos/' + owner + '/' + repo + '/issues/' + number, {
               headers: {
                 Accept: 'application/vnd.github.squirrel-girl-preview'
               },
@@ -531,7 +559,7 @@ articleCtrl.item.GET = function () {
                 client_secret: clientSecret
               }
             }).catch(function (err) {
-              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx, err: err });
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["f" /* handleError */])({ ctx: ctx, err: err });
             });
 
           case 3:
@@ -541,12 +569,12 @@ articleCtrl.item.GET = function () {
               detail = res.data;
 
               detail.body = articleParser(detail.body);
-              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["d" /* handleSuccess */])({
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleSuccess */])({
                 ctx: ctx,
                 data: detail
               });
             } else {
-              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx });
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["f" /* handleError */])({ ctx: ctx });
             }
 
           case 5:
@@ -571,7 +599,7 @@ articleCtrl.like.GET = function () {
           case 0:
             number = ctx.params.number;
             _context3.next = 3;
-            return __WEBPACK_IMPORTED_MODULE_2__utils__["b" /* fetcher */].get('/repos/' + owner + '/' + repo + '/issues/' + number + '/reactions', {
+            return __WEBPACK_IMPORTED_MODULE_2__utils__["g" /* fetcher */].get('/repos/' + owner + '/' + repo + '/issues/' + number + '/reactions', {
               headers: {
                 Accept: 'application/vnd.github.squirrel-girl-preview'
               },
@@ -582,7 +610,7 @@ articleCtrl.like.GET = function () {
                 client_secret: clientSecret
               }
             }).catch(function (err) {
-              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx, err: err });
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["f" /* handleError */])({ ctx: ctx, err: err });
             });
 
           case 3:
@@ -590,7 +618,7 @@ articleCtrl.like.GET = function () {
 
 
             if (res && res.data) {
-              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["d" /* handleSuccess */])({
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleSuccess */])({
                 ctx: ctx,
                 data: {
                   list: res.data,
@@ -600,7 +628,7 @@ articleCtrl.like.GET = function () {
                 }
               });
             } else {
-              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx });
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["f" /* handleError */])({ ctx: ctx });
             }
 
           case 5:
@@ -625,7 +653,7 @@ articleCtrl.like.POST = function () {
           case 0:
             number = ctx.params.number;
             _context4.next = 3;
-            return __WEBPACK_IMPORTED_MODULE_2__utils__["b" /* fetcher */].post('/repos/' + owner + '/' + repo + '/issues/' + number + '/reactions', {
+            return __WEBPACK_IMPORTED_MODULE_2__utils__["g" /* fetcher */].post('/repos/' + owner + '/' + repo + '/issues/' + number + '/reactions', {
               content: 'heart',
               client_id: clientId,
               client_secret: clientSecret
@@ -638,7 +666,7 @@ articleCtrl.like.POST = function () {
                 client_secret: clientSecret
               }
             }).catch(function (err) {
-              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx, err: err });
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["f" /* handleError */])({ ctx: ctx, err: err });
             });
 
           case 3:
@@ -646,9 +674,9 @@ articleCtrl.like.POST = function () {
 
 
             if (res && res.data) {
-              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["d" /* handleSuccess */])({ ctx: ctx });
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleSuccess */])({ ctx: ctx });
             } else {
-              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx });
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["f" /* handleError */])({ ctx: ctx });
             }
 
           case 5:
@@ -672,7 +700,7 @@ function articleParser(content) {
   if (cap) {
     data.thumb = cap[2];
   }
-  data.content = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["f" /* marked */])(content);
+  data.content = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["h" /* marked */])(content);
   return data;
 }
 
@@ -684,7 +712,7 @@ function articleParser(content) {
           switch (_context5.prev = _context5.next) {
             case 0:
               _context5.next = 2;
-              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["e" /* handleRequest */])({ ctx: ctx, next: next, type: articleCtrl.list });
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["d" /* handleRequest */])({ ctx: ctx, next: next, type: articleCtrl.list });
 
             case 2:
             case 'end':
@@ -707,7 +735,7 @@ function articleParser(content) {
           switch (_context6.prev = _context6.next) {
             case 0:
               _context6.next = 2;
-              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["e" /* handleRequest */])({ ctx: ctx, next: next, type: articleCtrl.item });
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["d" /* handleRequest */])({ ctx: ctx, next: next, type: articleCtrl.item });
 
             case 2:
             case 'end':
@@ -730,7 +758,7 @@ function articleParser(content) {
           switch (_context7.prev = _context7.next) {
             case 0:
               _context7.next = 2;
-              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["e" /* handleRequest */])({ ctx: ctx, next: next, type: articleCtrl.like });
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["d" /* handleRequest */])({ ctx: ctx, next: next, type: articleCtrl.like });
 
             case 2:
             case 'end':
@@ -749,14 +777,172 @@ function articleParser(content) {
 };
 
 /***/ },
-/* 10 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__article__ = __webpack_require__(9);
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__article__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user__ = __webpack_require__(11);
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__user__["a"]; });
+/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_fs__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_fs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(1);
+
+
+var _this = this;
+
+// 拉取仓库
+var pullRepo = function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(dir) {
+    var PULL;
+    return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            if (!__WEBPACK_IMPORTED_MODULE_2_fs___default.a.existsSync(dir)) {
+              __WEBPACK_IMPORTED_MODULE_2_fs___default.a.mkdirSync(dir);
+            }
+
+            PULL = command.PULL;
+
+            logger.info('正在拉取仓库...');
+            _context2.next = 5;
+            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils__["e" /* exec */])(PULL, { cwd: dir }).catch(function (err) {
+              return console.error(err);
+            });
+
+          case 5:
+            logger.info('拉取仓库完成');
+
+          case 6:
+          case 'end':
+            return _context2.stop();
+        }
+      }
+    }, _callee2, this);
+  }));
+
+  return function pullRepo(_x3) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+/**
+ * @desc Github Webhook controller
+ * @author Jooger <zzy1198258955@163.com>
+ * @date 20 Sep 2017
+ */
+
+
+
+
+
+
+var _config$common = __WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].common,
+    github = _config$common.github,
+    command = _config$common.command;
+var repoLocalDir = github.repoLocalDir;
+
+var hookCtrl = {
+  option: {}
+};
+
+hookCtrl.option.POST = function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
+    var payload, option;
+    return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            payload = ctx.request.body.payload;
+
+            if (payload) {
+              _context.next = 3;
+              break;
+            }
+
+            return _context.abrupt('return', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils__["f" /* handleError */])({
+              ctx: ctx,
+              message: 'payload不存在'
+            }));
+
+          case 3:
+
+            logger.info('----------------------option hook push start----------------------------');
+
+            _context.next = 6;
+            return pullRepo(__WEBPACK_IMPORTED_MODULE_1_path___default.a.resolve(__dirname, '../../', repoLocalDir));
+
+          case 6:
+            option = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils__["b" /* loadOption */])();
+
+
+            if (option) {
+              global.option = option;
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils__["c" /* handleSuccess */])({ ctx: ctx, message: '配置更新成功' });
+            } else {
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils__["f" /* handleError */])({ ctx: ctx, message: '配置更新失败' });
+            }
+
+            logger.info('----------------------option hook push end----------------------------');
+
+          case 9:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, _this);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+/* harmony default export */ exports["a"] = {
+  option: function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(ctx, next) {
+      return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils__["d" /* handleRequest */])({ ctx: ctx, next: next, type: hookCtrl.option });
+
+            case 2:
+            case 'end':
+              return _context3.stop();
+          }
+        }
+      }, _callee3, _this);
+    }));
+
+    function option(_x4, _x5) {
+      return _ref3.apply(this, arguments);
+    }
+
+    return option;
+  }()
+};
+/* WEBPACK VAR INJECTION */}.call(exports, "server/controllers"))
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__article__ = __webpack_require__(11);
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__article__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user__ = __webpack_require__(15);
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__user__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__hook__ = __webpack_require__(12);
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__hook__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__option__ = __webpack_require__(14);
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "d", function() { return __WEBPACK_IMPORTED_MODULE_3__option__["a"]; });
 /**
  * @desc Controllers entry
  * @author Jooger <zzy1198258955@163.com>
@@ -766,8 +952,79 @@ function articleParser(content) {
 
 
 
+
+
 /***/ },
-/* 11 */
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(1);
+
+
+var _this = this;
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+/**
+ * @desc Option
+ * @author Jooger <zzy1198258955@163.com>
+ * @date 20 Sep 2017
+ */
+
+
+var optionCtrl = {};
+
+optionCtrl.GET = function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
+    return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils__["c" /* handleSuccess */])({
+              ctx: ctx,
+              data: global.option || {}
+            });
+
+          case 1:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, _this);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+/* harmony default export */ exports["a"] = (function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(ctx, next) {
+    return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils__["d" /* handleRequest */])({ ctx: ctx, next: next, type: optionCtrl });
+
+          case 2:
+          case 'end':
+            return _context2.stop();
+        }
+      }
+    }, _callee2, _this);
+  }));
+
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+})();
+
+/***/ },
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -804,13 +1061,13 @@ userCtrl.me.GET = function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return __WEBPACK_IMPORTED_MODULE_2__utils__["b" /* fetcher */].get('/users/' + owner, {
+            return __WEBPACK_IMPORTED_MODULE_2__utils__["g" /* fetcher */].get('/users/' + owner, {
               params: {
                 client_id: clientId,
                 client_secret: clientSecret
               }
             }).catch(function (err) {
-              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx, err: err });
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["f" /* handleError */])({ ctx: ctx, err: err });
             });
 
           case 2:
@@ -818,12 +1075,12 @@ userCtrl.me.GET = function () {
 
 
             if (res && res.data) {
-              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["d" /* handleSuccess */])({
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleSuccess */])({
                 ctx: ctx,
                 data: res.data
               });
             } else {
-              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["c" /* handleError */])({ ctx: ctx });
+              __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["f" /* handleError */])({ ctx: ctx });
             }
 
           case 4:
@@ -847,7 +1104,7 @@ userCtrl.me.GET = function () {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["e" /* handleRequest */])({ ctx: ctx, next: next, type: userCtrl.me });
+              return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__utils__["d" /* handleRequest */])({ ctx: ctx, next: next, type: userCtrl.me });
 
             case 2:
             case 'end':
@@ -866,13 +1123,88 @@ userCtrl.me.GET = function () {
 };
 
 /***/ },
-/* 12 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_highlight_js__ = __webpack_require__(14);
+/**
+ * @desc 利用Node原生异步子进程执行命令
+ * @author Jooger <zzy1198258955@163.com>
+ * @date 20 Sep 2017
+ */
+
+var _require = __webpack_require__(20),
+    exec = _require.exec;
+
+/* harmony default export */ exports["a"] = function (cmd, opts) {
+  return new Promise(function (resolve, reject) {
+    if (!cmd) {
+      return reject(new Error('command is required'));
+    }
+    exec(cmd, opts, function (err, stdout, stderr) {
+      if (err) {
+        return reject(err);
+      }
+      console.log(stdout, stderr);
+      resolve(stdout, stderr);
+    });
+  });
+};
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_path__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fs__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_fs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_js_yaml__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_js_yaml___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_js_yaml__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(0);
+/**
+ * @desc Load Option
+ * @author Jooger <zzy1198258955@163.com>
+ * @date 21 Sep 2017
+ */
+
+
+
+
+
+
+/* harmony default export */ exports["a"] = function () {
+  var dir = __WEBPACK_IMPORTED_MODULE_0_path___default.a.resolve(__dirname, '../../', __WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].common.github.repoLocalDir);
+  var optionFile = __WEBPACK_IMPORTED_MODULE_0_path___default.a.join(dir, './_config.yml');
+
+  var option = null;
+
+  if (!__WEBPACK_IMPORTED_MODULE_1_fs___default.a.existsSync(optionFile)) {
+    logger.info('配置文件未找到');
+    return option;
+  }
+
+  try {
+    option = __WEBPACK_IMPORTED_MODULE_2_js_yaml___default.a.safeLoad(__WEBPACK_IMPORTED_MODULE_1_fs___default.a.readFileSync(optionFile, 'utf8'));
+  } catch (err) {
+    logger.info('配置文件读取失败, err：', err);
+    return option;
+  }
+
+  logger.info('配置文件读取成功');
+  return option;
+};
+/* WEBPACK VAR INJECTION */}.call(exports, "server/utils"))
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_highlight_js__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_highlight_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_highlight_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_marked__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_marked__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_marked___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_marked__);
 /**
  *  渲染markdown
@@ -882,20 +1214,20 @@ userCtrl.me.GET = function () {
 
 
 var languages = ['xml', 'bash', 'css', 'markdown', 'http', 'java', 'javascript', 'json', 'makefile', 'nginx', 'python', 'scss', 'sql', 'stylus'];
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('xml', __webpack_require__(28));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('bash', __webpack_require__(15));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('css', __webpack_require__(16));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('markdown', __webpack_require__(22));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('http', __webpack_require__(17));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('java', __webpack_require__(18));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('javascript', __webpack_require__(19));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('json', __webpack_require__(20));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('makefile', __webpack_require__(21));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('nginx', __webpack_require__(23));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('python', __webpack_require__(24));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('scss', __webpack_require__(25));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('sql', __webpack_require__(26));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('stylus', __webpack_require__(27));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('xml', __webpack_require__(35));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('bash', __webpack_require__(22));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('css', __webpack_require__(23));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('markdown', __webpack_require__(29));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('http', __webpack_require__(24));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('java', __webpack_require__(25));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('javascript', __webpack_require__(26));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('json', __webpack_require__(27));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('makefile', __webpack_require__(28));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('nginx', __webpack_require__(30));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('python', __webpack_require__(31));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('scss', __webpack_require__(32));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('sql', __webpack_require__(33));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('stylus', __webpack_require__(34));
 __WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.configure({
   classPrefix: '' // don't append class prefix
 });
@@ -971,136 +1303,148 @@ function escape(html, encode) {
 /* harmony default export */ exports["a"] = __WEBPACK_IMPORTED_MODULE_1_marked___default.a;
 
 /***/ },
-/* 13 */
+/* 19 */
 /***/ function(module, exports) {
 
 module.exports = require("axios");
 
 /***/ },
-/* 14 */
-/***/ function(module, exports) {
-
-module.exports = require("highlight.js");
-
-/***/ },
-/* 15 */
-/***/ function(module, exports) {
-
-module.exports = require("highlight.js/lib/languages/bash");
-
-/***/ },
-/* 16 */
-/***/ function(module, exports) {
-
-module.exports = require("highlight.js/lib/languages/css");
-
-/***/ },
-/* 17 */
-/***/ function(module, exports) {
-
-module.exports = require("highlight.js/lib/languages/http");
-
-/***/ },
-/* 18 */
-/***/ function(module, exports) {
-
-module.exports = require("highlight.js/lib/languages/java");
-
-/***/ },
-/* 19 */
-/***/ function(module, exports) {
-
-module.exports = require("highlight.js/lib/languages/javascript");
-
-/***/ },
 /* 20 */
 /***/ function(module, exports) {
 
-module.exports = require("highlight.js/lib/languages/json");
+module.exports = require("child_process");
 
 /***/ },
 /* 21 */
 /***/ function(module, exports) {
 
-module.exports = require("highlight.js/lib/languages/makefile");
+module.exports = require("highlight.js");
 
 /***/ },
 /* 22 */
 /***/ function(module, exports) {
 
-module.exports = require("highlight.js/lib/languages/markdown");
+module.exports = require("highlight.js/lib/languages/bash");
 
 /***/ },
 /* 23 */
 /***/ function(module, exports) {
 
-module.exports = require("highlight.js/lib/languages/nginx");
+module.exports = require("highlight.js/lib/languages/css");
 
 /***/ },
 /* 24 */
 /***/ function(module, exports) {
 
-module.exports = require("highlight.js/lib/languages/python");
+module.exports = require("highlight.js/lib/languages/http");
 
 /***/ },
 /* 25 */
 /***/ function(module, exports) {
 
-module.exports = require("highlight.js/lib/languages/scss");
+module.exports = require("highlight.js/lib/languages/java");
 
 /***/ },
 /* 26 */
 /***/ function(module, exports) {
 
-module.exports = require("highlight.js/lib/languages/sql");
+module.exports = require("highlight.js/lib/languages/javascript");
 
 /***/ },
 /* 27 */
 /***/ function(module, exports) {
 
-module.exports = require("highlight.js/lib/languages/stylus");
+module.exports = require("highlight.js/lib/languages/json");
 
 /***/ },
 /* 28 */
 /***/ function(module, exports) {
 
-module.exports = require("highlight.js/lib/languages/xml");
+module.exports = require("highlight.js/lib/languages/makefile");
 
 /***/ },
 /* 29 */
 /***/ function(module, exports) {
 
-module.exports = require("marked");
+module.exports = require("highlight.js/lib/languages/markdown");
 
 /***/ },
 /* 30 */
 /***/ function(module, exports) {
 
-module.exports = require("regenerator-runtime");
+module.exports = require("highlight.js/lib/languages/nginx");
 
 /***/ },
 /* 31 */
 /***/ function(module, exports) {
 
-module.exports = require("simple-node-logger");
+module.exports = require("highlight.js/lib/languages/python");
 
 /***/ },
 /* 32 */
+/***/ function(module, exports) {
+
+module.exports = require("highlight.js/lib/languages/scss");
+
+/***/ },
+/* 33 */
+/***/ function(module, exports) {
+
+module.exports = require("highlight.js/lib/languages/sql");
+
+/***/ },
+/* 34 */
+/***/ function(module, exports) {
+
+module.exports = require("highlight.js/lib/languages/stylus");
+
+/***/ },
+/* 35 */
+/***/ function(module, exports) {
+
+module.exports = require("highlight.js/lib/languages/xml");
+
+/***/ },
+/* 36 */
+/***/ function(module, exports) {
+
+module.exports = require("js-yaml");
+
+/***/ },
+/* 37 */
+/***/ function(module, exports) {
+
+module.exports = require("marked");
+
+/***/ },
+/* 38 */
+/***/ function(module, exports) {
+
+module.exports = require("regenerator-runtime");
+
+/***/ },
+/* 39 */
+/***/ function(module, exports) {
+
+module.exports = require("simple-node-logger");
+
+/***/ },
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa_router__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_respond__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_respond__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_respond___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_koa_respond__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_nuxt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__nuxt_config__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__nuxt_config__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__nuxt_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__nuxt_config__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils__ = __webpack_require__(1);
 
@@ -1113,6 +1457,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 
 global.logger = __WEBPACK_IMPORTED_MODULE_7__utils__["a" /* logger */];
+global.option = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["b" /* loadOption */])() || {};
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_koa___default.a();
 var host = process.env.HOST || '127.0.0.1';
@@ -1149,6 +1494,7 @@ app.use(__WEBPACK_IMPORTED_MODULE_2_koa_respond___default()({
     }
   }
 }));
+
 app.use(function (ctx, next) {
   if (ctx.url.includes('/api')) {
     return next();
@@ -1172,12 +1518,6 @@ app.use(router.routes(), router.allowedMethods());
 
 app.listen(port, host);
 console.log('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
-
-/***/ },
-/* 33 */
-/***/ function(module, exports) {
-
-module.exports = require("path");
 
 /***/ }
 /******/ ]);

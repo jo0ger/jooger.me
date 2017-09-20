@@ -71,5 +71,8 @@ export default {
   },
   user: {
     fetchMe: wrap('/user/me')
+  },
+  option: {
+    fetchData: wrap('/option')
   }
 }

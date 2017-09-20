@@ -29,7 +29,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchInfo ({ state, commit }) {
+  async fetchData ({ state, commit }) {
     if (state.fetching) {
       return
     }
