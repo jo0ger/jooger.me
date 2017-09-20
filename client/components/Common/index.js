@@ -6,3 +6,4 @@
 
 export * from './Article'
 export { default as CommonComment } from './Comment'
+export { default as CommonImagePopup } from './ImagePopup'

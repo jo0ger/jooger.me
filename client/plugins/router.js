@@ -5,13 +5,8 @@
  */
 
 export default function ({ app, isClient }) {
-  // if (isClient) {
-  //   app.router.beforeEach((to, from, next) => {
-  //     app.store.commit('app/START_PAGE_LOADING')
-  //     next()
-  //   })
-  //   app.router.afterEach(route => {
-  //     app.store.commit('app/STOP_PAGE_LOADING')
-  //   })
-  // }
+  app.router.beforeEach((to, from, next) => {
+    app.store.commit('app/SET_SEARCH', false)
+    next()
+  })
 }

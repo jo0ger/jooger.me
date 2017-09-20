@@ -8,7 +8,7 @@
           </div>
           <h1 class="title">{{ articleDetail.title }}</h1>
         </header>
-        <div class="content md-body" v-html="marked(articleDetail.body._content)"></div>
+        <div class="content md-body" ref="content" v-html="marked(articleDetail.body._content)"></div>
         <div class="tags" v-if="articleDetail.labels && articleDetail.labels.length">
           <router-link class="tag-item"
             v-for="item in articleDetail.labels"
@@ -91,6 +91,7 @@
     },
     mounted () {
       this.init()
+      console.log(this)
     },
     methods: {
       marked,
@@ -105,6 +106,11 @@
           window.addEventListener('resize', this._resizeHandler, false)
           this._resizeHandler()
         }
+        this.$refs.content.addEventListener('click', e => {
+          if (e.target.className.includes('image-view')) {
+            this.$imgPop.open(e.target)
+          }
+        }, false)
       },
       handleLike () {
         if (!this.liked) {

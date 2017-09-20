@@ -260,8 +260,10 @@
             font-size 1.8rem
           }
 
-          &:hover {
-            color $base-color
+          & > a {
+            &:hover {
+              color $base-color
+            }
           }
 
           for n in (1..3) {

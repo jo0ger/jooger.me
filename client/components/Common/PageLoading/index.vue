@@ -30,14 +30,19 @@
         }
       },
       progressStyle () {
-        return {
+        const style = {
           width: this.progress + '%'
         }
+        if (!this.canSuccess) {
+          style.backgroundColor = '#f04134'
+        }
+        return style
       }
     },
     methods: {
       start () {
         this.loading = true
+        this.canSuccess = true
         this._cut = 10000 / Math.floor(this.duration)
         if (this.timer) {
           clearInterval(this.timer)
@@ -56,10 +61,12 @@
             }
           }, 100)
         }, 600)
+        document.body.style.overflow = 'hidden'
       },
       finish () {
         this.progress = 100
         this.hide()
+        document.body.style.overflow = 'auto'
       },
       fail () {
         this.canSuccess = false
@@ -94,7 +101,7 @@
 
   .page-loading {
     position relative
-    z-index 9999
+    z-index 99999
 
     &::before,
     &::after {
@@ -103,7 +110,7 @@
       left 0
       width 100%
       height 50%
-      z-index 2017
+      z-index 1
       background $white
       transform translateZ(0)
       transition transform .2s .2s
@@ -125,7 +132,7 @@
       left 50%
       width calc(100% - 64px)
       height 2px
-      z-index 2018
+      z-index 2
       background $grey
       border-radius 1px
       transform translate(-50%, -50%)
@@ -138,9 +145,7 @@
         width 0
         height 100%
         background $base-color
-        // background #ff3b30
         transition width .2s, opacity .2s
-        // transform-origin left center
       }
     }
 

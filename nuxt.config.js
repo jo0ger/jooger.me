@@ -47,9 +47,11 @@ module.exports = {
   },
   plugins: [
     { src: '~plugins/option.js' },
+    { src: '~plugins/router.js' },
     { src: '~plugins/filter.js' },
     { src: '~plugins/swiper.js', ssr: false },
-    { src: '~plugins/image.js', ssr: false }
+    { src: '~plugins/image-load.js', ssr: false },
+    { src: '~plugins/image-popup.js', ssr: false }
   ],
   router: {
     linkActiveClass: 'active'
