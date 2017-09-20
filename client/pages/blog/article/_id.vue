@@ -8,7 +8,7 @@
           </div>
           <h1 class="title">{{ articleDetail.title }}</h1>
         </header>
-        <div class="content md-body" ref="content" v-html="marked(articleDetail.body._content)"></div>
+        <div class="content md-body" ref="content" v-html="articleDetail.body.content"></div>
         <div class="tags" v-if="articleDetail.labels && articleDetail.labels.length">
           <router-link class="tag-item"
             v-for="item in articleDetail.labels"
@@ -27,10 +27,10 @@
             <i class="iconfont icon-reward"></i>
             <span class="text">打赏</span>
           </a> -->
-          <a class="action-item share">
+          <!-- <a class="action-item share">
             <i class="iconfont icon-share"></i>
             <span class="text">分享</span>
-          </a>
+          </a> -->
         </div>
       </article>
     </div>
@@ -43,7 +43,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import { CommonComment } from '~/components/Common'
-  import { marked, debounce } from '~/utils'
+  import { debounce } from '~/utils'
 
   export default {
     name: 'Blog-Article',
@@ -94,7 +94,7 @@
       console.log(this)
     },
     methods: {
-      marked,
+      // marked,
       init () {
         const pageHeader = document.querySelector('.app-main > header.header')
         if (pageHeader) {
