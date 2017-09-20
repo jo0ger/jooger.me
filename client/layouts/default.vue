@@ -8,7 +8,7 @@
       <main class="container" :style="containerStyle">
         <div class="wrapper">
           <div class="banner-content" :style="bannerContentStyle" v-if="showBannerPage">
-            <h1 class="title">{{ option.title }}</h1>
+            <h1 class="title">{{ me.bio }}</h1>
             <h3 class="subtitle">{{ option.subtitle }}</h3>
           </div>
           <div class="page-content">
@@ -50,7 +50,8 @@
     computed: {
       ...mapGetters({
         mobileLayout: 'app/mobileLayout',
-        mobileSidebar: 'app/mobileSidebar'
+        mobileSidebar: 'app/mobileSidebar',
+        me: 'me/me'
       }),
       isHomePage () {
         return this.$route.name === 'index'
