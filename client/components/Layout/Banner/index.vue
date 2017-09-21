@@ -1,15 +1,15 @@
 <template>
   <div class="banner">
-    <div class="banner-swiper" v-if="showSwiper">
+    <div class="banner-swiper" v-if="showSwiper && option.banners">
       <div class="swiper-container" v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item in banners" :key="item" :style="getSwiperStyle(item)">
+          <div class="swiper-slide" v-for="item in option.banners" :key="item" :style="getSwiperStyle(item)">
           </div>
         </div>
         <div class="swiper-pagination swiper-pagination-bullets"></div>
       </div>
     </div>
-    <div class="banner-bg" :style="bannerBgStyle" v-else></div>
+    <div class="banner-bg" :style="bannerBgStyle" v-else-if="option.aboutBanner"></div>
     <transition name="fade">
       <a class="trigger" v-if="showTrigger" @click.prevent.stop="handleGoToContent"></a>
     </transition>
@@ -17,16 +17,13 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import { scrollTo, easing } from '~/utils'
 
   export default {
     name: 'Layout-Banner',
     data () {
       return {
-        banners: [
-          require('~/static/image/pexels-photo-169573.jpeg'),
-          require('~/static/image/pexels-photo-90639.jpeg')
-        ],
         swiperOption: {
           autoplay: 5000,
           initialSlide: 1,
@@ -46,6 +43,9 @@
       }
     },
     computed: {
+      ...mapGetters({
+        option: 'option/option'
+      }),
       isAboutPage () {
         return this.$route.name === 'about'
       },
@@ -57,8 +57,8 @@
       },
       bannerBgStyle () {
         return this.isAboutPage ? {
-          backgroundImage: `url(${this.banners[0]})`,
-          opacity: this.showContent ? 0.3 : 0.5,
+          backgroundImage: `url(${this.option.aboutBanner})`,
+          opacity: this.showContent ? 0.3 : 0.6,
           filter: this.showContent ? 'blur(10px)' : null
         } : null
       }
@@ -112,7 +112,8 @@
           const e = document.createEvent('HTMLEvents')
           e.initEvent('resize', true, true)
           window.dispatchEvent(e)
-        }, 500)
+          console.log('trigger window resize')
+        }, 1000)
       },
       handleGoToContent () {
         scrollTo(window.innerHeight, 800, { easing: easing['fuck'] })
@@ -147,7 +148,7 @@
         background-repeat no-repeat
         background-size cover
         background-position center center
-        opacity .8
+        opacity .6
 
         img {
           display none

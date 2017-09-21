@@ -91,10 +91,8 @@
     },
     mounted () {
       this.init()
-      console.log(this)
     },
     methods: {
-      // marked,
       init () {
         const pageHeader = document.querySelector('.app-main > header.header')
         if (pageHeader) {
@@ -127,7 +125,7 @@
 
   .blog-article-page {
     margin 0
-    transition all .3s $ease
+    transition all .8s $ease
 
     .article-pane
     .comments-pane {

@@ -84,11 +84,9 @@
         this._delayTimer = null
         setTimeout(() => {
           this.loading = false
-          this.$nextTick(() => {
-            setTimeout(() => {
-              this.progress = 0
-            }, 200)
-          })
+          setTimeout(() => {
+            this.progress = 0
+          }, 200)
         }, 500)
       }
     }
