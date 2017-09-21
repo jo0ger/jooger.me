@@ -17,15 +17,6 @@ const hookCtrl = {
 }
 
 hookCtrl.option.POST = async (ctx, next) => {
-  const { payload } = ctx.request.body
-
-  if (!payload) {
-    return handleError({
-      ctx,
-      message: 'payload不存在'
-    })
-  }
-
   logger.info('----------------------option hook push start----------------------------')
 
   await pullRepo(path.resolve(__dirname, '../../', repoLocalDir))
