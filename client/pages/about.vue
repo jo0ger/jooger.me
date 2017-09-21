@@ -5,7 +5,7 @@
         <img :src="me.avatar_url" alt="">
       </a>
       <ul class="contact-list">
-        <li class="contact-item" v-for="item in contacts" :key="item.title">
+        <li class="contact-item" v-for="item in option.contact" :key="item.title">
           <a class="info" :href="item.url" target="_blank">
             <i class="icon iconfont" :class="[`icon-${item.icon}`]"></i>
           </a>
@@ -21,16 +21,31 @@
       <h3>About</h3>
       <hr>
       <p>
-        热衷于新技术的学习和探讨，热衷页面布局。崇尚化繁为简理念 
+        热衷于新技术的学习和探讨，喜欢折腾 
         <br>
-        对互联网发展趋势高兴趣关注，积极配合开发同事完成工作
+        崇尚化繁为简理念，有轻微强迫症
+        <br>
+        对互联网发展趋势高兴趣关注，积极配合同事完成工作
       </p>
     </div>
     <div class="block">
-      <h3>Expericnce</h3>
+      <h3>Hobby</h3>
       <hr>
-      <ul class="expericnce-list">
-        <li class="expericnce-item" v-for="item in expericnces" :key="item.time">
+      <!-- <ul class="experience-list">
+        <li class="experience-item" v-for="item in option.experience" :key="item.time">
+          <time class="time">{{ item.time }}</time>
+          <div class="content">
+            <p class="title">{{ item.title }}</p>
+            <p class="subtitle" v-if="item.subtitle">{{ item.subtitle }}</p>
+          </div>
+        </li>
+      </ul> -->
+    </div>
+    <div class="block">
+      <h3>Experience</h3>
+      <hr>
+      <ul class="experience-list">
+        <li class="experience-item" v-for="item in option.experience" :key="item.time">
           <time class="time">{{ item.time }}</time>
           <div class="content">
             <p class="title">{{ item.title }}</p>
@@ -43,11 +58,11 @@
       <h3>Skills</h3>
       <hr>
       <ul class="skill-list">
-        <li class="skill-item" v-for="item in skills" :key="item.title">
+        <li class="skill-item" v-for="item in option.skill" :key="item.title">
           <a class="info">
             <i class="icon iconfont" :class="[`icon-${item.icon}`]"></i>
-            <span class="per">{{ item.per }}%</span>
-            <div class="wave" :class="[`wave-${item.per}`]"></div>
+            <span class="level">{{ item.level }}%</span>
+            <div class="wave" :class="[`wave-${item.level}`]"></div>
           </a>
           <p class="title">{{ item.title }}</p>
         </li>
@@ -66,41 +81,11 @@
         setTimeout(() => resolve(), 500)
       })
     },
-    data () {
-      const expericnces = [
-        { time: '2016.8', title: '北京桃谷科技有线公司', subtitle: 'Web前端开发工程师' },
-        { time: '2015.7', title: '北京太极计算机股份有限公司', subtitle: 'Java开发工程师' },
-        { time: '2015.6', title: '毕业 - 湖南大学', subtitle: '软件工程专业' }
-      ]
-      const skills = [
-        { title: 'Javascript', per: '80', icon: 'js' },
-        { title: 'Vue', per: '80', icon: 'vue' },
-        { title: 'Html+Css3', per: '60', icon: 'h5' },
-        { title: 'Nodejs', per: '50', icon: 'nodejs' },
-        { title: 'React', per: '50', icon: 'react' }
-      ]
-      const contacts = [
-        { title: 'Email', icon: 'email', url: 'mailto:zzy1198258955@163.com' },
-        { title: 'GitHub', icon: 'github', url: 'https://github.com/jo0ger' },
-        { title: '知乎', icon: 'zhihu', url: 'https://www.zhihu.com/people/bubblypoker' },
-        { title: '微博', icon: 'weibo', url: 'http://weibo.com/jo0ger' },
-        { title: '网易云音乐', icon: 'netease-music', url: 'http://music.163.com/#/user/home?id=36877861' }
-      ]
-      return {
-        expericnces,
-        skills,
-        contacts
-      }
-    },
     computed: {
       ...mapGetters({
-        me: 'me/me'
+        me: 'me/me',
+        option: 'option/option'
       })
-    },
-    methods: {
-      getSkillWaveStyle ({ per }) {
-
-      }
     }
   }
 </script>
@@ -175,7 +160,7 @@
         margin 15px auto 30px
       }
 
-      .expericnce-list {
+      .experience-list {
         padding-left 25%
 
         @media (max-width: 1366px) and (min-width: 769px) {
@@ -190,7 +175,7 @@
           padding-left 0
         }
 
-        .expericnce-item {
+        .experience-item {
           flexLayout(, flex-start, flex-start)
           margin-bottom 15px
 
@@ -231,7 +216,7 @@
             overflow hidden
 
             .icon
-            .per {
+            .level {
               position absolute
               top 50%
               left 50%
@@ -244,7 +229,7 @@
               font-size 2rem
             }
 
-            .per {
+            .level {
               line-height 1
               opacity 0
               transform translate(-50%, -50%) scale(0)
@@ -282,7 +267,7 @@
                 z-index 20
               }
 
-              for n in 50 60 80 {
+              for n in 50 60 70 80 90 {
                 &.wave-{n} {
                   &::before
                   &::after {
@@ -309,7 +294,7 @@
                 transform translate(-50%, -50%) scale(0)
               }
 
-              .per {
+              .level {
                 opacity 1
                 transform translate(-50%, -50%) scale(1)
               }
@@ -470,7 +455,7 @@
 
   }
 
-  for n in 50 60 80 {
+  for n in 50 60 70 80 90 {
     @keyframes rotate-{n} {
       50% {
         transform translate(-50%, -(3 + 65 + 35 / 100 * n)%) rotate(180deg)

@@ -6,8 +6,11 @@
 
 import path from 'path'
 import fs from 'fs'
+import watch from 'node-watch'
 import yaml from 'js-yaml'
 import config from '../../config'
+
+const isProd = process.env.NODE_ENV === 'production'
 
 export default () => {
   const dir = path.resolve(__dirname, '../../', config.common.github.repoLocalDir)
@@ -20,13 +23,32 @@ export default () => {
     return option
   }
 
-  try {
-    option = yaml.safeLoad(fs.readFileSync(optionFile, 'utf8'))
-  } catch (err) {
-    logger.info('配置文件读取失败, err：', err)
-    return option
+  option = loadYml(optionFile)
+
+  if (!isProd) {
+    watchYml(optionFile)
   }
 
-  logger.info('配置文件读取成功')
   return option
+}
+
+function loadYml (path) {
+  let data = null
+  try {
+    data = yaml.safeLoad(fs.readFileSync(path, 'utf8'))
+  } catch (err) {
+    logger.info('配置文件读取失败, err：', err)
+    return data
+  }
+  logger.info('配置文件读取成功')
+  return data
+}
+
+function watchYml (path) {
+  watch(path, { recursive: true }, (evt, name) => {
+    logger.info('配置文件有更新')
+    const data = loadYml(path)
+    global.option = data
+  })
+  logger.info('正在监控配置文件变动...')
 }

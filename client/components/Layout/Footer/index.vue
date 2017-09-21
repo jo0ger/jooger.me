@@ -1,14 +1,31 @@
 <template>
   <footer class="footer">
-    <div class="wrapper"></div>
+    <div class="wrapper">
+      Powered by 
+      <a class="link" target="_blank" href="https://github.com/nuxt/nuxt.js">nuxt.js</a>、
+      <div :style="style">
+        Developed by 
+        <a class="link" target="_blank" :href="`https://github.com/${me.login}`">{{ me.name }}</a>
+      </div>
+    </div>
   </footer>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     name: 'Layout-Footer',
-    data () {
-      return {}
+    computed: {
+      ...mapGetters({
+        mobileLayout: 'app/mobileLayout',
+        me: 'me/me'
+      }),
+      style () {
+        return {
+          display: this.mobileLayout ? null : 'inline-block'
+        }
+      }
     }
   }
 </script>
@@ -27,6 +44,7 @@
       width 100%
       max-width $content-max-width
       margin 0 auto
+      text-align center
 
       @media (max-width: 1640px) {
         padding 0 100px
@@ -42,6 +60,15 @@
 
       @media (max-width: 479px) {
         padding 0 30px
+      }
+
+      .link {
+        color $text-color-dark
+        border-bottom 1px dotted $text-color-dark
+
+        &:hover {
+          font-weight bold
+        }
       }
     }
   }

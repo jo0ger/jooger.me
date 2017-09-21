@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 40);
+/******/ 	return __webpack_require__(__webpack_require__.s = 41);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -140,7 +140,7 @@ var baseService = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_simple_node_logger__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_simple_node_logger__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_simple_node_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_simple_node_logger__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__marked__ = __webpack_require__(18);
@@ -262,7 +262,7 @@ function handleError(_ref4) {
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(38);
+module.exports = __webpack_require__(39);
 
 
 /***/ },
@@ -878,8 +878,11 @@ hookCtrl.option.POST = function () {
             return pullRepo(__WEBPACK_IMPORTED_MODULE_1_path___default.a.resolve(__dirname, '../../', repoLocalDir));
 
           case 6:
-            option = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils__["b" /* loadOption */])();
+            option = global.option;
 
+            if (false) {
+              option = loadOption();
+            }
 
             if (option) {
               global.option = option;
@@ -890,7 +893,7 @@ hookCtrl.option.POST = function () {
 
             logger.info('----------------------option hook push end----------------------------');
 
-          case 9:
+          case 10:
           case 'end':
             return _context.stop();
         }
@@ -1160,9 +1163,11 @@ var _require = __webpack_require__(20),
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_path__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fs__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_js_yaml__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_js_yaml___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_js_yaml__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_watch__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_watch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_node_watch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_js_yaml__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_js_yaml___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_js_yaml__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(0);
 /**
  * @desc Load Option
  * @author Jooger <zzy1198258955@163.com>
@@ -1174,8 +1179,11 @@ var _require = __webpack_require__(20),
 
 
 
+
+var isProd = "development" === 'production';
+
 /* harmony default export */ exports["a"] = function () {
-  var dir = __WEBPACK_IMPORTED_MODULE_0_path___default.a.resolve(__dirname, '../../', __WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].common.github.repoLocalDir);
+  var dir = __WEBPACK_IMPORTED_MODULE_0_path___default.a.resolve(__dirname, '../../', __WEBPACK_IMPORTED_MODULE_4__config__["a" /* default */].common.github.repoLocalDir);
   var optionFile = __WEBPACK_IMPORTED_MODULE_0_path___default.a.join(dir, './_config.yml');
 
   var option = null;
@@ -1185,16 +1193,35 @@ var _require = __webpack_require__(20),
     return option;
   }
 
-  try {
-    option = __WEBPACK_IMPORTED_MODULE_2_js_yaml___default.a.safeLoad(__WEBPACK_IMPORTED_MODULE_1_fs___default.a.readFileSync(optionFile, 'utf8'));
-  } catch (err) {
-    logger.info('配置文件读取失败, err：', err);
-    return option;
+  option = loadYml(optionFile);
+
+  if (!isProd) {
+    watchYml(optionFile);
   }
 
-  logger.info('配置文件读取成功');
   return option;
 };
+
+function loadYml(path) {
+  var data = null;
+  try {
+    data = __WEBPACK_IMPORTED_MODULE_3_js_yaml___default.a.safeLoad(__WEBPACK_IMPORTED_MODULE_1_fs___default.a.readFileSync(path, 'utf8'));
+  } catch (err) {
+    logger.info('配置文件读取失败, err：', err);
+    return data;
+  }
+  logger.info('配置文件读取成功');
+  return data;
+}
+
+function watchYml(path) {
+  __WEBPACK_IMPORTED_MODULE_2_node_watch___default()(path, { recursive: true }, function (evt, name) {
+    logger.info('配置文件有更新');
+    var data = loadYml(path);
+    global.option = data;
+  });
+  logger.info('正在监控配置文件变动...');
+}
 /* WEBPACK VAR INJECTION */}.call(exports, "server/utils"))
 
 /***/ },
@@ -1420,16 +1447,22 @@ module.exports = require("marked");
 /* 38 */
 /***/ function(module, exports) {
 
-module.exports = require("regenerator-runtime");
+module.exports = require("node-watch");
 
 /***/ },
 /* 39 */
 /***/ function(module, exports) {
 
-module.exports = require("simple-node-logger");
+module.exports = require("regenerator-runtime");
 
 /***/ },
 /* 40 */
+/***/ function(module, exports) {
+
+module.exports = require("simple-node-logger");
+
+/***/ },
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";

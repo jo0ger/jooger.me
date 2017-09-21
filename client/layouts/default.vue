@@ -20,7 +20,7 @@
       </main>
       <LayoutTools v-if="!showBannerPage"></LayoutTools>
       <LayoutOverlay></LayoutOverlay>
-      <LayoutFooter></LayoutFooter>
+      <LayoutFooter v-if="!isHomePage"></LayoutFooter>
     </div>
   </div>
 </template>

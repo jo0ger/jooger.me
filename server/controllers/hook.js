@@ -29,7 +29,10 @@ hookCtrl.option.POST = async (ctx, next) => {
 
   await pullRepo(path.resolve(__dirname, '../../', repoLocalDir))
 
-  const option = loadOption()
+  let option = global.option
+  if (process.env.NODE_ENV === 'production') {
+    option = loadOption()
+  }
 
   if (option) {
     global.option = option
