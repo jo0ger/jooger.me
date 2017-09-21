@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 41);
+/******/ 	return __webpack_require__(__webpack_require__.s = 42);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -133,23 +133,28 @@ var baseService = {
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(40);
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_simple_node_logger__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_simple_node_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_simple_node_logger__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__marked__ = __webpack_require__(18);
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "h", function() { return __WEBPACK_IMPORTED_MODULE_5__marked__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "e", function() { return __WEBPACK_IMPORTED_MODULE_6__exec__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__exec__ = __webpack_require__(16);
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_7__loadOption__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__loadOption__ = __webpack_require__(17);
-/* harmony export (binding) */ __webpack_require__.d(exports, "g", function() { return fetcher; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_simple_node_logger__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_simple_node_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_simple_node_logger__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__fetcher__ = __webpack_require__(4);
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "g", function() { return __WEBPACK_IMPORTED_MODULE_3__fetcher__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__marked__ = __webpack_require__(19);
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "h", function() { return __WEBPACK_IMPORTED_MODULE_4__marked__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__exec__ = __webpack_require__(17);
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "e", function() { return __WEBPACK_IMPORTED_MODULE_5__exec__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__loadOption__ = __webpack_require__(18);
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_6__loadOption__["a"]; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return logger; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "d", function() { return handleRequest; });
 /* harmony export (immutable) */ exports["c"] = handleSuccess;
@@ -177,13 +182,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var timestampFormat = 'YYYY-MM-DD HH:mm:ss';
 
-var fetcher = __WEBPACK_IMPORTED_MODULE_2_axios___default.a.create(__WEBPACK_IMPORTED_MODULE_4__config__["a" /* default */].server.service);
-
 var logger =  false ? simpleNodeLogger.createRollingFileLogger({
   timestampFormat: timestampFormat,
   logDirectory: path.resolve(__dirname, '..', 'logs'),
   fileNamePattern: '<DATE>.log'
-}) : __WEBPACK_IMPORTED_MODULE_3_simple_node_logger___default.a.createSimpleLogger({
+}) : __WEBPACK_IMPORTED_MODULE_2_simple_node_logger___default.a.createSimpleLogger({
   timestampFormat: timestampFormat
 });
 
@@ -259,13 +262,6 @@ function handleError(_ref4) {
 }
 
 /***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(39);
-
-
-/***/ },
 /* 3 */
 /***/ function(module, exports) {
 
@@ -273,12 +269,33 @@ module.exports = require("path");
 
 /***/ },
 /* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(0);
+/**
+ * @desc Axios fetcher
+ * @author Jooger <zzy1198258955@163.com>
+ * @date 21 Sep 2017
+ */
+
+
+
+
+var fetcher = __WEBPACK_IMPORTED_MODULE_0_axios___default.a.create(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */].server.service);
+
+/* harmony default export */ exports["a"] = fetcher;
+
+/***/ },
+/* 5 */
 /***/ function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 var isProd = "development" === 'production';
@@ -313,12 +330,12 @@ module.exports = {
 };
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__controllers__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__controllers__ = __webpack_require__(14);
 /**
  * @desc server routes
  * @author Jooger <zzy1198258955@163.com>
@@ -365,38 +382,38 @@ module.exports = {
 };
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 module.exports = require("koa");
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 module.exports = require("koa-respond");
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 module.exports = require("koa-router");
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 module.exports = require("nuxt");
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils__ = __webpack_require__(2);
 
 
 var _this = this;
@@ -777,18 +794,18 @@ function articleParser(content) {
 };
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
+/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_fs__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_fs__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_fs__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils__ = __webpack_require__(2);
 
 
 var _this = this;
@@ -842,6 +859,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
+var isProd = "development" === 'production';
 var _config$common = __WEBPACK_IMPORTED_MODULE_3__config__["a" /* default */].common,
     github = _config$common.github,
     command = _config$common.command;
@@ -880,9 +898,18 @@ hookCtrl.option.POST = function () {
           case 6:
             option = global.option;
 
-            if (false) {
-              option = loadOption();
+            if (!isProd) {
+              _context.next = 11;
+              break;
             }
+
+            _context.next = 10;
+            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils__["b" /* loadOption */])();
+
+          case 10:
+            option = _context.sent;
+
+          case 11:
 
             if (option) {
               global.option = option;
@@ -893,7 +920,7 @@ hookCtrl.option.POST = function () {
 
             logger.info('----------------------option hook push end----------------------------');
 
-          case 10:
+          case 13:
           case 'end':
             return _context.stop();
         }
@@ -934,17 +961,17 @@ hookCtrl.option.POST = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, "server/controllers"))
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__article__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__article__ = __webpack_require__(12);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__article__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__user__ = __webpack_require__(16);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__user__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__hook__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__hook__ = __webpack_require__(13);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__hook__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__option__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__option__ = __webpack_require__(15);
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "d", function() { return __WEBPACK_IMPORTED_MODULE_3__option__["a"]; });
 /**
  * @desc Controllers entry
@@ -958,13 +985,13 @@ hookCtrl.option.POST = function () {
 
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(2);
 
 
 var _this = this;
@@ -1027,14 +1054,14 @@ optionCtrl.GET = function () {
 })();
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils__ = __webpack_require__(2);
 
 
 var _this = this;
@@ -1126,7 +1153,7 @@ userCtrl.me.GET = function () {
 };
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1136,7 +1163,7 @@ userCtrl.me.GET = function () {
  * @date 20 Sep 2017
  */
 
-var _require = __webpack_require__(20),
+var _require = __webpack_require__(21),
     exec = _require.exec;
 
 /* harmony default export */ exports["a"] = function (cmd, opts) {
@@ -1155,19 +1182,85 @@ var _require = __webpack_require__(20),
 };
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_path__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fs__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_fs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_watch__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_watch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_node_watch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_js_yaml__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_js_yaml___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_js_yaml__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(0);
+/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_path__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_fs__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_fs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_fs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_watch__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_node_watch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_node_watch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_js_yaml__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_js_yaml___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_js_yaml__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__fetcher__ = __webpack_require__(4);
+
+
+var _this = this;
+
+var loadYml = function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(path) {
+    var data;
+    return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            data = null;
+            _context2.prev = 1;
+
+            data = __WEBPACK_IMPORTED_MODULE_4_js_yaml___default.a.safeLoad(__WEBPACK_IMPORTED_MODULE_2_fs___default.a.readFileSync(path, 'utf8'));
+            _context2.next = 9;
+            break;
+
+          case 5:
+            _context2.prev = 5;
+            _context2.t0 = _context2['catch'](1);
+
+            logger.info('配置文件读取失败, err：', _context2.t0);
+            return _context2.abrupt('return', data);
+
+          case 9:
+            logger.info('配置文件读取成功');
+
+            if (!data.links) {
+              _context2.next = 16;
+              break;
+            }
+
+            logger.info('开始抓取友链信息....');
+            _context2.next = 14;
+            return fetchLinks(data.links);
+
+          case 14:
+            data.links = _context2.sent;
+
+            logger.info('抓取友链信息成功....');
+
+          case 16:
+
+            logger.info('配置更新成功');
+
+            return _context2.abrupt('return', data);
+
+          case 18:
+          case 'end':
+            return _context2.stop();
+        }
+      }
+    }, _callee2, this, [[1, 5]]);
+  }));
+
+  return function loadYml(_x) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 /**
  * @desc Load Option
  * @author Jooger <zzy1198258955@163.com>
@@ -1180,58 +1273,137 @@ var _require = __webpack_require__(20),
 
 
 
+
 var isProd = "development" === 'production';
 
-/* harmony default export */ exports["a"] = function () {
-  var dir = __WEBPACK_IMPORTED_MODULE_0_path___default.a.resolve(__dirname, '../../', __WEBPACK_IMPORTED_MODULE_4__config__["a" /* default */].common.github.repoLocalDir);
-  var optionFile = __WEBPACK_IMPORTED_MODULE_0_path___default.a.join(dir, './_config.yml');
+/* harmony default export */ exports["a"] = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee() {
+  var dir, optionFile, option;
+  return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          dir = __WEBPACK_IMPORTED_MODULE_1_path___default.a.resolve(__dirname, '../../', __WEBPACK_IMPORTED_MODULE_5__config__["a" /* default */].common.github.repoLocalDir);
+          optionFile = __WEBPACK_IMPORTED_MODULE_1_path___default.a.join(dir, './_config.yml');
+          option = null;
 
-  var option = null;
+          if (__WEBPACK_IMPORTED_MODULE_2_fs___default.a.existsSync(optionFile)) {
+            _context.next = 6;
+            break;
+          }
 
-  if (!__WEBPACK_IMPORTED_MODULE_1_fs___default.a.existsSync(optionFile)) {
-    logger.info('配置文件未找到');
-    return option;
-  }
+          logger.info('配置文件未找到');
+          return _context.abrupt('return', option);
 
-  option = loadYml(optionFile);
+        case 6:
+          _context.next = 8;
+          return loadYml(optionFile);
 
-  if (!isProd) {
-    watchYml(optionFile);
-  }
+        case 8:
+          option = _context.sent;
 
-  return option;
-};
 
-function loadYml(path) {
-  var data = null;
-  try {
-    data = __WEBPACK_IMPORTED_MODULE_3_js_yaml___default.a.safeLoad(__WEBPACK_IMPORTED_MODULE_1_fs___default.a.readFileSync(path, 'utf8'));
-  } catch (err) {
-    logger.info('配置文件读取失败, err：', err);
-    return data;
-  }
-  logger.info('配置文件读取成功');
-  return data;
-}
+          if (!isProd) {
+            watchYml(optionFile);
+          }
+
+          global.option = option;
+
+          return _context.abrupt('return', option);
+
+        case 12:
+        case 'end':
+          return _context.stop();
+      }
+    }
+  }, _callee, _this);
+}));
 
 function watchYml(path) {
-  __WEBPACK_IMPORTED_MODULE_2_node_watch___default()(path, { recursive: true }, function (evt, name) {
-    logger.info('配置文件有更新');
-    var data = loadYml(path);
-    global.option = data;
-  });
+  var _this2 = this;
+
+  __WEBPACK_IMPORTED_MODULE_3_node_watch___default()(path, { recursive: true }, function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(evt, name) {
+      var data;
+      return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              logger.info('配置文件有更新');
+              _context3.next = 3;
+              return loadYml(path);
+
+            case 3:
+              data = _context3.sent;
+
+              global.option = data;
+
+            case 5:
+            case 'end':
+              return _context3.stop();
+          }
+        }
+      }, _callee3, _this2);
+    }));
+
+    return function (_x2, _x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }());
   logger.info('正在监控配置文件变动...');
+}
+
+// 抓取github友链
+function fetchLinks(links) {
+  return Promise.all(links.map(function (_ref4) {
+    var name = _ref4.name,
+        github = _ref4.github,
+        site = _ref4.site;
+
+    if (github) {
+      return __WEBPACK_IMPORTED_MODULE_6__fetcher__["a" /* default */].get('/users/' + github, {
+        params: {
+          client_id: __WEBPACK_IMPORTED_MODULE_5__config__["a" /* default */].common.github.clientId,
+          client_secret: __WEBPACK_IMPORTED_MODULE_5__config__["a" /* default */].common.github.clientSecret
+        }
+      }).then(function (res) {
+        if (res && res.status === 200) {
+          return {
+            name: name,
+            avatar: res.data.avatar_url,
+            slogan: res.data.bio,
+            link: site || res.data.blog
+          };
+        }
+        return {
+          name: name,
+          link: site
+        };
+      }).catch(function () {
+        return {
+          name: name,
+          link: site
+        };
+      });
+    } else {
+      return new Promise(function (resolve, reject) {
+        resolve({
+          name: name,
+          site: site
+        });
+      });
+    }
+  }));
 }
 /* WEBPACK VAR INJECTION */}.call(exports, "server/utils"))
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_highlight_js__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_highlight_js__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_highlight_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_highlight_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_marked__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_marked__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_marked___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_marked__);
 /**
  *  渲染markdown
@@ -1241,20 +1413,20 @@ function watchYml(path) {
 
 
 var languages = ['xml', 'bash', 'css', 'markdown', 'http', 'java', 'javascript', 'json', 'makefile', 'nginx', 'python', 'scss', 'sql', 'stylus'];
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('xml', __webpack_require__(35));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('bash', __webpack_require__(22));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('css', __webpack_require__(23));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('markdown', __webpack_require__(29));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('http', __webpack_require__(24));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('java', __webpack_require__(25));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('javascript', __webpack_require__(26));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('json', __webpack_require__(27));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('makefile', __webpack_require__(28));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('nginx', __webpack_require__(30));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('python', __webpack_require__(31));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('scss', __webpack_require__(32));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('sql', __webpack_require__(33));
-__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('stylus', __webpack_require__(34));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('xml', __webpack_require__(36));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('bash', __webpack_require__(23));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('css', __webpack_require__(24));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('markdown', __webpack_require__(30));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('http', __webpack_require__(25));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('java', __webpack_require__(26));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('javascript', __webpack_require__(27));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('json', __webpack_require__(28));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('makefile', __webpack_require__(29));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('nginx', __webpack_require__(31));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('python', __webpack_require__(32));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('scss', __webpack_require__(33));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('sql', __webpack_require__(34));
+__WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.registerLanguage('stylus', __webpack_require__(35));
 __WEBPACK_IMPORTED_MODULE_0_highlight_js___default.a.configure({
   classPrefix: '' // don't append class prefix
 });
@@ -1330,156 +1502,156 @@ function escape(html, encode) {
 /* harmony default export */ exports["a"] = __WEBPACK_IMPORTED_MODULE_1_marked___default.a;
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 module.exports = require("axios");
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 module.exports = require("child_process");
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 module.exports = require("highlight.js");
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 module.exports = require("highlight.js/lib/languages/bash");
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 module.exports = require("highlight.js/lib/languages/css");
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 module.exports = require("highlight.js/lib/languages/http");
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports) {
 
 module.exports = require("highlight.js/lib/languages/java");
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports) {
 
 module.exports = require("highlight.js/lib/languages/javascript");
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports) {
 
 module.exports = require("highlight.js/lib/languages/json");
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports) {
 
 module.exports = require("highlight.js/lib/languages/makefile");
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports) {
 
 module.exports = require("highlight.js/lib/languages/markdown");
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports) {
 
 module.exports = require("highlight.js/lib/languages/nginx");
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports) {
 
 module.exports = require("highlight.js/lib/languages/python");
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports) {
 
 module.exports = require("highlight.js/lib/languages/scss");
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports) {
 
 module.exports = require("highlight.js/lib/languages/sql");
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports) {
 
 module.exports = require("highlight.js/lib/languages/stylus");
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports) {
 
 module.exports = require("highlight.js/lib/languages/xml");
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports) {
 
 module.exports = require("js-yaml");
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports) {
 
 module.exports = require("marked");
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports) {
 
 module.exports = require("node-watch");
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports) {
 
 module.exports = require("regenerator-runtime");
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports) {
 
 module.exports = require("simple-node-logger");
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa_router__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_respond__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_respond__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_respond___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_koa_respond__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_nuxt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__nuxt_config__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__nuxt_config__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__nuxt_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__nuxt_config__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils__ = __webpack_require__(2);
 
 
 
@@ -1490,7 +1662,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 
 global.logger = __WEBPACK_IMPORTED_MODULE_7__utils__["a" /* logger */];
-global.option = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["b" /* loadOption */])() || {};
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utils__["b" /* loadOption */])().then(function (option) {
+  global.option = option;
+});
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_koa___default.a();
 var host = process.env.HOST || '127.0.0.1';

@@ -9,6 +9,7 @@ import fs from 'fs'
 import config from '../../config'
 import { handleRequest, handleSuccess, handleError, exec, loadOption } from '../utils'
 
+const isProd = process.env.NODE_ENV === 'production'
 const { github, command } = config.common
 const { repoLocalDir } = github
 const hookCtrl = {
@@ -30,8 +31,8 @@ hookCtrl.option.POST = async (ctx, next) => {
   await pullRepo(path.resolve(__dirname, '../../', repoLocalDir))
 
   let option = global.option
-  if (process.env.NODE_ENV === 'production') {
-    option = loadOption()
+  if (isProd) {
+    option = await loadOption()
   }
 
   if (option) {
