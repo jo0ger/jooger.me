@@ -30,7 +30,7 @@
         swiperOption: {
           autoplay: 5000,
           initialSlide: 1,
-          speed: 1500,
+          speed: 500,
           setWrapperSize: true,
           loop: true,
           grabCursor: true,
@@ -156,7 +156,6 @@
 
       .swiper-pagination-bullets {
         padding 0 20px
-        text-align right
       }
     }
 
@@ -227,8 +226,14 @@
 <style lang="stylus">
   @import '~assets/stylus/_var'
 
-  .swiper-pagination-bullet-active {
-    background $base-color
+  .swiper-pagination-bullet {
+    width 20px
+    height 2px
+    border-radius 1px
+    background alpha($white, .5)
+    &-active {
+      background alpha($white, .8)
+    }
   }
   
 </style>
