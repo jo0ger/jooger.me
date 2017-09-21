@@ -6,8 +6,8 @@
 
 const SET_MOBILE_LAYOUT = 'SET_MOBILE_LAYOUT'
 const SET_MOBILE_SIDEBAR = 'SET_MOBILE_SIDEBAR'
-const START_PAGE_LOADING = 'START_PAGE_LOADING'
-const STOP_PAGE_LOADING = 'STOP_PAGE_LOADING'
+const SET_FETCH_LOADING = 'SET_FETCH_LOADING'
+const STOP_FETCH_LOADING = 'STOP_FETCH_LOADING'
 const SET_MENU = 'SET_MENU'
 const SET_OVERLAY = 'SET_OVERLAY'
 const SET_SEARCH = 'SET_SEARCH'
@@ -16,7 +16,7 @@ const SET_SEARCH_HEADER = 'SET_SEARCH_HEADER'
 export const state = () => ({
   mobileLayout: false,
   mobileSidebar: false,
-  pageLoading: false,
+  fetchLoading: false,
   overlay: false,
   search: false,
   menu: false,
@@ -29,7 +29,7 @@ export const state = () => ({
 export const getters = {
   mobileLayout: state => state.mobileLayout,
   mobileSidebar: state => state.mobileSidebar,
-  pageLoading: state => state.pageLoading,
+  fetchLoading: state => state.fetchLoading,
   showMenu: state => state.menu,
   showOverlay: state => state.overlay,
   showSearch: state => state.search,
@@ -39,8 +39,7 @@ export const getters = {
 export const mutations = {
   [SET_MOBILE_LAYOUT]: (state, isMobile) => (state.mobileLayout = isMobile),
   [SET_MOBILE_SIDEBAR]: (state, show) => (state.mobileSidebar = show),
-  [START_PAGE_LOADING]: state => (state.pageLoading = true),
-  [STOP_PAGE_LOADING]: state => (state.pageLoading = false),
+  [SET_FETCH_LOADING]: (state, loading) => (state.fetchLoading = loading),
   [SET_MENU]: (state, show = false) => (state.menu = show),
   [SET_OVERLAY]: (state, show = false) => (state.overlay = show),
   [SET_SEARCH]: (state, show = false) => (state.search = show),

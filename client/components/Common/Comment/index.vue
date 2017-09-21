@@ -11,7 +11,7 @@
   import config from '~~/config'
 
   export default {
-    name: 'Comment',
+    name: 'Common-Comment',
     data () {
       return {}
     },

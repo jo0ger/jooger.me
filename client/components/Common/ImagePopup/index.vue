@@ -8,7 +8,7 @@
 
 <script>
   export default {
-    name: 'CommonImagePopup',
+    name: 'Common-ImagePopup',
     data () {
       return {
         src: '',

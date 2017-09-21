@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <div class="app-main">
+      <CommonFetchLoading></CommonFetchLoading>
       <LayoutHeader></LayoutHeader>
       <keep-alive>
         <LayoutBanner v-if="showBannerPage"></LayoutBanner>
@@ -28,10 +29,18 @@
 <script>
   import { mapGetters } from 'vuex'
   import { LayoutHeader, LayoutBanner, LayoutFooter, LayoutTools, LayoutOverlay } from '~/components/Layout'
+  import { CommonFetchLoading } from '~/components/Common'
 
   export default {
     name: 'Default',
-    components: { LayoutHeader, LayoutBanner, LayoutFooter, LayoutTools, LayoutOverlay },
+    components: {
+      LayoutHeader,
+      LayoutBanner,
+      LayoutFooter,
+      LayoutTools,
+      LayoutOverlay,
+      CommonFetchLoading
+    },
     head () {
       let classes = ''
       if (this.mobileLayout) {

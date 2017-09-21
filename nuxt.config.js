@@ -8,7 +8,7 @@ module.exports = {
   },
   dev: !isProd,
   head: {
-    title: 'Jooger.me - Jooger jooger, chicken dinner',
+    title: 'Jooger.me - 凡心所向，一往无前',
     titleTemplate: '%s - Jooger.me',
     meta: [
       { charset: 'utf-8' },
@@ -21,8 +21,8 @@ module.exports = {
       { name: 'HandheldFriendly', content: 'True' },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { name: 'author', content: 'zzy1198258955@163.com' },
-      { hid: 'keywords', name: 'keywords', content: 'Jooger,Jooger.me,Blog,FE,前端技术开发' },
-      { hid: 'description', name: 'description', content: 'Jooger jooger, chicken dinner' }
+      { hid: 'keywords', name: 'keywords', content: 'Jooger,Jooger.me,Blog,FE,前端' },
+      { hid: 'description', name: 'description', content: '凡心所向，一往无前' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

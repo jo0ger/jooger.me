@@ -17,20 +17,17 @@
       </div>
     </template>
     <div class="no-data"></div>
-    <NuxtLoading></NuxtLoading>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
   import CommonArticleItem from '../Item'
-  import NuxtLoading from '~~/.nuxt/components/nuxt-loading.vue'
 
   export default {
     name: 'Common-Article-List',
     components: {
-      CommonArticleItem,
-      NuxtLoading
+      CommonArticleItem
     },
     computed: {
       ...mapGetters({
@@ -40,7 +37,7 @@
       })
     },
     methods: {
-      handleTurnPage (delta, ok) {
+      async handleTurnPage (delta, ok) {
         if (!ok) {
           return
         }
@@ -49,7 +46,9 @@
         if (nextPage < 1) {
           nextPage = 1
         }
-        this.$store.dispatch('article/fetchList', { page: nextPage, per_page })
+        this.$store.commit('app/SET_FETCH_LOADING', true)
+        await this.$store.dispatch('article/fetchList', { page: nextPage, per_page })
+        this.$store.commit('app/SET_FETCH_LOADING', false)
       }
     }
   }
