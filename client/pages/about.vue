@@ -1,4 +1,4 @@
-<template>
+  <template>
   <section class="about-page">
     <div class="block">
       <a class="avatar">
@@ -15,34 +15,29 @@
     <div class="block">
       <h3>Welcome</h3>
       <hr>
-      <p>我是 Jooger，是一名 Web 前端开发工程师，我始终相信一句话 “世间的所有相遇都是久别重逢”，所以很荣幸能够在这里认识你</p>
+      <p>{{ option.welcome }}</p>
     </div>
     <div class="block">
       <h3>About</h3>
       <hr>
-      <p>
-        热衷于新技术的学习和探讨，喜欢折腾 
+      <p v-for="item in option.description" :key="item">
+        {{ item }}
         <br>
-        崇尚化繁为简理念，有轻微强迫症
-        <br>
-        对互联网发展趋势高兴趣关注，积极配合同事完成工作
       </p>
     </div>
     <div class="block">
-      <h3>Hobby</h3>
+      <h3>Hobbies</h3>
       <hr>
-      <!-- <ul class="experience-list">
-        <li class="experience-item" v-for="item in option.experience" :key="item.time">
-          <time class="time">{{ item.time }}</time>
-          <div class="content">
-            <p class="title">{{ item.title }}</p>
-            <p class="subtitle" v-if="item.subtitle">{{ item.subtitle }}</p>
-          </div>
+      <ul class="hobby-list">
+        <li class="hobby-item" v-for="item in option.hobby" :key="item.name">
+          <a class="info" :title="item.name">
+            <i class="icon iconfont" :class="[`icon-${item.icon}`]"></i>
+          </a>
         </li>
-      </ul> -->
+      </ul>
     </div>
     <div class="block">
-      <h3>Experience</h3>
+      <h3>Experiences</h3>
       <hr>
       <ul class="experience-list">
         <li class="experience-item" v-for="item in option.experience" :key="item.time">
@@ -65,6 +60,24 @@
             <div class="wave" :class="[`wave-${item.level}`]"></div>
           </a>
           <p class="title">{{ item.title }}</p>
+        </li>
+      </ul>
+    </div>
+    <div class="block">
+      <h3>Friends</h3>
+      <hr>
+      <ul class="friend-list">
+        <li class="friend-item" v-for="item in option.links" :key="item.name">
+          <a class="info" :href="item.link" target="_blank">
+            <div class="avatar">
+              <img :src="item.avatar" :alt="item.name">
+            </div>
+            <div class="content">
+              <h3 class="name">{{ item.name }}</h3>
+              <p class="slogan">{{ item.slogan }}</p>
+            </div>
+          </span>
+          </a>
         </li>
       </ul>
     </div>
@@ -95,7 +108,7 @@
   @import '~assets/stylus/_mixin'
 
   .about-page {
-    padding 80px 0
+    padding 80px 0 0
     text-align center
 
     h1, h2, h3, h4, h5, p {
@@ -104,11 +117,9 @@
 
     h1, h2, h3, h4, h5 {
       margin-bottom 10px
-      text-transform uppercase
     }
 
     p {
-      margin-bottom 24px
       letter-spacing .2px
     }
 
@@ -129,6 +140,10 @@
         max-width 90%
       }
 
+      & > h3 {
+        text-transform uppercase
+      }
+
       .avatar {
         display inline-block
         width 100px
@@ -136,6 +151,7 @@
         border-radius 100%
         text-align center
         overflow hidden
+        cursor default
         box-shadow 0 0 0 2px alpha($white, .5), 0px 2px 20px 3px alpha($black, .25)
 
         img {
@@ -156,8 +172,68 @@
         height 2px
         border none
         width 45px
-        background alpha($white, .4)
+        background alpha($white, .2)
         margin 15px auto 30px
+      }
+
+      .hobby-list {
+        flexLayout()
+
+        .hobby-item {
+
+          .info {
+            position relative
+            display inline-block
+            width 48px
+            height @width
+            margin 0 10px
+            background alpha($white, .1)
+            border-radius 100%
+            overflow hidden
+
+            .icon  {
+              position absolute
+              top 50%
+              left 50%
+              opacity 1
+              font-size 1.3rem
+              transform translate(-50%, -50%)
+              transition all .3s $ease
+            }
+
+
+            &:hover
+            &:active {
+              background alpha($white, .2)
+              transform scale(.9)
+            }
+
+            @media (max-width: 1366px) and (min-width: 769px) {
+              width 44px
+              height @width
+              .icon {
+                font-size 1.2rem
+              }
+            }
+
+            @media (max-width: 768px) and (min-width: 480px) {
+              width 40px
+              height @width
+              .icon {
+                font-size 1.1rem
+              }
+            }
+
+            @media (max-width: 479px) {
+              width 36px
+              height @width
+              margin 0 5px
+              .icon {
+                font-size 1rem
+              }
+            }
+          }
+        }
       }
 
       .experience-list {
@@ -450,6 +526,62 @@
           }
         }
         
+      }
+
+      .friend-list {
+        flexLayout(,, flex-start, wrap)
+
+        .friend-item {
+          flex 0 0 auto
+          display inline-block
+          margin-bottom 30px
+
+          .info {
+            display block
+            margin 0 20px
+
+            .avatar {
+              width 50px
+              height @width
+              cursor pointer
+            }
+            .content {
+              .name {
+                margin-bottom 5px
+                font-size 1rem
+              }
+
+              .slogan {
+                margin-bottom 0
+                font-size .8rem
+                color $text-color-secondary-dark
+              }
+            }
+          }
+        }
+        @media (max-width: 479px) {
+          padding 0 30px
+          .friend-item {
+            width 100%
+            .info {
+              flexLayout(, flex-start, flex-start)
+              .avatar {
+                flex 0 0 30px
+                width 30px
+                height @width
+                margin-top 5px
+              }
+              .content {
+                margin-left 15px
+                text-align left
+
+                .name {
+                  font-size .9rem
+                }
+              }
+            }
+          }
+        }
       }
     }
 

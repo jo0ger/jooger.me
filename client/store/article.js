@@ -86,6 +86,7 @@ export const actions = {
     if (state.list.fetching) {
       return
     }
+    params.per_page = 2
     commit(FETCH_LIST_REQUEST)
     const { success, data } = await Service.article.fetchList({ params }).catch(err => commit(FETCH_LIST_FAILURE, err))
     if (success) {

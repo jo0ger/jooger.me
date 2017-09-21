@@ -40,10 +40,13 @@
           classes += ' show-sidebar'
         }
       }
-      const lightPage = ['blog'].find(item => this.$route.name.includes(item))
+      const darkPage = ['index', 'about'].find(item => this.$route.name.includes(item))
+      if (darkPage) {
+        classes += ' dark-page'
+      }
       return {
         bodyAttrs: {
-          class: classes + ' ' + lightPage || ''
+          class: classes
         }
       }
     },
@@ -90,6 +93,7 @@
       width 100%
       max-width $content-max-width
       margin 0 auto
+      padding-bottom 100px
       z-index 1
 
       .wrapper {

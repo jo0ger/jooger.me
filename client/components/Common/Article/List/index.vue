@@ -1,30 +1,36 @@
 <template>
   <div class="article-list">
-    <div class="list">
-      <CommonArticleItem
-        class="flex-item"
-        v-for="item in articleList"
-        :key="item._id"
-        :data="item">
-      </CommonArticleItem>
-    </div>
-    <div class="navigation" v-if="pagination.prev || pagination.next">
-      <div class="wrapper">
-        <a class="prev navigation-item" :class="{ active: pagination.prev }" @click.prevent.stop="handleTurnPage(-1, pagination.prev)"></a>
-        <a class="next navigation-item" :class="{ active: pagination.next }" @click.prevent.stop="handleTurnPage(1, pagination.next)"></a>
+    <template v-if="articleList.length">
+      <div class="list">
+        <CommonArticleItem
+          class="flex-item"
+          v-for="item in articleList"
+          :key="item.id"
+          :data="item">
+        </CommonArticleItem>
       </div>
-    </div>
+      <div class="navigation" v-if="pagination.prev || pagination.next">
+        <div class="wrapper">
+          <a class="prev navigation-item" :class="{ active: pagination.prev }" @click.prevent.stop="handleTurnPage(-1, pagination.prev)"></a>
+          <a class="next navigation-item" :class="{ active: pagination.next }" @click.prevent.stop="handleTurnPage(1, pagination.next)"></a>
+        </div>
+      </div>
+    </template>
+    <div class="no-data"></div>
+    <NuxtLoading></NuxtLoading>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
   import CommonArticleItem from '../Item'
+  import NuxtLoading from '~~/.nuxt/components/nuxt-loading.vue'
 
   export default {
     name: 'Common-Article-List',
     components: {
-      CommonArticleItem
+      CommonArticleItem,
+      NuxtLoading
     },
     computed: {
       ...mapGetters({
@@ -38,7 +44,6 @@
         if (!ok) {
           return
         }
-        console.log(delta)
         const { page, per_page } = this.pagination
         let nextPage = page + delta
         if (nextPage < 1) {
@@ -80,6 +85,11 @@
     .navigation {
       margin-top 60px
       text-align center
+
+      @media (max-width: 479px) {
+        margin-top 30px
+      }
+
       &-item {
         position relative
         display inline-block

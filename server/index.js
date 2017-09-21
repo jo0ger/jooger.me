@@ -8,7 +8,9 @@ import nuxtConfig from '../nuxt.config'
 import { logger, loadOption } from './utils'
 
 global.logger = logger
-global.option = loadOption() || {}
+loadOption().then(option => {
+  global.option = option
+})
 
 const app = new Koa()
 const host = process.env.HOST || '127.0.0.1'

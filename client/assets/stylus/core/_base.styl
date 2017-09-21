@@ -15,17 +15,19 @@ html {
 body {
   font 1.0625rem $font-family-base
   line-height 1.53
-  color $text-color-dark
+  color $text-color
   background $body-bg-color
   -moz-osx-font-smoothing grayscale
   -webkit-font-smoothing antialiased
   text-rendering optimizeLegibility
   user-select none
   overflow-y auto
+  background $grey
+  color $text-color
 
-  &.blog {
-    background $grey
-    color $text-color
+  &.dark-page {
+    background $body-bg-color-dark
+    color $text-color-dark
   }
 }
 
@@ -96,6 +98,15 @@ for n in 1...6 {
     border-bottom-color $text-color
     color $text-color
     text-decoration none
+  }
+
+  body.dark-page & {
+    color $text-color-dark
+    border-color $text-color-dark
+
+    &:hover {
+      font-weight bold
+    }
   }
   
 }

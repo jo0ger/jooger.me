@@ -2,7 +2,7 @@
   <header class="header">
     <div class="wrapper">
       <router-link class="logo" to="/">
-        <span>JOOGER</span>
+        <span><i class="iconfont icon-logo"></i></span>
       </router-link>
       <nav class="navigation">
         <a class="search" v-if="isBlogPage" @click.prevent.stop="handleToggleSearch">
@@ -83,7 +83,9 @@
       },
       handleToggleSearch () {
         this.setSearch(!this.showSearch)
-        this.$refs.searchInput[this.showSearch ? 'focus' : 'blur']()
+        setTimeout(() => {
+          this.$refs.searchInput[this.showSearch ? 'focus' : 'blur']()
+        }, 1000)
         if (!this.showSearch) {
           this.$nextTick(() => (this.keyword = ''))
         } else {
@@ -94,7 +96,9 @@
         if (this.keyword && !this.articleListFetching) {
           this.setSearch(false)
           this.$router.push(`/blog/search/${this.keyword}`)
-          this.keyword = ''
+          setTimeout(() => {
+            this.keyword = ''
+          }, 300)
         }
       }
     }
@@ -145,6 +149,10 @@
 
       .logo {
         color $base-color
+        font-size 0
+        .iconfont {
+          font-size 24px
+        }
       }
 
       .navigation {

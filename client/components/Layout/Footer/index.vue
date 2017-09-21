@@ -1,9 +1,9 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" :style="footerStyle">
     <div class="wrapper">
       Powered by 
       <a class="link" target="_blank" href="https://github.com/nuxt/nuxt.js">nuxt.js</a>、
-      <div :style="style">
+      <div :style="textStyle">
         Developed by 
         <a class="link" target="_blank" :href="`https://github.com/${me.login}`">{{ me.name }}</a>
       </div>
@@ -21,7 +21,15 @@
         mobileLayout: 'app/mobileLayout',
         me: 'me/me'
       }),
-      style () {
+      isAboutPage () {
+        return this.$route.name === 'about'
+      },
+      footerStyle () {
+        return this.isAboutPage ? {
+          paddingBottom: '125px'
+        } : null
+      },
+      textStyle () {
         return {
           display: this.mobileLayout ? null : 'inline-block'
         }
@@ -36,8 +44,7 @@
 
   .footer {
     width 100%
-    padding 20px 0
-    padding-bottom 125px
+    padding 40px 0
 
     .wrapper {
       position relative
@@ -62,14 +69,6 @@
         padding 0 30px
       }
 
-      .link {
-        color $text-color-dark
-        border-bottom 1px dotted $text-color-dark
-
-        &:hover {
-          font-weight bold
-        }
-      }
     }
   }
 </style>
