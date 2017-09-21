@@ -18,8 +18,6 @@
 </template>
 
 <script>
-  import defaultThumb from '~/static/image/pexels-photo-368893.jpeg'
-
   export default {
     name: 'Common-Article-Item',
     props: {
