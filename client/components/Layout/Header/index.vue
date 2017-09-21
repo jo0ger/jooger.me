@@ -89,7 +89,7 @@
         if (!this.showSearch) {
           this.$nextTick(() => (this.keyword = ''))
         } else {
-          this.showMenu = false
+          this.$store.commit('app/SET_MENU', false)
         }
       },
       handleSearch () {
