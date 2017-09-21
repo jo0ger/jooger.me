@@ -3,10 +3,10 @@
     <div class="article-pane">
       <article class="detail" v-if="articleDetail">
         <header class="header">
+          <h1 class="title">{{ articleDetail.title }}</h1>
           <div class="meta">
             <time class="time" :datatitme="articleDetail.created_at">{{ articleDetail.created_at | fmtDate('yyyy-MM-dd') }}</time>
           </div>
-          <h1 class="title">{{ articleDetail.title }}</h1>
         </header>
         <div class="content md-body" ref="content" v-html="articleDetail.body.content"></div>
         <div class="tags" v-if="articleDetail.labels && articleDetail.labels.length">
@@ -17,7 +17,7 @@
             <span class="text">{{ item.name }}</span>
           </router-link>
         </div>
-        <div class="actions">
+        <!-- <div class="actions"> -->
           <!-- <a class="action-item like" :class="{ 'is-liked': liked }" @click="handleLike">
             <i class="iconfont icon-like-fill"></i>
             <span class="text">喜欢</span>
@@ -31,7 +31,7 @@
             <i class="iconfont icon-share"></i>
             <span class="text">分享</span>
           </a> -->
-        </div>
+        <!-- </div> -->
       </article>
     </div>
     <div class="comments-pane">
@@ -158,7 +158,8 @@
           text-align center
 
           .meta {
-            margin-bottom 15px
+            margin-top 15px
+            color $text-color-secondary
           }
 
           .title {

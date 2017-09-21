@@ -300,7 +300,8 @@
               }
             }
 
-            &:hover {
+            &:hover
+            &:active {
               background alpha($white, .2)
 
               .icon {
@@ -415,7 +416,7 @@
             display inline-block
             width 48px
             height @width
-            margin 0 20px
+            margin 0 10px
             background alpha($white, .1)
             border-radius 100%
             overflow hidden
@@ -431,7 +432,8 @@
             }
 
 
-            &:hover {
+            &:hover
+            &:active {
               background alpha($white, .2)
               transform scale(.9)
             }
@@ -439,7 +441,6 @@
             @media (max-width: 1366px) and (min-width: 769px) {
               width 44px
               height @width
-              margin 0 15px
               .icon {
                 font-size 1.2rem
               }
@@ -448,7 +449,6 @@
             @media (max-width: 768px) and (min-width: 480px) {
               width 40px
               height @width
-              margin 0 10px
               .icon {
                 font-size 1.1rem
               }
