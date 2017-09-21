@@ -3,10 +3,9 @@
     <div class="wrapper">
       Powered by 
       <a class="link" target="_blank" href="https://github.com/nuxt/nuxt.js">nuxt.js</a>、
-      <div :style="textStyle">
-        Developed by 
-        <a class="link" target="_blank" :href="`https://github.com/${me.login}`">{{ me.name }}</a>
-      </div>
+      <br v-if="mobileLayout">
+      Developed by 
+      <a class="link" target="_blank" :href="`https://github.com/${me.login}`">{{ me.name }}</a>
     </div>
   </footer>
 </template>
@@ -28,11 +27,6 @@
         return this.isAboutPage ? {
           paddingBottom: '125px'
         } : null
-      },
-      textStyle () {
-        return {
-          display: this.mobileLayout ? null : 'inline-block'
-        }
       }
     }
   }
