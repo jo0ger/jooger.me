@@ -25,7 +25,7 @@ export default {
     },
     github: {
       owner: 'jo0ger',
-      repo: 'git-hook-test',
+      repo: 'jooger.me-source',
       clientId: 'b4983366c4c7549a09f1',
       clientSecret: '76fd8c26a21659d7eb925af0ed3498eabed49277',
       repoLocalDir: '../jooger.me-source'
