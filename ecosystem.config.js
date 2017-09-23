@@ -31,8 +31,8 @@ module.exports = {
       host: 'jooger.me',
       ref: 'origin/master',
       repo: packageConfig.repository.url,
-      path: '/var/www/' + packageConfig.name,
-      'post-deploy': 'npm install && pm2 stop all && npm run build && pm2 reload ecosystem.config.js --env production && pm2 start all'
+      path: '/root/www/' + packageConfig.name,
+      'post-deploy': 'cnpm install && pm2 stop all && cnpm run build && pm2 reload ecosystem.config.js --env production && pm2 start all'
     }
   }
 }
