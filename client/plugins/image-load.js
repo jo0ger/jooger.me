@@ -17,7 +17,6 @@ function imgLoad (url = '', opt = {}) {
       opt = {}
     }
   }
-  console.log(url)
   const { success, fail, load } = opt
   if (!url || !isType(url, 'String')) {
     return fail && fail()
