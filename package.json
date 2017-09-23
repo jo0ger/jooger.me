@@ -5,8 +5,8 @@
   "author": "Jooger <zzy1198258955@163.com>",
   "private": true,
   "repository": {
-    "type": "git",
-    "url": "git@github.com:jo0ger/jooger.me.git"
+    "type": "https",
+    "url": "https://github.com/jo0ger/jooger.me.git"
   },
   "scripts": {
     "dev": "backpack dev",
