@@ -9,3 +9,9 @@ npm-debug.log
 
 # Nuxt generate
 dist
+
+# Nuxt Server Build
+build
+
+# Server Logs
+server/**/*.log
