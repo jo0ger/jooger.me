@@ -15,3 +15,6 @@ build
 
 # Server Logs
 server/**/*.log
+
+# Npm package lock file
+package-lock.json
