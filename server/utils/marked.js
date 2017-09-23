@@ -62,22 +62,33 @@ renderer.code = function (code, lang, escaped) {
     }
   }
 
-  const codeLine = '<ul class="code-line">' +
-    code.split('\n').map((line, index) => `<li class="line">${index + 1}</li>`.replace(/\s+/g, ' ')).join('') +
-    '</ul>'
+  // const codeLine = '<ul class="code-line">' +
+  const lineCode = code.split('\n')
+  const codeWrapper = lineCode.map((line, index) => `<span class="line" data-index="${index + 1}">${line}</span>${index !== lineCode.length - 1 ? '<br>' : ''}`.replace(/\s+/g, ' ')).join('')
+    // code.split('\n').map((line, index) => `<li class="line">${index + 1}</li>`.replace(/\s+/g, ' ')).join('') +
+    // '</ul>'
 
   if (!lang) {
-    return '<pre>' + codeLine + '<code>' +
-      (escaped ? code : escape(code, true)) +
+    // return '<pre>' + codeLine + '<code>' +
+    //   (escaped ? code : escape(code, true)) +
+    //   '\n</code></pre>'
+    return '<pre>' + '<code>' +
+    codeWrapper +
       '\n</code></pre>'
   }
 
-  return '<pre>' + codeLine + '<code class="' +
+  return '<pre>' + '<code class="' +
     this.options.langPrefix +
     escape(lang, true) +
     '">' +
-    (escaped ? code : escape(code, true)) +
+    codeWrapper +
     '\n</code></pre>\n'
+  // return '<pre>' + codeLine + '<code class="' +
+  //   this.options.langPrefix +
+  //   escape(lang, true) +
+  //   '">' +
+  //   (escaped ? code : escape(code, true)) +
+  //   '\n</code></pre>\n'
 }
 
 marked.setOptions({

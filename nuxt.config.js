@@ -8,8 +8,12 @@ module.exports = {
   },
   dev: !isProd,
   head: {
-    title: 'Jooger.me - 凡心所向，一往无前',
+    title: 'Jooger.me - 凡心所向，一苇以航',
     titleTemplate: '%s - Jooger.me',
+    htmlAttrs: {
+      xmlns: 'http://www.w3.org/1999/xhtml',
+      lang: 'zh'
+    },
     meta: [
       { charset: 'utf-8' },
       { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
@@ -21,6 +25,7 @@ module.exports = {
       { name: 'HandheldFriendly', content: 'True' },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { name: 'author', content: 'zzy1198258955@163.com' },
+      { name: 'theme-color', content: '#f04134' },
       { hid: 'keywords', name: 'keywords', content: 'Jooger,Jooger.me,Blog,FE,前端' },
       { hid: 'description', name: 'description', content: '凡心所向，一苇以航' }
     ],

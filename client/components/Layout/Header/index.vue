@@ -23,8 +23,7 @@
       </ul>
     </div>
     <div class="search-pane" :class="{ active: showSearch }">
-      <div class="search-form" role="search"
-        @submit.stop.prevent="handleSearch">
+      <form class="search-form" role="search" @submit.stop.prevent="handleSearch">
         <input class="search-input"
           ref="searchInput"
           type="search"
@@ -35,7 +34,7 @@
           v-model.trim="keyword"
           @keyup.enter="handleSearch">
         <a class="close" @click.prevent.stop="handleToggleSearch"></a>
-      </div>
+      </form>
     </div>
   </header>
 </template>
@@ -147,7 +146,7 @@
       }
 
       @media (max-width: 479px) {
-        padding 0 30px
+        padding 0 15px
       }
 
       .logo {
