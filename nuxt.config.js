@@ -22,7 +22,7 @@ module.exports = {
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { name: 'author', content: 'zzy1198258955@163.com' },
       { hid: 'keywords', name: 'keywords', content: 'Jooger,Jooger.me,Blog,FE,前端' },
-      { hid: 'description', name: 'description', content: '凡心所向，一往无前' }
+      { hid: 'description', name: 'description', content: '凡心所向，一苇以航' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -50,6 +50,7 @@ module.exports = {
     { src: '~plugins/filter.js' },
     { src: '~plugins/google-analytics.js', ssr: false },
     { src: '~plugins/baidu-statistics.js', ssr: false },
+    { src: '~plugins/baidu-seo-push.js', ssr: false },
     { src: '~plugins/swiper.js', ssr: false },
     { src: '~plugins/image-load.js', ssr: false },
     { src: '~plugins/image-popup.js', ssr: false }
