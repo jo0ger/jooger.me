@@ -332,7 +332,6 @@
                 background-color alpha($white, .05)
                 border-radius 45%
                 transform translate(-50%, -100%) rotate(0)
-                animation rotate 6s linear infinite
                 z-index 10
                 opacity 0
                 transition all .3s $ease
@@ -342,7 +341,6 @@
                 border-radius 43%
                 background-color alpha($white, .1)
                 transform translate(-50%, -100%) rotate(0)
-                animation rotate 10s linear -5s infinite
                 z-index 20
               }
 
@@ -351,14 +349,6 @@
                   &::before
                   &::after {
                     transform translate(-50%, -(65 + 35 / 100 * n)%) rotate(0)
-                  }
-
-                  &::before {
-                    animation 'rotate-%s 6s linear infinite' % n
-                  }
-
-                  &::after {
-                    animation 'rotate-%s 10s linear -5s infinite' % n
                   }
                 }
               }
@@ -380,6 +370,18 @@
 
               .wave {
                 transform translateY(0)
+
+                for n in 50 60 70 80 90 {
+                  &.wave-{n} {
+                    &::before {
+                      animation 'rotate-%s 6s linear infinite' % n
+                    }
+
+                    &::after {
+                      animation 'rotate-%s 10s linear -5s infinite' % n
+                    }
+                  }
+                }
 
                 &::before
                 &::after { 
