@@ -57,7 +57,6 @@
   @import '~assets/stylus/_mixin'
 
   .article-item {
-    padding 20px
     transition transform .3s $ease
     .article-link {
       display block
@@ -103,7 +102,8 @@
           font-size 1rem
         }
       }
-      &:hover {
+      &:hover
+      &:active {
         transform scale(.98)
       }
     }

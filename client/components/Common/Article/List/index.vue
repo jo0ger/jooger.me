@@ -66,10 +66,15 @@
     .list {
       flexLayout(,flex-start,,wrap)
       margin 0 -20px
+
+      @media (max-width: 480px) {
+        margin 0
+      }
       
       .flex-item {
         flex 0 0 (100% / 3)
         max-width (100% / 3)
+        padding 20px
 
         @media (max-width: 768px) {
           flex-basis 50% !important
@@ -79,6 +84,7 @@
         @media (max-width: 480px) {
           flex-basis 100% !important
           max-width 100%
+          padding 15px 0
         }
 
       }

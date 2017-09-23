@@ -155,6 +155,31 @@
   display: block;
   max-width: 100%;
 }
+.md-body table {
+	display:block;
+	width:100%;
+	overflow:auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.md-body table th {
+	font-weight:600
+}
+.md-body table th,
+.md-body table td {
+	padding:6px 13px;
+	border:1px solid #dfe2e5
+}
+.md-body table tr {
+	background-color:#fff;
+	border-top:1px solid #c6cbd1
+}
+.md-body table tr:nth-child(2n) {
+	background-color:#f6f8fa
+}
+.md-body table img {
+	background-color:transparent
+}
 
 .md-body {
   ul
@@ -162,15 +187,26 @@
     list-style none
   }
 
+  code {
+    & > span {
+      &::before {
+        content attr(data-index)
+        position: absolute
+        left 10px
+        color alpha($black, .2)
+      }
+    }
+  }
+
   ul.code-line {
-    position absolute
-    left 0
-    top 0
-    margin 0
-    padding 15px 0 15px 10px
-    color alpha($black, .2)
-    line-height 1.5em
-    text-align right
+    // position absolute
+    // left 0
+    // top 0
+    // margin 0
+    // padding 15px 0 15px 10px
+    // color alpha($black, .2)
+    // line-height 1.5em
+    // text-align right
     list-style none
 
     .line {
