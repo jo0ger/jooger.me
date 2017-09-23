@@ -319,7 +319,7 @@ module.exports = {
     analyze: false,
     vendor: ['axios', 'swiper', 'bezier-easing', 'highlight.js', 'marked']
   },
-  plugins: [{ src: '~plugins/router.js' }, { src: '~plugins/filter.js' }, { src: '~plugins/baidu-tongji.js', ssr: false }, { src: '~plugins/swiper.js', ssr: false }, { src: '~plugins/image-load.js', ssr: false }, { src: '~plugins/image-popup.js', ssr: false }],
+  plugins: [{ src: '~plugins/router.js' }, { src: '~plugins/filter.js' }, { src: '~plugins/google-analytics.js', ssr: false }, { src: '~plugins/baidu-statistics.js', ssr: false }, { src: '~plugins/swiper.js', ssr: false }, { src: '~plugins/image-load.js', ssr: false }, { src: '~plugins/image-popup.js', ssr: false }],
   router: {
     linkActiveClass: 'active'
   },
