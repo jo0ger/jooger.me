@@ -16,7 +16,9 @@
         </div>
       </div>
     </template>
-    <div class="no-data"></div>
+    <div class="no-data">
+      很遗憾，未找到您想要的东西
+    </div>
   </div>
 </template>
 
@@ -133,6 +135,10 @@
           }
         }
       }
+    }
+
+    .no-data {
+      text-align center
     }
   }
 </style>

@@ -1,37 +1,105 @@
 <template>
-  <section class="container">
-    <img src="../assets/img/logo.png" alt="Nuxt.js Logo" />
-    <h1 class="title">
-      {{ error.statusCode }}
-    </h1>
-    <h2 class="info">
-      {{ error.message }}
-    </h2>
-    <nuxt-link class="button" to="/" v-if="error.statusCode === 404">
-      Homepage
-    </nuxt-link>
-  </section>
+  <div class="app">
+    <div class="app-main">
+      <LayoutHeader></LayoutHeader>
+      <keep-alive>
+        <LayoutBanner></LayoutBanner>
+      </keep-alive>
+      <main class="container">
+        <div class="wrapper">
+          <div class="banner-content">
+            <h1 class="title">{{ error.statusCode }}</h1>
+            <h3 class="subtitle">{{ error.message }}</h3>
+            <nuxt-link class="go-home" to="/">Go HOME</nuxt-link>
+          </div>
+        </div>
+      </main>
+      <LayoutOverlay></LayoutOverlay>
+    </div>
+  </div>
 </template>
+
 <script>
-export default {
-  props: ['error']
-}
+  import { mapGetters } from 'vuex'
+  import { LayoutHeader, LayoutBanner, LayoutOverlay } from '~/components/Layout'
+  import { CommonFetchLoading } from '~/components/Common'
+
+  export default {
+    name: 'Error',
+    components: {
+      LayoutHeader,
+      LayoutBanner,
+      LayoutOverlay
+    },
+    props: ['error'],
+    head () {
+      let classes = ''
+      if (this.mobileLayout) {
+        classes += 'is-mobile'
+        if (this.mobileSidebar) {
+          classes += ' show-sidebar'
+        }
+      }
+      return {
+        bodyAttrs: {
+          class: classes + ' dark-page'
+        }
+      }
+    },
+    computed: {
+      ...mapGetters({
+        mobileLayout: 'app/mobileLayout',
+        mobileSidebar: 'app/mobileSidebar'
+      })
+    }
+  }
 </script>
 
-<style scoped>
-.title
-{
-  margin-top: 15px;
-  font-size: 5em;
-}
-.info
-{
-  font-weight: 300;
-  color: #9aabb1;
-  margin: 0;
-}
-.button
-{
-  margin-top: 50px;
-}
+<style lang="stylus" scoped>
+  @import '~assets/stylus/_var'
+  @import '~assets/stylus/_mixin'
+
+  .app {
+
+    .container {
+      position relative
+      width 100%
+      max-width $content-max-width
+      margin 0 auto
+      padding-bottom 100px
+      z-index 1
+
+      .wrapper {
+        width 100%
+        padding 0 100px
+
+        @media (max-width: 1366px) and (min-width: 769px) {
+          padding 0 65px
+        }
+
+        @media (max-width: 768px) and (min-width: 480px) {
+          padding 0 40px
+        }
+
+        @media (max-width: 479px) {
+          padding 0 15px
+        }
+
+        .banner-content {
+          top 60vh
+          text-align center
+
+          .go-home {
+            display inline-block
+            margin-top 30px
+            padding 10px 20px
+            background $base-color
+            color $white
+            border-radius 50px
+          }
+        }
+      }
+    }
+  }
+
 </style>

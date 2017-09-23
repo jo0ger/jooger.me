@@ -1,15 +1,20 @@
 <template>
-  <div class="banner">
+  <div class="banner" :style="bannerStyle">
     <div class="banner-swiper" v-if="showSwiper && option.banners">
       <div class="swiper-container" v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item in option.banners" :key="item" :style="getSwiperStyle(item)">
-          </div>
+          <template v-for="item in option.banners">
+            <div class="swiper-slide" :key="item" :style="getSwiperStyle(item)" v-if="!isVideoType(item)"></div>
+            <video class="swiper-slide" :src="item" :key="item" autoplay></video>
+          </template>
         </div>
-        <div class="swiper-pagination swiper-pagination-bullets"></div>
+        <div class="swiper-pagination swiper-pagination-bullets" v-if="option.banners.length > 1"></div>
       </div>
     </div>
-    <div class="banner-bg" :style="bannerBgStyle" v-else-if="option.aboutBanner"></div>
+    <div class="banner-error-bg" v-else-if="isErrorPage"></div>
+    <div class="banner-bg" v-else :style="bannerBgStyle">
+      <CommonUgly type="fly-bird" v-if="!option.aboutBanner"></CommonUgly>
+    </div>
     <transition name="fade">
       <a class="trigger" v-if="showTrigger" @click.prevent.stop="handleGoToContent"></a>
     </transition>
@@ -18,18 +23,22 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { scrollTo, easing } from '~/utils'
+  import { CommonUgly } from '~/components/Common'
+  import { scrollTo, easing, isVideoType } from '~/utils'
 
   export default {
     name: 'Layout-Banner',
+    components: {
+      CommonUgly
+    },
     data () {
       return {
         swiperOption: {
           autoplay: 5000,
-          initialSlide: 1,
+          initialSlide: 0,
           speed: 500,
           setWrapperSize: true,
-          loop: true,
+          // loop: true,
           grabCursor: true,
           pagination: '.swiper-pagination',
           paginationClickable: true,
@@ -46,20 +55,27 @@
       ...mapGetters({
         option: 'option/option'
       }),
+      isErrorPage () {
+        return this.$parent.$options.name === 'Error'
+      },
       isAboutPage () {
         return this.$route.name === 'about'
       },
       showSwiper () {
-        return !this.isAboutPage
+        return !this.isErrorPage && !this.isAboutPage
       },
       showTrigger () {
         return !this.showContent && this.isAboutPage
       },
-      bannerBgStyle () {
+      bannerStyle () {
         return this.isAboutPage ? {
-          backgroundImage: `url(${this.option.aboutBanner})`,
-          opacity: this.showContent ? 0.3 : 0.6,
-          filter: this.showContent ? 'blur(10px)' : null
+          opacity: this.showContent ? 0.5 : 1,
+          filter: this.showContent ? 'blur(2px)' : null
+        } : null
+      },
+      bannerBgStyle () {
+        return (this.isAboutPage && this.option.aboutBanner) ? {
+          backgroundImage: `url(${this.option.aboutBanner})`
         } : null
       }
     },
@@ -87,6 +103,7 @@
       }
     },
     methods: {
+      isVideoType,
       init () {
         this.triggerResize()
         if (!this._scrollerHandler) {
@@ -133,8 +150,10 @@
     bottom 0
     left 0
     z-index 0
+    transition all .5s $ease-out
 
     .banner-swiper
+    .banner-error-bg
     .banner-bg {
       width 100%
       height @width
@@ -143,12 +162,12 @@
     .swiper-container {
       width 100%
       height @width
+      opacity .8
 
       .swiper-slide {
         background-repeat no-repeat
         background-size cover
         background-position center center
-        opacity .6
 
         img {
           display none
@@ -164,8 +183,6 @@
       background-repeat no-repeat
       background-size cover
       background-position center center
-      opacity .8
-      transition all .5s $ease-out
     }
 
 

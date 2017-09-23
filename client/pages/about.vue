@@ -1,7 +1,7 @@
   <template>
   <section class="about-page">
     <div class="block">
-      <a class="avatar">
+      <a class="avatar" v-if="me.avatar_url">
         <img :src="me.avatar_url" alt="">
       </a>
       <ul class="contact-list">
@@ -148,6 +148,7 @@
         display inline-block
         width 100px
         height @width
+        margin-bottom 30px
         border-radius 100%
         text-align center
         overflow hidden
@@ -468,7 +469,6 @@
 
       .contact-list {
         flexLayout()
-        margin-top 30px
 
         .contact-item {
 
