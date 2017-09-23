@@ -108,6 +108,7 @@
   @import '~assets/stylus/_mixin'
 
   .about-page {
+    position relative
     padding 80px 0 0
     text-align center
 
@@ -145,6 +146,7 @@
       }
 
       .avatar {
+        position relative
         display inline-block
         width 100px
         height @width
@@ -541,6 +543,7 @@
             margin 0 20px
 
             .avatar {
+              position relative
               width 50px
               height @width
               cursor pointer
