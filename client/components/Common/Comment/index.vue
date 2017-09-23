@@ -25,6 +25,9 @@
     },
     methods: {
       init () {
+        if (!this.articleDetail) {
+          return
+        }
         if (!this._gitalk) {
           const github = config.common.github
           const Gitalk = require('gitalk')

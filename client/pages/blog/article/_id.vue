@@ -17,7 +17,7 @@
             <span class="text">{{ item.name }}</span>
           </router-link>
         </div>
-        <!-- <div class="actions"> -->
+        <div class="actions">
           <!-- <a class="action-item like" :class="{ 'is-liked': liked }" @click="handleLike">
             <i class="iconfont icon-like-fill"></i>
             <span class="text">喜欢</span>
@@ -27,14 +27,15 @@
             <i class="iconfont icon-reward"></i>
             <span class="text">打赏</span>
           </a> -->
-          <!-- <a class="action-item share">
+          <a class="action-item share">
             <i class="iconfont icon-share"></i>
             <span class="text">分享</span>
-          </a> -->
-        <!-- </div> -->
+          </a>
+        </div>
       </article>
+      <p class="no-data" v-else>文章未找到</p>
     </div>
-    <div class="comments-pane">
+    <div class="comments-pane" v-if="articleDetail">
       <CommonComment></CommonComment>
     </div>
   </div>
@@ -104,11 +105,13 @@
           window.addEventListener('resize', this._resizeHandler, false)
           this._resizeHandler()
         }
-        this.$refs.content.addEventListener('click', e => {
-          if (e.target.className.includes('image-view')) {
-            this.$imgPop.open(e.target)
-          }
-        }, false)
+        if (this.$refs.content) {
+          this.$refs.content.addEventListener('click', e => {
+            if (e.target.className.includes('image-view')) {
+              this.$imgPop.open(e.target)
+            }
+          }, false)
+        }
       },
       handleLike () {
         if (!this.liked) {
@@ -180,6 +183,7 @@
             background $grey
             border-radius 4px
             font-size .8rem
+            color $text-color-secondary
             transition all .3s $ease
 
             &:hover {
@@ -249,6 +253,10 @@
             
           }
         }
+      }
+
+      .no-data {
+        text-align center
       }
     }
 

@@ -16,7 +16,7 @@
         </div>
       </div>
     </template>
-    <div class="no-data">
+    <div class="no-data" v-else>
       很遗憾，未找到您想要的东西
     </div>
   </div>
