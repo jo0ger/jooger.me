@@ -12,11 +12,9 @@
             <h1 class="title">{{ option.title }}</h1>
             <h3 class="subtitle">{{ isAboutPage ? option.aboutSubtitle : option.subtitle }}</h3>
           </div>
-          <div class="page-content">
-            <keep-alive>
-              <nuxt></nuxt>
-            </keep-alive>
-          </div>
+          <keep-alive>
+            <nuxt></nuxt>
+          </keep-alive>
         </div>
       </main>
       <LayoutTools v-if="!showBannerPage"></LayoutTools>
