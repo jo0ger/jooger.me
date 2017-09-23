@@ -63,7 +63,6 @@
       ...mapGetters({
         mobileLayout: 'app/mobileLayout',
         mobileSidebar: 'app/mobileSidebar',
-        me: 'me/me',
         option: 'option/option'
       }),
       isHomePage () {

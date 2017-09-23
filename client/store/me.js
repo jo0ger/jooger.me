@@ -16,7 +16,7 @@ export const state = () => ({
 })
 
 export const getters = {
-  me: state => state.data
+  me: state => state.data || {}
 }
 
 export const mutations = {

@@ -15,7 +15,7 @@ export const actions = {
     }
     const initTask = []
     initTask.push(...[
-      dispatch('me/fetchData'),
+      // dispatch('me/fetchData'),
       dispatch('option/fetchData')
     ])
     return Promise.all(initTask)

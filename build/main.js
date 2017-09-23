@@ -871,45 +871,31 @@ var hookCtrl = {
 
 hookCtrl.option.POST = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
-    var payload, option;
+    var option;
     return __WEBPACK_IMPORTED_MODULE_0__Users_jooger_develop_git_jooger_me_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            payload = ctx.request.body.payload;
-
-            if (payload) {
-              _context.next = 3;
-              break;
-            }
-
-            return _context.abrupt('return', __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils__["f" /* handleError */])({
-              ctx: ctx,
-              message: 'payload不存在'
-            }));
-
-          case 3:
-
             logger.info('----------------------option hook push start----------------------------');
 
-            _context.next = 6;
+            _context.next = 3;
             return pullRepo(__WEBPACK_IMPORTED_MODULE_1_path___default.a.resolve(__dirname, '../../', repoLocalDir));
 
-          case 6:
+          case 3:
             option = global.option;
 
             if (!isProd) {
-              _context.next = 11;
+              _context.next = 8;
               break;
             }
 
-            _context.next = 10;
+            _context.next = 7;
             return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__utils__["b" /* loadOption */])();
 
-          case 10:
+          case 7:
             option = _context.sent;
 
-          case 11:
+          case 8:
 
             if (option) {
               global.option = option;
@@ -920,7 +906,7 @@ hookCtrl.option.POST = function () {
 
             logger.info('----------------------option hook push end----------------------------');
 
-          case 13:
+          case 10:
           case 'end':
             return _context.stop();
         }

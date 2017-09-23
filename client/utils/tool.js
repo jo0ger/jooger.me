@@ -16,6 +16,8 @@ export const isType = (obj = {}, type = 'Object') => {
   return type.some(t => Object.prototype.toString.call(obj) === `[object ${t}]`)
 }
 
+export const isVideoType = (url = '') => /\w+(.flv|.rvmb|.mp4|.avi|.wmv)$/.test(url)
+
 /**
  * 防抖函数，适用于输入框input的检索，屏幕的拖拽等
  * @param  {Function} fn                防抖回调

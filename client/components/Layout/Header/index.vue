@@ -62,8 +62,11 @@
         showSearch: 'app/showSearch',
         showMenu: 'app/showMenu'
       }),
+      isErrorPage () {
+        return this.$parent.$options.name === 'Error'
+      },
       isBlogPage () {
-        return this.$route.name.includes('blog')
+        return !this.isErrorPage && this.$route.name.includes('blog')
       }
     },
     methods: {
