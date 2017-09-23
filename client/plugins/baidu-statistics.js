@@ -4,7 +4,10 @@
  * @date 23 Sep 2017
  */
 
-export default ({ app, isClient }) => {
+export default ({
+  app,
+  isClient
+}) => {
   if (process.env.NODE_ENV === 'production' && isClient) {
     const hm = document.createElement('script')
     hm.src = 'https://hm.baidu.com/hm.js?cb9683e3a9b2dbea389ab751f46873fc'
