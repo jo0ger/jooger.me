@@ -48,6 +48,7 @@ module.exports = {
   plugins: [
     { src: '~plugins/router.js' },
     { src: '~plugins/filter.js' },
+    { src: '~plugins/baidu-tongji.js', ssr: false },
     { src: '~plugins/swiper.js', ssr: false },
     { src: '~plugins/image-load.js', ssr: false },
     { src: '~plugins/image-popup.js', ssr: false }
