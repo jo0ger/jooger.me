@@ -2,7 +2,7 @@
   <header class="header">
     <div class="wrapper">
       <router-link class="logo" to="/">
-        <span><i class="iconfont icon-logo"></i></span>
+        <img src="~static/image/logo.svg" alt="">
       </router-link>
       <nav class="navigation">
         <a class="search" v-if="isBlogPage" @click.prevent.stop="handleToggleSearch">
@@ -153,8 +153,9 @@
       .logo {
         color $base-color
         font-size 0
-        .iconfont {
-          font-size 24px
+        img {
+          width 26px
+          height 26px
         }
       }
 

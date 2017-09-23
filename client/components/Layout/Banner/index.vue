@@ -5,14 +5,14 @@
         <div class="swiper-wrapper">
           <template v-for="item in option.banners">
             <div class="swiper-slide" :key="item" :style="getSwiperStyle(item)" v-if="!isVideoType(item)"></div>
-            <video class="swiper-slide" :src="item" :key="item" autoplay></video>
+            <video class="swiper-slide" :src="item" :key="item" autoplay v-else></video>
           </template>
         </div>
         <div class="swiper-pagination swiper-pagination-bullets" v-if="option.banners.length > 1"></div>
       </div>
     </div>
-    <div class="banner-error-bg" v-else-if="isErrorPage"></div>
-    <div class="banner-bg" v-else :style="bannerBgStyle">
+    <div class="banner-error-bg" :style="errorBannerBgStyle" v-else-if="isErrorPage"></div>
+    <div class="banner-bg" v-else >
       <CommonUgly type="fly-bird" v-if="!option.aboutBanner"></CommonUgly>
     </div>
     <transition name="fade">
@@ -73,9 +73,9 @@
           filter: this.showContent ? 'blur(2px)' : null
         } : null
       },
-      bannerBgStyle () {
-        return (this.isAboutPage && this.option.aboutBanner) ? {
-          backgroundImage: `url(${this.option.aboutBanner})`
+      errorBannerBgStyle () {
+        return (this.isErrorPage && this.option.errorBanner) ? {
+          backgroundImage: `url(${this.option.errorBanner})`
         } : null
       }
     },
@@ -150,6 +150,7 @@
     bottom 0
     left 0
     z-index 0
+    opacity .6
     transition all .5s $ease-out
 
     .banner-swiper
@@ -179,6 +180,7 @@
       }
     }
 
+    .banner-error-bg
     .banner-bg {
       background-repeat no-repeat
       background-size cover
@@ -248,7 +250,7 @@
     width 20px
     height 2px
     border-radius 1px
-    background alpha($white, .5)
+    background alpha($white, .6)
     &-active {
       background alpha($white, .8)
     }

@@ -10,7 +10,7 @@
           <div class="banner-content">
             <h1 class="title">{{ error.statusCode }}</h1>
             <h3 class="subtitle">{{ error.message }}</h3>
-            <nuxt-link class="go-home" to="/">Go HOME</nuxt-link>
+            <nuxt-link class="go-home" to="/">Go Home</nuxt-link>
           </div>
         </div>
       </main>
@@ -86,16 +86,31 @@
         }
 
         .banner-content {
-          top 60vh
+          top 40vh
+          max-width 80%
           text-align center
+
+          .title {
+            font-size 10vmin
+          }
+
+          .subtitle {
+            text-transform initial
+          }
 
           .go-home {
             display inline-block
-            margin-top 30px
+            margin-top 60px
             padding 10px 20px
-            background $base-color
             color $white
-            border-radius 50px
+            border 1px solid alpha($white, .3)
+            border-radius 10px
+
+            &:hover
+            &:active {
+              background alpha($white, .3)
+              border-color @background
+            }
           }
         }
       }
