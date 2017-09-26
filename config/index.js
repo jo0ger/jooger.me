@@ -4,6 +4,9 @@
  * @date 19 Sep 2017
  */
 
+const path = require('path')
+const isProd = process.env.NODE_ENV === 'production'
+
 const baseService = {
   url: '/',
   method: 'get',
@@ -29,7 +32,7 @@ export default {
       clientId: 'b4983366c4c7549a09f1',
       clientSecret: '76fd8c26a21659d7eb925af0ed3498eabed49277',
       // source目录相对于根目录的路径
-      repoLocalDir: '../../jooger.me-source'
+      repoLocalDir: path.resolve(isProd ? '../../' : '../', 'jooger.me-source')
     },
     command: {
       PULL: 'git pull ',
