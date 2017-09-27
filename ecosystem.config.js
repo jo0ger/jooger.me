@@ -4,35 +4,34 @@
  * @date 19 Sep 2017
  */
 
-const packageConfig = require('./package.json')
+const packageInfo = require('./package.json')
 
 module.exports = {
   apps: [
     {
-      name: packageConfig.name,
+      name: packageInfo.name,
       script: 'build/main.js',
       env: {
-        COMMON_VARIABLE: 'true'
+        NODE_ENV: 'production'
       },
       env_production: {
         NODE_ENV: 'production'
         // log: true
-      }
+      },
+      log_date_format: 'YYYY-MM-DD HH:mm Z',
+      out_file: './logs/pm2-out.log',
+      error_file: './logs/pm2-error.log',
+      pid_file: './logs/jooger.me.pid'
     }
   ],
-
-  /**
-   * Deployment section
-   * http://pm2.keymetrics.io/docs/usage/deployment/
-   */
   deploy: {
     production: {
       user: 'root',
       host: 'jooger.me',
       ref: 'origin/master',
-      repo: packageConfig.repository.url,
-      path: '/root/www/' + packageConfig.name,
-      'post-deploy': 'cnpm install && pm2 stop all && cnpm run build && pm2 reload ecosystem.config.js && pm2 start all'
+      repo: packageInfo.repository.url,
+      path: '/root/www/' + packageInfo.name,
+      'post-deploy': 'cnpm install && pm2 stop all && npm run build && pm2 startOrReload ecosystem.config.js && pm2 start all'
     }
   }
 }
