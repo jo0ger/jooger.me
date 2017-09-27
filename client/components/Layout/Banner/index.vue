@@ -11,7 +11,7 @@
         <div class="swiper-pagination swiper-pagination-bullets" v-if="option.banners.length > 1"></div>
       </div>
     </div>
-    <div class="banner-error-bg" :style="errorBannerBgStyle" v-else-if="isErrorPage"></div>
+    <div class="banner-error-bg" v-else-if="isErrorPage"></div>
     <div class="banner-bg" v-else >
       <CommonUgly type="fly-bird" v-if="!option.aboutBanner"></CommonUgly>
     </div>
@@ -71,11 +71,6 @@
         return this.isAboutPage ? {
           opacity: this.showContent ? 0.5 : 1,
           filter: this.showContent ? 'blur(2px)' : null
-        } : null
-      },
-      errorBannerBgStyle () {
-        return (this.isErrorPage && this.option.errorBanner) ? {
-          backgroundImage: `url(${this.option.errorBanner})`
         } : null
       }
     },
@@ -187,6 +182,9 @@
       background-position center center
     }
 
+    .banner-error-bg {
+      background-image url('~static/image/error-page-banner.jpg')
+    }
 
     .trigger {
       position absolute

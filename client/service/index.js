@@ -5,7 +5,7 @@
  */
 
 import Axios from 'axios'
-import config from '../../config'
+import config from '../config'
 
 const logMsg = (msg = '', type = 'success') => {
   if (msg) {
@@ -13,32 +13,32 @@ const logMsg = (msg = '', type = 'success') => {
   }
 }
 
-export const fetcher = Axios.create(config.client.service)
+export const fetcher = Axios.create(config.service)
 
-export const CODE = {
+const codeMap = {
   FAILED: -1,
-  SUCCESS: 0,
-  UNAUTHORIZED: 401
+  SUCCESS: 200,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  SERVER_ERROR: 500,
+  PARAMS_ERROR: 10001
 }
 
-fetcher.interceptors.request.use(config => {
-  return config
-}, err => {
-  return Promise.reject(err)
-})
+fetcher.interceptors.request.use(config => config, err => Promise.reject(err))
 
 fetcher.interceptors.response.use(response => {
   if (!response || !response.data) {
     return logMsg('服务器异常', 'error')
   }
   switch (response.data.code) {
-    case CODE.UNAUTHORIZED:
+    case codeMap.UNAUTHORIZED:
+    case codeMap.FAILED:
+    case codeMap.FORBIDDEN:
+    case codeMap.SERVER_ERROR:
+    case codeMap.PARAMS_ERROR:
       logMsg(response.data.message, 'error')
       break
-    case CODE.FAILED:
-      logMsg(response.data.message, 'error')
-      break
-    case CODE.SUCCESS:
+    case codeMap.SUCCESS:
       if (response.config.method.toLocaleUpperCase() !== 'GET') {
         logMsg(response.data.message)
       }
@@ -46,16 +46,13 @@ fetcher.interceptors.response.use(response => {
     default:
       break
   }
-  return {
-    success: response.data && response.data.code === CODE.SUCCESS,
-    ...response.data
-  }
+  return response.data
 }, error => {
-  const status = error.response && error.response.status || error.code
+  const status = error.response ? error.response.status : error.code
   const message = error.message ? error.message : `请求错误${status ? `，code:${status}` : ''}`
   logMsg(message, 'error')
   return error.response || {
-    code: CODE.FAILED,
+    code: codeMap.FAILED,
     message
   }
 })
@@ -65,14 +62,14 @@ const wrap = (url, type = 'get') => (config = {}) => fetcher.request({ ...config
 export default {
   article: {
     fetchList: wrap('/articles'),
-    fetchDetail: id => wrap(`/article/${id}`),
-    fetchLikes: id => wrap(`/article/${id}/like`),
-    like: id => wrap(`/article/${id}/like`, 'post')
+    fetchDetail: id => wrap(`/articles/${id}`),
+    fetchLikes: id => wrap(`/articles/${id}/like`),
+    like: id => wrap(`/articles/${id}/like`, 'post')
   },
   user: {
-    fetchMe: wrap('/user/me')
+    fetchMe: wrap('/users/me')
   },
   option: {
-    fetchData: wrap('/option')
+    fetchData: wrap('/options')
   }
 }

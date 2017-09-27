@@ -1,6 +1,6 @@
 <template>
   <article class="article-item">
-    <router-link class="article-link" :to="`/blog/article/${data.number}`">
+    <router-link class="article-link" :to="`/blog/article/${data._id}`">
       <div class="cover">
         <img :src="thumb" alt="" class="thumb-cover" v-if="thumb">
         <div class="placeholder">
@@ -9,7 +9,7 @@
       </div>
       <header class="caption">
         <div class="meta">
-          <time class="time" :datatitme="data.created_at">{{ data.created_at | fmtDate('yyyy-MM-dd') }}</time>
+          <time class="time" :datatitme="data.createdAt">{{ data.createdAt | fmtDate('yyyy-MM-dd') }}</time>
         </div>
         <h3 class="title">{{ data.title }}</h3>
       </header>
@@ -38,10 +38,10 @@
     },
     methods: {
       loadThumb () {
-        if (!this.data.body.thumb) {
+        if (!this.data.thumb) {
           return
         }
-        const thumb = this.data.body.thumb + '?imageView2/0/format/webp/q/75|watermark/2/text/Sm9vZ2VyLm1l/font/5b6u6L2v6ZuF6buR/fontsize/360/fill/I0Y3RjdGNw==/dissolve/80/gravity/SouthEast/dx/10/dy/10|imageslim'
+        const thumb = this.data.thumb + '?imageView2/0/format/webp/q/75|watermark/2/text/Sm9vZ2VyLm1l/font/5b6u6L2v6ZuF6buR/fontsize/360/fill/I0Y3RjdGNw==/dissolve/80/gravity/SouthEast/dx/10/dy/10|imageslim'
         return this.$imgLoad(thumb, {
           success: () => {
             this.thumb = thumb

@@ -32,7 +32,7 @@ module.exports = {
       ref: 'origin/master',
       repo: packageConfig.repository.url,
       path: '/root/www/' + packageConfig.name,
-      'post-deploy': 'cnpm install && pm2 stop all && cnpm run build && pm2 reload ecosystem.config.js --env production && pm2 start all'
+      'post-deploy': 'cnpm install && pm2 stop all && cnpm run build && pm2 reload ecosystem.config.js && pm2 start all'
     }
   }
 }

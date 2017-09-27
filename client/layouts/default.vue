@@ -10,7 +10,7 @@
         <div class="wrapper">
           <div class="banner-content" :style="bannerContentStyle" v-if="showBannerPage">
             <h1 class="title">{{ option.title }}</h1>
-            <h3 class="subtitle">{{ isAboutPage ? option.aboutSubtitle : option.subtitle }}</h3>
+            <h3 class="subtitle">{{ isAboutPage ? 'About Me' : option.subtitle }}</h3>
           </div>
           <keep-alive>
             <nuxt></nuxt>

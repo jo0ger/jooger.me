@@ -5,14 +5,14 @@
         <header class="header">
           <h1 class="title">{{ articleDetail.title }}</h1>
           <div class="meta">
-            <time class="time" :datatitme="articleDetail.created_at">{{ articleDetail.created_at | fmtDate('yyyy-MM-dd') }}</time>
+            <time class="time" :datatitme="articleDetail.createdAt">{{ articleDetail.createdAt | fmtDate('yyyy-MM-dd') }}</time>
           </div>
         </header>
-        <div class="content md-body" ref="content" v-html="articleDetail.body.content"></div>
-        <div class="tags" v-if="articleDetail.labels && articleDetail.labels.length">
+        <div class="content md-body" ref="content" v-html="articleDetail.renderedContent"></div>
+        <div class="tags" v-if="articleDetail.tag && articleDetail.tag.length">
           <router-link class="tag-item"
-            v-for="item in articleDetail.labels"
-            :key="item.id"
+            v-for="item in articleDetail.tag"
+            :key="item._id"
             :to="`/blog/tag/${item.name}`">
             <span class="text">{{ item.name }}</span>
           </router-link>
@@ -35,9 +35,9 @@
       </article>
       <p class="no-data" v-else>文章未找到</p>
     </div>
-    <div class="comments-pane" v-if="articleDetail">
+    <!-- <div class="comments-pane" v-if="articleDetail">
       <CommonComment></CommonComment>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -52,7 +52,7 @@
       CommonComment
     },
     validate ({ params }) {
-      return Number(params.id) > 0
+      return !!params.id
     },
     async fetch ({ params, store }) {
       await store.dispatch('article/fetchDetail', params.id)
