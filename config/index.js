@@ -10,7 +10,7 @@ const isProd = process.env.NODE_ENV === 'production'
 const baseService = {
   url: '/',
   method: 'get',
-  baseURL: '/',
+  baseURL: '/api',
   headers: {
     'X-Requested-With': 'XMLHttpRequest',
     'Accept': 'application/json'
@@ -43,11 +43,7 @@ export default {
   },
   client: {
     service: Object.assign({}, baseService, {
-      baseURL: '/api',
-      proxy: {
-        host: '127.0.0.1',
-        port: process.env.PORT || 3000
-      }
+      baseURL: isProd ? 'http://api.jooger.me/api' : 'http://127.0.0.1:3001/api'
     })
   },
   server: {

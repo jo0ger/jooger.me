@@ -20,7 +20,7 @@
     },
     async fetch ({ store, params }) {
       await store.dispatch('article/fetchList', {
-        search: params.keyword
+        keyword: params.keyword
       })
     }
   }

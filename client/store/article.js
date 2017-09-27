@@ -100,14 +100,9 @@ export const actions = {
       return
     }
     commit(FETCH_DETAIL_REQUEST)
-    const [{ success, data }] = await Promise.all([
-      Service.article.fetchDetail(id)()
-      // TODO: 完善github issue like
-      // Service.article.fetchLikes(id)()
-    ]).catch(err => commit(FETCH_DETAIL_FAILURE, err))
+    const { success, data } = await Service.article.fetchDetail(id)().catch(err => commit(FETCH_DETAIL_FAILURE, err))
     if (success) {
       commit(FETCH_DETAIL_SUCCESS, data)
-      // commit(FETCH_LIKES_SUCCESS, likes.data)
     } else {
       commit(FETCH_DETAIL_FAILURE)
     }
