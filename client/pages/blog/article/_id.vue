@@ -56,6 +56,7 @@
     },
     async fetch ({ params, store }) {
       await store.dispatch('article/fetchDetail', params.id)
+      await new Promise((resolve) => setTimeout(() => resolve(), 500))
     },
     head () {
       const data = this.articleDetail || {}

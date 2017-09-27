@@ -90,9 +90,7 @@
   export default {
     name: 'About',
     async fetch () {
-      await new Promise((resolve) => {
-        setTimeout(() => resolve(), 500)
-      })
+      await new Promise((resolve) => setTimeout(() => resolve(), 500))
     },
     computed: {
       ...mapGetters({

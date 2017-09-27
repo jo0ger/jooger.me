@@ -22,6 +22,7 @@
       await store.dispatch('article/fetchList', {
         keyword: params.keyword
       })
+      await new Promise((resolve) => setTimeout(() => resolve(), 500))
     }
   }
 </script>
