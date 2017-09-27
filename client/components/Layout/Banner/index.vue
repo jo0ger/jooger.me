@@ -124,7 +124,9 @@
           const e = document.createEvent('HTMLEvents')
           e.initEvent('resize', true, true)
           window.dispatchEvent(e)
-          console.log('trigger window resize')
+          if (process.env.NODE_ENV !== 'production') {
+            console.log('trigger window resize')
+          }
         }, 1000)
       },
       handleGoToContent () {

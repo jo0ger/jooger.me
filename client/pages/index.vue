@@ -9,9 +9,7 @@
   export default {
     name: 'Home',
     async fetch () {
-      await new Promise((resolve) => {
-        setTimeout(() => resolve(), 500)
-      })
+      await new Promise((resolve) => setTimeout(() => resolve(), 500))
     }
   }
 </script>
