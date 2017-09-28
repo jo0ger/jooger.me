@@ -5,7 +5,7 @@
         <img src="~static/image/logo.svg" alt="">
       </router-link>
       <nav class="navigation">
-        <a class="music" @click.prevent.stop="handleToggleMusic">
+        <a class="music" :class="{ active: showMusic, playing: musicControl.playing }" @click.prevent.stop="handleToggleMusic">
           <span class="col"></span>
           <span class="col"></span>
           <span class="col"></span>
@@ -66,7 +66,9 @@
       ...mapGetters({
         articleListFetching: 'article/listFetching',
         showSearch: 'app/showSearch',
-        showMenu: 'app/showMenu'
+        showMenu: 'app/showMenu',
+        showMusic: 'app/showMusic',
+        musicControl: 'app/musicControl'
       }),
       isErrorPage () {
         return this.$parent.$options.name === 'Error'
@@ -110,7 +112,9 @@
           }, 300)
         }
       },
-      handleToggleMusic () {}
+      handleToggleMusic () {
+        this.$store.commit('app/SET_MUSIC', !this.showMusic)
+      }
     }
   }
 </script>
@@ -187,17 +191,32 @@
             border-radius 1px
             background $base-color
             transition all .3s $ease
-            animation wavy 1s $ease infinite forwards
-
-            for n in 1...5 {
-              &:nth-child({n}) {
-                animation-delay (0.25s * (n - 1))
-              }
-            }
-
 
             &:nth-child(odd) {
               transform scaleY(.6)
+            }
+          }
+
+          &.active {
+            .col {
+              &:nth-child(odd) {
+                transform scaleY(1)
+              }
+              &:nth-child(even) {
+                transform scaleY(.6)
+              }
+            }
+          }
+
+          &.playing {
+            .col {
+              animation wavy 1s $ease infinite forwards
+              
+              for n in 1...5 {
+                &:nth-child({n}) {
+                  animation-delay (0.25s * (n - 1))
+                }
+              }
             }
           }
         }
