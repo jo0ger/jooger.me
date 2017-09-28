@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="banner-error-bg" v-else-if="isErrorPage"></div>
-    <div class="banner-bg" v-else >
+    <div class="banner-bg" v-else>
       <CommonUgly type="fly-bird" v-if="!option.aboutBanner"></CommonUgly>
     </div>
     <transition name="fade">

@@ -8,7 +8,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import config from '~~/config'
+  import config from '~/config'
 
   export default {
     name: 'Common-Comment',
@@ -21,7 +21,7 @@
       })
     },
     mounted () {
-      this.init()
+      // this.init()
     },
     methods: {
       init () {

@@ -61,7 +61,8 @@
       ...mapGetters({
         mobileLayout: 'app/mobileLayout',
         mobileSidebar: 'app/mobileSidebar',
-        option: 'option/option'
+        option: 'option/option',
+        musicList: 'music/list'
       }),
       isHomePage () {
         return this.$route.name === 'index'
@@ -84,6 +85,9 @@
           top: this.isAboutPage ? '60vh' : 0
         }
       }
+    },
+    mounted () {
+      this.$music.play()
     }
   }
 </script>

@@ -26,7 +26,7 @@ const codeMap = {
 
 fetcher.interceptors.request.use(config => config, err => Promise.reject(err))
 
-fetcher.interceptors.response.use(response => {
+fetcher.interceptors.response.use(async response => {
   if (!response || !response.data) {
     return logMsg('服务器异常', 'error')
   }
@@ -45,6 +45,10 @@ fetcher.interceptors.response.use(response => {
       break
     default:
       break
+  }
+  // 如果是GET请求，为了配合PageLoading，这里延迟500毫秒
+  if (response.config.method === 'get') {
+    await new Promise((resolve) => setTimeout(() => resolve(), 500))
   }
   return response.data
 }, error => {
@@ -71,5 +75,12 @@ export default {
   },
   option: {
     fetchData: wrap('/options')
+  },
+  music: {
+    fetchList: wrap('/music/songs'),
+    fetchDetail: id => wrap(`/music/songs/${id}`),
+    fetchUrl: id => wrap(`/music/songs/${id}/url`),
+    fetchLyric: id => wrap(`/music/songs/${id}/lyric`),
+    fetchCover: coverId => wrap(`/music/songs/cover/${coverId}`)
   }
 }
