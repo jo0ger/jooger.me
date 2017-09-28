@@ -5,6 +5,13 @@
         <img src="~static/image/logo.svg" alt="">
       </router-link>
       <nav class="navigation">
+        <a class="music" @click.prevent.stop="handleToggleMusic">
+          <span class="col"></span>
+          <span class="col"></span>
+          <span class="col"></span>
+          <span class="col"></span>
+          <span class="col"></span>
+        </a>
         <a class="search" v-if="isBlogPage" @click.prevent.stop="handleToggleSearch">
           <span class="icon"></span>
         </a>
@@ -102,7 +109,8 @@
             this.keyword = ''
           }, 300)
         }
-      }
+      },
+      handleToggleMusic () {}
     }
   }
 </script>
@@ -160,12 +168,38 @@
 
       .navigation {
         flexLayout(, space-between)
+        .music
         .search
         .trigger {
           width 26px
           height @width
           margin-left 20px
           padding 2px
+        }
+
+        .music {
+          flexLayout(, space-around)
+          width 30px
+
+          .col {
+            width 2px
+            height 20px
+            border-radius 1px
+            background $base-color
+            transition all .3s $ease
+            animation wavy 1s $ease infinite forwards
+
+            for n in 1...5 {
+              &:nth-child({n}) {
+                animation-delay (0.25s * (n - 1))
+              }
+            }
+
+
+            &:nth-child(odd) {
+              transform scaleY(.6)
+            }
+          }
         }
 
         .search {
@@ -186,13 +220,14 @@
               left 5px
               width 2px
               height 7px
+              border-radius 1px
               background $base-color
             }
           }
         }
 
         .trigger {
-          flexLayout(column, space-around, flex-start)
+          flexLayout(column, space-around, flex-end)
           .line {
             display block
             height 2px
@@ -202,27 +237,27 @@
             transition all .3s $fuck
 
             &:nth-of-type(1) {
-              width 22px
+              width 20px
             }
             &:nth-of-type(2) {
-              width 12px
+              width 14px
             }
             &:nth-of-type(3) {
-              width 17px
+              width 20px
             }
           }
 
           &.active {
             .line {
               &:nth-of-type(1) {
-                width 22px
+                width 20px
                 transform translateY(7px) rotate(45deg)
               }
               &:nth-of-type(2) {
                 opacity 0
               }
               &:nth-of-type(3) {
-                width 22px
+                width 20px
                 transform translateY(-7px) rotate(-45deg)
               }
             }
@@ -394,4 +429,17 @@
     }
   }
 
+  @keyframes wavy {
+    0% {
+      transform scaleY(1)
+    }
+
+    50% {
+      transform scaleY(.6)
+    }
+
+    100% {
+      transform scaleY(1)
+    }
+  }
 </style>

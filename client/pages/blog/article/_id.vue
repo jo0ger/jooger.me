@@ -1,14 +1,17 @@
 <template>
   <div class="blog-article-page" :style="style">
     <div class="article-pane">
-      <article class="detail" v-if="articleDetail">
+      <article class="detail" v-if="articleDetail" ref="article">
         <header class="header">
+          <div class="thumb">
+            <img :src="articleDetail.thumb" class="image-view" alt="">
+          </div>
           <h1 class="title">{{ articleDetail.title }}</h1>
           <div class="meta">
             <time class="time" :datatitme="articleDetail.createdAt">{{ articleDetail.createdAt | fmtDate('yyyy-MM-dd') }}</time>
           </div>
         </header>
-        <div class="content md-body" ref="content" v-html="articleDetail.renderedContent"></div>
+        <div class="content md-body" v-html="articleDetail.renderedContent"></div>
         <div class="tags" v-if="articleDetail.tag && articleDetail.tag.length">
           <router-link class="tag-item"
             v-for="item in articleDetail.tag"
@@ -56,7 +59,6 @@
     },
     async fetch ({ params, store }) {
       await store.dispatch('article/fetchDetail', params.id)
-      await new Promise((resolve) => setTimeout(() => resolve(), 500))
     },
     head () {
       const data = this.articleDetail || {}
@@ -106,8 +108,8 @@
           window.addEventListener('resize', this._resizeHandler, false)
           this._resizeHandler()
         }
-        if (this.$refs.content) {
-          this.$refs.content.addEventListener('click', e => {
+        if (this.$refs.article) {
+          this.$refs.article.addEventListener('click', e => {
             if (e.target.className.includes('image-view')) {
               this.$imgPop.open(e.target)
             }
@@ -155,9 +157,20 @@
       margin-bottom 30px
       
       .detail {
+
         .header {
-          margin-bottom 30px
+          margin-bottom 45px
           text-align center
+
+          .thumb {
+            width 100%
+            margin-bottom 30px
+
+            img {
+              width 100%
+              cursor pointer
+            }
+          }
 
           .meta {
             margin-top 15px
@@ -165,7 +178,7 @@
           }
 
           .title {
-            font-size 1.2rem
+            font-size 1.8rem
           }
         }
 
