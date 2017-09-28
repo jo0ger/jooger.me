@@ -17,6 +17,9 @@
           </keep-alive>
         </div>
       </main>
+      <transition name="fade">
+        <LayoutMusic v-show="showMusic"></LayoutMusic>
+      </transition>
       <LayoutTools v-if="!showBannerPage"></LayoutTools>
       <LayoutOverlay></LayoutOverlay>
       <LayoutFooter v-if="!isHomePage"></LayoutFooter>
@@ -26,7 +29,14 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { LayoutHeader, LayoutBanner, LayoutFooter, LayoutTools, LayoutOverlay } from '~/components/Layout'
+  import {
+    LayoutHeader,
+    LayoutBanner,
+    LayoutFooter,
+    LayoutTools,
+    LayoutOverlay,
+    LayoutMusic
+  } from '~/components/Layout'
   import { CommonFetchLoading } from '~/components/Common'
 
   export default {
@@ -37,7 +47,8 @@
       LayoutFooter,
       LayoutTools,
       LayoutOverlay,
-      CommonFetchLoading
+      CommonFetchLoading,
+      LayoutMusic
     },
     head () {
       let classes = ''
@@ -61,8 +72,8 @@
       ...mapGetters({
         mobileLayout: 'app/mobileLayout',
         mobileSidebar: 'app/mobileSidebar',
-        option: 'option/option',
-        musicList: 'music/list'
+        showMusic: 'app/showMusic',
+        option: 'option/option'
       }),
       isHomePage () {
         return this.$route.name === 'index'
@@ -85,9 +96,6 @@
           top: this.isAboutPage ? '60vh' : 0
         }
       }
-    },
-    mounted () {
-      this.$music.play()
     }
   }
 </script>

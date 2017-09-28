@@ -9,26 +9,45 @@
 import Vue from 'vue'
 import { Howl, Howler } from 'howler'
 
-const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
+const requestAnimationFrame = window.requestAnimFrame = window.requestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window.mozRequestAnimationFrame ||
+  window.oRequestAnimationFrame ||
+  window.msRequestAnimationFrame ||
+  function (callback) {
+    window.setTimeout(callback, 1000 / 60)
+  }
 
 export default ({ store }) => {
   const playlist = getPlaylist(store.getters['music/list'])
-  Vue.prototype.$music = new Player(playlist)
+  Vue.prototype.$music = new Player(playlist, store)
+}
+
+function storeCommitProxy (store) {
+  return function (key, value) {
+    let payload = null
+    if (Object.prototype.toString.call(key) === '[object Object]') {
+      payload = key
+    } else if (typeof key === 'string') {
+      payload = {
+        [key]: value
+      }
+    }
+    store.commit('app/SET_MUSIC_CONTROL', payload)
+  }
 }
 
 class Player {
-  constructor (playlist = []) {
+  constructor (playlist = [], store) {
     this.playlist = playlist
-    this.index = 0
-    this.ready = false
-    this.playing = false
-    this.volume = 0.6
-    this.progress = 0
-    this.wave = false
     this.sound = null
+    this._proxy = storeCommitProxy(store)
+    this._store = store
   }
 
-  init () {}
+  get _control () {
+    return this._store.getters['app/musicControl']
+  }
 
   checkIndex (index) {
     const len = this.playlist.length
@@ -41,11 +60,11 @@ class Player {
   }
 
   play (index) {
-    index = this.checkIndex(typeof index === 'number' ? index : this.index)
+    index = this.checkIndex(typeof index === 'number' ? index : this._control.index)
 
     const song = this.playlist[index]
     this.sound = null
-    this.ready = false
+    this._proxy('ready', false)
 
     if (song.howl) {
       this.sound = song.howl
@@ -54,24 +73,30 @@ class Player {
         loop: false,
         html5: true,
         autoplay: false,
-        volume: this.volume,
+        volume: this._control.volume,
         src: [song.src],
         onload: () => {
           console.log(song.name + ' --- load')
-          this.ready = true
+          this._proxy({
+            ready: true,
+            playing: false,
+            wave: false,
+            progress: 0
+          })
         },
         onloaderror: () => {
           console.log(song.name + ' --- load error')
-          console.log(song.howl._volumn)
-          console.log(this.volume)
+          // TODO: 下一首
         },
         onplay: () => {
           console.log(song.name + ' --- play')
-          this.playing = true
-          this.wave = true
-          this.progress = 0
+          this._proxy({
+            playing: true,
+            wave: true,
+            progress: 0
+          })
           // QU: volume 构造参数不管用
-          Howler.volume(this.volume)
+          Howler.volume(this._control.volume)
           requestAnimationFrame(this.step.bind(this))
         },
         onplayerror: () => {
@@ -79,23 +104,29 @@ class Player {
         },
         onpause: () => {
           console.log(song.name + ' --- pause')
-          this.playing = false
-          this.wave = false
+          this._proxy({
+            playing: false,
+            wave: false
+          })
         },
         onstop: () => {
           console.log(song.name + ' --- stop')
-          this.playing = false
-          this.progress = 100
-          this.wave = false
+          this._proxy({
+            playing: false,
+            wave: false,
+            progress: 1
+          })
         },
         onend: () => {
           console.log(song.name + ' --- end')
-          this.playing = false
-          this.wave = false
+          this._proxy({
+            playing: false,
+            wave: false
+          })
         },
         onvolume: () => {
           console.log(song.name + ' --- volumn change')
-          this.volume = Howler.volume()
+          this._proxy('volume', Howler.volume())
         },
         onseek: () => {
           console.log(song.name + ' --- seek')
@@ -104,61 +135,57 @@ class Player {
     }
 
     song.howlId = this.sound.play()
-    this.index = index
+    this._proxy('index', index)
   }
 
   pause () {
-    if (this.sound && this.playing) {
+    if (this.sound && this._control.playing) {
       this.sound.pause()
     }
   }
 
-  skip (direction) {
-    let index = 0
-    if (direction === 'prev') {
-      index = this.index - 1
-    } else {
-      index = this.index + 1
+  stop () {
+    if (this.sound && this._control.playing) {
+      this.sound.stop()
     }
+  }
 
-    index = this.checkIndex(index)
+  prev () {
+    this.skipTo(this.checkIndex(this._control.index - 1))
+  }
 
-    this.skipTo(index)
+  next () {
+    this.skipTo(this.checkIndex(this._control.index + 1))
   }
 
   skipTo (index) {
+    console.log(index)
     if (this.sound) {
       this.sound.stop()
     }
-    this.progress = 0
+    this._proxy('progress', 0)
     this.play(index)
   }
 
   volume (val) {
     Howler.volume(val)
+    this._proxy('volume', val)
   }
 
   seek (per) {
-    if (this.sound && this.playing) {
+    if (this.sound && this._control.playing) {
       this.sound.seek(this.sound.duration() * per)
     }
   }
 
   step () {
     if (this.sound) {
-
+      const seek = this.sound.seek() || 0
+      this._proxy('progress', (seek / this.sound.duration()) || 0)
+      if (this.sound.playing()) {
+        requestAnimationFrame(this.step.bind(this))
+      }
     }
-    const seek = this.sound.seek() || 0
-    this.progress = (seek / this.sound.duration()) * 100 || 0
-    if (this.sound.playing) {
-      requestAnimationFrame(this.step.bind(this))
-    }
-  }
-
-  formatTime (secs = 0) {
-    const minutes = Math.floor(secs / 60) || 0
-    const seconds = (secs - minutes * 60) || 0
-    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
   }
 }
 
@@ -169,10 +196,7 @@ function getPlaylist (songs = []) {
     }
     return {
       howl: null,
-      id: song.id,
-      name: song.name,
-      duration: song.dt || 0,
-      src: song.song.url
+      ...song
     }
   }).filter(song => !!song)
 }
