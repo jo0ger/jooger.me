@@ -12,7 +12,7 @@ const SET_OVERLAY = 'SET_OVERLAY'
 const SET_SEARCH = 'SET_SEARCH'
 const SET_SEARCH_HEADER = 'SET_SEARCH_HEADER'
 const SET_MUSIC = 'SET_MUSIC'
-const SET_MUSIC_CONTROL = 'SET_MUSIC_CONTROL'
+const SET_MUSIC_PLAY = 'SET_MUSIC_PLAY'
 
 export const state = () => ({
   mobileLayout: false,
@@ -27,15 +27,7 @@ export const state = () => ({
   },
   music: {
     show: false,
-    control: {
-      index: 0,
-      loading: false,
-      ready: false,
-      playing: false,
-      volume: 0.6,
-      progress: 0,
-      wave: false
-    }
+    playing: false
   }
 })
 
@@ -48,7 +40,7 @@ export const getters = {
   showOverlay: state => state.overlay,
   showSearch: state => state.search,
   showMusic: state => state.music.show,
-  musicControl: state => state.music.control
+  musicPlaying: state => state.music.playing
 }
 
 export const mutations = {
@@ -63,10 +55,5 @@ export const mutations = {
     state.searchHeader.keyword = keyword
   },
   [SET_MUSIC]: (state, show = false) => (state.music.show = show),
-  [SET_MUSIC_CONTROL]: (state, control = {}) => {
-    state.music.control = {
-      ...state.music.control,
-      ...control
-    }
-  }
+  [SET_MUSIC_PLAY]: (state, playing = false) => (state.music.playing = playing),
 }

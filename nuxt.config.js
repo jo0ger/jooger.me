@@ -59,8 +59,7 @@ module.exports = {
     { src: '~plugins/baidu-seo-push.js', ssr: false },
     { src: '~plugins/swiper.js', ssr: false },
     { src: '~plugins/image-load.js', ssr: false },
-    { src: '~plugins/image-popup.js', ssr: false },
-    { src: '~plugins/music-control.js', ssr: false }
+    { src: '~plugins/image-popup.js', ssr: false }
   ],
   router: {
     linkActiveClass: 'active'

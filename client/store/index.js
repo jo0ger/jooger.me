@@ -18,13 +18,6 @@ export const actions = {
       dispatch('option/fetchData'),
       dispatch('me/fetchData')
     ])
-    const ps = Promise.all(initTask).then(() => {
-      const musicId = state.option.data.musicId
-      if (musicId) {
-        return dispatch('music/fetchList', musicId)
-      }
-      return new Promise()
-    })
-    return ps
+    return Promise.all(initTask)
   }
 }
