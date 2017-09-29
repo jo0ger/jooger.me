@@ -5,7 +5,7 @@
         <img src="~static/image/logo.svg" alt="">
       </router-link>
       <nav class="navigation">
-        <a class="music" :class="{ active: showMusic, playing: musicControl.playing }" @click.prevent.stop="handleToggleMusic">
+        <a class="music" :class="{ active: showMusic, playing: musicPlaying }" @click.prevent.stop="handleToggleMusic">
           <span class="col"></span>
           <span class="col"></span>
           <span class="col"></span>
@@ -68,7 +68,7 @@
         showSearch: 'app/showSearch',
         showMenu: 'app/showMenu',
         showMusic: 'app/showMusic',
-        musicControl: 'app/musicControl'
+        musicPlaying: 'app/musicPlaying'
       }),
       isErrorPage () {
         return this.$parent.$options.name === 'Error'
@@ -448,17 +448,4 @@
     }
   }
 
-  @keyframes wavy {
-    0% {
-      transform scaleY(1)
-    }
-
-    50% {
-      transform scaleY(.6)
-    }
-
-    100% {
-      transform scaleY(1)
-    }
-  }
 </style>

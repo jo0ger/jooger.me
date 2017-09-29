@@ -79,8 +79,8 @@ export default {
   music: {
     fetchList: wrap('/music/songs'),
     fetchDetail: id => wrap(`/music/songs/${id}`),
-    fetchUrl: id => wrap(`/music/songs/${id}/url`),
-    fetchLyric: id => wrap(`/music/songs/${id}/lyric`),
+    // fetchUrl: id => wrap(`/music/songs/${id}/url`),
+    // fetchLyric: id => wrap(`/music/songs/${id}/lyric`),
     fetchCover: coverId => wrap(`/music/songs/cover/${coverId}`)
   }
 }

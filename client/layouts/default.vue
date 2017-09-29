@@ -17,9 +17,7 @@
           </keep-alive>
         </div>
       </main>
-      <transition name="fade">
-        <LayoutMusic v-show="showMusic"></LayoutMusic>
-      </transition>
+      <LayoutMusic></LayoutMusic>
       <LayoutTools v-if="!showBannerPage"></LayoutTools>
       <LayoutOverlay></LayoutOverlay>
       <LayoutFooter v-if="!isHomePage"></LayoutFooter>

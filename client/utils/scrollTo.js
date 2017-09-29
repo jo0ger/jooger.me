@@ -7,6 +7,17 @@
 
 const BezierEasing = require('bezier-easing')
 
+export const requestAnimationFrame = process.env.VUE_ENV === 'server'
+  ? function (callback) {
+    setTimeout(callback, 1000 / 60)
+  } : (
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame
+  )
+
 const _ = {
   $ (selector) {
     return document.querySelector(String(selector))
@@ -74,7 +85,7 @@ export const scrollTo = (element = null, duration = 500, options = {}) => {
 
   if (!diff) return
 
-  window.requestAnimationFrame(function step (timestamp) {
+  requestAnimationFrame(function step (timestamp) {
     if (!start) start = timestamp
 
     const time = timestamp - start
@@ -84,7 +95,7 @@ export const scrollTo = (element = null, duration = 500, options = {}) => {
     window.scrollTo(0, initialY + diff * progress)
 
     if (time < duration) {
-      window.requestAnimationFrame(step)
+      requestAnimationFrame(step)
     } else {
       done()
     }
