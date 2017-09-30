@@ -4,11 +4,24 @@
     <div class="overlay"></div>
     <div class="container" v-if="song">
       <div class="title">
-        <h1 class="name">{{ song.name }}</h1>
+        <h1 class="song-name">{{ song.name }}</h1>
+        <div class="meta">
+          <span class="artists">
+            <span class="text">歌手：</span>
+            <a :href="`http://music.163.com/#/artist?id=${at.id}`" target="_blank" class="name" v-for="at in song.artists" :key="at.id">
+              {{ at.name }}
+            </a>
+          </span>
+          <span class="album">
+            <span class="text">所属专辑：</span>
+            <a :href="`http://music.163.com/#/album?id=${song.album.id}`" target="_blank" class="name">{{ song.album.name }}</a>
+          </span>
+        </div>
       </div>
       <div class="content" :class="{ 'show-lyric': showLyric}">
         <div class="cover">
-          <img :src="cover" class="cover-source" alt="" @click.prevent.stop="handleToggleLyric">
+          <img :src="cover" class="cover-source" alt="" @click.prevent.stop="handleToggleLyric" v-if="cover">
+          <img src="~static/image/album.jpg" alt="" @click.prevent.stop="handleToggleLyric" v-else>
         </div>
         <div class="lyric">
           <div class="wrapper" ref="lyList" @click.prevent.stop="handleToggleLyric">
@@ -22,11 +35,11 @@
       </div>
       <div class="control">
         <div class="tool">
-          <a @click.prevent.stop="handleToggleVolume">
-            <i class="iconfont" :class="[`icon-volume-${volume === 0 ? 'off' : 'on'}`]"></i>
-          </a>
           <a @click.prevent.stop="handleToggleSingleCycle">
             <i class="iconfont" :class="[`icon${singleCycle ? '-single' : ''}-cycle`]"></i>
+          </a>
+          <a @click.prevent.stop="handleToggleVolume">
+            <i class="iconfont" :class="[`icon-volume-${volume === 0 ? 'off' : 'on'}`]"></i>
           </a>
         </div>
         <div class="progress">
@@ -489,25 +502,49 @@
 
       .title {
         margin-bottom 60px
+        text-align center
+
+        .meta {
+          color alpha($white, .5)
+          font-size .9rem
+
+          .album {
+            margin-left 30px
+          }
+
+          .name {
+            &:hover {
+              color $base-color
+            }
+          }
+        }
 
         @media (max-width: 1366px) and (min-width: 769px) {
           margin-bottom 50px
-          .name {
+          .song-name {
             font-size 1.8rem
           }
         }
 
         @media (max-width: 768px) and (min-width: 480px) {
           margin-bottom 40px
-          .name {
+          .song-name {
             font-size 1.6rem
           }
         }
 
         @media (max-width: 479px) {
           margin-bottom 30px
-          .name {
+          .song-name {
             font-size 1.4rem
+          }
+
+          .meta {
+            font-size .8rem
+            & > span {
+              display block
+              margin 0 !important
+            }
           }
         }
 
@@ -524,19 +561,16 @@
           top 0
           left 0
           width 100%
-          height 100%
+          height @width
           img {
-            width 400px
-            max-width 80%
+            max-width 100%
+            height 100%
+            max-height 100%
             border 8px solid alpha($white, .2)
             border-radius 100%
             cursor pointer
             animation rotate 20s linear infinite
             animation-play-state paused
-
-            &:hover {
-              transform scale(.98)
-            }
           }
         }
 
