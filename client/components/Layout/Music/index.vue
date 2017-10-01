@@ -4,17 +4,38 @@
     <div class="overlay"></div>
     <div class="container" v-if="song">
       <div class="title">
-        <h1 class="song-name">{{ song.name }}</h1>
+        <h1 class="song-name">
+          {{ song.name }}
+          <span class="alias" v-if="song.tns && song.tns.length">
+            <span> ( </span>
+            <span class="alias-name" v-for="(alias, index) in song.tns" :key="index">
+              {{ alias }}
+            </span>
+            <span> ) </span>
+          </span>
+        </h1>
         <div class="meta">
           <span class="artists">
             <span class="text">歌手：</span>
-            <a :href="`http://music.163.com/#/artist?id=${at.id}`" target="_blank" class="name" v-for="at in song.artists" :key="at.id">
-              {{ at.name }}
-            </a>
+            <template v-for="(at, index) in song.artists">
+              <span :key="at.id" v-if="index !== 0"> / </span>
+              <a :href="`http://music.163.com/#/artist?id=${at.id}`" target="_blank" class="name" :key="at.id">
+                {{ at.name }}
+              </a>
+            </template>
           </span>
           <span class="album">
             <span class="text">所属专辑：</span>
-            <a :href="`http://music.163.com/#/album?id=${song.album.id}`" target="_blank" class="name">{{ song.album.name }}</a>
+            <a :href="`http://music.163.com/#/album?id=${song.album.id}`" target="_blank" class="name">
+              <span class="name">{{ song.album.name }}</span>
+              <span class="alias" v-if="song.album.tns && song.album.tns.length">
+                <span> ( </span>
+                <span class="alias-name" v-for="(alias, index) in song.album.tns" :key="index">
+                  {{ alias }}
+                </span>
+                <span> ) </span>
+              </span>
+            </a>
           </span>
         </div>
       </div>
@@ -25,17 +46,18 @@
         </div>
         <div class="lyric">
           <div class="wrapper" ref="lyList" @click.prevent.stop="handleToggleLyric">
-            <ul class="ly-list" :style="lyListStyle">
+            <ul class="ly-list" :style="lyListStyle" v-if="lyrics.length">
               <li class="item" :class="{ active: lyricIsActive(ly.time, index) }" v-for="(ly, index) in lyrics" :key="ly.time">
                 <p>{{ ly.text }}</p>
               </li>
             </ul>
+            <span class="no-lyric">纯音乐，无歌词，请静心欣赏</span>
           </div>
         </div>
       </div>
       <div class="control">
         <div class="tool">
-          <a @click.prevent.stop="handleToggleSingleCycle">
+          <a @click.prevent.stop="handleToggleSingleCycle" :title="singleCycle ? '单曲循环' : '列表循环'">
             <i class="iconfont" :class="[`icon${singleCycle ? '-single' : ''}-cycle`]"></i>
           </a>
           <a @click.prevent.stop="handleToggleVolume">
@@ -44,7 +66,7 @@
         </div>
         <div class="progress">
           <span class="time used-time">{{ usedTime }}</span>
-          <div class="bar">
+          <div class="bar" ref="progressBar" @click.prevent.stop="handleSkip">
             <span class="rate" :style="rateStyle"></span>
             <div class="ball" :style="ballStyle"></div>
           </div>
@@ -110,7 +132,7 @@
         return this.playlist[this.index]
       },
       cover () {
-        return this.song ? this.song.album.picUrl + '?param=300y300' : ''
+        return this.song ? this.song.album.cover + '?param=300y300' : ''
       },
       lyrics () {
         if (!this.song || !this.song.lyric) {
@@ -136,15 +158,15 @@
         } 
       },
       bgStyle () {
-        if (this.song && this.song.album.picUrl) {
+        if (this.song && this.song.album.cover) {
           return {
-            backgroundImage: `url(${this.song.album.picUrl})`
+            backgroundImage: `url(${this.song.album.cover})`
           }
         }
       },
       rateStyle () {
         return {
-          transform: `scaleX(${this.progress / 100})`
+          transform: `translate3d(0, 0, 0) scaleX(${this.progress / 100})`
         }
       },
       ballStyle () {
@@ -264,7 +286,6 @@
             }
           },
           onvolume: () => {
-            console.log(song.name + ' --- volumn change')
             this.volume = Howler.volume()
           },
           onseek: () => {
@@ -295,7 +316,7 @@
         }
         
         this.$set(this.playlist[index], 'howlId', this.sound.play())
-        this.sound.fade(0, this.volume, 2000, song.howlId)
+        this.sound.fade(0, this.volume, 1000, song.howlId)
       },
       pause () {
         if (this.sound && this.sound.playing()) {
@@ -362,8 +383,6 @@
           this.sound.unload()
         }
 
-        // 这里先不从源列表里去除了
-        // this.playlist.splice(this.playlist.findIndex(item => item.id === song.id), 1)
         this.sound = song.howl = null
         this.wave = false
         this.playing = true
@@ -379,6 +398,9 @@
           }
         }
         return false
+      },
+      handleSkip (e) {
+        this.seek(e.layerX / this.$refs.progressBar.clientWidth)
       },
       handleToggleMusic () {
         this[this.playing ? 'pause' : 'play']()
@@ -408,14 +430,16 @@
     left 0
     width 100%
     height 100%
-    background $white
+    background $black
     z-index 9997
     overflow hidden
     color $white
+    visibility hidden
     transform translate3d(100%, 0, 0)
-    transition transform .8s $fuck
+    transition all .8s $fuck
 
     &.show {
+      visibility visible
       transform translate3d(0, 0, 0)
     }
 
@@ -427,11 +451,11 @@
       height 120%
       filter blur(30px)
       // IOS 9+
-      // backdrop-filter blur(15px)
-      background-color $white
+      // backdrop-filter blur(30px)
+      background-color $black
       background-repeat no-repeat
       background-size cover
-      background-position center center
+      background-position 20% center
       transition background 1s $ease
     }
 
@@ -441,7 +465,7 @@
       left -10%
       width 120%
       height 120%
-      background alpha($black, .7)
+      background alpha($black, .6)
     }
 
     .loading {
@@ -517,6 +541,10 @@
               color $base-color
             }
           }
+
+          .alias {
+            font-size .8rem
+          }
         }
 
         @media (max-width: 1366px) and (min-width: 769px) {
@@ -536,7 +564,7 @@
         @media (max-width: 479px) {
           margin-bottom 30px
           .song-name {
-            font-size 1.4rem
+            font-size 1.2rem
           }
 
           .meta {
@@ -571,6 +599,7 @@
             cursor pointer
             animation rotate 20s linear infinite
             animation-play-state paused
+            will-change auto
           }
         }
 
@@ -580,6 +609,7 @@
           left 0
           width 100%
           height @width
+          color alpha($white, .3)
           overflow hidden
           visibility hidden
 
@@ -592,12 +622,8 @@
           }
 
           .ly-list {
-            transition transform .3s $ease
-
             .item {
-              color alpha($white, .3)
               padding 10px 0
-              transform all .5s $ease
 
               &.active {
                 color $base-color

@@ -12,7 +12,7 @@ export default {
   service: {
     url: '/',
     method: 'get',
-    baseURL: isProd ? 'https://api.jooger.me/api' : 'https://127.0.0.1:3001/api',
+    baseURL: isProd ? 'https://api.jooger.me/api' : 'http://127.0.0.1:3001/api',
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
       'Accept': 'application/json'

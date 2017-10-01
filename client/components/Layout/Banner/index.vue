@@ -250,9 +250,10 @@
     width 20px
     height 2px
     border-radius 1px
-    background alpha($white, .6)
+    background alpha($white, .8)
+    opacity .4
     &-active {
-      background alpha($white, .8)
+      opacity 1
     }
   }
   

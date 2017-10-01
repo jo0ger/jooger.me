@@ -69,11 +69,13 @@
 
   .fly-bird {
     perspective 400px
-    div {
-      transform-style preserve-3d
-    }
+    // div {
+    //   transform-style preserve-3d
+    // }
 
     .sky {
+      will-change auto
+      transform-style preserve-3d
       animation fly 10000ms linear infinite
 
       .wind {
@@ -84,6 +86,7 @@
         margin-left -2px
         border-radius 9999px
         overflow hidden
+        will-change auto
 
         for n in 1..20 {
           &:nth-child({n}) {
