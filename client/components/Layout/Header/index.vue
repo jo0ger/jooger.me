@@ -1,9 +1,9 @@
 <template>
   <header class="header">
     <div class="wrapper">
-      <router-link class="logo" to="/">
+      <a class="logo" @click.prevent.stop="handleGoHome">
         <img src="~static/image/logo.svg" alt="">
-      </router-link>
+      </a>
       <nav class="navigation">
         <a class="music" :class="{ active: showMusic, playing: musicPlaying }" @click.prevent.stop="handleToggleMusic">
           <span class="col"></span>
@@ -86,6 +86,16 @@
         this.$store.commit('app/SET_MENU', !this.showMenu)
         if (this.showMenu) {
           this.setSearch(false)
+        }
+      },
+      handleGoHome () {
+        if (this.$route.name === 'index') {
+          this.$store.commit('app/SET_SEARCH', false)
+          this.$store.commit('app/SET_OVERLAY', false)
+          this.$store.commit('app/SET_MENU', false)
+          this.$store.commit('app/SET_MUSIC', false)
+        } else {
+          this.$router.push('/')
         }
       },
       handleGo ({ path }) {
