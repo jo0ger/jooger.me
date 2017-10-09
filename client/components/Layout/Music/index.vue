@@ -47,7 +47,7 @@
         <div class="lyric">
           <div class="wrapper" ref="lyList" @click.prevent.stop="handleToggleLyric">
             <ul class="ly-list" :style="lyListStyle" v-if="lyrics.length">
-              <li class="item" :class="{ active: lyricIsActive(ly.time, index) }" v-for="(ly, index) in lyrics" :key="ly.time">
+              <li class="item" :class="{ now: lyricIsActive(ly.time, index) }" v-for="(ly, index) in lyrics" :key="ly.time">
                 <p>{{ ly.text }}</p>
               </li>
             </ul>
@@ -622,10 +622,11 @@
           }
 
           .ly-list {
+            transition transform .3s $ease
             .item {
               padding 10px 0
 
-              &.active {
+              &.now {
                 color $base-color
               }
             }
