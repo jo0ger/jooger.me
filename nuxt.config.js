@@ -42,7 +42,7 @@ module.exports = {
   loading: '~/components/Common/PageLoading',
   build: {
     analyze: false,
-    publicPath: '/resource/',
+    publicPath: 'https://static.jooger.me',
     vendor: [
       'axios',
       'swiper',
