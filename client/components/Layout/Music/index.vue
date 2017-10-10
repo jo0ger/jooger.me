@@ -19,14 +19,14 @@
             <span class="text">歌手：</span>
             <template v-for="(at, index) in song.artists">
               <span :key="at.id" v-if="index !== 0"> / </span>
-              <a :href="`http://music.163.com/#/artist?id=${at.id}`" target="_blank" class="name" :key="at.id">
+              <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" class="name" :key="at.id">
                 {{ at.name }}
               </a>
             </template>
           </span>
           <span class="album">
             <span class="text">所属专辑：</span>
-            <a :href="`http://music.163.com/#/album?id=${song.album.id}`" target="_blank" class="name">
+            <a :href="`https://music.163.com/#/album?id=${song.album.id}`" target="_blank" class="name">
               <span class="name">{{ song.album.name }}</span>
               <span class="alias" v-if="song.album.tns && song.album.tns.length">
                 <span> ( </span>
@@ -449,7 +449,7 @@
       left -10%
       width 120%
       height 120%
-      filter blur(30px)
+      filter blur(50px)
       // IOS 9+
       // backdrop-filter blur(30px)
       background-color $black
