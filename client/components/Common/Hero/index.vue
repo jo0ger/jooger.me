@@ -1,8 +1,8 @@
 <template>
-  <div class="ugly">
+  <div class="hero">
     <div class="fly-bird">
       <div class="sky">
-        <div class="wind" v-for="n in windNum" :key="n" :style="getWindStyle(n)"></div>
+        <div class="wind" v-for="n in windNum" :key="n"></div>
         <div class="bird">
           <div class="head"></div>
           <div class="wing-left">
@@ -20,9 +20,8 @@
 </template>
 
 <script>
-  const random = (num = 100) => Math.round(Math.random() * num)
   export default {
-    name: 'Common-Ugly',
+    name: 'Common-Hero',
     props: {
       type: {
         type: String,
@@ -34,15 +33,6 @@
     data () {
       return {
         windNum: 20
-      }
-    },
-    methods: {
-      random,
-      getRandomColor () {
-        return `rgba(${random(100) + 100}, ${random(100) + 100}, ${random(55) + 200}, 1)`
-      },
-      getWindStyle (index) {
-
       }
     }
   }
@@ -61,7 +51,7 @@
     .6)
   }
 
-  .ugly {
+  .hero {
     width 100%
     height @width
     flexLayout()
@@ -69,9 +59,6 @@
 
   .fly-bird {
     perspective 400px
-    // div {
-    //   transform-style preserve-3d
-    // }
 
     .sky {
       will-change auto
@@ -101,7 +88,7 @@
               position absolute
               width 10px
               height 300px
-              background rgba(red($base-color), blue($base-color), random(,255), .3)
+              background rgba(red($base-color), green($base-color), random(,255), .3)
               border-radius 999px
               transform translateY(-300px)
               animation wind (random(,2000) + 1000ms) (random(,4000) + 1000ms) linear infinite
