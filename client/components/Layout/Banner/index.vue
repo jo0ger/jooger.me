@@ -11,9 +11,9 @@
         <div class="swiper-pagination swiper-pagination-bullets" v-if="option.banners.length > 1"></div>
       </div>
     </div>
-    <div class="banner-error-bg" v-else-if="isErrorPage"></div>
+    <div class="banner-error-bg" :style="errorBgStyle" v-else-if="isErrorPage"></div>
     <div class="banner-bg" v-else>
-      <CommonUgly type="fly-bird" v-if="!option.aboutBanner"></CommonUgly>
+      <CommonHero type="fly-bird" v-if="!option.aboutBanner"></CommonHero>
     </div>
     <transition name="fade">
       <a class="trigger" v-if="showTrigger" @click.prevent.stop="handleGoToContent"></a>
@@ -23,13 +23,13 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { CommonUgly } from '~/components/Common'
+  import { CommonHero } from '~/components/Common'
   import { scrollTo, easing, isVideoType } from '~/utils'
 
   export default {
     name: 'Layout-Banner',
     components: {
-      CommonUgly
+      CommonHero
     },
     data () {
       return {
@@ -69,9 +69,14 @@
       },
       bannerStyle () {
         return this.isAboutPage ? {
-          opacity: this.showContent ? 0.5 : 1,
-          filter: this.showContent ? 'blur(2px)' : null
+          opacity: this.showContent ? 0.3 : 1,
+          filter: this.showContent ? 'blur(4px)' : null
         } : null
+      },
+      errorBgStyle () {
+        return {
+          backgroundImage: `url(${this.option.errorBanner || require('~/static/image/error-page-banner.jpg')})`
+        }
       }
     },
     watch: {
@@ -182,10 +187,6 @@
       background-repeat no-repeat
       background-size cover
       background-position center center
-    }
-
-    .banner-error-bg {
-      background-image url('~static/image/error-page-banner.jpg')
     }
 
     .trigger {

@@ -1,8 +1,8 @@
   <template>
   <section class="about-page">
     <div class="block">
-      <a class="avatar" v-if="me.avatar_url">
-        <img :src="me.avatar_url" alt="">
+      <a class="avatar" v-if="me.avatar">
+        <img :src="me.avatar" alt="">
       </a>
       <ul class="contact-list">
         <li class="contact-item" v-for="item in option.contact" :key="item.title">

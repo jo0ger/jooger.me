@@ -8,7 +8,7 @@ module.exports = {
   },
   dev: !isProd,
   head: {
-    title: 'Jooger.me - 凡心所向，一苇以航',
+    title: 'Jooger.me - 修人、修身，修性、修心',
     titleTemplate: '%s - Jooger.me',
     htmlAttrs: {
       xmlns: 'http://www.w3.org/1999/xhtml',
@@ -27,10 +27,10 @@ module.exports = {
       { name: 'author', content: 'zzy1198258955@163.com' },
       { name: 'theme-color', content: '#f04134' },
       { hid: 'keywords', name: 'keywords', content: 'Jooger,Jooger.me,Blog,FE,前端' },
-      { hid: 'description', name: 'description', content: '凡心所向，一苇以航' }
+      { hid: 'description', name: 'description', content: '修人、修身，修性、修心' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: 'https://static.jooger.me/img/common/favicon.ico' }
     ]
   },
   css: [
@@ -42,7 +42,7 @@ module.exports = {
   loading: '~/components/Common/PageLoading',
   build: {
     analyze: false,
-    publicPath: 'https://static.jooger.me',
+    publicPath: '/resource/',
     vendor: [
       'axios',
       'swiper',

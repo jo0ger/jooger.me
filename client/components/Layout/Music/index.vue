@@ -42,7 +42,7 @@
       <div class="content" :class="{ 'show-lyric': showLyric}">
         <div class="cover">
           <img :src="cover" class="cover-source" alt="" @click.prevent.stop="handleToggleLyric" v-if="cover">
-          <img src="~static/image/album.jpg" alt="" @click.prevent.stop="handleToggleLyric" v-else>
+          <img src="http://static.jooger.me/img/common/album.jpg?x-oss-process=style/base" alt="" @click.prevent.stop="handleToggleLyric" v-else>
         </div>
         <div class="lyric">
           <div class="wrapper" ref="lyList" @click.prevent.stop="handleToggleLyric">
