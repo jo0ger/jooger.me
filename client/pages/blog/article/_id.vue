@@ -168,7 +168,7 @@
 
             img {
               width 100%
-              cursor pointer
+              cursor zoom-in
             }
           }
 
