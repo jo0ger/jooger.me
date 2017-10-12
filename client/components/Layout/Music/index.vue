@@ -516,7 +516,6 @@
       height 100%
       margin 0 auto
       padding 100px 100px 50px
-      padding-top 150px
       overflow-y auto
 
       @media (max-width: 1366px) and (min-width: 769px) {
