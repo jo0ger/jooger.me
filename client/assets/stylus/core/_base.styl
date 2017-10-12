@@ -90,15 +90,37 @@ for n in 1...6 {
 }
 
 .link {
-  color $base-color
-  border-bottom 1px dotted $base-color
+  position relative
+  color $white
+  background linear-gradient(270deg, $base-color, $base-color, alpha($green, .4), alpha(green, .4), $base-color, $base-color)
+  background-size 350% 100%
+  background-position 0% 5%
+  -webkit-text-fill-color transparent
+  -webkit-background-clip text
   cursor pointer
-  transition all .3s ease-out
+  text-decoration none
+  transition all .3s $ease-out
+
+  &::after {
+    content ''
+    position: absolute
+    bottom -2px
+    left 0
+    width 100%
+    height 1px
+    background linear-gradient(270deg, $base-color, $base-color, alpha($green, .4), alpha(green, .4), $base-color, $base-color)
+    background-size 350% 100%
+    background-position 0% 5%
+    // border-bottom 1px dashed $base-color
+    transition background .3s $ease-out
+  }
   
   &:hover {
-    border-bottom-color $text-color
-    color $text-color
-    text-decoration none
+    animation gradient-text-bg 1.6s linear infinite reverse
+
+    &::after {
+      animation gradient-text-bg 1.6s linear infinite reverse
+    }
   }
 
   body.dark-page & {
@@ -127,5 +149,14 @@ for n in 1...6 {
 
   100% {
     transform scaleY(1)
+  }
+}
+
+@keyframes gradient-text-bg {
+  0% {
+    background-position 0% 50%
+  }
+  100% {
+    background-position 100% 50%
   }
 }

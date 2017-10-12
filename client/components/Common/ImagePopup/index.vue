@@ -1,7 +1,12 @@
 <template>
   <transition name="fade">
-    <div class="img-popup" v-show="show" @click.stop.prevent="close">
-      <img class="popup-img" :src="src" alt="" ref="img">
+    <div class="img-popup" v-show="show">
+      <div class="wrapper">
+        <img class="popup-img" :src="src" alt="" ref="img">
+      </div>
+      <a class="close-btn" @click.stop.prevent="close">
+        <i class="iconfont icon-close"></i>
+      </a>
     </div>
   </transition>
 </template>
@@ -24,7 +29,10 @@
           this.show = true
         }, 0)
       },
-      close () {
+      close (e) {
+        // if (e.target.tarName === 'IMG' && e.target.className === 'popup-img') {
+        //   return
+        // }
         this.show = false
         setTimeout(() => {
           if (document.body.contains(this.$el)) {
@@ -89,23 +97,45 @@
   @import '~assets/stylus/_mixin'
 
   .img-popup {
-    flexLayout()
     position fixed
     top 0
     right 0
     width 100%
     height @width
     z-index 9999
-    background alpha($black, .6)
+    background alpha($black, .8)
 
     &.show {
       opacity 1
       visibility visible
     }
 
-    .popup-img {
-      max-width 90%
-      max-height @max-width
+    .wrapper {
+      flexLayout()
+      width 100%
+      height @width
+      .popup-img {
+        max-width 90%
+        max-height @max-width
+      }
+    }
+
+
+    .close-btn {
+      flexLayout()
+      position absolute
+      top 30px
+      right 30px
+      width 30px
+      height @width
+      color $white 
+      border 1px solid $white
+      border-radius 50%
+      opacity .6
+
+      &:hover {
+        opacity .8
+      }
     }
   }
 </style>
