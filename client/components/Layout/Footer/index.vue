@@ -5,7 +5,7 @@
       <a class="link" target="_blank" href="https://github.com/nuxt/nuxt.js">nuxt.js</a>、
       <br v-if="mobileLayout">
       Developed by 
-      <a class="link" target="_blank" :href="`https://github.com/${me.login}`">{{ me.name }}</a>
+      <a class="link" target="_blank" :href="'https://github.com/jo0ger'">{{ me.name }}</a>
     </div>
   </footer>
 </template>

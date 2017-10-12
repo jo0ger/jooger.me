@@ -1,5 +1,5 @@
 <template>
-  <div class="music-pane" :class="{ playing, show: showMusic }">
+  <div class="music-pane" :class="{ ready, playing, show: showMusic }">
     <div class="bg" :style="bgStyle"></div>
     <div class="overlay"></div>
     <div class="container" v-if="song">
@@ -73,13 +73,13 @@
           <span class="time total-time">{{ totalTime }}</span>
         </div>
         <div class="action">
-          <a class="prev" @click.prevent.stop="prev">
+          <a class="action-item prev" @click.prevent.stop="prev">
             <i class="iconfont icon-prev-song"></i>
           </a>
-          <a class="toggle" @click.prevent.stop="handleToggleMusic">
+          <a class="action-item toggle" @click.prevent.stop="handleToggleMusic">
             <i class="iconfont" :class="[playing ? 'icon-pause' : 'icon-play']"></i>
           </a>
-          <a class="next" @click.prevent.stop="next">
+          <a class="action-item next" @click.prevent.stop="next">
             <i class="iconfont icon-next-song"></i>
           </a>
         </div>
@@ -111,7 +111,6 @@
         sound: null,
         playlist: [],
         index: 0,
-        loading: false,
         ready: false,
         playing: false,
         volume: 0.6,
@@ -129,7 +128,7 @@
         musicList: 'music/list'
       }),
       song () {
-        return this.playlist[this.index]
+        return this.playlist[this.index] || null
       },
       cover () {
         return this.song ? this.song.album.cover + '?param=300y300' : ''
@@ -213,9 +212,9 @@
       this.fetchMusicList().then(() => {
         this.$nextTick(() => {
           this.initPlaylist()
+          this.play()
         })
       })
-      // this.play()
     },
     methods: {
       fetchMusicList () {
@@ -254,6 +253,7 @@
             console.log(song.name + ' --- play')
             this.wave = true
             this.progress = 0
+            this.ready = true
             this._setPlaying(true)
             // QU: volume 构造参数不管用
             Howler.volume(this.volume)
@@ -305,7 +305,12 @@
       play (index) {
         index = this.checkIndex(typeof index === 'number' ? index : this.index)
         this.index = index
-        const song = this.playlist[index]
+        const song = this.playlist[index] || null
+
+        if (!song) {
+          return
+        }
+
         this.sound = null
         this.ready = false
         
@@ -346,7 +351,7 @@
         this.volume = val
       },
       seek (per) {
-        if (this.sound && this.sound.playing()) {
+        if (this.ready && this.sound && this.sound.playing()) {
           this.sound.seek(this.sound.duration() * per)
         }
       },
@@ -386,8 +391,8 @@
         this.sound = song.howl = null
         this.wave = false
         this.playing = true
-        this.next()
         this.ready = true
+        this.next()
       },
       lyricIsActive (time, index) {
         if (time <= this.usedTimeFromSeconds) {
@@ -403,7 +408,9 @@
         this.seek(e.layerX / this.$refs.progressBar.clientWidth)
       },
       handleToggleMusic () {
-        this[this.playing ? 'pause' : 'play']()
+        if (this.ready) {
+          this[this.playing ? 'pause' : 'play']()
+        }
       },
       handleToggleLyric () {
         this.showLyric = !this.showLyric
@@ -508,16 +515,16 @@
       max-width $content-max-width
       height 100%
       margin 0 auto
-      padding 150px 100px 100px
+      padding 100px 100px 50px
       padding-top 150px
       overflow-y auto
 
       @media (max-width: 1366px) and (min-width: 769px) {
-        padding 120px 65px
+        padding 90px 65px 40px
       }
 
       @media (max-width: 768px) and (min-width: 480px) {
-        padding 90px 40px 30px
+        padding 80px 40px 30px
       }
 
       @media (max-width: 479px) {
@@ -525,7 +532,7 @@
       }
 
       .title {
-        margin-bottom 60px
+        margin-bottom 30px
         text-align center
 
         .meta {
@@ -548,21 +555,21 @@
         }
 
         @media (max-width: 1366px) and (min-width: 769px) {
-          margin-bottom 50px
+          margin-bottom 25px
           .song-name {
             font-size 1.8rem
           }
         }
 
         @media (max-width: 768px) and (min-width: 480px) {
-          margin-bottom 40px
+          margin-bottom 20px
           .song-name {
             font-size 1.6rem
           }
         }
 
         @media (max-width: 479px) {
-          margin-bottom 30px
+          margin-bottom 15px
           .song-name {
             font-size 1.2rem
           }
@@ -585,19 +592,19 @@
         text-align center
         overflow hidden
         .cover {
+          flexLayout()
           position absolute
           top 0
           left 0
           width 100%
           height @width
           img {
-            max-width 100%
-            height 100%
-            max-height 100%
-            border 8px solid alpha($white, .2)
+            width 90%
+            max-width 500px
+            border 16px solid alpha($white, .1)
             border-radius 100%
             cursor pointer
-            animation rotate 20s linear infinite
+            animation rotate 30s linear infinite
             animation-play-state paused
             will-change auto
           }
@@ -646,18 +653,18 @@
       .control {
         width 100%
         max-width 500px
-        margin 60px auto 0
+        margin 30px auto 0
 
         @media (max-width: 1366px) and (min-width: 769px) {
-          margin-top 45px
+          margin-top 25px
         }
 
         @media (max-width: 768px) and (min-width: 480px) {
-          margin-top 30px
+          margin-top 20px
         }
 
         @media (max-width: 479px) {
-          margin-top 30px
+          margin-top 15px
         }
 
         .tool {
@@ -675,7 +682,7 @@
 
         .progress {
           flexLayout(, space-around)
-          margin-bottom 30px
+          margin-bottom 15px
 
           .time {
             color alpha($white, .6)
@@ -725,7 +732,7 @@
             height 4px
             background alpha($white, .2)
             border-radius 2px
-            cursor pointer
+            cursor not-allowed
 
             .ball {
               position absolute
@@ -781,17 +788,23 @@
             }
 
             &.toggle {
+              cursor not-allowed
+              opacity .6
               .iconfont {
                 font-size 72px
               }
             }
 
-            &:hover
-            &:active {
-              .iconfont {
-                color alpha($white, .8)
+            &.prev
+            &.next {
+              &:hover
+              &:active {
+                .iconfont {
+                  color alpha($white, .8)
+                }
               }
             }
+
           }
 
            @media (max-width: 1366px) and (min-width: 769px) {
@@ -832,6 +845,24 @@
       .cover {
         img {
           animation-play-state running !important
+        }
+      }
+    }
+
+    &.ready {
+      .bar {
+        cursor pointer !important
+      }
+
+      .action-item.toggle {
+        cursor pointer !important
+        opacity 1 !important
+
+        &:hover
+        &:active {
+          .iconfont {
+            color alpha($white, .8)
+          }
         }
       }
     }

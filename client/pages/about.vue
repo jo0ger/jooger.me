@@ -4,7 +4,7 @@
       <a class="avatar" v-if="me.avatar">
         <img :src="me.avatar" alt="">
       </a>
-      <ul class="contact-list">
+      <ul class="contact-list" v-if="option.contact && option.contact.length">
         <li class="contact-item" v-for="item in option.contact" :key="item.title">
           <a class="info" :href="item.url" target="_blank">
             <i class="icon iconfont" :class="[`icon-${item.icon}`]"></i>
@@ -12,7 +12,7 @@
         </li>
       </ul>
     </div>
-    <div class="block">
+    <div class="block" v-if="option.welcome">
       <h3>Welcome</h3>
       <hr>
       <p>{{ option.welcome }}</p>
@@ -25,7 +25,7 @@
         <br>
       </p>
     </div>
-    <div class="block">
+    <div class="block" v-if="option.hobby && option.hobby.length">
       <h3>Hobbies</h3>
       <hr>
       <ul class="hobby-list">
@@ -36,7 +36,7 @@
         </li>
       </ul>
     </div>
-    <div class="block">
+    <div class="block" v-if="option.experience && option.experience.length">
       <h3>Experiences</h3>
       <hr>
       <ul class="experience-list">
@@ -49,7 +49,7 @@
         </li>
       </ul>
     </div>
-    <div class="block">
+    <div class="block" v-if="option.skill && option.skill.length">
       <h3>Skills</h3>
       <hr>
       <ul class="skill-list">
@@ -63,12 +63,12 @@
         </li>
       </ul>
     </div>
-    <div class="block">
+    <div class="block" v-if="option.links && option.links.length">
       <h3>Friends</h3>
       <hr>
       <ul class="friend-list">
         <li class="friend-item" v-for="item in option.links" :key="item.name">
-          <a class="info" :href="item.link" target="_blank">
+          <a class="info" :href="item.site" target="_blank">
             <div class="avatar">
               <img :src="item.avatar" :alt="item.name">
             </div>
