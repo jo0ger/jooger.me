@@ -40,9 +40,9 @@
         </div>
       </div>
       <div class="content" :class="{ 'show-lyric': showLyric}">
-        <div class="cover">
-          <img :src="cover" class="cover-source" alt="" @click.prevent.stop="handleToggleLyric" v-if="cover">
-          <img src="http://static.jooger.me/img/common/album.jpg?x-oss-process=style/base" alt="" @click.prevent.stop="handleToggleLyric" v-else>
+        <div class="cover" ref="cover">
+          <img :src="cover" class="cover-source" alt="" :style="coverStyle" @click.prevent.stop="handleToggleLyric" v-if="cover">
+          <img src="http://static.jooger.me/img/common/album.jpg?x-oss-process=style/base" alt="" :style="coverStyle" @click.prevent.stop="handleToggleLyric" v-else>
         </div>
         <div class="lyric">
           <div class="wrapper" ref="lyList" @click.prevent.stop="handleToggleLyric">
@@ -118,7 +118,8 @@
         wave: false,
         showLyric: false,
         activeLyricIndex: -1,
-        singleCycle: false
+        singleCycle: false,
+        coverStyle: null
       }
     },
     computed: {
@@ -148,13 +149,6 @@
           }
           return null
         }).filter(lyric => !!lyric)
-      },
-      coverStyle () {
-        if (this.cover) {
-          return {
-            background: `url(${this.cover}) no-repeat center center`
-          }
-        } 
       },
       bgStyle () {
         if (this.song && this.song.album.cover) {
@@ -213,6 +207,7 @@
         this.$nextTick(() => {
           this.initPlaylist()
           this.play()
+          this.initCoverStyle()
         })
       })
     },
@@ -230,6 +225,19 @@
             ...song
           }
         }).filter(song => !!song)
+      },
+      initCoverStyle () {
+        const $cover = this.$refs.cover
+        if (!$cover) {
+          return
+        }
+        const w = $cover.clientWidth
+        const h = $cover.clientHeight
+        const min = Math.min(w, h)
+        this.coverStyle = {
+          width: `${min * .9}px`,
+          height: `${min * .9}px`,
+        }
       },
       getHowl (song) {
         return new Howl({
