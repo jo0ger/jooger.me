@@ -41,7 +41,7 @@
         if (!this.data.thumb) {
           return
         }
-        const thumb = this.data.thumb + '?imageView2/0/format/webp/q/75|watermark/2/text/Sm9vZ2VyLm1l/font/5b6u6L2v6ZuF6buR/fontsize/360/fill/I0Y3RjdGNw==/dissolve/80/gravity/SouthEast/dx/10/dy/10|imageslim'
+        const thumb = this.data.thumb
         return this.$imgLoad(thumb, {
           success: () => {
             this.thumb = thumb
