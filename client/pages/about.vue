@@ -369,7 +369,7 @@
               .wave {
                 transform translateY(0)
 
-                for n in 50 60 70 80 90 {
+                for n in 10 20 30 40 50 60 70 80 90 100 {
                   &.wave-{n} {
                     &::before {
                       animation 'rotate-%s 6s linear infinite' % n
@@ -590,7 +590,7 @@
 
   }
 
-  for n in 50 60 70 80 90 {
+  for n in 10 20 30 40 50 60 70 80 90 100 {
     @keyframes rotate-{n} {
       50% {
         transform translate(-50%, -(3 + 65 + 35 / 100 * n)%) rotate(180deg)
