@@ -165,11 +165,6 @@
           .thumb {
             width 100%
             margin-bottom 30px
-
-            img {
-              width 100%
-              cursor zoom-in
-            }
           }
 
           .meta {

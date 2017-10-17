@@ -5,13 +5,13 @@
         <img src="~static/image/logo.svg" alt="">
       </a>
       <nav class="navigation">
-        <a class="music" :class="{ active: showMusic, playing: musicPlaying }" @click.prevent.stop="handleToggleMusic">
+        <!-- <a class="music" :class="{ active: showMusic, playing: musicPlaying }" @click.prevent.stop="handleToggleMusic">
           <span class="col"></span>
           <span class="col"></span>
           <span class="col"></span>
           <span class="col"></span>
           <span class="col"></span>
-        </a>
+        </a> -->
         <a class="search" v-if="isBlogPage" @click.prevent.stop="handleToggleSearch">
           <span class="icon"></span>
         </a>
