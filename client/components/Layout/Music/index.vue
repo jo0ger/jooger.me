@@ -1,98 +1,69 @@
 <template>
-  <div class="music-pane" :class="{ ready, playing, show: showMusic }">
-    <div class="bg" :style="bgStyle"></div>
-    <div class="overlay"></div>
-    <div class="container" v-if="song">
-      <div class="title">
-        <h1 class="song-name">
-          {{ song.name }}
-          <span class="alias" v-if="song.tns && song.tns.length">
-            <span> ( </span>
-            <span class="alias-name" v-for="(alias, index) in song.tns" :key="index">
-              {{ alias }}
-            </span>
-            <span> ) </span>
-          </span>
-        </h1>
-        <div class="meta">
-          <span class="artists">
-            <span class="text">歌手：</span>
+  <div class="music-pane" :class="{ show: showMusic }">
+    <div class="wrapper" v-if="song">
+      <div class="music">
+        <div class="cover">
+          <img :src="cover" alt="">
+        </div>
+        <div class="info">
+          <div class="title">
+            <a :href="`https://music.163.com/#/song?id=${song.id}`" target="_blank" class="song-name">
+              {{ song.name }}
+            </a>
+            <span> - </span>
             <template v-for="(at, index) in song.artists">
               <span :key="at.id" v-if="index !== 0"> / </span>
-              <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" class="name" :key="at.id">
+              <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" class="artist-name" :key="at.id">
                 {{ at.name }}
               </a>
             </template>
-          </span>
-          <span class="album">
-            <span class="text">所属专辑：</span>
-            <a :href="`https://music.163.com/#/album?id=${song.album.id}`" target="_blank" class="name">
-              <span class="name">{{ song.album.name }}</span>
-              <span class="alias" v-if="song.album.tns && song.album.tns.length">
-                <span> ( </span>
-                <span class="alias-name" v-for="(alias, index) in song.album.tns" :key="index">
-                  {{ alias }}
-                </span>
-                <span> ) </span>
-              </span>
-            </a>
-          </span>
-        </div>
-      </div>
-      <div class="content" :class="{ 'show-lyric': showLyric}">
-        <div class="cover" ref="cover">
-          <img :src="cover" class="cover-source" alt="" :style="coverStyle" @click.prevent.stop="handleToggleLyric" v-if="cover">
-          <img src="http://static.jooger.me/img/common/album.jpg?x-oss-process=style/base" alt="" :style="coverStyle" @click.prevent.stop="handleToggleLyric" v-else>
-        </div>
-        <div class="lyric">
-          <div class="wrapper" ref="lyList" @click.prevent.stop="handleToggleLyric">
-            <ul class="ly-list" :style="lyListStyle" v-if="lyrics.length">
-              <li class="item" :class="{ now: lyricIsActive(ly.time, index) }" v-for="(ly, index) in lyrics" :key="ly.time">
-                <p>{{ ly.text }}</p>
-              </li>
-            </ul>
-            <span class="no-lyric">纯音乐，无歌词，请静心欣赏</span>
+          </div>
+          <div class="length">
+            <div class="position">02:55</div>
+            <div class="progress">
+              <div class="bar">
+                <div class="played">
+                  <div class="dot"></div>
+                </div>
+              </div>
+            </div>
+            <div class="duration">04:52</div>
           </div>
         </div>
       </div>
-      <div class="control">
-        <div class="tool">
-          <a @click.prevent.stop="handleToggleSingleCycle" :title="singleCycle ? '单曲循环' : '列表循环'">
-            <i class="iconfont" :class="[`icon${singleCycle ? '-single' : ''}-cycle`]"></i>
-          </a>
-          <a @click.prevent.stop="handleToggleVolume">
+      <div class="controls">
+        <a class="control-item prev">
+          <i class="iconfont icon-prev-song"></i>
+        </a>
+        <a class="control-item play">
+          <i class="iconfont icon-play"></i>
+        </a>
+        <a class="control-item next">
+          <i class="iconfont icon-next-song"></i>
+        </a>
+      </div>
+      <div class="extra">
+        <a class="extra-item" @click.prevent.stop="handleToggleSingleCycle" :title="singleCycle ? '单曲循环' : '列表循环'">
+          <i class="iconfont" :class="[`icon${singleCycle ? '-single' : ''}-cycle`]"></i>
+        </a>
+        <div class="extra-item volume">
+          <a class="trigger" @click.prevent.stop="handleToggleVolume">
             <i class="iconfont" :class="[`icon-volume-${volume === 0 ? 'off' : 'on'}`]"></i>
           </a>
-        </div>
-        <div class="progress">
-          <span class="time used-time">{{ usedTime }}</span>
-          <div class="bar" ref="progressBar" @click.prevent.stop="handleSkip">
-            <span class="rate" :style="rateStyle"></span>
-            <div class="ball" :style="ballStyle"></div>
+          <div class="volume-control">
+            <div class="value">
+              <div class="dot"></div>
+            </div>
           </div>
-          <span class="time total-time">{{ totalTime }}</span>
         </div>
-        <div class="action">
-          <a class="action-item prev" @click.prevent.stop="prev">
-            <i class="iconfont icon-prev-song"></i>
-          </a>
-          <a class="action-item toggle" @click.prevent.stop="handleToggleMusic">
-            <i class="iconfont" :class="[playing ? 'icon-pause' : 'icon-play']"></i>
-          </a>
-          <a class="action-item next" @click.prevent.stop="next">
-            <i class="iconfont icon-next-song"></i>
-          </a>
-        </div>
+        <a class="extra-item song-list">
+          <i class="iconfont icon-song-list"></i>
+          <span class="count">{{ musicList.length }}</span>
+        </a>
       </div>
     </div>
-    <div class="loading" v-else>
-      <span class="spinner">
-        <span class="col"></span>
-        <span class="col"></span>
-        <span class="col"></span>
-        <span class="col"></span>
-        <span class="col"></span>
-      </span>
+    <div class="fixed-bar">
+      <div class="played"></div>
     </div>
   </div>
 </template>
@@ -101,8 +72,6 @@
   import { mapGetters } from 'vuex'
   import { Howl, Howler } from 'howler'
   import { requestAnimationFrame } from '~/utils'
-
-  const lyReg = /\[(.*?)\](.*)/
 
   export default {
     name: 'Layout-Music',
@@ -150,56 +119,14 @@
           return null
         }).filter(lyric => !!lyric)
       },
-      bgStyle () {
-        if (this.song && this.song.album.cover) {
-          return {
-            backgroundImage: `url(${this.song.album.cover})`
-          }
-        }
-      },
-      rateStyle () {
-        return {
-          transform: `translate3d(0, 0, 0) scaleX(${this.progress / 100})`
-        }
-      },
-      ballStyle () {
-        return {
-          left: `${this.progress}%`
-        }
-      },
-      lyListStyle () {
-        const $list = this.$refs.lyList
-        const index = this.activeLyricIndex + 1
-        let target = 0
-        if ($list) {
-          const activeElem = $list.querySelector(`.item:nth-child(${index})`)
-          if (activeElem) {
-            const listHeight = $list.clientHeight
-            const offsetTop = activeElem.offsetTop
-            const elemHeight = activeElem.clientHeight
-            target = offsetTop - listHeight / 2 + elemHeight / 2
-            if (target < 0) {
-              target = 0
-            }
-          }
-        }
-        return {
-          transform: `translate3d(0, ${-target}px, 0)`
-        }
-      },
-      usedTimeFromSeconds () {
+      playedTimeFromSeconds () {
         return this.song.duration / 1000 * (this.progress / 100)
       },
-      usedTime () {
+      playedTime () {
         return this.formatTime(Math.floor(this.usedTimeFromSeconds))
       },
-      totalTime () {
+      duration () {
         return this.formatTime(Math.floor(this.song.duration / 1000))
-      }
-    },
-    watch: {
-      'musicList.length' () {
-        this.initPlaylist()
       }
     },
     mounted () {
@@ -213,7 +140,7 @@
     },
     methods: {
       fetchMusicList () {
-        return this.$store.dispatch('music/fetchList', this.option.musicId)
+        return this.$store.dispatch('music/fetchList')
       },
       initPlaylist () {
         this.playlist = this.musicList.map(song => {
@@ -255,7 +182,7 @@
           },
           onloaderror: (id, err) => {
             console.log(song.name + ' --- load error')
-            this._error(song)
+            // this._error(song)
           },
           onplay: () => {
             console.log(song.name + ' --- play')
@@ -439,449 +366,230 @@
 
   .music-pane {
     position fixed
-    top 0
     right 0
     bottom 0
     left 0
     width 100%
-    height 100%
-    background $black
-    z-index 9997
-    overflow hidden
-    color $white
-    visibility hidden
-    transform translate3d(100%, 0, 0)
-    transition all .8s $fuck
+    background alpha($black, .6)
+    transform translate3d(0, 100%, 0)
+    transition transform .8s $fuck
 
-    &.show {
-      visibility visible
-      transform translate3d(0, 0, 0)
-    }
-
-    .bg {
-      position absolute
-      top -10%
-      left -10%
-      width 120%
-      height 120%
-      filter blur(50px)
-      // IOS 9+
-      // backdrop-filter blur(30px)
-      background-color $black
-      background-repeat no-repeat
-      background-size cover
-      background-position 20% center
-      transition background 1s $ease
-    }
-
-    .overlay {
-      position absolute
-      top -10%
-      left -10%
-      width 120%
-      height 120%
-      background alpha($black, .6)
-    }
-
-    .loading {
-      position absolute
-      top 0
-      left 0
-      width 100%
-      height 100%
-
-      .spinner {
-        flexLayout(, space-around)
-        position absolute
-        top 50%
-        left 50%
-        width 80px
-        height @width
-        transform translate(-50%, -50%)
-        .col {
-          display inline-block
-          width 4px
-          height 40px
-          border-radius 2px
-          background $base-color
-          animation wavy 1.5s $ease infinite forwards
-                
-          for n in 1...6 {
-            &:nth-child({n}) {
-              animation-delay (0.25s * (n - 1))
-            }
-          }
-        }
-      }
-
-    }
-
-    .container {
-      flexLayout(column, space-between)
+    .wrapper {
       position relative
       width 100%
-      max-width $content-max-width
+      height 80px
+      // max-width $content-max-width
+      // margin 0 auto
+      padding 0 300px
+      // z-index 1
+
+      // @media (max-width: 1366px) and (min-width: 769px) {
+      //   padding 0 65px
+      // }
+
+      // @media (max-width: 768px) and (min-width: 480px) {
+      //   padding 0 40px
+      // }
+
+      // @media (max-width: 479px) {
+      //   padding 0 15px
+      // }
+    }
+
+    .controls
+    .extra {
+      flexLayout(, flex-end)
+      position absolute
+      top 0
+      width 300px
       height 100%
-      margin 0 auto
-      padding 100px 100px 50px
-      overflow-y auto
+    }
 
-      @media (max-width: 1366px) and (min-width: 769px) {
-        padding 90px 65px 40px
+    .controls {
+      left 0
+
+      .control-item {
+        display block
+        // width 30px
+        // height @width
+        margin 0 15px
+        line-height 1
+
+        .iconfont {
+          font-size 20px
+        }
+
+        &.play
+        &.pause {
+          .iconfont {
+            font-size 32px
+          }
+        }
+      }
+    }
+    
+    .extra {
+      flexLayout(, flex-start)
+      right 0
+
+      &-item {
+        margin 0 10px
       }
 
-      @media (max-width: 768px) and (min-width: 480px) {
-        padding 80px 40px 30px
+      .song-list {
+        .count {
+          margin-left 5px
+          font-size 14px
+        }
       }
 
-      @media (max-width: 479px) {
-        padding 70px 15px 20px
-      }
-
-      .title {
-        margin-bottom 30px
-        text-align center
-
-        .meta {
-          color alpha($white, .5)
-          font-size .9rem
-
-          .album {
-            margin-left 30px
-          }
-
-          .name {
-            &:hover {
-              color $base-color
-            }
-          }
-
-          .alias {
-            font-size .8rem
-          }
-        }
-
-        @media (max-width: 1366px) and (min-width: 769px) {
-          margin-bottom 25px
-          .song-name {
-            font-size 1.8rem
-          }
-        }
-
-        @media (max-width: 768px) and (min-width: 480px) {
-          margin-bottom 20px
-          .song-name {
-            font-size 1.6rem
-          }
-        }
-
-        @media (max-width: 479px) {
-          margin-bottom 15px
-          .song-name {
-            font-size 1.2rem
-          }
-
-          .meta {
-            font-size .8rem
-            & > span {
-              display block
-              margin 0 !important
-            }
-          }
-        }
-
-      }
-
-      .content {
-        position relative
-        width 100%
-        height @width
-        text-align center
-        overflow hidden
-        .cover {
-          flexLayout()
-          position absolute
-          top 0
-          left 0
-          width 100%
-          height @width
-          img {
-            width 90%
-            max-width 500px
-            border 16px solid alpha($white, .1)
-            border-radius 100%
-            cursor pointer
-            animation rotate 30s linear infinite
-            animation-play-state paused
-            will-change auto
-          }
-        }
-
-        .lyric {
-          position absolute
-          top 0
-          left 0
-          width 100%
-          height @width
-          color alpha($white, .3)
-          overflow hidden
-          visibility hidden
-
-          .wrapper {
+      .volume {
+        flexLayout(, space-between)
+        &-control {
+          width 80px
+          height 2px
+          margin-left 10px
+          background alpha($white, .2)
+          cursor pointer
+          .value {
             position relative
+            width 50%
             height 100%
-            margin 0 -15px
-            padding 0 15px
-            overflow hidden
-          }
+            background $white
+            opacity .8
 
-          .ly-list {
-            transition transform .3s $ease
-            .item {
-              padding 10px 0
-
-              &.now {
-                color $base-color
-              }
+            .dot {
+              position absolute
+              width 8px
+              height @width
+              right (-@width / 2)px
+              margin-top -3px
+              border-radius 100%
+              background $white
             }
-          }
-        }
-
-        &.show-lyric {
-          .cover {
-            visibility hidden
-          }
-          .lyric {
-            visibility visible
           }
         }
       }
+    }
 
-      .control {
-        width 100%
-        max-width 500px
-        margin 30px auto 0
+    .music {
+      flexLayout(, flex-start)
+      position relative
+      height 100%
+      margin 0 20px
+      user-select none
 
-        @media (max-width: 1366px) and (min-width: 769px) {
-          margin-top 25px
+      .cover {
+        flex 0 0 50px
+        width 50px
+        height @width
+        margin-right 15px
+        overflow hidden
+
+        img {
+          width 100%
+          height 100%
+        }
+      }
+
+      .info {
+        flex 1 0
+        height 50px
+        flexLayout(column, space-around, flex-start)
+        .title {
+          flex 1 0
+          font-size 14px
         }
 
-        @media (max-width: 768px) and (min-width: 480px) {
-          margin-top 20px
-        }
+        .length {
+          flex 0 0 20px
+          flexLayout(, space-between)
+          width 100%
+          height 20px
+          font-size 12px
 
-        @media (max-width: 479px) {
-          margin-top 15px
-        }
-
-        .tool {
-          flexLayout()
-          margin-bottom 15px
-
-          & > a {
-            margin 0 20px
-            color alpha($white, .6)
-            &:hover {
-              color alpha($white, .8)
-            }
+          .played {
           }
-        }
 
-        .progress {
-          flexLayout(, space-around)
-          margin-bottom 15px
+          .duratiion {
 
-          .time {
-            color alpha($white, .6)
+          }
 
-            &.used-time {
-              margin-right 30px
-            }
-
-            &.total-time {
-              margin-left 30px
-            }
-
-            @media (max-width: 1366px) and (min-width: 769px) {
-              &.used-time {
-                margin-right 30px
-              }
-
-              &.total-time {
-                margin-left 30px
-              }
-            }
-
-            @media (max-width: 768px) and (min-width: 480px) {
-              &.used-time {
-                margin-right 25px
-              }
-
-              &.total-time {
-                margin-left 25px
-              }
-            }
-
-            @media (max-width: 479px) {
-              &.used-time {
-                margin-right 20px
-              }
-
-              &.total-time {
-                margin-left 20px
-              }
-            }
+          .progress {
+            flex 1 0
+            margin 0 10px
           }
 
           .bar {
-            flex 1
-            position relative
-            height 4px
+            width 100%
+            height 2px
             background alpha($white, .2)
-            border-radius 2px
-            cursor not-allowed
-
-            .ball {
-              position absolute
-              left 0
-              width 16px
-              height @width
-              margin-top -6px
-              border-radius 100%
-              background $white
-              cursor pointer
-              transform translateX(-50%)
-
-              &:after {
-                content ''
-                position absolute
-                top 50%
-                left 50%
-                transform translate(-50%, -50%)
-                display block
-                width 4px
-                height 4px
-                border-radius 100%
-                background $base-color
-              }
-            }
-
-            .rate {
-              position absolute
-              left 0
-              width 100%
+            cursor pointer
+            .played {
+              position relative
+              width 50%
               height 100%
               background $base-color
-              border-radius 2px
-              transform scaleX(0)
-              transform-origin 0
-            }
-          }
-        }
 
-        .action {
-          flexLayout(, space-around)
-          max-width 500px
-          margin 0 auto
-          
-          & > a {
-            display inline-block
-            line-height 1
+              .dot {
+                position absolute
+                width 10px
+                height @width
+                right (-@width / 2)px
+                margin-top -4px
+                border-radius 100%
+                background $white
 
-            .iconfont {
-              font-size 28px
-              color alpha($white, .6)
-              transition color .3s $ease
-            }
-
-            &.toggle {
-              cursor not-allowed
-              opacity .6
-              .iconfont {
-                font-size 72px
-              }
-            }
-
-            &.prev
-            &.next {
-              &:hover
-              &:active {
-                .iconfont {
-                  color alpha($white, .8)
+                &:after {
+                  content ''
+                  position absolute
+                  top 50%
+                  left 50%
+                  transform translate(-50%, -50%)
+                  display block
+                  width 4px
+                  height 4px
+                  border-radius 100%
+                  background $base-color
                 }
               }
             }
-
-          }
-
-           @media (max-width: 1366px) and (min-width: 769px) {
-              & > a {
-                .iconfont {
-                  font-size 26px
-                }
-              }
-            }
-
-            @media (max-width: 768px) and (min-width: 480px) {
-              & > a {
-                .iconfont {
-                  font-size 24px
-                }
-              }
-            }
-
-            @media (max-width: 479px) {
-              & > a {
-                .iconfont {
-                  font-size 20px
-                }
-
-                &.toggle {
-                  .iconfont {
-                    font-size 56px
-                  }
-                }
-              }
-            }
-        }
-      }
-
-    }
-
-    &.playing {
-      .cover {
-        img {
-          animation-play-state running !important
-        }
-      }
-    }
-
-    &.ready {
-      .bar {
-        cursor pointer !important
-      }
-
-      .action-item.toggle {
-        cursor pointer !important
-        opacity 1 !important
-
-        &:hover
-        &:active {
-          .iconfont {
-            color alpha($white, .8)
           }
         }
       }
     }
 
-  }
+    .fixed-bar {
+      position absolute
+      top -2px
+      right 0
+      left 0
+      width 100%
+      height 2px
+      opacity 1
+      transition all .8s $fuck
 
-  @keyframes rotate {
-    0% {
-      transform rotateZ(0deg)
+      .played {
+        width 50%
+        height 100%
+        background alpha($base-color, .5)
+      }
     }
-    100% {
-      transform rotateZ(360deg)
+
+    &.show {
+      transform translate3d(0, 0, 0)
+
+      .fixed-bar {
+        opacity 0
+      }
+    }
+
+    a {
+      opacity .6
+
+      &:hover {
+        opacity 1
+      }
     }
   }
 </style>
