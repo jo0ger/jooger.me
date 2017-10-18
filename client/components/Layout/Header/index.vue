@@ -5,13 +5,13 @@
         <img src="~static/image/logo.svg" alt="">
       </a>
       <nav class="navigation">
-        <!-- <a class="music" :class="{ active: showMusic, playing: musicPlaying }" @click.prevent.stop="handleToggleMusic">
+        <a class="music" :class="{ active: showMusic, playing: musicPlaying }" @click.prevent.stop="handleToggleMusic" v-if="!mobileLayout">
           <span class="col"></span>
           <span class="col"></span>
           <span class="col"></span>
           <span class="col"></span>
           <span class="col"></span>
-        </a> -->
+        </a>
         <a class="search" v-if="isBlogPage" @click.prevent.stop="handleToggleSearch">
           <span class="icon"></span>
         </a>
@@ -68,7 +68,8 @@
         showSearch: 'app/showSearch',
         showMenu: 'app/showMenu',
         showMusic: 'app/showMusic',
-        musicPlaying: 'app/musicPlaying'
+        musicPlaying: 'app/musicPlaying',
+        mobileLayout: 'app/mobileLayout'
       }),
       isErrorPage () {
         return this.$parent.$options.name === 'Error'

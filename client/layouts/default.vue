@@ -17,7 +17,7 @@
           </keep-alive>
         </div>
       </main>
-      <!-- <LayoutMusic></LayoutMusic> -->
+      <LayoutMusic v-if="!mobileLayout"></LayoutMusic>
       <LayoutTools v-if="!showBannerPage"></LayoutTools>
       <LayoutOverlay></LayoutOverlay>
       <LayoutFooter v-if="!isHomePage"></LayoutFooter>
