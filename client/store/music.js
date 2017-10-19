@@ -34,7 +34,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchList ({ commit, state }, musicId) {
+  async fetchList ({ commit, state }) {
     if (state.list.fetching) {
       return
     }
