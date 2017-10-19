@@ -338,6 +338,9 @@
             // QU: volume 构造参数不管用
             Howler.volume(this.volume)
             requestAnimationFrame(this.step.bind(this))
+            this.$nextTick(() => {
+              this.setSongListScroll()
+            })
           },
           onplayerror: (id, err) => {
             console.log(song.name + ' --- 播放失败')
@@ -428,6 +431,7 @@
       skipTo (index) {
         if (this.sound) {
           this.sound.stop()
+          this.sound.unload()
         }
         this.progress = 0
         this.play(index)
@@ -502,19 +506,22 @@
       handleSkipSong (index) {
         this.skipTo(index)
       },
+      setSongListScroll () {
+        // 设置窗口滚动到当前播放的歌曲处
+        const songListElem = this.$refs.songList
+        const selectSongElem = songListElem.querySelector('.select')
+        if (selectSongElem) {
+          const top = selectSongElem.offsetTop
+          songListElem.scrollTo(0, top - songListElem.clientHeight / 2 + selectSongElem.clientHeight / 2)
+        }
+      },
       handleToggleShowPlaylist () {
         this.showPlayList = !this.showPlayList
         if (this.showPlayList) {
           this.$nextTick(() => {
             // 设置歌词的样式
             this.lyListStyle = this.getLyListStyle()
-            // 设置窗口滚动到当前播放的歌曲处
-            const songListElem = this.$refs.songList
-            const selectSongElem = songListElem.querySelector('.select')
-            if (selectSongElem) {
-              const top = selectSongElem.offsetTop
-              songListElem.scrollTo(0, top - songListElem.clientHeight / 2 + selectSongElem.clientHeight / 2)
-            }
+            this.setSongListScroll()
           })
         }
       },
