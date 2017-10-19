@@ -26,7 +26,7 @@ export const state = () => ({
     keyword: ''
   },
   music: {
-    show: true,
+    show: false,
     playing: false
   }
 })
