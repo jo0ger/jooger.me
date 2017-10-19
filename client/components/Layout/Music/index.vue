@@ -820,9 +820,13 @@
             color alpha($white, .3)
             transition transform .8s $ease
             .item {
-              height 32px
-              line-height @height
+              min-height 32px
+              padding 5px 0
               transition all .8s $ease
+
+              & > p {
+                line-height 1.5
+              }
               &.now {
                 color $white
                 transform scale(1.2)
