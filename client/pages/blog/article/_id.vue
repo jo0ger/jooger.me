@@ -3,9 +3,6 @@
     <div class="article-pane">
       <article class="detail" v-if="articleDetail" ref="article">
         <header class="header">
-          <!-- <div class="thumb">
-            <img :src="articleDetail.thumb" class="image-view" alt="">
-          </div> -->
           <h1 class="title">{{ articleDetail.title }}</h1>
           <div class="meta">
             <time class="time" :datatitme="articleDetail.createdAt">{{ articleDetail.createdAt | fmtDate('yyyy-MM-dd') }}</time>
@@ -13,12 +10,12 @@
         </header>
         <div class="content md-body" v-html="articleDetail.renderedContent"></div>
         <div class="tags" v-if="articleDetail.tag && articleDetail.tag.length">
-          <router-link class="tag-item"
+          <nuxt-link class="tag-item"
             v-for="item in articleDetail.tag"
             :key="item._id"
             :to="`/blog/tag/${item.name}`">
             <span class="text">{{ item.name }}</span>
-          </router-link>
+          </nuxt-link>
         </div>
         <!-- <div class="actions"> -->
           <!-- <a class="action-item like" :class="{ 'is-liked': liked }" @click="handleLike">
@@ -35,6 +32,24 @@
             <span class="text">分享</span>
           </a> -->
         <!-- </div> -->
+        <div class="navigation" v-if="articleDetail.adjacent.next || articleDetail.adjacent.prev">
+          <a class="nav-item prev" @click="handleSwitchArticle(articleDetail.adjacent.prev._id)" v-if="articleDetail.adjacent.prev"
+            :style="getAdjacentThumbStyle(articleDetail.adjacent.prev)">
+            <div class="wrapper">
+              <h3 class="label">prev</h3>
+              <p class="title">{{ articleDetail.adjacent.prev.title }}</p>
+              <time class="time" :datatitme="articleDetail.adjacent.prev.createdAt">{{ articleDetail.adjacent.prev.createdAt | fmtDate('yyyy-MM-dd') }}</time>
+            </div>
+          </a>
+          <a class="nav-item next" @click="handleSwitchArticle(articleDetail.adjacent.next._id)" v-if="articleDetail.adjacent.next"
+            :style="getAdjacentThumbStyle(articleDetail.adjacent.next)">
+            <div class="wrapper">
+              <h3 class="label">next</h3>
+              <p class="title">{{ articleDetail.adjacent.next.title }}</p>
+              <time class="time" :datatitme="articleDetail.adjacent.next.createdAt">{{ articleDetail.adjacent.next.createdAt | fmtDate('yyyy-MM-dd') }}</time>
+            </div>
+          </a>
+        </div>
       </article>
       <p class="no-data" v-else>文章未找到</p>
     </div>
@@ -54,10 +69,11 @@
     components: {
       CommonComment
     },
-    validate ({ params }) {
-      return !!params.id
-    },
+    // validate ({ params }) {
+    //   return !!params.id
+    // },
     async fetch ({ params, store }) {
+      console.log(params)
       await store.dispatch('article/fetchDetail', params.id)
     },
     head () {
@@ -87,8 +103,13 @@
         }
       }
     },
+    beforeRouteLeave (to, from, next) {
+      setTimeout(() => {
+        this.$store.commit('article/CLEAR_DETAIL')
+      }, 500)
+      next()
+    },
     beforeDestroy () {
-      this.$store.commit('article/CLEAR_DETAIL')
       if (this._resizeHandler) {
         window.removeEventListener('resize', this._resizeHandler)
       }
@@ -116,9 +137,19 @@
           }, false)
         }
       },
+      getAdjacentThumbStyle (obj = {}) {
+        return obj.thumb ? {
+          backgroundImage: `url(${obj.thumb})`
+        } : null
+      },
       handleLike () {
         if (!this.liked) {
           this.$store.dispatch('article/like', this.articleDetail.number)
+        }
+      },
+      handleSwitchArticle (id) {
+        if (id) {
+          this.$router.push(`/blog/article/${id}`)
         }
       }
     }
@@ -192,12 +223,12 @@
             background $grey
             border-radius 4px
             font-size .8rem
-            color $text-color-secondary
+            color $text-color
             transition all .3s $ease
 
             &:hover {
               background alpha($base-color, .8)
-              color $white
+              color $text-color-dark
             }
           }
         }
@@ -257,6 +288,53 @@
               &.share {
                 background-color $blue
                 color $white
+              }
+            }
+            
+          }
+        }
+
+        .navigation {
+          flexLayout(, space-between)
+          position relative
+          margin-top 30px
+          border-radius 10px
+          overflow hidden
+
+          .nav-item {
+            flex 1 0
+            background-position center center
+            background-color $white
+            background-size cover
+
+            .wrapper {
+              width 100%
+              height @width
+              padding 50px 20px
+              background-color alpha($black, .8)
+              color $white
+              text-align center
+              transition all .3s $ease
+
+              .label {
+                font-family $font-family-headings-2
+                text-transform uppercase
+                font-weight bold
+              }
+
+              .title {
+                font-size 14px
+              }
+
+              .time {
+                font-size 12px
+                opacity .6
+              }
+            }
+
+            &:hover {
+              .wrapper {
+                background-color alpha($black, .6)
               }
             }
             

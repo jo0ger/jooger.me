@@ -72,7 +72,7 @@
                   :key="item.id"
                   @dblclick.prevent.stop="handleSkipSong(index)">
                   <div class="cover">
-                    <img :src="item.album.cover + '?param=200y200'" alt="">
+                    <img :src="item.album.cover + '?param=200y200'" alt="" v-if="showPlayList">
                   </div>
                   <div class="name">{{ item.name }}</div>
                   <div class="flag" v-if="song.id === item.id">

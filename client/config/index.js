@@ -8,11 +8,13 @@
 
 const isProd = process.env.NODE_ENV === 'production'
 
+const baseApiUrl = isProd ? 'https://api.jooger.me' : 'http://127.0.0.1:3001'
+
 export default {
   service: {
     url: '/',
     method: 'get',
-    baseURL: isProd ? 'https://api.jooger.me' : 'http://127.0.0.1:3001',
+    baseURL: baseApiUrl,
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
       'Accept': 'application/json'
