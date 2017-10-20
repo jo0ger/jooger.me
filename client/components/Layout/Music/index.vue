@@ -1,6 +1,17 @@
 <template>
-  <div class="music-pane" :class="{ show: showMusic || (!showMusic && mouseTriggerShowMusic) }">
+  <div class="music-pane" ref="music" :class="{ show: showMusic || (!showMusic && mouseTriggerShowMusic) }">
     <div class="wrapper" v-if="song">
+      <div class="controls">
+        <a class="control-item prev" @click.prevent.stop="handlePrevSong">
+          <i class="iconfont icon-prev-song"></i>
+        </a>
+        <a class="control-item play" @click.prevent.stop="handleToggleMusic">
+          <i class="iconfont" :class="[playing ? 'icon-pause' : 'icon-play']"></i>
+        </a>
+        <a class="control-item next" @click.prevent.stop="handleNextSong">
+          <i class="iconfont icon-next-song"></i>
+        </a>
+      </div>
       <div class="music">
         <div class="cover">
           <img :src="cover" alt="">
@@ -29,17 +40,6 @@
           </div>
         </div>
       </div>
-      <div class="controls">
-        <a class="control-item prev" @click.prevent.stop="prev">
-          <i class="iconfont icon-prev-song"></i>
-        </a>
-        <a class="control-item play" @click.prevent.stop="handleToggleMusic">
-          <i class="iconfont" :class="[playing ? 'icon-pause' : 'icon-play']"></i>
-        </a>
-        <a class="control-item next" @click.prevent.stop="next">
-          <i class="iconfont icon-next-song"></i>
-        </a>
-      </div>
       <div class="extra">
         <a class="extra-item" @click.prevent.stop="handleChangeMode" :title="modeTitle">
           <i class="iconfont" :class="modeClass"></i>
@@ -61,7 +61,6 @@
         </a>
       </div>
       <transition name="fade">
-
         <div class="playlist" v-show="showPlayList">
           <div class="song-list">
             <div class="hd">
@@ -69,15 +68,20 @@
             </div>
             <div class="bd" ref="songList">
               <ul class="list">
-                <li class="item" :class="{ select: song.id === item.id && playing }" v-for="(item, index) in musicList"
+                <li class="item" :class="{ select: song.id === item.id }" v-for="(item, index) in musicList"
                   :key="item.id"
                   @dblclick.prevent.stop="handleSkipSong(index)">
                   <div class="cover">
                     <img :src="item.album.cover + '?param=200y200'" alt="">
                   </div>
                   <div class="name">{{ item.name }}</div>
-                  <div class="flag" v-if="song.id === item.id && playing">
-                    <i v-for="n in 5" :key="n"></i>
+                  <div class="flag" v-if="song.id === item.id">
+                    <template name="fade" mode="out-in">
+                      <template v-if="playing">
+                        <i v-for="n in 5" :key="n"></i>
+                      </template>
+                      <div class="spinner" v-else></div>
+                    </template>
                   </div>
                   <div class="duration">{{ formatTime(Math.floor(item.duration / 1000)) }}</div>
                   <div class="artist">
@@ -88,7 +92,7 @@
                       </a>
                     </template>
                   </div>
-                  <div class="album">
+                  <!-- <div class="album">
                     <a :href="`https://music.163.com/#/album?id=${item.album.id}`" target="_blank" class="name">
                       <span class="name">{{ item.album.name }}</span>
                       <span class="alias" v-if="item.album.tns && item.album.tns.length">
@@ -99,7 +103,7 @@
                         <span> ) </span>
                       </span>
                     </a>
-                  </div>
+                  </div> -->
                   <div class="song-link">
                     <a :href="`https://music.163.com/#/song?id=${song.id}`" target="_blank">
                       <i class="iconfont icon-link"></i>                  
@@ -265,11 +269,20 @@
         if (this.showMusic) {
           return
         }
-        const show = e.clientY > (window.innerHeight - 20)
+        // music未打开时，阈值设成20px，否则设为music高度
+        let show = false
+        if (!this.mouseTriggerShowMusic) {
+          show = e.clientY > (window.innerHeight - 20)
+        } else {
+          show = this.$refs.music.contains(e.target)
+        }
         if (this.mouseTriggerShowMusic === show) {
           return
         }
         this.mouseTriggerShowMusic = show
+        if (!show) {
+          this.showPlayList = false
+        }
       })
     },
     methods: {
@@ -280,7 +293,8 @@
           }
           return {
             howl: null,
-            ...song
+            ...song,
+            loaderror: false
           }
         }).filter(song => !!song)
       },
@@ -344,7 +358,7 @@
           },
           onplayerror: (id, err) => {
             console.log(song.name + ' --- 播放失败')
-            this.next()
+            this.handleNextSong()
           },
           onpause: () => {
             console.log(song.name + ' --- 暂停')
@@ -409,7 +423,8 @@
           this.sound = song.howl = this.getHowl(song)
         }
         
-        this.$set(this.playlist[index], 'howlId', this.sound.play())
+        song.playerror = false
+        song.howlId = this.sound.play()
         this.sound.fade(0, this.volume, 1000, song.howlId)
       },
       pause () {
@@ -477,12 +492,17 @@
           this.sound.stop()
           this.sound.unload()
         }
+        song.loaderror = true
         this.sound = song.howl = null
         this.wave = false
         this.playing = false
         this.ready = true
-        if (this.index !== this.musicList.length - 1) {
-          this.next()
+        if (this.index === this.musicList.length - 1) {
+          if (this.playlist.some(item => !item.playerror)) {
+            this.handleNextSong()
+          }
+        } else {
+          this.handleNextSong()
         }
       },
       lyricIsActive (time, index) {
@@ -494,6 +514,20 @@
           }
         }
         return false
+      },
+      handleNextSong () {
+        if (this.randomMode) {
+          this.play(this.getRandomIndex())
+        } else {
+          this.next()
+        }
+      },
+      handlePrevSong () {
+        if (this.randomMode) {
+          this.play(this.getRandomIndex())
+        } else {
+          this.prev()
+        }
       },
       handleProgressChange (per) {
         this.seek(per)
@@ -563,44 +597,47 @@
     transition transform .8s $fuck
 
     .wrapper {
+      flexLayout()
       position relative
       width 100%
       height 80px
       max-width $content-max-width
       margin 0 auto
-      padding 0 300px
+      padding 0 100px
 
-      // @media (max-width: 1366px) and (min-width: 769px) {
-      //   padding 0 65px
-      // }
+      @media (max-width: 1366px) and (min-width: 769px) {
+        padding 0 65px
+      }
 
-      // @media (max-width: 768px) and (min-width: 480px) {
-      //   padding 0 40px
-      // }
+      @media (max-width: 768px) and (min-width: 480px) {
+        padding 0 40px
+      }
 
-      // @media (max-width: 479px) {
-      //   padding 0 15px
-      // }
+      @media (max-width: 479px) {
+        padding 0 15px
+      }
     }
 
     .controls
     .extra {
-      flexLayout(, flex-end)
-      position absolute
-      top 0
-      width 250px
+      flex 0 0
       height 100%
     }
 
     .controls {
-      left 0
+      flexLayout(, flex-start)
+      width 180px
+    }
 
+    .controls {
       .control-item {
         display block
-        // width 30px
-        // height @width
-        margin 0 15px
+        margin-right 30px
         line-height 1
+
+        &:last-child {
+          margin-right 0
+        }
 
         .iconfont {
           font-size 20px
@@ -616,11 +653,15 @@
     }
     
     .extra {
-      flexLayout(, flex-start)
-      right 0
+      flex 0 0 250px
+      flexLayout(, flex-end)
 
       &-item {
-        margin 0 10px
+        margin-left 20px
+
+        &:first-child {
+          margin-left 0
+        }
       }
 
       .song-list {
@@ -631,9 +672,10 @@
       }
 
       .volume {
+        flex 1 0
         flexLayout(, space-between)
         &-control {
-          width 80px
+          flex 1 0
           margin-left 10px
         }
         .iconfont {
@@ -643,10 +685,11 @@
     }
 
     .music {
+      flex 1 0
       flexLayout(, flex-start)
       position relative
       height 100%
-      margin 0 20px
+      margin 0 30px
       user-select none
 
       .cover {
@@ -683,13 +726,6 @@
           height 20px
           font-size 12px
 
-          .played {
-          }
-
-          .duratiion {
-
-          }
-
           .progress {
             flex 1 0
             margin 0 10px
@@ -713,11 +749,30 @@
       flexLayout()
       position absolute
       bottom 80px
-      left 0
-      width 100%
+      left 100px
+      width calc(100% - 100px * 2)
       height 300px
+      margin 0 auto
       font-size 12px
+      border-top-left-radius 10px
+      border-top-right-radius 10px
+      overflow hidden
       background-color alpha($black, .8)
+
+      @media (max-width: 1366px) and (min-width: 769px) {
+        left 65px
+        width calc(100% - 65px * 2)
+      }
+
+      @media (max-width: 768px) and (min-width: 480px) {
+        left 40px
+        width calc(100% - 40px * 2)
+      }
+
+      @media (max-width: 479px) {
+        left 15px
+        width calc(100% - 15px * 2)
+      }
 
       & > div {
         flexLayout(column, flex-start, flex-start)
@@ -774,6 +829,16 @@
                   }
                 }
               }
+
+              .spinner {
+                width 16px
+                height @width
+                margin 0 auto
+                border 1px solid alpha($black, .1)
+                border-left-color $base-color
+                border-radius 50%
+                animation loading .6s infinite linear
+              }
             }
 
             .duration {
@@ -781,12 +846,12 @@
             }
 
             .artist {
-              flex 0 0 150px
+              flex 0 0 250px
             }
 
-            .album {
-              flex 0 0 200px
-            }
+            // .album {
+            //   flex 0 0 200px
+            // }
 
             .song-link {
               flex 0 0 20px
@@ -805,24 +870,24 @@
       }
 
       .lyric-list {
-        flex 0 0 450px
+        flex 0 0 400px
 
         .bd {
           .box {
             width 100%
             height 100%
-            padding 20px 50px
+            padding 20px 80px
             overflow hidden
           }
 
           .list {
             text-align center
             color alpha($white, .3)
-            transition transform .8s $ease
+            transition transform .8s $ease-out
             .item {
               min-height 32px
               padding 5px 0
-              transition all .8s $ease
+              transition all .8s $ease-out
 
               & > p {
                 line-height 1.5
@@ -859,11 +924,11 @@
 
     .fixed-bar {
       position absolute
-      top -4px
+      top -2px
       right 0
       left 0
       width 100%
-      height 4px
+      height 2px
       opacity 1
       transition all .8s $fuck
 
@@ -872,7 +937,7 @@
         height 100%
         border-radius 2px
         background alpha($base-color, .8)
-        box-shadow 0 0 10px 0 $base-color
+        box-shadow 0 0 5px 0 $base-color
       }
     }
 
@@ -890,6 +955,17 @@
       &:hover {
         opacity 1
       }
+    }
+  }
+
+
+  @keyframes loading {
+    0% {
+      transform rotate(0deg)
+    }
+
+    100% {
+      transform rotate(1turn)
     }
   }
 </style>
