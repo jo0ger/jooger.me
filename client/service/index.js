@@ -82,5 +82,8 @@ export default {
     // fetchUrl: id => wrap(`/music/songs/${id}/url`),
     // fetchLyric: id => wrap(`/music/songs/${id}/lyric`),
     fetchCover: coverId => wrap(`/music/songs/cover/${coverId}`)
+  },
+  auth: {
+    githubLogin: wrap('/auth/github/login')
   }
 }

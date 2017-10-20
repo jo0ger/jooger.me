@@ -8,7 +8,7 @@
       </keep-alive>
       <main class="container" :style="containerStyle">
         <div class="wrapper">
-          <div class="banner-content" :style="bannerContentStyle" v-if="showBannerPage">
+          <div class="hero-content" :style="heroContentStyle" v-if="showBannerPage">
             <h1 class="title">{{ option.title }}</h1>
             <h3 class="subtitle">{{ isAboutPage ? 'About Me' : option.subtitle }}</h3>
           </div>
@@ -89,7 +89,7 @@
           paddingTop: this.isAboutPage ? '100vh' : (this.mobileLayout ? '70px' : '100px')
         }
       },
-      bannerContentStyle () {
+      heroContentStyle () {
         return {
           top: this.isAboutPage ? '60vh' : 0
         }
