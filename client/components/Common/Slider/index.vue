@@ -46,7 +46,7 @@
       barStyle () {
         return {
           width: this.percent + '%',
-          backgroundColor: !this.color && 'rgba(255, 255, 255, 1)',
+          backgroundColor: !this.color && 'rgba(255, 255, 255, .6)',
           borderRadius: this.height / 2 + 'px'
         }
       },

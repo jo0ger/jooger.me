@@ -3,9 +3,9 @@
     <div class="article-pane">
       <article class="detail" v-if="articleDetail" ref="article">
         <header class="header">
-          <div class="thumb">
+          <!-- <div class="thumb">
             <img :src="articleDetail.thumb" class="image-view" alt="">
-          </div>
+          </div> -->
           <h1 class="title">{{ articleDetail.title }}</h1>
           <div class="meta">
             <time class="time" :datatitme="articleDetail.createdAt">{{ articleDetail.createdAt | fmtDate('yyyy-MM-dd') }}</time>
