@@ -7,7 +7,7 @@
       </keep-alive>
       <main class="container">
         <div class="wrapper">
-          <div class="banner-content">
+          <div class="hero-content">
             <h1 class="title">{{ error.statusCode }}</h1>
             <h3 class="subtitle">{{ error.message }}</h3>
             <nuxt-link class="go-home" to="/">Go Home</nuxt-link>
@@ -85,7 +85,7 @@
           padding 0 15px
         }
 
-        .banner-content {
+        .hero-content {
           top 40vh
           max-width 80%
           text-align center
