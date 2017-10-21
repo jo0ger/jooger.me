@@ -301,6 +301,14 @@
           border-radius 10px
           overflow hidden
 
+          @media (max-width: 768px) {
+            flex-direction column
+
+            .nav-item {
+              width 100%
+            }
+          }
+
           .nav-item {
             flex 1 0
             background-position center center

@@ -878,10 +878,10 @@
             height 100%
             padding 20px 80px
             overflow hidden
+            text-align center
           }
 
           .list {
-            text-align center
             color alpha($white, .3)
             transition transform .8s $ease-out
             .item {
