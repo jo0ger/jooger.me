@@ -498,7 +498,7 @@
         this.playing = false
         this.ready = true
         if (this.index === this.musicList.length - 1) {
-          if (this.playlist.some(item => !item.playerror)) {
+          if (this.playlist.some(item => !item.loaderror)) {
             this.handleNextSong()
           }
         } else {

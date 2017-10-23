@@ -17,6 +17,8 @@
     "deploy": "pm2 deploy ecosystem.config.js production"
   },
   "dependencies": {
+    "@nuxtjs/manifest": "^1.7.2",
+    "@nuxtjs/workbox": "^1.2.2",
     "axios": "^0.16.2",
     "bezier-easing": "^2.0.3",
     "cross-env": "^5.0.1",
@@ -31,6 +33,7 @@
     "node-watch": "^0.5.5",
     "normalize.css": "^7.0.0",
     "nuxt": "^1.0.0-rc9",
+    "offline-plugin": "^4.8.4",
     "simple-node-logger": "^0.93.28",
     "source-map-support": "^0.4.15",
     "vue-awesome-swiper": "^2.6.4"
