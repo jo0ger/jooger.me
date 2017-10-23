@@ -22,7 +22,6 @@
 <script>
   import { mapGetters } from 'vuex'
   import { LayoutHeader, LayoutBanner, LayoutOverlay } from '~/components/Layout'
-  import { CommonFetchLoading } from '~/components/Common'
 
   export default {
     name: 'Error',
