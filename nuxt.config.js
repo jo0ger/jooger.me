@@ -1,7 +1,16 @@
+/**
+ * @desc Nuxt config
+ * @author Jooger <zzy1198258955@163.com>
+ * @date 19 Sep 2017
+ */
+
+'use strict'
+
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
   srcDir: 'client/',
+  offline: true,
   cache: {
     max: 20,
     maxAge: 600000
@@ -61,6 +70,20 @@ module.exports = {
     { src: '~plugins/image-load.js', ssr: false },
     { src: '~plugins/image-popup.js', ssr: false }
   ],
+  modules: [
+    '@nuxtjs/workbox',
+    '@nuxtjs/manifest'
+  ],
+  manifest: {
+    name: 'Jooger.me',
+    short_name: 'Jooger.me',
+    display: 'standalone',
+    start_url: 'https://jooger.me',
+    description: '修人、修身，修性、修心',
+    theme_color: '#e40059',
+    background_color: '#f2f2f2',
+    lang: 'zh-CN'
+  },
   router: {
     linkActiveClass: 'active'
   },
