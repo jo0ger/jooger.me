@@ -23,7 +23,7 @@
     computed: {
       showBack () {
         return ['blog-article-id'].includes(this.$route.name)
-      },
+      }
     },
     mounted () {
       this.init()

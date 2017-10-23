@@ -70,7 +70,7 @@
       this.setSize()
       window.addEventListener('resize', this.resetSize)
     },
-    beforeDestroy() {
+    beforeDestroy () {
       window.removeEventListener('resize', this.resetSize)
     },
     methods: {

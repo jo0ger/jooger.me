@@ -55,5 +55,5 @@ export const mutations = {
     state.searchHeader.keyword = keyword
   },
   [SET_MUSIC]: (state, show = false) => (state.music.show = show),
-  [SET_MUSIC_PLAY]: (state, playing = false) => (state.music.playing = playing),
+  [SET_MUSIC_PLAY]: (state, playing = false) => (state.music.playing = playing)
 }

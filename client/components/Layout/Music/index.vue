@@ -416,13 +416,11 @@
 
         this.sound = null
         this.ready = false
-        
         if (song.howl) {
           this.sound = song.howl
         } else {
           this.sound = song.howl = this.getHowl(song)
         }
-        
         song.playerror = false
         song.howlId = this.sound.play()
         this.sound.fade(0, this.volume, 1000, song.howlId)

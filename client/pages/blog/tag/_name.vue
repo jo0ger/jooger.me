@@ -9,7 +9,6 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
   import { CommonArticleList } from '~/components/Common'
 
   export default {
