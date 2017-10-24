@@ -17,12 +17,12 @@
             <span class="text">{{ item.name }}</span>
           </nuxt-link>
         </div>
-        <!-- <div class="actions"> -->
-          <!-- <a class="action-item like" :class="{ 'is-liked': liked }" @click="handleLike">
+        <div class="actions">
+          <a class="action-item like" :class="{ 'is-liked': liked }" @click="handleLike">
             <i class="iconfont icon-like-fill"></i>
             <span class="text">喜欢</span>
-            <span class="count">({{ articleDetail.reactions.heart }})</span>
-          </a> -->
+            <span class="count">({{ articleDetail.meta.ups }})</span>
+          </a>
           <!-- <a class="action-item reward">
             <i class="iconfont icon-reward"></i>
             <span class="text">打赏</span>
@@ -31,7 +31,7 @@
             <i class="iconfont icon-share"></i>
             <span class="text">分享</span>
           </a> -->
-        <!-- </div> -->
+        </div>
         <div class="navigation" v-if="articleDetail.adjacent.next || articleDetail.adjacent.prev">
           <a class="nav-item prev" @click="handleSwitchArticle(articleDetail.adjacent.prev._id)" v-if="articleDetail.adjacent.prev"
             :style="getAdjacentThumbStyle(articleDetail.adjacent.prev)">
@@ -69,11 +69,10 @@
     components: {
       CommonComment
     },
-    // validate ({ params }) {
-    //   return !!params.id
-    // },
+    validate ({ params }) {
+      return !!params.id
+    },
     async fetch ({ params, store }) {
-      console.log(params)
       await store.dispatch('article/fetchDetail', params.id)
     },
     head () {
@@ -139,12 +138,12 @@
       },
       getAdjacentThumbStyle (obj = {}) {
         return obj.thumb ? {
-          backgroundImage: `url(${obj.thumb})`
+          backgroundImage: `url(${obj.thumb}?x-oss-process=style/article-thumb)`
         } : null
       },
       handleLike () {
         if (!this.liked) {
-          this.$store.dispatch('article/like', this.articleDetail.number)
+          this.$store.dispatch('article/like', this.articleDetail._id)
         }
       },
       handleSwitchArticle (id) {
@@ -163,26 +162,6 @@
   .blog-article-page {
     margin 0
     transition all .8s $ease
-
-    .article-pane
-    .comments-pane {
-      padding 65px
-      border-radius 10px
-      background $white
-      box-shadow 0 10px 40px -15px alpha($black, .05)
-
-      @media (max-width: 1366px) and (min-width: 769px) {
-        padding 65px
-      }
-
-      @media (max-width: 768px) and (min-width: 480px) {
-        padding 40px
-      }
-
-      @media (max-width: 479px) {
-        padding 25px
-      }
-    }
 
     .article-pane {
       margin-bottom 30px
@@ -245,7 +224,6 @@
             padding 0 15px
             font-size .8rem
             border 1px solid
-            border-radius 3px
 
             .iconfont {
               margin-right 5px
@@ -298,7 +276,6 @@
           flexLayout(, space-between)
           position relative
           margin-top 30px
-          border-radius 10px
           overflow hidden
 
           @media (max-width: 768px) {
@@ -331,7 +308,7 @@
               }
 
               .title {
-                font-size 14px
+                font-size 16px
               }
 
               .time {

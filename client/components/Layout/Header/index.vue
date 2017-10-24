@@ -36,7 +36,7 @@
           type="search"
           autocomplete="off"
           autofocus="true"
-          placeholder="Search..."
+          placeholder="搜索..."
           maxlength="200"
           v-model.trim="keyword"
           @keyup.enter="handleSearch">
@@ -136,19 +136,10 @@
 
   .header {
     position fixed
-    z-index 9998
     top 0
     width 100%
-    margin-bottom 80px
     padding 20px 0
-
-    @media (max-width: 1366px) and (min-width: 769px) {
-      margin-bottom 40px
-    }
-
-    @media (max-width: 768px){
-      margin-bottom 0
-    }
+    z-index 9998
 
     .wrapper {
       flexLayout(, space-between)
@@ -156,21 +147,8 @@
       width 100%
       max-width $content-max-width
       margin 0 auto
-      padding 0 100px
       z-index 1
-
-
-      @media (max-width: 1366px) and (min-width: 769px) {
-        padding 0 65px
-      }
-
-      @media (max-width: 768px) and (min-width: 480px) {
-        padding 0 40px
-      }
-
-      @media (max-width: 479px) {
-        padding 0 15px
-      }
+      layout-wrapper()
 
       .logo {
         color $base-color
@@ -376,19 +354,7 @@
         width 100%
         max-width $content-max-width
         margin 0 auto
-        padding 0 100px
-
-        @media (max-width: 1366px) and (min-width: 769px) {
-          padding 0 65px
-        }
-
-        @media (max-width: 768px) and (min-width: 480px) {
-          padding 0 40px
-        }
-
-        @media (max-width: 479px) {
-          padding 0 30px
-        }
+        layout-wrapper()
 
         .search-input {
           width 100%
@@ -396,6 +362,7 @@
           margin-top 60px
           padding 15px 60px 15px 0
           font-size 1rem
+          color $text-color-secondary
           background transparent
           border 0
           outline none

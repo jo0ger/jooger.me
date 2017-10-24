@@ -99,7 +99,33 @@ lg() {
 
 // >= 1600
 xl() {
-  +respond-between($screen-sl-min, $screen-sl-max) {
+  +respond-above($screen-xl-min) {
     {block}
+  }
+}
+
+layout-wrapper() {
+  +xxs() {
+    padding 0 30px
+  }
+
+  +xs() {
+    padding 0 40px
+  }
+
+  +sm() {
+    padding 0 50px
+  }
+
+  +md() {
+    padding 0 65px
+  }
+
+  +lg() {
+    padding 0 80px
+  }
+
+  +xl() {
+    padding 0 100px
   }
 }

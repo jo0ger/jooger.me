@@ -109,7 +109,7 @@
       width 100%
       height 50%
       z-index 1
-      background $white
+      background $black
       transform translateZ(0)
       transition transform .2s .2s
     }

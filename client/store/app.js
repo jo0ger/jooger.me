@@ -13,6 +13,7 @@ const SET_SEARCH = 'SET_SEARCH'
 const SET_SEARCH_HEADER = 'SET_SEARCH_HEADER'
 const SET_MUSIC = 'SET_MUSIC'
 const SET_MUSIC_PLAY = 'SET_MUSIC_PLAY'
+const SET_HERO = 'SET_HERO'
 
 export const state = () => ({
   mobileLayout: false,

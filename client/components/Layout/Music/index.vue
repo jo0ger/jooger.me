@@ -72,7 +72,7 @@
                   :key="item.id"
                   @dblclick.prevent.stop="handleSkipSong(index)">
                   <div class="cover">
-                    <img :src="item.album.cover + '?param=200y200'" alt="" v-if="showPlayList">
+                    <img :src="item.album.cover + '?param=100y100'" alt="" v-if="showPlayList">
                   </div>
                   <div class="name">{{ item.name }}</div>
                   <div class="flag" v-if="song.id === item.id">
@@ -124,7 +124,9 @@
                       <p>{{ ly.text }}</p>
                     </li>
                   </ul>
-                  <span class="no-lyric" v-else>纯音乐，无歌词，请静心欣赏</span>
+                  <span class="no-lyric" v-else>
+                    {{ !ready ? '歌词准备中...' : '纯音乐，无歌词，请静心欣赏'}}
+                  </span>
                 </div>
               </div>
           </div>
@@ -177,10 +179,10 @@
         return this.playlist[this.index] || null
       },
       cover () {
-        return this.song ? this.song.album.cover + '?param=200y200' : ''
+        return this.song ? this.song.album.cover + '?param=100y100' : ''
       },
       lyrics () {
-        if (!this.song || !this.song.lyric) {
+        if (!this.song || !this.song.lyric || !this.ready) {
           return []
         }
         const list = []
@@ -261,7 +263,7 @@
       this.$store.dispatch('music/fetchList').then(success => {
         if (success) {
           this.initPlaylist()
-          this.play()
+          // this.play()
         }
       })
 
@@ -601,19 +603,7 @@
       height 80px
       max-width $content-max-width
       margin 0 auto
-      padding 0 100px
-
-      @media (max-width: 1366px) and (min-width: 769px) {
-        padding 0 65px
-      }
-
-      @media (max-width: 768px) and (min-width: 480px) {
-        padding 0 40px
-      }
-
-      @media (max-width: 479px) {
-        padding 0 15px
-      }
+      layout-wrapper()
     }
 
     .controls
@@ -651,7 +641,7 @@
     }
     
     .extra {
-      flex 0 0 250px
+      flex 0 0 200px
       flexLayout(, flex-end)
 
       &-item {
@@ -747,8 +737,6 @@
       flexLayout()
       position absolute
       bottom 80px
-      left 100px
-      width calc(100% - 100px * 2)
       height 300px
       margin 0 auto
       font-size 12px
@@ -757,19 +745,34 @@
       overflow hidden
       background-color alpha($black, .8)
 
-      @media (max-width: 1366px) and (min-width: 769px) {
-        left 65px
-        width calc(100% - 65px * 2)
+      +xxs() {
+        left 30px
+        width calc(100% - 30px * 2)
       }
 
-      @media (max-width: 768px) and (min-width: 480px) {
+      +xs() {
         left 40px
         width calc(100% - 40px * 2)
       }
 
-      @media (max-width: 479px) {
-        left 15px
-        width calc(100% - 15px * 2)
+      +sm() {
+        left 50px
+        width calc(100% - 50px * 2)
+      }
+
+      +md() {
+        left 65px
+        width calc(100% - 65px * 2)
+      }
+
+      +lg() {
+        left 80px
+        width calc(100% - 80px * 2)
+      }
+
+      +xl() {
+        left 100px
+        width calc(100% - 100px * 2)
       }
 
       & > div {
@@ -844,7 +847,7 @@
             }
 
             .artist {
-              flex 0 0 250px
+              flex 0 0 150px
             }
 
             // .album {

@@ -3,7 +3,7 @@
     <div class="app-main">
       <LayoutHeader></LayoutHeader>
       <keep-alive>
-        <LayoutBanner></LayoutBanner>
+        <LayoutHero type="error"></LayoutHero>
       </keep-alive>
       <main class="container">
         <div class="wrapper">
@@ -21,13 +21,13 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { LayoutHeader, LayoutBanner, LayoutOverlay } from '~/components/Layout'
+  import { LayoutHeader, LayoutHero, LayoutOverlay } from '~/components/Layout'
 
   export default {
     name: 'Error',
     components: {
       LayoutHeader,
-      LayoutBanner,
+      LayoutHero,
       LayoutOverlay
     },
     props: ['error'],
@@ -70,28 +70,12 @@
 
       .wrapper {
         width 100%
-        padding 0 100px
-
-        @media (max-width: 1366px) and (min-width: 769px) {
-          padding 0 65px
-        }
-
-        @media (max-width: 768px) and (min-width: 480px) {
-          padding 0 40px
-        }
-
-        @media (max-width: 479px) {
-          padding 0 15px
-        }
+        layout-wrapper()
 
         .hero-content {
-          top 40vh
+          top 50vh
           max-width 80%
           text-align center
-
-          .title {
-            font-size 10vmin
-          }
 
           .subtitle {
             text-transform initial
@@ -100,10 +84,9 @@
           .go-home {
             display inline-block
             margin-top 60px
-            padding 10px 20px
+            padding 15px 30px
             color $white
             border 1px solid alpha($white, .3)
-            border-radius 10px
 
             &:hover
             &:active {

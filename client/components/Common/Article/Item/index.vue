@@ -3,7 +3,7 @@
     <router-link class="article-link" :to="`/blog/article/${data._id}`">
       <div class="cover">
         <img :src="thumb" alt="" class="thumb-cover" v-if="thumb">
-        <div class="placeholder">
+        <div class="placeholder" v-else>
           <i class="iconfont icon-logo"></i>
         </div>
       </div>
@@ -41,7 +41,7 @@
         if (!this.data.thumb) {
           return
         }
-        const thumb = this.data.thumb
+        const thumb = this.data.thumb + '?x-oss-process=style/article-thumb'
         return this.$imgLoad(thumb, {
           success: () => {
             this.thumb = thumb
@@ -60,17 +60,17 @@
     transition transform .3s $ease
     .article-link {
       display block
-      background $white
-      border-radius 10px
       overflow hidden
 
       .cover {
         height 180px
         overflow hidden
+        transition opacity .3s $ease
 
         & > img {
           width 100%
           min-height 100%
+          object-fit cover
         }
 
         .placeholder {
@@ -100,11 +100,26 @@
           line-height 1.8
           margin 5px auto 0
           font-size 1rem
+          background-image linear-gradient($text-color, $text-color)
+          background-size 100% 2px
+          background-position 0 calc(100% + 2px)
+          background-repeat no-repeat
+          transition all .3s $ease
         }
       }
       &:hover
       &:active {
         transform scale(.98)
+
+        .cover {
+          opacity .85
+        }
+
+        .caption {
+          .title {
+            background-position: 0 100%
+          }
+        }
       }
     }
   }

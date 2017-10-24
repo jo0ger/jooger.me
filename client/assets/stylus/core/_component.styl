@@ -1,9 +1,9 @@
 .hero-content {
   position absolute
-  top 0
+  top 60%
   left 50%
   width 100%
-  transform translateX(-50%)
+  transform translate(-50%, -50%)
 
   .title
   .subtitle {
@@ -11,30 +11,39 @@
     text-transform uppercase
     letter-spacing 5px
     text-align center
+
+    +xxs() {
+      letter-spacing normal
+    }
+
+    +xs() {
+      letter-spacing 3px
+    }
   }
 
   .title {
-    font-size 6vmin
+    font-size 4rem
 
-    @media (max-width: 768px) {
-      font-size 6.5vmin
+    +xxs() {
+      font-size 2.1rem
     }
 
-    @media (max-width: 480px) {
-      font-size 7vmin
+    +xs() {
+      font-size 3.6rem
     }
+
   }
 
   .subtitle {
-    margin-top 15px
-    font-size 3vmin
+    font-size 2rem
+    font-weight normal
 
-    @media (max-width: 768px) {
-      font-size 3.75vmin
+    +xxs() {
+      font-size 1.05rem
     }
 
-    @media (max-width: 480px) {
-      font-size 4.5vmin
+    +xs() {
+      font-size 1.8rem
     }
   }
 }
