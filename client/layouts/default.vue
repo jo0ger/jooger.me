@@ -1,23 +1,23 @@
 <template>
   <div class="app">
     <div class="app-main">
+      <keep-alive>
+        <LayoutHero :type="heroType"></LayoutHero>
+      </keep-alive>
       <CommonFetchLoading></CommonFetchLoading>
       <LayoutHeader></LayoutHeader>
-      <keep-alive>
-        <LayoutBanner v-if="showBannerPage"></LayoutBanner>
-      </keep-alive>
       <main class="container" :style="containerStyle">
         <div class="wrapper">
-          <div class="hero-content" :style="heroContentStyle" v-if="showBannerPage">
+          <!-- <div class="hero-content" :style="heroContentStyle" v-if="showBannerPage">
             <h1 class="title">{{ option.title }}</h1>
             <h3 class="subtitle">{{ isAboutPage ? 'About Me' : option.subtitle }}</h3>
-          </div>
+          </div> -->
           <keep-alive>
             <nuxt></nuxt>
           </keep-alive>
         </div>
       </main>
-      <LayoutMusic v-if="!mobileLayout"></LayoutMusic>
+      <!-- <LayoutMusic v-if="!mobileLayout"></LayoutMusic> -->
       <LayoutTools v-if="!showBannerPage"></LayoutTools>
       <LayoutOverlay></LayoutOverlay>
       <LayoutFooter v-if="!isHomePage"></LayoutFooter>
@@ -33,7 +33,8 @@
     LayoutFooter,
     LayoutTools,
     LayoutOverlay,
-    LayoutMusic
+    LayoutMusic,
+    LayoutHero
   } from '~/components/Layout'
   import { CommonFetchLoading } from '~/components/Common'
 
@@ -46,7 +47,8 @@
       LayoutTools,
       LayoutOverlay,
       CommonFetchLoading,
-      LayoutMusic
+      LayoutMusic,
+      LayoutHero
     },
     head () {
       let classes = ''
@@ -78,6 +80,16 @@
       },
       isAboutPage () {
         return this.$route.name === 'about'
+      },
+      heroType () {
+        switch (this.$route.name) {
+          case 'index':
+            return 'swiper'
+          case 'about':
+            return 'life'
+          default:
+            return 'error'
+        }
       },
       showBannerPage () {
         return ['index', 'about'].includes(this.$route.name)
