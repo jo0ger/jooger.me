@@ -41,7 +41,7 @@
         if (!this.data.thumb) {
           return
         }
-        const thumb = this.data.thumb + '?x-oss-process=style/article-thumb'
+        const thumb = this.data.thumb
         return this.$imgLoad(thumb, {
           success: () => {
             this.thumb = thumb

@@ -21,5 +21,9 @@ export default {
     },
     timeout: 120000,
     responseType: 'json'
+  },
+  storage: {
+    userKey: 'JOOGER_USER',
+    userLikeKey: 'JOOGER_USER_LIKE_HISTORY'
   }
 }

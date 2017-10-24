@@ -18,19 +18,19 @@
           </nuxt-link>
         </div>
         <div class="actions">
-          <a class="action-item like" :class="{ 'is-liked': liked }" @click="handleLike">
-            <i class="iconfont icon-like-fill"></i>
-            <span class="text">喜欢</span>
+          <a class="action-item like" :class="{ 'is-liked': isLiked, 'is-liking': articleDetailLiking }" @click="handleLike">
+            <i class="iconfont icon-like"></i>
+            <span class="text">{{ isLiked ? '已喜欢' : '喜欢' }}</span>
             <span class="count">({{ articleDetail.meta.ups }})</span>
           </a>
           <!-- <a class="action-item reward">
             <i class="iconfont icon-reward"></i>
             <span class="text">打赏</span>
           </a> -->
-          <!-- <a class="action-item share">
+          <a class="action-item share">
             <i class="iconfont icon-share"></i>
             <span class="text">分享</span>
-          </a> -->
+          </a>
         </div>
         <div class="navigation" v-if="articleDetail.adjacent.next || articleDetail.adjacent.prev">
           <a class="nav-item prev" @click="handleSwitchArticle(articleDetail.adjacent.prev._id)" v-if="articleDetail.adjacent.prev"
@@ -94,12 +94,16 @@
       ...mapGetters({
         articleDetail: 'article/detail',
         articleDetailFetching: 'article/detailFetching',
-        liked: 'article/detailLiked'
+        articleDetailLiking: 'article/detailLiking',
+        historyLikes: 'app/history'
       }),
       style () {
         return {
           marginTop: this.headerHeight + 'px'
         }
+      },
+      isLiked () {
+        return !!this.historyLikes.articles.find(item => item === this.articleDetail._id)
       }
     },
     beforeRouteLeave (to, from, next) {
@@ -138,12 +142,12 @@
       },
       getAdjacentThumbStyle (obj = {}) {
         return obj.thumb ? {
-          backgroundImage: `url(${obj.thumb}?x-oss-process=style/article-thumb)`
+          backgroundImage: `url(${obj.thumb})`
         } : null
       },
-      handleLike () {
-        if (!this.liked) {
-          this.$store.dispatch('article/like', this.articleDetail._id)
+      async handleLike () {
+        if (!this.isLiked && !this.articleDetailLiking) {
+          await this.$store.dispatch('article/like', this.articleDetail._id)
         }
       },
       handleSwitchArticle (id) {
@@ -238,6 +242,11 @@
                 background-color $red
                 color $white
                 cursor default
+              }
+
+              &.is-liking {
+                opacity .6
+                cursor not-allowed
               }
             }
 

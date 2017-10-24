@@ -27,9 +27,7 @@ export const state = () => ({
   detail: {
     fetching: false,
     liking: false,
-    data: null,
-    likes: [],
-    isLiked: false
+    data: null
   }
 })
 
@@ -39,9 +37,7 @@ export const getters = {
   pagination: state => state.list.pagination,
   detail: state => state.detail.data,
   detailFetching: state => state.detail.fetching,
-  detailLiking: state => state.detail.liking,
-  detailLikes: state => state.detail.likes,
-  detailLiked: state => state.detail.isLiked
+  detailLiking: state => state.detail.liking
 }
 
 export const mutations = {
@@ -73,11 +69,9 @@ export const mutations = {
   [LIKE_FAILURE]: state => (state.detail.liking = false),
   [LIKE_SUCCESS]: (state, data) => {
     state.detail.liking = false
-    if (state.detail.reactions) {
-      state.detail.reactions.heart++
-    }
-    const article = state.list.data.findIndex(item => item.id === state.detail.id)
-    article && article.reactions && article.reactions.heart++
+    state.detail.data.meta.ups++
+    const article = state.list.data.find(item => item._id === state.detail.data._id)
+    article && article.meta.ups++
   }
 }
 
@@ -108,7 +102,7 @@ export const actions = {
     }
     return success
   },
-  async like ({ commit, state }, id) {
+  async like ({ commit, dispatch, state }, id) {
     if (state.detail.liking) {
       return
     }
@@ -116,6 +110,7 @@ export const actions = {
     const { success, data } = await Service.article.like(id)().catch(err => commit(LIKE_FAILURE, err))
     if (success) {
       commit(LIKE_SUCCESS, data)
+      dispatch('app/updateHistory', { articleId: id }, { root: true })
     } else {
       commit(LIKE_FAILURE)
     }
