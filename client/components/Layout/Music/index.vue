@@ -5,7 +5,7 @@
         <a class="control-item prev" @click.prevent.stop="handlePrevSong">
           <i class="iconfont icon-prev-song"></i>
         </a>
-        <a class="control-item play" @click.prevent.stop="handleToggleMusic">
+        <a class="control-item play" @click.prevent.stop="handleTogglePlayMusic">
           <i class="iconfont" :class="[playing ? 'icon-pause' : 'icon-play']"></i>
         </a>
         <a class="control-item next" @click.prevent.stop="handleNextSong">
@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="extra">
-        <a class="extra-item" @click.prevent.stop="handleChangeMode" :title="modeTitle">
+        <a class="extra-item mode" @click.prevent.stop="handleChangeMode" :title="modeTitle">
           <i class="iconfont" :class="modeClass"></i>
         </a>
         <div class="extra-item volume">
@@ -72,7 +72,7 @@
                   :key="item.id"
                   @dblclick.prevent.stop="handleSkipSong(index)">
                   <div class="cover">
-                    <img :src="item.album.cover + '?param=100y100'" alt="" v-if="showPlayList">
+                    <img :src="item.album.cover + '?param=50y50'" alt="" v-if="showPlayList">
                   </div>
                   <div class="name">{{ item.name }}</div>
                   <div class="flag" v-if="song.id === item.id">
@@ -179,7 +179,7 @@
         return this.playlist[this.index] || null
       },
       cover () {
-        return this.song ? this.song.album.cover + '?param=100y100' : ''
+        return this.song ? this.song.album.cover + '?param=50y50' : ''
       },
       lyrics () {
         if (!this.song || !this.song.lyric || !this.ready) {
@@ -532,10 +532,8 @@
       handleProgressChange (per) {
         this.seek(per)
       },
-      handleToggleMusic () {
-        if (this.ready) {
-          this[this.playing ? 'pause' : 'play']()
-        }
+      handleTogglePlayMusic () {
+        this[this.playing ? 'pause' : 'play']()
       },
       handleSkipSong (index) {
         this.skipTo(index)
@@ -604,6 +602,55 @@
       max-width $content-max-width
       margin 0 auto
       layout-wrapper()
+
+      +respond-below($screen-xs-max) {
+        .controls
+        .extra {
+          flex-basis 50px
+        }
+
+        .controls {
+          .prev
+          .next {
+            display none
+          }
+
+          .play {
+            margin-right 0
+          }
+        }
+
+        .extra {
+          .mode
+          .volume {
+            display none
+          }
+
+          .song-list {
+            margin-left 0
+          }
+        }
+
+        .music {
+          margin 0 10px
+
+          .cover {
+            display none
+          }
+        }
+
+        .playlist {
+          height 200px
+
+          .song-list {
+            display none
+          }
+
+          .lyric-list {
+            flex 1 0 100%
+          }
+        }
+      }
     }
 
     .controls
@@ -821,6 +868,7 @@
                 height 10px
                 margin 0 1px
                 background-color $base-color
+                border-radius 1px
                 transform-origin 50% 100%
                 animation wavy .8s linear infinite forwards
 
@@ -884,11 +932,11 @@
 
           .list {
             color alpha($white, .3)
-            transition transform .8s $ease-out
+            transition transform .8s $ease
             .item {
               min-height 32px
               padding 5px 0
-              transition all .8s $ease-out
+              transition all .8s $ease
 
               & > p {
                 line-height 1.5
