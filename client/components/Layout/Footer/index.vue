@@ -45,6 +45,7 @@
 
   .footer {
     width 100%
+    margin-top 100px
     padding 40px 0 120px
     color $text-color-secondary
 

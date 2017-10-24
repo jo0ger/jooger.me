@@ -8,6 +8,11 @@
 <script>
   export default {
     name: 'Home',
+    head: {
+      bodyAttrs: {
+        class: 'dark-page'
+      }
+    },
     async fetch () {
       await new Promise((resolve) => setTimeout(() => resolve(), 500))
     }

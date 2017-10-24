@@ -1,8 +1,8 @@
 <template>
   <div class="layout-hero">
-    <div class="wrapper" :style="bannerStyle">
+    <div class="wrapper" :style="heroStyle">
       <!-- Swiper -->
-      <div class="hero-swiper" v-if="type === 'swiper'">
+      <div class="hero-swiper" key="swiper" v-if="heroType === 'swiper' && option.banners">
         <div class="swiper-container" v-swiper:mySwiper="swiperOption">
           <div class="swiper-wrapper">
             <template v-for="item in option.banners">
@@ -14,7 +14,7 @@
         </div>
       </div>
       <!-- fly bird -->
-      <div class="hero-life" v-else-if="type === 'life'">
+      <div class="hero-life" key="life" v-else-if="heroType === 'life'">
         <div class="fly-me">
           <div class="sky">
             <div class="wind" v-for="n in 20" :key="n"></div>
@@ -33,7 +33,10 @@
         </div>
       </div>
       <!-- error -->
-      <div class="hero-error" v-else></div>
+      <div class="hero-error" key="error" v-else></div>
+      <transition name="fade">
+        <a class="trigger" v-if="showTrigger" @click.prevent.stop="handleGoToContent"></a>
+      </transition>
     </div>
   </div>
 </template>
@@ -44,20 +47,12 @@
 
   export default {
     name: 'Layout-Hero',
-    props: {
-      type: {
-        type: String,
-        validator (val) {
-          return ['swiper', 'life', 'error'].includes(val)
-        }
-      }
-    },
     data () {
       return {
         swiperOption: {
           autoplay: 5000,
           initialSlide: 0,
-          speed: 500,
+          speed: 800,
           setWrapperSize: true,
           grabCursor: true,
           pagination: '.swiper-pagination',
@@ -73,16 +68,36 @@
     },
     computed: {
       ...mapGetters({
+        hero: 'app/hero',
         option: 'option/option'
       }),
-      bannerStyle () {
+      heroType () {
+        switch (this.$route.name) {
+          case 'index':
+            return 'swiper'
+          case 'about':
+            return 'life'
+          case 'blog-article-id':
+            return 'article'
+          default:
+            return 'error'
+        }
+      },
+      heroStyle () {
         return {
-          opacity: this.showContent ? 0.3 : .6,
+          opacity: this.showContent ? 0.3 : 0.6,
           filter: this.showContent ? 'blur(4px)' : null
         }
+      },
+      showTrigger () {
+        return !this.showContent && this.$route.name === 'about'
       }
     },
     beforeDestroy () {
+      if (this._timer) {
+        clearTimeout(this._timer)
+        this._timer = null
+      }
       if (this._scrollerHandler) {
         window.removeEventListener('scroll', this._scrollerHandler)
         this._scrollerHandler = null
@@ -90,6 +105,9 @@
     },
     mounted () {
       this.init()
+    },
+    updated () {
+      this.triggerResize()
     },
     methods: {
       isVideoType,
@@ -109,6 +127,21 @@
       },
       handleGoToContent () {
         scrollTo(window.innerHeight, 800, { easing: easing['fuck'] })
+      },
+      triggerResize () {
+        if (this._timer) {
+          clearTimeout(this._timer)
+        }
+        this._timer = setTimeout(() => {
+          // HACK: 如果上一个页面有滚动条的话，那么会导致swiper没有覆盖整个可见视窗，会在右侧留下滚动条宽度的间隙
+          // 只能这样hack了，500毫秒是试出来的
+          const e = document.createEvent('HTMLEvents')
+          e.initEvent('resize', true, true)
+          window.dispatchEvent(e)
+          if (process.env.NODE_ENV !== 'production') {
+            console.log('trigger window resize')
+          }
+        }, 1000)
       }
     }
   }
@@ -129,7 +162,7 @@
     .wrapper {
       width 100%
       height 100%
-      opacity .6
+      opacity 1
       transition all .5s $ease-out
     }
 
@@ -170,6 +203,46 @@
         background url('~/static/image/error-page-banner.jpg') no-repeat center center
         background-size auto
       }
+    }
+
+    .trigger {
+      position absolute
+      display block
+      bottom 10px
+      left 50%
+      width 50px
+      height @width
+      margin-left -(@width / 2)
+      z-index 1
+      animation bounce 2s infinite
+
+      &::before
+      &::after {
+        content ''
+        position absolute
+        display block
+        top 50%
+        left 50%
+        width 15px
+        height 2px
+        background $white
+        transform translate(-78%, -50%) rotate(45deg)
+        transform-origin center center
+      }
+
+      &::after {
+        transform translate(-22%, -50%) rotate(-45deg)
+      }
+    }
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform translateY(15px)
+    }
+
+    50% {
+      transform translateY(0)
     }
   }
 </style>

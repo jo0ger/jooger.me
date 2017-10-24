@@ -76,7 +76,7 @@
           text-align center
           background $white
           color $text-color-secondary
-          box-shadow 0 20px 40px -15px alpha($black, .1)
+          box-shadow 0 0 40px -5px alpha($black, .2)
 
           &::before
           &::after {
