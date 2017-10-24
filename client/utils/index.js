@@ -7,3 +7,4 @@
 export * from './tool'
 export * from './scrollTo'
 export * from './ua'
+export * from './storage'

@@ -66,7 +66,7 @@
       },
       containerStyle () {
         return {
-          marginTop: this.showHeroPage ? '100vh' : (this.mobileLayout ? '70px' : '100px')
+          marginTop: this.showHeroPage ? '100vh' : (this.mobileLayout ? '100px' : '150px')
         }
       }
     }
