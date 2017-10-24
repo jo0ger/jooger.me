@@ -23,31 +23,31 @@
     mounted () {
       // this.init()
     },
-    methods: {
-      init () {
-        if (!this.articleDetail) {
-          return
-        }
-        if (!this._gitalk) {
-          const github = config.common.github
-          const Gitalk = require('gitalk')
-          this._gitalk = new Gitalk({
-            clientID: github.clientId,
-            clientSecret: github.clientSecret,
-            repo: github.repo,
-            owner: github.owner,
-            admin: [github.owner],
-            num: this.$route.params.id,
-            id: this.articleDetail.title,
-            title: this.articleDetail.title,
-            body: this.articleDetail.body._content,
-            labels: ['blog'],
-            perPage: 20
-          })
-        }
-        this._gitalk.render(this.$refs.comments)
-      }
-    }
+    // methods: {
+    //   init () {
+    //     if (!this.articleDetail) {
+    //       return
+    //     }
+    //     if (!this._gitalk) {
+    //       const github = config.common.github
+    //       const Gitalk = require('gitalk')
+    //       this._gitalk = new Gitalk({
+    //         clientID: github.clientId,
+    //         clientSecret: github.clientSecret,
+    //         repo: github.repo,
+    //         owner: github.owner,
+    //         admin: [github.owner],
+    //         num: this.$route.params.id,
+    //         id: this.articleDetail.title,
+    //         title: this.articleDetail.title,
+    //         body: this.articleDetail.body._content,
+    //         labels: ['blog'],
+    //         perPage: 20
+    //       })
+    //     }
+    //     this._gitalk.render(this.$refs.comments)
+    //   }
+    // }
   }
 </script>
 
