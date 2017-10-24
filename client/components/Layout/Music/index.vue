@@ -106,7 +106,7 @@
                   </div> -->
                   <div class="song-link">
                     <a :href="`https://music.163.com/#/song?id=${song.id}`" target="_blank">
-                      <i class="iconfont icon-link"></i>                  
+                      <i class="iconfont icon-links"></i>                  
                     </a>
                   </div>
                 </li>

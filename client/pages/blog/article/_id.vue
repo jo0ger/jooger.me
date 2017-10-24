@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-article-page" :style="style">
+  <div class="blog-article-page">
     <div class="article-pane">
       <article class="detail" v-if="articleDetail" ref="article">
         <header class="header">
@@ -27,11 +27,14 @@
             <i class="iconfont icon-reward"></i>
             <span class="text">打赏</span>
           </a> -->
-          <a class="action-item share">
+          <a class="action-item share" :class="{ active: showShareBox }" @click="showShareBox = !showShareBox">
             <i class="iconfont icon-share"></i>
             <span class="text">分享</span>
           </a>
         </div>
+        <transition name="fade">
+          <CommonShareBox class="share" v-show="showShareBox"></CommonShareBox>
+        </transition>
         <div class="navigation" v-if="articleDetail.adjacent.next || articleDetail.adjacent.prev">
           <a class="nav-item prev" @click="handleSwitchArticle(articleDetail.adjacent.prev._id)" v-if="articleDetail.adjacent.prev"
             :style="getAdjacentThumbStyle(articleDetail.adjacent.prev)">
@@ -61,12 +64,13 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { CommonComment } from '~/components/Common'
+  import { CommonShareBox, CommonComment } from '~/components/Common'
   import { debounce } from '~/utils'
 
   export default {
     name: 'Blog-Article',
     components: {
+      CommonShareBox,
       CommonComment
     },
     validate ({ params }) {
@@ -87,7 +91,7 @@
     },
     data () {
       return {
-        headerHeight: 0
+        showShareBox: false
       }
     },
     computed: {
@@ -97,11 +101,6 @@
         articleDetailLiking: 'article/detailLiking',
         historyLikes: 'app/history'
       }),
-      style () {
-        return {
-          marginTop: this.headerHeight + 'px'
-        }
-      },
       isLiked () {
         return !!this.historyLikes.articles.find(item => item === this.articleDetail._id)
       }
@@ -122,16 +121,6 @@
     },
     methods: {
       init () {
-        const pageHeader = document.querySelector('.app-main > header.header')
-        if (pageHeader) {
-          if (!this._resizeHandler) {
-            this._resizeHandler = debounce(e => {
-              this.headerHeight = parseInt(window.getComputedStyle(pageHeader).marginBottom) || 0
-            }, 200, false)
-          }
-          window.addEventListener('resize', this._resizeHandler, false)
-          this._resizeHandler()
-        }
         if (this.$refs.article) {
           this.$refs.article.addEventListener('click', e => {
             if (e.target.className.includes('image-view')) {
@@ -258,6 +247,11 @@
             &.share {
               border-color $blue
               color @border-color
+
+              &.active {
+                background-color $blue
+                color $white
+              }
             }
 
             &:hover
@@ -279,6 +273,10 @@
             }
             
           }
+        }
+
+        .share {
+          margin-top 15px
         }
 
         .navigation {

@@ -45,7 +45,7 @@ using a prerelease version of Node (i.e. v7.6.0-rc.1) you will need to either:
 
 - ~~PWA~~ (2017.10.23)
 
-- ~~文章点赞功能~~ (2017.10.24)
+- ~~文章分享，点赞功能~~ (2017.10.24)
 
 - 评论功能
 

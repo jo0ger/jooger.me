@@ -45,7 +45,6 @@ module.exports = {
   css: [
     'normalize.css',
     'swiper/dist/css/swiper.css',
-    'gitalk/dist/gitalk.css',
     { src: '~assets/stylus/index.styl', lang: 'stylus' }
   ],
   loading: '~/components/Common/PageLoading',
@@ -69,6 +68,7 @@ module.exports = {
     { src: '~plugins/swiper.js', ssr: false },
     { src: '~plugins/image-load.js', ssr: false },
     { src: '~plugins/image-popup.js', ssr: false },
+    { src: '~plugins/clipboard.js', ssr: false },
     { src: '~plugins/history.js', ssr: false }
   ],
   modules: [
