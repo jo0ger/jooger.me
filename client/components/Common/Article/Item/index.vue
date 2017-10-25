@@ -84,7 +84,7 @@
 
           .iconfont {
             font-size 56px
-            color alpha($black, .2)
+            color alpha($black, .05)
           }
         }
       }
