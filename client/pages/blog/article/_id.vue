@@ -192,14 +192,15 @@
             display inline-block
             margin 5px 10px 0 0
             padding 5px 10px
-            background $grey
+            border 1px solid $text-color-secondary
             font-size .8rem
-            color $text-color-seconadry
+            color $text-color
             transition all .3s $ease
 
             &:hover {
-              background alpha($base-color, .8)
-              color $text-color-dark
+              border-color $base-color
+              background alpha($base-color, .05)
+              color $base-color
             }
           }
         }
