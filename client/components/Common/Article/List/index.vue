@@ -5,14 +5,14 @@
         <CommonArticleItem
           class="flex-item"
           v-for="item in articleList"
-          :key="item.id"
+          :key="item._id"
           :data="item">
         </CommonArticleItem>
       </div>
-      <div class="navigation" v-if="pagination.prev || pagination.next">
+      <div class="navigation" v-if="hasPrev || hasNext">
         <div class="wrapper">
-          <a class="prev navigation-item" :class="{ active: pagination.prev }" @click.prevent.stop="handleTurnPage(-1, pagination.prev)"></a>
-          <a class="next navigation-item" :class="{ active: pagination.next }" @click.prevent.stop="handleTurnPage(1, pagination.next)"></a>
+          <a class="prev navigation-item" :class="{ active: hasPrev }" @click.prevent.stop="handleTurnPage(-1, hasPrev)"></a>
+          <a class="next navigation-item" :class="{ active: hasNext }" @click.prevent.stop="handleTurnPage(1, hasNext)"></a>
         </div>
       </div>
     </template>
@@ -36,15 +36,21 @@
         articleList: 'article/list',
         articleListFetching: 'article/listFetching',
         pagination: 'article/pagination'
-      })
+      }),
+      hasNext () {
+        return this.pagination.current_page < this.pagination.total_page
+      },
+      hasPrev () {
+        return this.pagination.current_page > 1
+      }
     },
     methods: {
       async handleTurnPage (delta, ok) {
         if (!ok) {
           return
         }
-        const { page, per_page } = this.pagination
-        let nextPage = page + delta
+        const { current_page, per_page } = this.pagination
+        let nextPage = current_page + delta
         if (nextPage < 1) {
           nextPage = 1
         }
@@ -102,8 +108,6 @@
         display inline-block
         width 50px
         height @width
-        border-radius 100%
-        background $white
         opacity .6
         cursor not-allowed
         &::after {

@@ -116,12 +116,12 @@
 
     &::before {
       top 0
-      transform translateY(-100%)
+      transform translateY(-101%)
     }
 
     &::after {
       bottom 0
-      transform translateY(100%)
+      transform translateY(101%)
     }
 
     .bar {
@@ -131,7 +131,7 @@
       width calc(100% - 64px)
       height 2px
       z-index 2
-      background $grey
+      background alpha($white, .4)
       border-radius 1px
       transform translate(-50%, -50%)
       visibility hidden
@@ -142,7 +142,7 @@
         display block
         width 0
         height 100%
-        background $base-color
+        background $white
         transition width .2s, opacity .2s
       }
     }

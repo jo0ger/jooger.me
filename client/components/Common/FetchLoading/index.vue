@@ -105,7 +105,17 @@
     width 0%
     transition width 0.2s, opacity 0.4s
     opacity 1
-    background-color $base-color
+    background-color $black
     z-index 9999
+  }
+</style>
+
+<style lang="stylus">
+  @import '~assets/stylus/_var'
+
+  body.dark-page {
+    .fetch-loading {
+     background-color $white
+    }
   }
 </style>
