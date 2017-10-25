@@ -2,6 +2,11 @@
   <footer class="footer" :style="footerStyle">
     <div class="wrapper">
       <p>版权所有 © 2017 {{ me.name }}. 保留所有权利
+        <a v-if="!mobileLayout" href="http://www.miitbeian.gov.cn" target="_blank" class="record">
+          豫ICP备17040457号
+        </a>
+      </p>
+      <p v-if="mobileLayout">
         <a href="http://www.miitbeian.gov.cn" target="_blank" class="record">
           豫ICP备17040457号
         </a>
@@ -9,7 +14,6 @@
       <p>
         Powered by 
         <a class="link" target="_blank" href="https://github.com/nuxt/nuxt.js">nuxt.js</a>、
-        <br v-if="mobileLayout">
         Developed by 
         <a class="link" target="_blank" :href="'https://github.com/jo0ger'">{{ me.name }}</a>
       </p>
