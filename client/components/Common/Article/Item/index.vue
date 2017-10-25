@@ -9,7 +9,7 @@
       </div>
       <header class="caption">
         <div class="meta">
-          <time class="time" :datatitme="data.createdAt">{{ data.createdAt | fmtDate('yyyy-MM-dd') }}</time>
+          <time class="time" :datatitme="data.publishedAt">{{ data.publishedAt | fmtDate('yyyy-MM-dd') }}</time>
         </div>
         <h3 class="title">{{ data.title }}</h3>
       </header>
@@ -35,6 +35,9 @@
     },
     mounted () {
       this.loadThumb()
+    },
+    updated () {
+      console.log(111)
     },
     methods: {
       loadThumb () {

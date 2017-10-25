@@ -11,7 +11,7 @@
     name: 'Blog-page',
     async fetch ({ store }) {
       await store.dispatch('article/fetchList', {
-        page: store.getters['article/pagination'].page
+        page: store.getters['article/pagination'].current_page
       })
     },
     components: {

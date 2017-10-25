@@ -56,22 +56,8 @@
       margin 0 auto
       text-align center
       font-size 12px
-
-      @media (max-width: 1640px) {
-        padding 0 100px
-      }
-
-      @media (max-width: 1366px) and (min-width: 769px) {
-        padding 0 65px
-      }
-
-      @media (max-width: 768px) and (min-width: 480px) {
-        padding 0 40px
-      }
-
-      @media (max-width: 479px) {
-        padding 0 30px
-      }
+      layout-wrapper()
+      
 
       p {
         margin-bottom 10px

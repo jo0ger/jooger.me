@@ -5,7 +5,7 @@
         <header class="header">
           <h1 class="title">{{ articleDetail.title }}</h1>
           <div class="meta">
-            <time class="time" :datatitme="articleDetail.createdAt">{{ articleDetail.createdAt | fmtDate('yyyy-MM-dd') }}</time>
+            <time class="time" :datatitme="articleDetail.publishedAt">{{ articleDetail.publishedAt | fmtDate('yyyy-MM-dd') }}</time>
           </div>
         </header>
         <div class="content md-body" v-html="articleDetail.renderedContent"></div>
@@ -41,7 +41,7 @@
             <div class="wrapper">
               <h3 class="label">prev</h3>
               <p class="title">{{ articleDetail.adjacent.prev.title }}</p>
-              <time class="time" :datatitme="articleDetail.adjacent.prev.createdAt">{{ articleDetail.adjacent.prev.createdAt | fmtDate('yyyy-MM-dd') }}</time>
+              <time class="time" :datatitme="articleDetail.adjacent.prev.publishedAt">{{ articleDetail.adjacent.prev.publishedAt | fmtDate('yyyy-MM-dd') }}</time>
             </div>
           </a>
           <a class="nav-item next" @click="handleSwitchArticle(articleDetail.adjacent.next._id)" v-if="articleDetail.adjacent.next"
@@ -49,7 +49,7 @@
             <div class="wrapper">
               <h3 class="label">next</h3>
               <p class="title">{{ articleDetail.adjacent.next.title }}</p>
-              <time class="time" :datatitme="articleDetail.adjacent.next.createdAt">{{ articleDetail.adjacent.next.createdAt | fmtDate('yyyy-MM-dd') }}</time>
+              <time class="time" :datatitme="articleDetail.adjacent.next.publishedAt">{{ articleDetail.adjacent.next.publishedAt | fmtDate('yyyy-MM-dd') }}</time>
             </div>
           </a>
         </div>
@@ -193,9 +193,8 @@
             margin 5px 10px 0 0
             padding 5px 10px
             background $grey
-            border-radius 4px
             font-size .8rem
-            color $text-color
+            color $text-color-seconadry
             transition all .3s $ease
 
             &:hover {

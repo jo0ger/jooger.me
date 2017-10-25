@@ -4,7 +4,7 @@
   text-size-adjust: 100%;
   color: $text-color;
   font-family: $font-family-markdown;
-  font-size: 14px;
+  font-size: 16px;
   font-weight 300
   line-height: 1.8;
   word-wrap: break-word;
@@ -73,7 +73,7 @@
 .md-body p,
 .md-body ul,
 .md-body ol {
-  margin: 1em 0 1.5em;
+  margin: 0 0 1.2em;
 }
 .md-body strong {
   font-weight: 600;
@@ -116,11 +116,14 @@
   border-collapse: collapse;
 }
 .md-body code {
-  font-size: 12px;
-  background-color: #f7f7f7;
-  padding: 0 10px;
   margin: 0 5px;
+  padding 0 .3em
+  font-size: 16px;
+  background-color: #f8f8f8;
   border-radius: 2px;
+  text-shadow 0 1px $white
+  font-weight 400
+  background-color #f8f8f8
 }
 .md-body pre {
   font-size: 12px;
@@ -129,6 +132,13 @@
   padding: 15px 25px;
   background-color: #f7f7f7;
   line-height: 1.5em;
+}
+.md-body pre code {
+  margin 0 0 0 10px
+  padding 0
+  font-weight 300
+  font-size: 12px;
+  background-color: #f7f7f7;
 }
 .md-body .code pre {
   border-top-right-radius: 2px;
@@ -141,15 +151,19 @@
   border-bottom-left-radius: 2px;
 }
 .md-body blockquote {
-  margin: 2em 0;
-  padding-left: 30px;
-  border-left: 5px solid #e6e6e6;
+  margin: 1em 0;
+  padding: .5em 1em;
+  border 1px solid #eee
+  border-left: 2px solid $base-color;
+  font-weight 400
+  color: #999
 }
 .md-body blockquote p {
-  font-size: 17px;
-  font-style: italic;
-  line-height: 1.8em;
-  color: #999;
+  margin 0 0 .5em 0
+  line-height: 1.8;
+}
+.md-body blockquote :last-child {
+  margin-bottom 0
 }
 .md-body img {
   display: block;
@@ -182,13 +196,14 @@
 }
 
 .md-body {
-  ul
-  ol {
+  ul {
     list-style none
   }
 
   code {
     & > span {
+      height 20px
+      line-height @height
       &::before {
         content attr(data-index)
         position: absolute
