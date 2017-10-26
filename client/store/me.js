@@ -34,7 +34,7 @@ export const actions = {
       return
     }
     commit(FETCH_ME_REQUEST)
-    const { success, data } = await Service.user.fetchMe().catch(err => commit(FETCH_ME_FAILURE, err))
+    const { success, data } = await Service.user.fetchMe().catch(err => ((commit(FETCH_ME_FAILURE, err), {})))
     if (success) {
       commit(FETCH_ME_SUCCESS, data)
     } else {

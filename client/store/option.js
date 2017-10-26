@@ -34,7 +34,7 @@ export const actions = {
       return
     }
     commit(FETCH_OPTION_REQUEST)
-    const { success, data } = await Service.option.fetchData().catch(err => commit(FETCH_OPTION_FAILURE, err))
+    const { success, data } = await Service.option.fetchData().catch(err => ((commit(FETCH_OPTION_FAILURE, err), {})))
     if (success) {
       commit(FETCH_OPTION_SUCCESS, data)
     } else {

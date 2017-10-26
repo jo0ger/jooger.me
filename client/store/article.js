@@ -81,7 +81,7 @@ export const actions = {
       return
     }
     commit(FETCH_LIST_REQUEST)
-    const { success, data } = await Service.article.fetchList({ params }).catch(err => commit(FETCH_LIST_FAILURE, err))
+    const { success, data } = await Service.article.fetchList({ params }).catch(err => ((commit(FETCH_LIST_FAILURE, err), {})))
     if (success) {
       commit(FETCH_LIST_SUCCESS, data)
     } else {
@@ -94,7 +94,7 @@ export const actions = {
       return
     }
     commit(FETCH_DETAIL_REQUEST)
-    const { success, data } = await Service.article.fetchDetail(id)().catch(err => commit(FETCH_DETAIL_FAILURE, err))
+    const { success, data } = await Service.article.fetchDetail(id)().catch(err => ((commit(FETCH_DETAIL_FAILURE, err), {})))
     if (success) {
       commit(FETCH_DETAIL_SUCCESS, data)
     } else {
@@ -107,7 +107,7 @@ export const actions = {
       return
     }
     commit(LIKE_REQUEST)
-    const { success, data } = await Service.article.like(id)().catch(err => commit(LIKE_FAILURE, err))
+    const { success, data } = await Service.article.like(id)().catch(err => ((commit(LIKE_FAILURE, err), {})))
     if (success) {
       commit(LIKE_SUCCESS, data)
       dispatch('app/updateHistory', { articleId: id }, { root: true })
