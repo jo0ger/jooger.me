@@ -36,9 +36,6 @@
     mounted () {
       this.loadThumb()
     },
-    updated () {
-      console.log(111)
-    },
     methods: {
       loadThumb () {
         if (!this.data.thumb) {

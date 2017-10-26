@@ -21,13 +21,15 @@
             <a :href="`https://music.163.com/#/song?id=${song.id}`" target="_blank" class="song-name">
               {{ song.name }}
             </a>
-            <span> - </span>
-            <template v-for="(at, index) in song.artists">
-              <span :key="at.id" v-if="index !== 0"> / </span>
-              <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" class="artist-name" :key="at.id">
-                {{ at.name }}
-              </a>
-            </template>
+            <span class="at-list">
+              <span> - </span>
+              <template v-for="(at, index) in song.artists">
+                <span :key="at.id" v-if="index !== 0"> / </span>
+                <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" class="artist-name" :key="at.id">
+                  {{ at.name }}
+                </a>
+              </template>
+            </span>
           </div>
           <div class="length">
             <div class="position">{{ playedTime }}</div>
@@ -263,7 +265,7 @@
       this.$store.dispatch('music/fetchList').then(success => {
         if (success) {
           this.initPlaylist()
-          // this.play()
+          this.play()
         }
       })
 
@@ -636,6 +638,12 @@
 
           .cover {
             display none
+          }
+
+          .info {
+            .at-list {
+              display none
+            }
           }
         }
 
