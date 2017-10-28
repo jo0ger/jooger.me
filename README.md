@@ -49,11 +49,11 @@ using a prerelease version of Node (i.e. v7.6.0-rc.1) you will need to either:
 
 - ~~文章信息优化 （阅读量，评论数，点赞数)~~ (2017.10.28)
 
+- ~~分类页~~ (2017.10.29)
+
 - 评论功能
 
 - 文章版权说明
-
-- 同步文章到Github issues
 
 - 短视频播放器
 

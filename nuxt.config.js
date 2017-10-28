@@ -34,7 +34,7 @@ module.exports = {
       { name: 'HandheldFriendly', content: 'True' },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { name: 'author', content: 'zzy1198258955@163.com' },
-      { name: 'theme-color', content: '#f04134' },
+      { name: 'theme-color', content: '#ed0a75' },
       { hid: 'keywords', name: 'keywords', content: 'Jooger,Jooger.me,Blog,FE,前端' },
       { hid: 'description', name: 'description', content: '修人、修身，修性、修心' }
     ],
@@ -65,9 +65,10 @@ module.exports = {
     { src: '~plugins/google-analytics.js', ssr: false },
     { src: '~plugins/baidu-statistics.js', ssr: false },
     { src: '~plugins/baidu-seo-push.js', ssr: false },
-    { src: '~plugins/swiper.js', ssr: false },
-    { src: '~plugins/image-load.js', ssr: false },
-    { src: '~plugins/image-popup.js', ssr: false },
+    { src: '~plugins/vue-swiper.js', ssr: false },
+    { src: '~plugins/vue-image-load.js', ssr: false },
+    { src: '~plugins/vue-image-popup.js', ssr: false },
+    { src: '~plugins/vue-message.js', ssr: false },
     { src: '~plugins/clipboard.js', ssr: false },
     { src: '~plugins/history.js', ssr: false }
   ],
@@ -81,8 +82,8 @@ module.exports = {
     display: 'standalone',
     start_url: 'https://jooger.me',
     description: '修人、修身，修性、修心',
-    theme_color: '#e40059',
-    background_color: '#f2f2f2',
+    theme_color: '#ed0a75',
+    background_color: '#fff',
     lang: 'zh-CN'
   },
   router: {

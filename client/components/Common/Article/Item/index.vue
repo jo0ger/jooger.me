@@ -74,6 +74,7 @@
         & > img {
           width 100%
           min-height 100%
+          border-radius 2px
           object-fit cover
         }
 
