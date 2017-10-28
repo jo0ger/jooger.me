@@ -65,9 +65,10 @@ module.exports = {
     { src: '~plugins/google-analytics.js', ssr: false },
     { src: '~plugins/baidu-statistics.js', ssr: false },
     { src: '~plugins/baidu-seo-push.js', ssr: false },
-    { src: '~plugins/swiper.js', ssr: false },
-    { src: '~plugins/image-load.js', ssr: false },
-    { src: '~plugins/image-popup.js', ssr: false },
+    { src: '~plugins/vue-swiper.js', ssr: false },
+    { src: '~plugins/vue-image-load.js', ssr: false },
+    { src: '~plugins/vue-image-popup.js', ssr: false },
+    { src: '~plugins/vue-message.js', ssr: false },
     { src: '~plugins/clipboard.js', ssr: false },
     { src: '~plugins/history.js', ssr: false }
   ],
@@ -82,7 +83,7 @@ module.exports = {
     start_url: 'https://jooger.me',
     description: '修人、修身，修性、修心',
     theme_color: '#e40059',
-    background_color: '#f2f2f2',
+    background_color: '#fff',
     lang: 'zh-CN'
   },
   router: {

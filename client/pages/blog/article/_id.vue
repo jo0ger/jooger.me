@@ -159,7 +159,7 @@
         if (this.$refs.article) {
           this.$refs.article.addEventListener('click', e => {
             if (e.target.className.includes('image-view')) {
-              this.$imgPop.open(e.target)
+              this.$imgPop.open(e.target.src)
             }
           }, false)
         }

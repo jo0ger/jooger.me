@@ -1,13 +1,27 @@
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active
+.fade-leave-active {
   transition opacity .3s $fuck
 }
-.fade-enter, .fade-leave-active {
+.fade-enter
+.fade-leave-active {
   opacity 0
 }
 
-.fade-overlay-enter-active, .fade-overlay-leave-active {
+.fade-overlay-enter-active
+.fade-overlay-leave-active {
   transition opacity .8s $fuck
 }
-.fade-overlay-enter, .fade-overlay-leave-active {
+.fade-overlay-enter
+.fade-overlay-leave-active {
   opacity 0
+}
+
+.message-fade-enter-active
+.message-fade-leave-active {
+  transition all .3s $fuck
+}
+.message-fade-enter
+.message-fade-leave-active {
+  opacity 0
+  transform translate(-50%, -100%)
 }
