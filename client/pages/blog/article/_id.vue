@@ -9,12 +9,29 @@
           </div>
         </header>
         <div class="content md-body" v-html="articleDetail.renderedContent"></div>
+        <div class="extra">
+          <div class="category">
+            <template v-if="articleDetail.category">
+              <span class="label">分类于</span>
+              <nuxt-link class="category-item"
+                :to="`/blog/category/${articleDetail.category.name}`">
+                <span>{{ articleDetail.category.name }}</span>
+              </nuxt-link>
+            </template>
+          </div>
+          <div class="meta">
+            <span class="label">阅读量</span>
+            <span class="value">{{ articleDetail.meta.pvs }}</span>
+            <span class="label">评论</span>
+            <span class="value">{{ articleDetail.meta.comments }}</span>
+          </div>
+        </div>
         <div class="tags" v-if="articleDetail.tag && articleDetail.tag.length">
           <nuxt-link class="tag-item"
             v-for="item in articleDetail.tag"
             :key="item._id"
             :to="`/blog/tag/${item.name}`">
-            <span class="text">{{ item.name }}</span>
+            <span>{{ item.name }}</span>
           </nuxt-link>
         </div>
         <div class="actions">
@@ -36,22 +53,40 @@
           <CommonShareBox class="share" v-show="showShareBox"></CommonShareBox>
         </transition>
         <div class="navigation" v-if="articleDetail.adjacent.next || articleDetail.adjacent.prev">
-          <a class="nav-item prev" @click="handleSwitchArticle(articleDetail.adjacent.prev._id)" v-if="articleDetail.adjacent.prev"
-            :style="getAdjacentThumbStyle(articleDetail.adjacent.prev)">
+          <router-link v-if="articleDetail.adjacent.prev"
+            class="nav-item prev"
+            :to="`/blog/article/${articleDetail.adjacent.prev._id}`"
+            :title="articleDetail.adjacent.prev.title"
+            :style="getThumbStyle(articleDetail.adjacent.prev)">
             <div class="wrapper">
               <h3 class="label">prev</h3>
               <p class="title">{{ articleDetail.adjacent.prev.title }}</p>
-              <time class="time" :datatitme="articleDetail.adjacent.prev.publishedAt">{{ articleDetail.adjacent.prev.publishedAt | fmtDate('yyyy-MM-dd') }}</time>
+              <div class="meta">
+                <time class="time" :datatitme="articleDetail.adjacent.prev.publishedAt">{{ articleDetail.adjacent.prev.publishedAt | fmtDate('yyyy-MM-dd') }}</time>
+                <template v-if="articleDetail.adjacent.prev.category">
+                  <span> - </span>
+                  <span class="category">{{ articleDetail.adjacent.prev.category.name }}</span>
+                </template>
+              </div>
             </div>
-          </a>
-          <a class="nav-item next" @click="handleSwitchArticle(articleDetail.adjacent.next._id)" v-if="articleDetail.adjacent.next"
-            :style="getAdjacentThumbStyle(articleDetail.adjacent.next)">
+          </router-link>
+          <router-link v-if="articleDetail.adjacent.next"
+            class="nav-item next"
+            :to="`/blog/article/${articleDetail.adjacent.next._id}`"
+            :title="articleDetail.adjacent.next.title"
+            :style="getThumbStyle(articleDetail.adjacent.next)">
             <div class="wrapper">
               <h3 class="label">next</h3>
               <p class="title">{{ articleDetail.adjacent.next.title }}</p>
-              <time class="time" :datatitme="articleDetail.adjacent.next.publishedAt">{{ articleDetail.adjacent.next.publishedAt | fmtDate('yyyy-MM-dd') }}</time>
+              <div class="meta">
+                <time class="time" :datatitme="articleDetail.adjacent.next.publishedAt">{{ articleDetail.adjacent.next.publishedAt | fmtDate('yyyy-MM-dd') }}</time>
+                <template v-if="articleDetail.adjacent.next.category">
+                  <span> - </span>
+                  <span class="category">{{ articleDetail.adjacent.next.category.name }}</span>
+                </template>
+              </div>
             </div>
-          </a>
+          </router-link>
         </div>
       </article>
       <p class="no-data" v-else>文章未找到</p>
@@ -129,7 +164,7 @@
           }, false)
         }
       },
-      getAdjacentThumbStyle (obj = {}) {
+      getThumbStyle (obj = {}) {
         return obj.thumb ? {
           backgroundImage: `url(${obj.thumb})`
         } : null
@@ -182,7 +217,35 @@
 
         .content {
           padding-bottom 30px
+        }
+
+        .extra {
+          flexLayout(, space-between)
+          padding-bottom 10px
+          color $text-color-secondary
           border-bottom 1px solid $grey
+
+          .category {
+            &-item {
+              margin-left 5px
+              padding 2px 5px
+              background $grey
+
+              &:hover {
+                background alpha($base-color, .05)
+                color $base-color
+              }
+            }
+          }
+
+          .meta {
+            .label {
+              margin-right 5px
+            }
+            .value {
+              margin-right 10px
+            }
+          }
         }
 
         .tags {
@@ -194,6 +257,7 @@
             padding 5px 10px
             border 1px solid $text-color-secondary
             font-size .8rem
+            border-radius 2px
             color $text-color
             transition all .3s $ease
 
@@ -206,7 +270,7 @@
         }
 
         .actions {
-          margin 60px 0 0
+          margin 30px 0 0
           text-align center
 
           .action-item {
@@ -214,6 +278,7 @@
             height 30px
             line-height @height
             margin 5px
+            border-radius 2px
             padding 0 15px
             font-size .8rem
             border 1px solid
@@ -284,6 +349,7 @@
           position relative
           margin-top 30px
           overflow hidden
+          border-radius 2px
 
           @media (max-width: 768px) {
             flex-direction column
@@ -302,7 +368,7 @@
             .wrapper {
               width 100%
               height @width
-              padding 50px 20px
+              padding 40px 20px
               background-color alpha($black, .8)
               color $white
               text-align center
@@ -316,11 +382,12 @@
 
               .title {
                 font-size 16px
+                opacity .8
               }
 
-              .time {
-                font-size 12px
+              .meta {
                 opacity .6
+                font-size 12px
               }
             }
 

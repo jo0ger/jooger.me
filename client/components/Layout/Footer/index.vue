@@ -1,6 +1,11 @@
 <template>
   <footer class="footer" :style="footerStyle">
     <div class="wrapper">
+      <div class="contact-list" v-if="option.contact && option.contact.length">
+        <a class="item" :href="item.url" target="_blank" v-for="item in option.contact" :key="item.title">
+          <i class="icon iconfont" :class="[`icon-${item.icon}`]"></i>
+        </a>
+      </div>
       <p>版权所有 © 2017 {{ me.name }}. 保留所有权利
         <a v-if="!mobileLayout" href="http://www.miitbeian.gov.cn" target="_blank" class="record">
           豫ICP备17040457号
@@ -29,7 +34,8 @@
     computed: {
       ...mapGetters({
         mobileLayout: 'app/mobileLayout',
-        me: 'me/me'
+        me: 'me/me',
+        option: 'option/option'
       }),
       isAboutPage () {
         return this.$route.name === 'about'
@@ -61,6 +67,19 @@
       text-align center
       font-size 12px
       layout-wrapper()
+
+      .contact-list {
+        margin-bottom 10px
+        .item {
+          display inline-block
+          margin 0 10px
+          padding 5px
+
+          &:hover {
+            opacity .6
+          }
+        }
+      }
       
 
       p {

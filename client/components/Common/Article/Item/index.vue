@@ -10,6 +10,10 @@
       <header class="caption">
         <div class="meta">
           <time class="time" :datatitme="data.publishedAt">{{ data.publishedAt | fmtDate('yyyy-MM-dd') }}</time>
+          <template v-if="data.category">
+            <span> - </span>
+            <span class="category">{{ data.category.name }}</span>
+          </template>
         </div>
         <h3 class="title">{{ data.title }}</h3>
       </header>
