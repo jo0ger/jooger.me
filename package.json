@@ -27,13 +27,9 @@
     "howler": "^2.0.4",
     "js-yaml": "^3.10.0",
     "koa": "^2.3.0",
-    "koa-respond": "^1.0.1",
-    "koa-router": "^7.2.1",
     "marked": "^0.3.6",
-    "node-watch": "^0.5.5",
     "normalize.css": "^7.0.0",
     "nuxt": "^1.0.0-rc9",
-    "offline-plugin": "^4.8.4",
     "simple-node-logger": "^0.93.28",
     "source-map-support": "^0.4.15",
     "vue-awesome-swiper": "^2.6.4"

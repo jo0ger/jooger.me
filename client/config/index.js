@@ -23,7 +23,7 @@ export default {
     responseType: 'json'
   },
   storage: {
-    userKey: 'JOOGER_USER',
-    userLikeKey: 'JOOGER_USER_LIKE_HISTORY'
+    userKey: isProd ? 'JOOGER_USER' : 'JOOGER_USER_DEV',
+    userLikeKey: isProd ? 'JOOGER_USER_LIKE_HISTORY' : 'JOOGER_USER_LIKE_HISTORY_DEV'
   }
 }

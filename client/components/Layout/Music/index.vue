@@ -67,6 +67,9 @@
           <div class="song-list">
             <div class="hd">
               <span>歌单({{ musicList.length }})</span>
+              <a style="float: right;" :href="`https://music.163.com/#/playlist?id=${option.musicId}`" target="_blank">
+                <i class="iconfont icon-links"></i>
+              </a>
             </div>
             <div class="bd" ref="songList">
               <ul class="list">
@@ -106,11 +109,9 @@
                       </span>
                     </a>
                   </div> -->
-                  <div class="song-link">
-                    <a :href="`https://music.163.com/#/song?id=${song.id}`" target="_blank">
-                      <i class="iconfont icon-links"></i>                  
-                    </a>
-                  </div>
+                  <a :href="`https://music.163.com/#/song?id=${song.id}`" class="song-link" target="_blank">
+                    <i class="iconfont icon-links"></i>                  
+                  </a>
                 </li>
               </ul>
             </div>
@@ -124,6 +125,7 @@
                   <ul class="list" :style="lyListStyle" v-if="lyrics.length">
                     <li class="item" :class="{ now: lyricIsActive(ly.time, index) }" v-for="(ly, index) in lyrics" :key="ly.time">
                       <p>{{ ly.text }}</p>
+                      <p v-if="ly.t">{{ ly.t }}</p>
                     </li>
                   </ul>
                   <span class="no-lyric" v-else>
@@ -144,7 +146,8 @@
 <script>
   import { mapGetters } from 'vuex'
   import { Howl, Howler } from 'howler'
-  import { requestAnimationFrame } from '~/utils'
+  import { requestAnimationFrame, isType } from '~/utils'
+  import Service from '~/service'
   import { CommonSlider } from '@/components/Common'
 
   const lyTimeReg = /\[(.*?)\]/g
@@ -188,7 +191,8 @@
           return []
         }
         const list = []
-        this.song.lyric.split('\n').filter(ly => !!ly).map(ly => {
+        const tlrc = this.song.tlyric.split('\n').filter(tly => !!tly)
+        this.song.lyric.split('\n').filter(ly => !!ly).map((ly, index) => {
           if (!ly) {
             return
           }
@@ -197,6 +201,10 @@
             return
           }
           const l = ly.split(times[times.length - 1])
+          let tl = ''
+          if (tlrc.length) {
+            tl = tlrc[index] && tlrc[index].split(times[times.length - 1])
+          }
           if (!l || !l.length) {
             return
           }
@@ -206,7 +214,8 @@
             if (t) {
               list.push({
                 time: t,
-                text: l[1] || '~ ~ ~'
+                text: l[1] || '~ ~ ~',
+                t: tl && tl[1] || ''
               })
             }
           })
@@ -252,7 +261,7 @@
     watch: {
       activeLyricIndex (val) {
         if (this.showPlayList) {
-          this.lyListStyle = this.getLyListStyle()
+          this.lyListStyle = this.getLrcListStyle()
         }
       },
       showMusic (val) {
@@ -269,35 +278,59 @@
         }
       })
 
-      window.addEventListener('mousemove', e => {
-        if (this.showMusic) {
-          return
-        }
-        // music未打开时，阈值设成20px，否则设为music高度
-        let show = false
-        if (!this.mouseTriggerShowMusic) {
-          show = e.clientY > (window.innerHeight - 20)
-        } else {
-          show = this.$refs.music.contains(e.target)
-        }
-        if (this.mouseTriggerShowMusic === show) {
-          return
-        }
-        this.mouseTriggerShowMusic = show
-        if (!show) {
-          this.showPlayList = false
-        }
-      })
+      // window.addEventListener('mousemove', e => {
+      //   if (this.showMusic) {
+      //     return
+      //   }
+      //   // music未打开时，阈值设成20px，否则设为music高度
+      //   let show = false
+      //   if (!this.mouseTriggerShowMusic) {
+      //     show = e.clientY > (window.innerHeight - 20)
+      //   } else {
+      //     show = this.$refs.music.contains(e.target)
+      //   }
+      //   if (this.mouseTriggerShowMusic === show) {
+      //     return
+      //   }
+      //   this.mouseTriggerShowMusic = show
+      //   if (!show) {
+      //     this.showPlayList = false
+      //   }
+      // })
     },
     methods: {
+      getSongUrlAndLyric (id) {
+        return Promise.all([
+          Service.music.fetchUrl(id)().then(data => {
+            if (!isType(data.data.data, 'Array')) {
+              return null
+            }
+            const src = data.data.data[0]
+            return src && src.url || null
+          }),
+          Service.music.fetchLyric(id)().then(data => {
+            if (!data || !data.data) {
+              return ''
+            }
+            const { lrc, tlyric } = data.data
+            return {
+              lyric: lrc && lrc.lyric || '',
+              tlyric: tlyric && tlyric.lyric || ''
+            }
+          })
+        ]).catch(err => (['', { lyric: '', tlyric: ''}]))
+      },
       initPlaylist () {
         this.playlist = this.musicList.map(song => {
-          if (!song || !song.src) {
+          if (!song) {
             return null
           }
           return {
             howl: null,
             ...song,
+            src: '',
+            lyric: '',
+            tlyric: '', // 翻译的歌词
             loaderror: false
           }
         }).filter(song => !!song)
@@ -309,7 +342,7 @@
         }
         return index
       },
-      getLyListStyle () {
+      getLrcListStyle () {
         const $list = this.$refs.lyList
         const index = this.activeLyricIndex + 1
         let target = 0
@@ -409,7 +442,7 @@
         }
         return index
       },
-      play (index) {
+      async play (index) {
         index = this.checkIndex(typeof index === 'number' ? index : this.index)
         this.index = index
         const song = this.playlist[index] || null
@@ -423,6 +456,12 @@
         if (song.howl) {
           this.sound = song.howl
         } else {
+          if (!song.src) {
+            const [url, { lyric, tlyric }] = await this.getSongUrlAndLyric(song.id)
+            song.src = url
+            song.lyric = lyric
+            song.tlyric = tlyric
+          }
           this.sound = song.howl = this.getHowl(song)
         }
         song.playerror = false
@@ -554,7 +593,7 @@
         if (this.showPlayList) {
           this.$nextTick(() => {
             // 设置歌词的样式
-            this.lyListStyle = this.getLyListStyle()
+            this.lyListStyle = this.getLrcListStyle()
             this.setSongListScroll()
           })
         }
@@ -850,6 +889,7 @@
             padding 5px 10px
             cursor pointer
             text-align left
+            transition all .3s $ease
 
             .cover {
               flex 0 0 30px
@@ -903,7 +943,7 @@
             }
 
             .artist {
-              flex 0 0 150px
+              flex 0 0 200px
             }
 
             // .album {
@@ -911,7 +951,7 @@
             // }
 
             .song-link {
-              flex 0 0 20px
+              flex 0 0 16px
             }
 
             &:hover {
@@ -931,6 +971,7 @@
 
         .bd {
           .box {
+            position relative
             width 100%
             height 100%
             padding 20px 80px
@@ -954,6 +995,13 @@
                 transform scale(1.2)
               }
             }
+          }
+
+          .no-lyric {
+            position absolute
+            top 50%
+            left 50%
+            transform translate3d(-50%, -50%, 0)
           }
         }
       }
