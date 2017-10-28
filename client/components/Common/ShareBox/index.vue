@@ -45,12 +45,17 @@
       }
     },
     mounted () {
-      this._clipboard = new Clipboard('.share-box .share-item.links')
+      this.initClipboard()
     },
     beforeDestroy () {
       this._clipboard.destroy()
     },
     methods: {
+      initClipboard () {
+        this._clipboard = new Clipboard('.share-box .share-item.links')
+        this._clipboard.on('success', e => this.$message('复制链接成功'))
+        this._clipboard.on('err', e => this.$message('复制链接失败'))
+      },
       getTitle () {
         try {
           if (document) return document.title

@@ -17,7 +17,6 @@
     data () {
       return {
         src: '',
-        elem: null,
         show: false
       }
     },
@@ -30,9 +29,6 @@
         }, 0)
       },
       close (e) {
-        // if (e.target.tarName === 'IMG' && e.target.className === 'popup-img') {
-        //   return
-        // }
         this.show = false
         setTimeout(() => {
           if (document.body.contains(this.$el)) {

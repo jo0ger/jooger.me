@@ -6,20 +6,20 @@
 
 import Vue from 'vue'
 import popOption from './index.vue'
+import { isType } from '@/utils'
 
 const PopConstructor = Vue.extend(popOption)
 
 let instance = null
 
 export default {
-  open (elem = null) {
-    if (!elem || elem.nodeType !== 1 || elem.tagName !== 'IMG') {
+  open (url = '') {
+    if (!url || !isType(url, 'String')) {
       return
     }
     instance = new PopConstructor({
       data: {
-        src: elem.src,
-        elem
+        src: url
       }
     }).$mount()
     instance.open()

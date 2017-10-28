@@ -14,7 +14,7 @@
       </div>
       <div class="music">
         <div class="cover">
-          <img :src="cover" alt="">
+          <img :src="cover" alt="" @click="handleViewCover">
         </div>
         <div class="info">
           <div class="title">
@@ -299,6 +299,11 @@
       // })
     },
     methods: {
+      log (msg = '') {
+        if (msg && process.env.NODE_ENV !== 'production') {
+          console.log(msg)
+        }
+      },
       getSongUrlAndLyric (id) {
         return Promise.all([
           Service.music.fetchUrl(id)().then(data => {
@@ -370,18 +375,20 @@
           volume: this.volume,
           src: [song.src],
           onload: () => {
-            console.log(song.name + ' --- 加载成功')
+            this.log(song.name + ' --- 加载成功')
             this.ready = true
             this.wave = false
             this.progress = 0
             this._setPlaying(false)
           },
           onloaderror: (id, err) => {
-            console.log(song.name + ' --- 加载失败')
+            this.log(song.name + ' --- 加载失败')
+            this.$message(`【${song.name}】加载失败`)
             this._error(song)
           },
           onplay: () => {
-            console.log(song.name + ' --- 播放')
+            this.log(song.name + ' --- 播放')
+            this.$message(`${song.name} - 播放中`)
             this.wave = true
             this.progress = 0
             this.ready = true
@@ -394,31 +401,32 @@
             })
           },
           onplayerror: (id, err) => {
-            console.log(song.name + ' --- 播放失败')
+            this.log(song.name + ' --- 播放失败')
+            this.$message(`【${song.name}】播放失败`)
             this.handleNextSong()
           },
           onpause: () => {
-            console.log(song.name + ' --- 暂停')
+            this.log(song.name + ' --- 暂停')
             this._setPlaying(false)
             this.wave = false
           },
           onstop: () => {
-            console.log(song.name + ' --- 停止')
+            this.log(song.name + ' --- 停止')
             this._setPlaying(false)
             this.wave = false
             this.progress = 100
           },
           onend: () => {
-            console.log(song.name + ' --- 结束')
+            this.log(song.name + ' --- 结束')
             this._setPlaying(true)
             this.wave = false
             if (this.singleCycleMode) {
               // 单曲循环
-              console.log(song.name + ' --- 单曲循环')
+              this.log(song.name + ' --- 单曲循环')
               this.play()
             } else if (this.randomMode) {
               // TODO: 随机播放
-              console.log(' --- 随机播放')
+              this.log(' --- 随机播放')
               this.play(this.getRandomIndex())
             } else if (this.cycleMode) {
               // 顺序循环
@@ -429,7 +437,7 @@
             this.volume = Howler.volume()
           },
           onseek: () => {
-            console.log(song.name + ' --- seek')
+            this.log(song.name + ' --- seek')
           }
         })
       },
@@ -598,6 +606,10 @@
           })
         }
       },
+      handleViewCover () {
+        console.log(this.song.album.cover)
+        this.$imgPop.open(this.song.album.cover)
+      },
       handleToggleVolume () {
         if (this.volume === 0) {
           this.setVolume(this._oldVolume)
@@ -614,6 +626,7 @@
         if (this.mode > 2) {
           this.mode = 0
         }
+        this.$message(['顺序循环模式','单曲循环模式','随机播放模式'].find((item, index) => index === this.mode))
       }
     }
   }
@@ -779,11 +792,13 @@
         width 50px
         height @width
         margin-right 15px
+        cursor pointer
         overflow hidden
 
         img {
           width 100%
           height 100%
+          border-radius 2px
         }
       }
 
@@ -898,6 +913,7 @@
               img {
                 width 25px
                 height @width
+                border-radius 2px
               }
             }
 
