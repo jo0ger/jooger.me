@@ -91,6 +91,11 @@
       </article>
       <p class="no-data" v-else>文章未找到</p>
     </div>
+    <div class="back">
+      <a class="back-btn" @click.prevent.stop="handleBack">
+        <i class="iconfont icon-close"></i>
+      </a>
+    </div>
     <!-- <div class="comments-pane" v-if="articleDetail">
       <CommonComment></CommonComment>
     </div> -->
@@ -159,7 +164,7 @@
         if (this.$refs.article) {
           this.$refs.article.addEventListener('click', e => {
             if (e.target.className.includes('image-view')) {
-              this.$imgPop.open(e.target)
+              this.$imgPop.open(e.target.src)
             }
           }, false)
         }
@@ -178,6 +183,9 @@
         if (id) {
           this.$router.push(`/blog/article/${id}`)
         }
+      },
+      handleBack () {
+        this.$router.back()
       }
     }
   }
@@ -195,7 +203,7 @@
       margin-bottom 30px
       
       .detail {
-
+        user-select text
         .header {
           margin-bottom 45px
           text-align center
@@ -228,8 +236,9 @@
           .category {
             &-item {
               margin-left 5px
-              padding 2px 5px
+              padding 3px 8px
               background $grey
+              border-radius 2px
 
               &:hover {
                 background alpha($base-color, .05)
@@ -403,6 +412,42 @@
 
       .no-data {
         text-align center
+      }
+    }
+
+    .back {
+      position fixed
+      bottom 30px
+      left 50%
+      transform translateX(-50%)
+
+      +xxs() {
+        bottom 10px
+      }
+
+      +xs() {
+        bottom 20px
+      }
+
+      &-btn {
+        flexLayout()
+        padding 10px
+        background alpha($black, .6)
+        color alpha($white, .6)
+        border-radius 50%
+        line-height 1
+        box-shadow 0 0 40px 5px alpha($black, .2)
+
+        .iconfont {
+          font-size 18px
+        }
+
+        &:hover
+        &:active {
+          color $white
+          transform scale(.9) rotate(180deg)
+          box-shadow 0 0 30px 5px alpha($black, .1)
+        }
       }
     }
 

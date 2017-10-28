@@ -58,6 +58,7 @@
     .title {
       font-size 5rem
       font-weight 700
+      line-height 1.6
       opacity .1
       letter-spacing 5px
     }
@@ -68,41 +69,44 @@
       letter-spacing 2px
     }
 
-    @media (max-width: 1366px) and (min-width: 769px) {
-      margin 30px auto 100px
-
+    +xxs() {
+      margin 0 auto 30px
       .title {
-        font-size 4.2rem
+        font-size 2.6rem
       }
-
       .keyword {
-        font-size 1.225rem
+        font-size 1rem
       }
     }
 
-    @media (max-width: 768px) and (min-width: 480px) {
-      margin 0 auto 80px
-
+    +xs() {
+      margin 0 auto 60px
       .title {
-        font-size 3.4rem
+        font-size 3.2rem
       }
-
       .keyword {
         font-size 1.1rem
       }
     }
 
-    @media (max-width: 479px) {
-      margin 0 auto 60px
-
+    +sm() {
+      margin 30px auto 80px
       .title {
-        font-size 2.6rem
+        font-size 3.8rem
       }
-
       .keyword {
-        font-size 1rem
+        font-size 1.2rem
+      }
+    }
+
+    +md() {
+      margin 30px auto 100px
+      .title {
+        font-size 4.4rem
+      }
+      .keyword {
+        font-size 1.3rem
       }
     }
   }
-  
 }

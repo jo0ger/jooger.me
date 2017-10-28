@@ -2,7 +2,7 @@
   <div class="tools">
     <div class="wrapper">
       <div class="tool-list">
-        <a class="tool-item back" @click="handleGoBack" v-if="showBack"></a>
+        <!-- <a class="tool-item back" @click="handleGoBack" v-if="showBack"></a> -->
         <a class="tool-item go-to-top" :class="{ active: showGoToTop }" @click.prevent.stop="handleGoToTop"></a>
       </div>
     </div>
@@ -22,7 +22,8 @@
     },
     computed: {
       showBack () {
-        return ['blog-article-id'].includes(this.$route.name)
+        // 暂未用到
+        return [].includes(this.$route.name)
       }
     },
     mounted () {

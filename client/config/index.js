@@ -19,7 +19,7 @@ export default {
       'X-Requested-With': 'XMLHttpRequest',
       'Accept': 'application/json'
     },
-    timeout: 120000,
+    timeout: 12000,
     responseType: 'json'
   },
   storage: {
