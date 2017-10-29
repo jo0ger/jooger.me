@@ -31,7 +31,7 @@ module.exports = {
       ref: 'origin/master',
       repo: packageInfo.repository.url,
       path: '/root/www/' + packageInfo.name,
-      'post-deploy': 'git pull && cnpm install && pm2 stop all && npm run build && pm2 startOrReload ecosystem.config.js && pm2 start all'
+      'post-deploy': 'git pull && cnpm install && pm2 stop all && npm run build && pm2 startOrReload ecosystem.config.js --env production && pm2 start all'
     }
   }
 }

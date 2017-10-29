@@ -71,7 +71,7 @@
 
     .wrapper {
       padding 10px 20px
-      background alpha($black, .8)
+      background $black
       color $white
       border-radius 2px
     }
@@ -85,7 +85,7 @@
   body.dark-page {
     .message {
       .wrapper {
-        background alpha($white, .8)
+        background $white
         color $text-color
       }
     }
