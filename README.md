@@ -51,6 +51,8 @@ using a prerelease version of Node (i.e. v7.6.0-rc.1) you will need to either:
 
 - ~~分类页~~ (2017.10.29)
 
+- ~~个人动态~~ (2017.10.30)
+
 - 评论功能
 
 - 音乐绑定键盘快捷键

@@ -1,7 +1,6 @@
 <template>
   <section class="home-page">
-    <div class="page-content">
-    </div>
+    123123
   </section>
 </template>
 
