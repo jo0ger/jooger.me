@@ -53,6 +53,8 @@ using a prerelease version of Node (i.e. v7.6.0-rc.1) you will need to either:
 
 - 评论功能
 
+- 音乐绑定键盘快捷键
+
 - 文章版权说明
 
 - 短视频播放器

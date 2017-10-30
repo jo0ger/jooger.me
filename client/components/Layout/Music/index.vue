@@ -311,10 +311,10 @@
       getSongUrlAndLyric (id) {
         return Promise.all([
           Service.music.fetchUrl(id)().then(data => {
-            if (!isType(data.data.data, 'Array')) {
+            if (!isType(data.data, 'Array')) {
               return null
             }
-            const src = data.data.data[0]
+            const src = data.data[0]
             return src && src.url || null
           }),
           Service.music.fetchLyric(id)().then(data => {
