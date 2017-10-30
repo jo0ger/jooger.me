@@ -90,7 +90,7 @@
         }
       },
       showTrigger () {
-        return !this.showContent && this.$route.name === 'about'
+        return !this.showContent && ['about'].includes(this.$route.name)
       }
     },
     beforeDestroy () {
@@ -402,15 +402,18 @@
 <style lang="stylus">
   @import '~assets/stylus/_var'
 
-  .swiper-pagination-bullet {
-    width 20px
-    height 2px
-    border-radius 1px
-    background alpha($white, .9)
-    opacity .4
-    &-active {
-      opacity 1
+  .swiper-pagination {
+    text-align center
+    &-bullet {
+      width 20px
+      height 2px
+      border-radius 1px
+      background alpha($white, .9)
+      opacity .4
+      transition opacity .3s $ease
+      &-active {
+        opacity 1
+      }
     }
   }
-  
 </style>

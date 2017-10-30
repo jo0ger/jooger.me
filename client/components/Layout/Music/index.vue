@@ -274,7 +274,9 @@
       this.$store.dispatch('music/fetchList').then(success => {
         if (success) {
           this.initPlaylist()
-          this.play()
+          if (process.env.NODE_ENV === 'production') {
+            this.play()
+          }
         }
       })
 

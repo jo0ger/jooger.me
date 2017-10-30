@@ -84,5 +84,8 @@ export default {
   },
   auth: {
     githubLogin: wrap('/auth/github/login')
+  },
+  moment: {
+    fetchList: wrap('/moments')
   }
 }

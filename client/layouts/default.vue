@@ -12,6 +12,7 @@
             <h1 class="title">{{ option.title }}</h1>
             <h3 class="subtitle">{{ isAboutPage ? 'About Me' : option.subtitle }}</h3>
           </div>
+          <LayoutMoment class="moment"></LayoutMoment>
           <keep-alive>
             <nuxt></nuxt>
           </keep-alive>
@@ -33,7 +34,8 @@
     LayoutTools,
     LayoutOverlay,
     LayoutMusic,
-    LayoutHero
+    LayoutHero,
+    LayoutMoment
   } from '~/components/Layout'
   import { CommonFetchLoading } from '~/components/Common'
 
@@ -46,7 +48,8 @@
       LayoutOverlay,
       CommonFetchLoading,
       LayoutMusic,
-      LayoutHero
+      LayoutHero,
+      LayoutMoment
     },
     computed: {
       ...mapGetters({
@@ -87,10 +90,6 @@
       .wrapper {
         width 100%
         layout-wrapper()
-
-        .page-content {
-          position relative
-        }
       }
     }
   }
