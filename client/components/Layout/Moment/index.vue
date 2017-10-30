@@ -78,8 +78,8 @@
     }
     .moment-item {
       flexLayout(column)
-      color $text-color-dark
-      opacity .6
+      color $white
+      opacity .8
       transition opacity .8s $ease
 
       &:hover {
