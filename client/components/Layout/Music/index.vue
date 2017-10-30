@@ -308,26 +308,36 @@
           console.log(msg)
         }
       },
+      getSongUrl (id) {
+        return Service.music.fetchUrl(id)().then(data => {
+          if (!isType(data.data, 'Array')) {
+            return null
+          }
+          const src = data.data[0]
+          return src && src.url || null
+        })
+      },
+      getSongLyric (id) {
+        return Service.music.fetchLyric(id)().then(data => {
+          if (!data || !data.data) {
+            return {
+              lyric: '',
+              tlyric: ''
+            }
+          }
+          const { lrc, tlyric, nolyric } = data.data
+          return {
+            nolyric: !!nolyric,
+            lyric: lrc && lrc.lyric || '',
+            tlyric: tlyric && tlyric.lyric || ''
+          }
+        })
+      },
       getSongUrlAndLyric (id) {
         return Promise.all([
-          Service.music.fetchUrl(id)().then(data => {
-            if (!isType(data.data, 'Array')) {
-              return null
-            }
-            const src = data.data[0]
-            return src && src.url || null
-          }),
-          Service.music.fetchLyric(id)().then(data => {
-            if (!data || !data.data) {
-              return ''
-            }
-            const { lrc, tlyric } = data.data
-            return {
-              lyric: lrc && lrc.lyric || '',
-              tlyric: tlyric && tlyric.lyric || ''
-            }
-          })
-        ]).catch(err => (['', { lyric: '', tlyric: ''}]))
+          this.getSongUrl(id),
+          this.getSongLyric(id)
+        ]).catch(err => ([null, { nolyric: false, lyric: '', tlyric: ''}]))
       },
       initPlaylist () {
         this.playlist = this.musicList.map(song => {
@@ -338,9 +348,10 @@
             howl: null,
             ...song,
             src: '',
+            nolyric: false,
             lyric: '',
             tlyric: '', // 翻译的歌词
-            loaderror: false
+            loaderror: false  // 是否曾经加载失败过
           }
         }).filter(song => !!song)
       },
@@ -380,6 +391,7 @@
           src: [song.src],
           onload: () => {
             this.log(song.name + ' --- 加载成功')
+            song.loaderror = false
             this.ready = true
             this.wave = false
             this.progress = 0
@@ -393,6 +405,7 @@
           onplay: () => {
             this.log(song.name + ' --- 播放')
             this.$message(`${song.name} - 播放中`)
+            song.loaderror = false
             this.wave = true
             this.progress = 0
             this.ready = true
@@ -469,11 +482,20 @@
         if (song.howl) {
           this.sound = song.howl
         } else {
-          if (!song.src) {
-            const [url, { lyric, tlyric }] = await this.getSongUrlAndLyric(song.id)
+          if (!song.src && !song.lyric) {
+            const [url, { nolyric, lyric, tlyric }] = await this.getSongUrlAndLyric(song.id)
             song.src = url
+            song.nolyric = nolyric
             song.lyric = lyric
             song.tlyric = tlyric
+          } else if (!song.nolyric && !song.lyric) {
+            const { nolyric, lyric, tlyric } = await this.getSongLyric(song.id)
+            song.nolyric = nolyric
+            song.lyric = lyric
+            song.tlyric = tlyric
+          } else if (song.loaderror || !song.src) {
+            // 如果加载出错或者未找到url，重新获取url
+            song.src = await this.getSongUrl(song.id)
           }
           this.sound = song.howl = this.getHowl(song)
         }
