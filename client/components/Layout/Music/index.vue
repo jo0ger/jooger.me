@@ -479,7 +479,7 @@
 
         this.sound = null
         this.ready = false
-        if (song.howl) {
+        if (!song.loaderror && song.howl) {
           this.sound = song.howl
         } else {
           if (!song.src && !song.lyric) {
