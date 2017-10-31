@@ -25,7 +25,7 @@
     <div class="menu" :class="{ active: showMenu }">
       <ul class="list">
         <li class="item" v-for="item in menus" :key="item.key">
-          <a :to="item.path" @click.prevent.stop="handleGo(item)">{{ item.title }}</a>
+          <a class="link" :to="item.path" @click.prevent.stop="handleGo(item)">{{ item.title }}</a>
         </li>
       </ul>
     </div>
@@ -315,9 +315,15 @@
           }
 
           & > a {
-            &:hover {
-              color $base-color
+            &::after {
+              display none
             }
+            &:hover {
+              font-weight normal
+            }
+            // &:hover {
+            //   color $base-color
+            // }
           }
 
           for n in (1..3) {

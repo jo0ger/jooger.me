@@ -1,6 +1,6 @@
 <template>
   <div class="moment-pane" v-if="momentList && momentList.length">
-    <span class="title">个人动态</span>
+    <span class="title">我的动态</span>
     <div class="wrapper">
       <div class="swiper-container" v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
@@ -38,7 +38,7 @@
           setWrapperSize: false,
           autoplayDisableOnInteraction: false,
           observeParents: true,
-          loop: true
+          loop: false
         }
       }
     },
@@ -68,7 +68,7 @@
       &::after {
         content ''
         position absolute
-        bottom -5px
+        bottom -10px
         left 50%
         width 24px
         height 2px

@@ -10,7 +10,7 @@
           <div class="hero-content">
             <h1 class="title">{{ error.statusCode }}</h1>
             <h3 class="subtitle">{{ error.message }}</h3>
-            <nuxt-link class="go-home" to="/">Go Home</nuxt-link>
+            <nuxt-link class="go-home link" to="/">Go Home</nuxt-link>
           </div>
         </div>
       </main>
@@ -74,7 +74,6 @@
 
         .hero-content {
           top 50vh
-          max-width 80%
           text-align center
 
           .subtitle {
@@ -83,15 +82,23 @@
 
           .go-home {
             display inline-block
+            height 50px
+            line-height @height
             margin-top 60px
-            padding 15px 30px
+            padding 0 30px
             color $white
-            border 1px solid alpha($white, .3)
+            border-radius 25px
+            -webkit-text-fill-color $white
+            -webkit-background-clip padding-box
+
+            &::after {
+              display none
+            }
 
             &:hover
             &:active {
-              background alpha($white, .3)
-              border-color @background
+              font-weight normal
+              transform scale(.93)
             }
           }
         }

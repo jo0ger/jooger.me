@@ -1,10 +1,13 @@
 .hero-content {
   position absolute
-  top 60%
-  left 50%
+  top 50%
   width 100%
-  transform translate(-50%, -50%)
+  max-width $content-max-width
   layout-wrapper()
+  hero()
+  transform translateZ(0)
+  animation scale-in .8s 0.5s both
+  animation-timing-function $ease-out
 
   .title
   .subtitle {
@@ -47,27 +50,25 @@
       font-size 1.8rem
     }
   }
-}
-
-.moment {
-  position absolute
-  top 80%
-  left 50%
-  width 100%
-  height 120px
-  transform translate(-50%, -50%)
-  layout-wrapper()
-  text-align center
-
-  .wrapper {
-    margin 0 auto
+  .moment {
+    position relative
     width 100%
-    height 100%
-    overflow hidden
-    max-width 600px
-    padding 10px 20px
+    height 120px
+    margin-top 30px
+    transform translateZ(0)
+    text-align center
+
+    .wrapper {
+      margin 0 auto
+      width 100%
+      height 100%
+      overflow hidden
+      max-width 600px
+      padding 10px 20px
+    }
   }
 }
+
 
 .search-page {
 
@@ -128,5 +129,16 @@
         font-size 1.3rem
       }
     }
+  }
+}
+
+@keyframes scale-in {
+  0% {
+    opacity 0
+    transform scale(1.1)
+  }
+  100% {
+    opacity 1
+    transform scale(1)
   }
 }
