@@ -1,5 +1,5 @@
 <template>
-  <div class="music-pane" ref="music" :class="{ show: showMusic || (!showMusic && mouseTriggerShowMusic) }">
+  <div class="music-pane" ref="music" :class="{ show: showMusic || (!showMusic && mouseTriggerShowMusic), loading }">
     <div class="wrapper" v-if="song">
       <div class="controls">
         <a class="control-item prev" @click.prevent.stop="handlePrevSong">
@@ -35,6 +35,7 @@
             <div class="position">{{ playedTime }}</div>
             <CommonSlider class="progress"
               :value="progress"
+              :disabled="loading"
               @change="handleProgressChange">
               <i></i>
             </CommonSlider>
@@ -85,7 +86,7 @@
                       <template v-if="playing">
                         <i v-for="n in 5" :key="n"></i>
                       </template>
-                      <div class="spinner" v-else></div>
+                      <div class="spinner" v-else-if="loading"></div>
                     </template>
                   </div>
                   <div class="duration">{{ formatTime(Math.floor(item.duration / 1000)) }}</div>
@@ -129,7 +130,7 @@
                     </li>
                   </ul>
                   <span class="no-lyric" v-else>
-                    {{ !ready ? '歌词准备中...' : '纯音乐，无歌词，请静心欣赏'}}
+                    {{ loading ? '歌词准备中...' : '纯音乐，无歌词，请静心欣赏'}}
                   </span>
                 </div>
               </div>
@@ -165,6 +166,7 @@
         index: 0,
         ready: false,
         playing: false,
+        loading: false,
         volume: 0.6,
         progress: 0,
         wave: false,
@@ -187,7 +189,7 @@
         return this.song ? this.song.album.cover + '?param=50y50' : ''
       },
       lyrics () {
-        if (!this.song || !this.song.lyric || !this.ready) {
+        if (!this.song || !this.song.lyric || this.loading) {
           return []
         }
         const list = []
@@ -395,6 +397,7 @@
             this.log(song.name + ' --- 加载成功')
             song.loaderror = false
             this.ready = true
+            this.loading = false
             this.wave = false
             this.progress = 0
             this._setPlaying(false)
@@ -402,7 +405,7 @@
           onloaderror: (id, err) => {
             this.log(song.name + ' --- 加载失败')
             this.$message(`【${song.name}】加载失败`)
-            this._error(song)
+            this._loadError(song)
           },
           onplay: () => {
             this.log(song.name + ' --- 播放')
@@ -411,6 +414,7 @@
             this.wave = true
             this.progress = 0
             this.ready = true
+            this.loading = false
             this._setPlaying(true)
             // QU: volume 构造参数不管用
             Howler.volume(this.volume)
@@ -422,6 +426,7 @@
           onplayerror: (id, err) => {
             this.log(song.name + ' --- 播放失败')
             this.$message(`【${song.name}】播放失败`)
+            this.loading = false
             this.handleNextSong()
           },
           onpause: () => {
@@ -481,6 +486,7 @@
 
         this.sound = null
         this.ready = false
+        this.loading = true
         if (!song.loaderror && song.howl) {
           this.sound = song.howl
         } else {
@@ -535,7 +541,7 @@
         this.volume = val
       },
       seek (per) {
-        if (this.ready && this.sound && this.sound.playing()) {
+        if (!this.loading && this.sound && this.sound.playing()) {
           this.sound.seek(this.sound.duration() * per / 100)
         }
       },
@@ -566,23 +572,21 @@
         this.playing = state
         this.$store.commit('app/SET_MUSIC_PLAY', state)
       },
-      _error (song) {
+      _loadError (song) {
         if (this.sound) {
           this.sound.stop()
           this.sound.unload()
         }
         song.loaderror = true
         this.sound = song.howl = null
+        song.howlId = ''
         this.wave = false
         this.playing = false
         this.ready = true
-        if (this.index === this.musicList.length - 1) {
-          if (this.playlist.some(item => !item.loaderror)) {
-            this.handleNextSong()
-          }
-        } else {
+        this.loading = false
+        setTimeout(() => {
           this.handleNextSong()
-        }
+        }, 1000)
       },
       lyricIsActive (time, index) {
         if (time <= this.playedTimeFromSeconds) {
@@ -596,14 +600,14 @@
       },
       handleNextSong () {
         if (this.randomMode) {
-          this.play(this.getRandomIndex())
+          this.skipTo(this.getRandomIndex())
         } else {
           this.next()
         }
       },
       handlePrevSong () {
         if (this.randomMode) {
-          this.play(this.getRandomIndex())
+          this.skipTo(this.getRandomIndex())
         } else {
           this.prev()
         }
@@ -612,7 +616,9 @@
         this.seek(per)
       },
       handleTogglePlayMusic () {
-        this[this.playing ? 'pause' : 'play']()
+        if (!this.loading) {
+          this[this.playing ? 'pause' : 'play']()
+        }
       },
       handleSkipSong (index) {
         this.skipTo(index)
@@ -980,7 +986,7 @@
                 border 1px solid alpha($black, .1)
                 border-left-color $base-color
                 border-radius 50%
-                animation loading .6s infinite linear
+                animation loading .8s infinite linear
               }
             }
 
@@ -1105,6 +1111,13 @@
 
       &:hover {
         opacity 1
+      }
+    }
+
+    &.loading {
+      .control-item.play {
+        opacity .8
+        cursor not-allowed
       }
     }
   }

@@ -439,6 +439,7 @@
         box-shadow 0 0 40px 5px alpha($black, .2)
 
         .iconfont {
+          font-weight bold
           font-size 18px
         }
 

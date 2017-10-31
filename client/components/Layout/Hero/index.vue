@@ -226,12 +226,12 @@
         width 15px
         height 2px
         background $white
-        transform translate(-78%, -50%) rotate(45deg)
+        transform translate(-80%, -50%) rotate(45deg)
         transform-origin center center
       }
 
       &::after {
-        transform translate(-22%, -50%) rotate(-45deg)
+        transform translate(-20%, -50%) rotate(-45deg)
       }
     }
   }

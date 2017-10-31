@@ -1,5 +1,5 @@
 <template>
-  <div class="slider">
+  <div class="slider" :class="{ disabled }">
     <div class="runway" :style="runwayStyle" ref="slider" @click="handleSliderClick">
       <div class="bar" :style="barStyle"></div>
       <div class="dot" :style="dotStyle"
@@ -25,6 +25,10 @@
       color: {
         type: Boolean,
         default: true
+      },
+      disabled: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
@@ -87,9 +91,8 @@
           this.sliderSize = this.$refs.slider.clientWidth
         }
       },
-      setPosition () {},
       handleSliderClick (e) {
-        if (this.dragging) {
+        if (this.dragging || this.disabled) {
           return
         }
         this.setSize()
@@ -97,12 +100,14 @@
         this.$emit('change', this.percent)
       },
       handleMouseDown (e) {
+        if (this.disabled) {
+          return
+        }
         this.onDragStart(e)
         window.addEventListener('mousemove', this.onDragging)
         window.addEventListener('mouseup', this.onDragEnd)
         window.addEventListener('contextmenu', this.onDragEnd)
       },
-      handleMouseLeave (e) {},
       onDragStart (e) {
         this.dragging = true
         this.dragStartX = e.clientX
@@ -163,6 +168,14 @@
           transform translateX(-50%) scale(1.1)
         }
       }
+    }
+
+    &.disabled {
+      opacity .8
+      .runway
+      .dot {
+        cursor not-allowed !important
+      } 
     }
   }
 </style>

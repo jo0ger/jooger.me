@@ -8,13 +8,11 @@
       <LayoutHeader></LayoutHeader>
       <main class="container" :style="containerStyle">
         <div class="wrapper">
-          <template v-if="showHeroPage">
-            <div class="hero-content">
-              <h1 class="title">{{ option.title }}</h1>
-              <h3 class="subtitle">{{ isAboutPage ? 'About Me' : option.subtitle }}</h3>
-            </div>
+          <div class="hero-content" :key="$route.name" v-if="showHeroPage">
+            <h1 class="title">{{ option.title }}</h1>
+            <h3 class="subtitle">{{ isAboutPage ? 'About Me' : option.subtitle }}</h3>
             <LayoutMoment class="moment"></LayoutMoment>
-          </template>
+          </div>
           <keep-alive>
             <nuxt></nuxt>
           </keep-alive>
