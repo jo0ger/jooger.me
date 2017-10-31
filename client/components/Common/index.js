@@ -5,7 +5,6 @@
  */
 
 export * from './Article'
-export { default as CommonComment } from './Comment'
 export { default as CommonImagePopup } from './ImagePopup'
 export { default as CommonFetchLoading } from './FetchLoading'
 export { default as CommonSlider } from './Slider'

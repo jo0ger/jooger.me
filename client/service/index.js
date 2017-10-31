@@ -4,16 +4,17 @@
  * @date 8 Sep 2017
  */
 
-import Axios from 'axios'
+import axios from 'axios'
 import config from '../config'
+import { CommonMessage } from '@/components/Common'
 
-const logMsg = (msg = '', type = 'success') => {
+const logMsg = (msg = '') => {
   if (msg) {
-    console.info(msg)
+    CommonMessage(msg)
   }
 }
 
-export const fetcher = Axios.create(config.service)
+export const fetcher = axios.create(config.service)
 
 const codeMap = {
   FAILED: -1,
@@ -28,7 +29,7 @@ fetcher.interceptors.request.use(config => config, err => Promise.reject(err))
 
 fetcher.interceptors.response.use(async response => {
   if (!response || !response.data) {
-    return logMsg('服务器异常', 'error')
+    return logMsg('服务器异常')
   }
   switch (response.data.code) {
     case codeMap.UNAUTHORIZED:
@@ -36,7 +37,7 @@ fetcher.interceptors.response.use(async response => {
     case codeMap.FORBIDDEN:
     case codeMap.SERVER_ERROR:
     case codeMap.PARAMS_ERROR:
-      logMsg(response.data.message, 'error')
+      logMsg(response.data.message)
       break
     case codeMap.SUCCESS:
       if (response.config.method.toLocaleUpperCase() !== 'GET') {
@@ -54,7 +55,7 @@ fetcher.interceptors.response.use(async response => {
 }, error => {
   const status = error.response ? error.response.status : error.code
   const message = error.message ? error.message : `请求错误${status ? `，code:${status}` : ''}`
-  logMsg(message, 'error')
+  logMsg(message)
   return error.response || {
     code: codeMap.FAILED,
     message
@@ -71,7 +72,8 @@ export default {
     like: id => wrap(`/articles/${id}/like`, 'post')
   },
   user: {
-    fetchMe: wrap('/users/me')
+    fetchMe: wrap('/users/me'),
+    fetchDetail: id => wrap(`/users/${id}`)
   },
   option: {
     fetchData: wrap('/options')
@@ -83,9 +85,16 @@ export default {
     fetchLyric: id => wrap(`/music/songs/${id}/lyric`)
   },
   auth: {
-    githubLogin: wrap('/auth/github/login')
+    githubLogin: wrap('/auth/github/login'),
+    getInfo: wrap('/auth/info')
   },
   moment: {
     fetchList: wrap('/moments')
+  },
+  comment: {
+    fetchList: wrap('/comments'),
+    fetchDetail: id => wrap(`/comments/${id}`),
+    create: wrap('/comments', 'post'),
+    like: id => wrap(`/comments/${id}/like`, 'post')
   }
 }

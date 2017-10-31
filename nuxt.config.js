@@ -70,7 +70,8 @@ module.exports = {
     { src: '~plugins/vue-image-popup.js', ssr: false },
     { src: '~plugins/vue-message.js', ssr: false },
     { src: '~plugins/clipboard.js', ssr: false },
-    { src: '~plugins/history.js', ssr: false }
+    { src: '~plugins/history.js', ssr: false },
+    { src: '~plugins/auth-token.js', ssr: false }
   ],
   modules: [
     '@nuxtjs/workbox',

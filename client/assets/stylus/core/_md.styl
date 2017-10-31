@@ -4,7 +4,7 @@
   text-size-adjust: 100%;
   color: $text-color;
   font-family: $font-family-markdown;
-  font-size: 15px;
+  font-size: .9375rem;
   font-weight 400
   line-height: 1.8;
   word-wrap: break-word;
@@ -42,12 +42,12 @@
   border-bottom: 3px solid #666;
 }
 .md-body h1 {
-  font-size: 32px;
+  font-size: 2rem;
   margin: 0 0 45px;
   letter-spacing: 1px;
 }
 .md-body h2 {
-  font-size: 24px;
+  font-size: 1.5rem;
   margin: 60px 0 30px;
   position: relative;
 }
@@ -64,7 +64,7 @@
 }
 .md-body .date {
   font-family: "Montserrat", "Helvetica Neue", "Hiragino Sans GB", "LiHei Pro", Arial, sans-serif;
-  font-size: 13px;
+  font-size: 1rem;
   color: #999;
   margin: 0 0 30px;
   letter-spacing: 1px;
@@ -118,7 +118,7 @@
 .md-body code {
   margin: 0 5px;
   padding 0 .3em
-  font-size: 16px;
+  font-size: 1rem;
   background-color: #f8f8f8;
   border-radius: 2px;
   text-shadow 0 1px $white
@@ -127,7 +127,7 @@
 }
 .md-body pre {
   margin 1.2em 0
-  font-size: 12px;
+  font-size: .75rem;
   overflow-x: auto;
   text-align: left;
   padding: 15px 25px;
@@ -138,7 +138,7 @@
   margin 0 0 0 10px
   padding 0
   font-weight 300
-  font-size: 12px;
+  font-size: .75rem;
   background-color: #f7f7f7;
 }
 .md-body .code pre {
@@ -239,5 +239,9 @@
     &.image-view {
       width 100%
     }
+  }
+
+  &.md-mini {
+    font-size .75rem
   }
 }

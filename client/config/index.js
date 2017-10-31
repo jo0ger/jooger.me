@@ -8,7 +8,7 @@
 
 const isProd = process.env.NODE_ENV === 'production'
 
-const baseApiUrl = isProd ? 'https://api.jooger.me' : 'http://127.0.0.1:3001'
+const baseApiUrl = isProd ? 'https://api.jooger.me' : 'http://localhost:3001'
 
 export default {
   service: {
@@ -25,5 +25,9 @@ export default {
   storage: {
     userKey: isProd ? 'JOOGER_USER' : 'JOOGER_USER_DEV',
     userLikeKey: isProd ? 'JOOGER_USER_LIKE_HISTORY' : 'JOOGER_USER_LIKE_HISTORY_DEV'
+  },
+  auth: {
+    authUserIDKey: 'jooger.me.userid',
+    authGithubTokenKey: 'jooger.me.github.token'
   }
 }

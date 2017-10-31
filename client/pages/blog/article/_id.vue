@@ -97,27 +97,33 @@
       </a>
     </div>
     <!-- <div class="comments-pane" v-if="articleDetail">
-      <CommonComment></CommonComment>
+      <CommonArticleComment
+        :list="commentList"
+        :pagination="commentPagination">
+      </CommonArticleComment>
     </div> -->
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import { CommonShareBox, CommonComment } from '~/components/Common'
+  import { mapGetters, mapActions } from 'vuex'
+  import { CommonShareBox, CommonArticleComment } from '~/components/Common'
   import { debounce } from '~/utils'
 
   export default {
     name: 'Blog-Article',
     components: {
       CommonShareBox,
-      CommonComment
+      CommonArticleComment
     },
     validate ({ params }) {
       return !!params.id
     },
-    async fetch ({ params, store }) {
-      await store.dispatch('article/fetchDetail', params.id)
+    fetch ({ params, store }) {
+      return Promise.all([
+        store.dispatch('article/fetchDetail', params.id),
+        store.dispatch('comment/fetchList', params.id)
+      ])
     },
     head () {
       const data = this.articleDetail || {}
@@ -139,7 +145,9 @@
         articleDetail: 'article/detail',
         articleDetailFetching: 'article/detailFetching',
         articleDetailLiking: 'article/detailLiking',
-        historyLikes: 'app/history'
+        historyLikes: 'app/history',
+        commentList: 'comment/list',
+        commentPagination: 'comment/pagination'
       }),
       isLiked () {
         return !!this.historyLikes.articles.find(item => item === this.articleDetail._id)
@@ -148,6 +156,7 @@
     beforeRouteLeave (to, from, next) {
       setTimeout(() => {
         this.$store.commit('article/CLEAR_DETAIL')
+        this.$store.commit('comment/CLEAR_LIST')
       }, 500)
       next()
     },
@@ -160,6 +169,9 @@
       this.init()
     },
     methods: {
+      ...mapActions({
+        fetchCommentList: 'comment/fetchList'
+      }),
       init () {
         if (this.$refs.article) {
           this.$refs.article.addEventListener('click', e => {
@@ -360,7 +372,7 @@
           overflow hidden
           border-radius 2px
 
-          @media (max-width: 768px) {
+          +respond-below($screen-xs-max) {
             flex-direction column
 
             .nav-item {
@@ -390,13 +402,13 @@
               }
 
               .title {
-                font-size 16px
+                font-size 1rem
                 opacity .8
               }
 
               .meta {
                 opacity .6
-                font-size 12px
+                font-size .75rem
               }
             }
 
@@ -419,6 +431,7 @@
       position fixed
       bottom 30px
       left 50%
+      z-index 9999
       transform translateX(-50%)
 
       +xxs() {
@@ -440,7 +453,7 @@
 
         .iconfont {
           font-weight bold
-          font-size 18px
+          font-size 1.125rem
         }
 
         &:hover

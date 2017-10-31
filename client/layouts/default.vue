@@ -72,6 +72,22 @@
           marginTop: this.showHeroPage ? '100vh' : (this.mobileLayout ? '100px' : '150px')
         }
       }
+    },
+    mounted () {
+      this.watchTab()
+    },
+    methods: {
+      watchTab() {
+        let currentTabTitle
+        document.addEventListener('visibilitychange', e => {
+          if (e.target.hidden || e.target.webkitHidden) {
+            currentTabTitle = document.title
+            document.title = '😱糟糕，浏览器崩溃了'
+          } else {
+            document.title = currentTabTitle
+          }
+        }, false)
+      }
     }
   }
 </script>

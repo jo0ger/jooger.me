@@ -59,7 +59,7 @@
     bottom 50px
     z-index 100
 
-    @media (max-width: 1366px) {
+    +respond-below($screen-sm-max) {
       display none
     }
 
