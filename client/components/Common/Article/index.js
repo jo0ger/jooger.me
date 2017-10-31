@@ -6,3 +6,4 @@
 
 export { default as CommonArticleItem } from './Item'
 export { default as CommonArticleList } from './List'
+export { default as CommonArticleComment } from './Comment'

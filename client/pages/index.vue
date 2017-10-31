@@ -22,26 +22,6 @@
   @import '~assets/stylus/_mixin'
 
   .home-page {
-    color $white
-    
-    .banner-content {
-      .title
-      .subtitle {
-        color $white
-        text-transform uppercase
-        font-weight bold
-        letter-spacing 5px
-        text-align center
-      }
-
-      .title {
-        font-size 6vmin
-      }
-
-      .subtitle {
-        font-size 3vmin
-      }
-    }
   }
 
 </style>

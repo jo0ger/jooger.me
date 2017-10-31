@@ -166,7 +166,7 @@
         index: 0,
         ready: false,
         playing: false,
-        loading: false,
+        loading: true,
         volume: 0.6,
         progress: 0,
         wave: false,
@@ -771,13 +771,13 @@
         }
 
         .iconfont {
-          font-size 20px
+          font-size 1.25rem
         }
 
         &.play
         &.pause {
           .iconfont {
-            font-size 32px
+            font-size 2rem
           }
         }
       }
@@ -798,7 +798,7 @@
       .song-list {
         .count {
           margin-left 5px
-          font-size 14px
+          font-size .875rem
         }
       }
 
@@ -810,7 +810,7 @@
           margin-left 10px
         }
         .iconfont {
-          font-size 20px
+          font-size 1.25rem
         }
       }
     }
@@ -848,7 +848,7 @@
         .title {
           flex 1 0
           width 100%
-          font-size 14px
+          font-size .875rem
           textOverflow()
         }
 
@@ -857,7 +857,7 @@
           flexLayout(, space-between)
           width 100%
           height 20px
-          font-size 12px
+          font-size .75rem
 
           .progress {
             flex 1 0
@@ -884,7 +884,7 @@
       bottom 80px
       height 300px
       margin 0 auto
-      font-size 12px
+      font-size .75rem
       border-top-left-radius 10px
       border-top-right-radius 10px
       overflow hidden

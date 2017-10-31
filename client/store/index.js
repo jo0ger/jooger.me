@@ -7,7 +7,7 @@
 import { hasMobileUA } from '~/utils'
 
 export const actions = {
-  nuxtServerInit ({ commit, state, dispatch }, { params, route, isServer, req }) {
+  nuxtServerInit ({ commit, state, dispatch }, { params, route, isServer, isClient, req }) {
     const ua = isServer ? req.headers['user-agent'] : window.navigator.userAgent
     const isMobile = hasMobileUA(ua)
     if (isMobile) {

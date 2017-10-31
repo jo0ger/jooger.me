@@ -55,7 +55,7 @@
 
   .footer {
     width 100%
-    margin-top 100px
+    margin-top 7rem
     padding 40px 0 120px
     color $text-color-secondary
 
@@ -65,7 +65,7 @@
       max-width $content-max-width
       margin 0 auto
       text-align center
-      font-size 12px
+      font-size .75rem
       layout-wrapper()
 
       .contact-list {

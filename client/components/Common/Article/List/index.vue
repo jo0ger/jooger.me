@@ -73,33 +73,32 @@
       flexLayout(,flex-start,,wrap)
       margin 0 -20px
 
-      @media (max-width: 480px) {
+      +xxs() {
         margin 0
       }
-      
+
       .flex-item {
         flex 0 0 (100% / 3)
         max-width (100% / 3)
         padding 20px
 
-        @media (max-width: 768px) {
+        +respond-below($screen-sm-max) {
           flex-basis 50% !important
           max-width 50%
         }
 
-        @media (max-width: 480px) {
+        +xxs() {
           flex-basis 100% !important
           max-width 100%
           padding 15px 0
         }
-
       }
     }
     .navigation {
       margin-top 60px
       text-align center
 
-      @media (max-width: 479px) {
+      +xxs() {
         margin-top 30px
       }
 

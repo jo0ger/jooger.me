@@ -58,7 +58,7 @@
     .title {
       position relative
       display inline-block
-      font-size 16px
+      font-size 1rem
       font-weight bold
 
       +respond-below($screen-xs-max) {
@@ -92,7 +92,7 @@
 
       .info {
         margin-top 10px
-        font-size 12px
+        font-size .75rem
         opacity .6
       }
     }

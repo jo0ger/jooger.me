@@ -27,15 +27,6 @@ lineLimit(line = 2) {
   -webkit-box-orient vertical
 }
 
-bordered(position = bottom, thick = 1px, style = solid, color = $grey) {
-  $avaliable = bottom top left right
-  if position in $avaliable {
-    border-{position} thick style color
-  } else {
-    border thick style color
-  }
-}
-
 random($min = 1, $max = 100) {
   return math(math(0, 'random') * ($max - $min) + $min, 'floor')
 }

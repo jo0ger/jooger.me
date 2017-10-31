@@ -296,21 +296,29 @@
         .item {
           margin 0 auto 20px
           color $text-color
-          font-size 4.0625rem
+          font-size 4rem
           opacity 0
           text-align center
           transform translate3d(0, 90px, 0)
           transition all .5s $ease-out
 
-          @media (max-width: 1366px) and (min-width: 769px) {
-            font-size 3.5rem
+          +lg() {
+            font-size 3.56rem
           }
 
-          @media (max-width: 768px) and (min-width: 480px) {
-            font-size 2.25rem
+          +md() {
+            font-size 3.12rem
           }
 
-          @media (max-width: 479px) {
+          +sm() {
+            font-size 2.68rem
+          }
+
+          +xs() {
+            font-size 2.24rem
+          }
+
+          +xxs() {
             font-size 1.8rem
           }
 
@@ -321,9 +329,6 @@
             &:hover {
               font-weight normal
             }
-            // &:hover {
-            //   color $base-color
-            // }
           }
 
           for n in (1..3) {
@@ -366,7 +371,7 @@
           width 100%
           height 60px
           margin-top 60px
-          padding 15px 60px 15px 0
+          padding 15px 30px 15px 0
           font-size 1rem
           color $text-color-secondary
           background transparent
@@ -384,16 +389,28 @@
           cursor pointer
           transform translateY(-50%)
 
-          @media (max-width: 1366px) and (min-width: 769px) {
-            right 65px
+          +xxs() {
+            right 30px
           }
 
-          @media (max-width: 768px) and (min-width: 480px) {
+          +xs() {
             right 40px
           }
 
-          @media (max-width: 479px) {
-            right 30px
+          +sm() {
+            right 50px
+          }
+
+          +md() {
+            right 65px
+          }
+
+          +lg() {
+            right 80px
+          }
+
+          +xl() {
+            right 100px
           }
 
           &::before

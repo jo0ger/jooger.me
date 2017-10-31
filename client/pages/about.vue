@@ -132,15 +132,15 @@
       margin 0 auto 80px
       text-align center
 
-      @media (max-width: 1366px) and (min-width: 769px) {
+      +sm() {
         max-width 70%
       }
 
-      @media (max-width: 768px) and (min-width: 480px) {
+      +xs() {
         max-width 80%
       }
 
-      @media (max-width: 479px) {
+      +xxs() {
         max-width 90%
       }
 
@@ -214,7 +214,7 @@
               transform scale(.9)
             }
 
-            @media (max-width: 1366px) and (min-width: 769px) {
+            +sm() {
               width 44px
               height @width
               .icon {
@@ -222,7 +222,7 @@
               }
             }
 
-            @media (max-width: 768px) and (min-width: 480px) {
+            +xs() {
               width 40px
               height @width
               .icon {
@@ -230,7 +230,7 @@
               }
             }
 
-            @media (max-width: 479px) {
+            +xxs() {
               width 36px
               height @width
               margin 0 5px
@@ -245,15 +245,15 @@
       .experience-list {
         padding-left 25%
 
-        @media (max-width: 1366px) and (min-width: 769px) {
+        +sm() {
           padding-left 20%
         }
 
-        @media (max-width: 768px) and (min-width: 480px) {
+        +xs() {
           padding-left 15%
         }
 
-        @media (max-width: 479px) {
+        +xxs() {
           padding-left 0
         }
 
@@ -399,7 +399,7 @@
             line-height 1
           }
 
-          @media (max-width: 1366px) and (min-width: 769px) {
+          +sm() {
 
             .info {
               width 80px
@@ -423,7 +423,7 @@
             }
           }
 
-          @media (max-width: 768px) and (min-width: 480px) {
+          +xs() {
 
             .info {
               width 65px
@@ -447,7 +447,7 @@
             }
           }
 
-          @media (max-width: 479px) {
+          +xxs() {
 
             .info {
               width 50px
@@ -506,7 +506,7 @@
               transform scale(.9)
             }
 
-            @media (max-width: 1366px) and (min-width: 769px) {
+            +sm() {
               width 44px
               height @width
               .icon {
@@ -514,7 +514,7 @@
               }
             }
 
-            @media (max-width: 768px) and (min-width: 480px) {
+            +xs() {
               width 40px
               height @width
               .icon {
@@ -522,7 +522,7 @@
               }
             }
 
-            @media (max-width: 479px) {
+            +xxs() {
               width 36px
               height @width
               margin 0 5px
@@ -567,7 +567,7 @@
             }
           }
         }
-        @media (max-width: 479px) {
+        +xxs() {
           padding 0 30px
           .friend-item {
             width 100%

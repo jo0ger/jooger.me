@@ -147,7 +147,7 @@
       color $text-color-secondary
 
       .iconfont {
-        font-size 20px
+        font-size 1.25rem
       }
 
       &:hover {

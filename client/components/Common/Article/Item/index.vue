@@ -85,7 +85,7 @@
           background $grey3
 
           .iconfont {
-            font-size 56px
+            font-size 1.5rem
             color alpha($black, .05)
           }
         }
@@ -94,7 +94,7 @@
       .caption {
         padding 30px 10px
         text-align center
-        font-size 14px
+        font-size .875rem
 
         .meta {
           opacity .5
