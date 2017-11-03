@@ -96,17 +96,14 @@
         <i class="iconfont icon-close"></i>
       </a>
     </div>
-    <!-- <div class="comments-pane" v-if="articleDetail">
-      <CommonArticleComment
-        :list="commentList"
-        :pagination="commentPagination">
-      </CommonArticleComment>
-    </div> -->
+    <div class="comments-pane" v-if="articleDetail">
+      <CommonArticleComment></CommonArticleComment>
+    </div>
   </div>
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
+  import { mapGetters } from 'vuex'
   import { CommonShareBox, CommonArticleComment } from '~/components/Common'
   import { debounce } from '~/utils'
 
@@ -122,7 +119,11 @@
     fetch ({ params, store }) {
       return Promise.all([
         store.dispatch('article/fetchDetail', params.id),
-        store.dispatch('comment/fetchList', params.id)
+        store.dispatch('comment/fetchList', {
+          article: params.id,
+          sort_by: 'ups',
+          order: -1
+        })
       ])
     },
     head () {
@@ -145,9 +146,7 @@
         articleDetail: 'article/detail',
         articleDetailFetching: 'article/detailFetching',
         articleDetailLiking: 'article/detailLiking',
-        historyLikes: 'app/history',
-        commentList: 'comment/list',
-        commentPagination: 'comment/pagination'
+        historyLikes: 'app/history'
       }),
       isLiked () {
         return !!this.historyLikes.articles.find(item => item === this.articleDetail._id)
@@ -160,18 +159,10 @@
       }, 500)
       next()
     },
-    beforeDestroy () {
-      if (this._resizeHandler) {
-        window.removeEventListener('resize', this._resizeHandler)
-      }
-    },
     mounted () {
       this.init()
     },
     methods: {
-      ...mapActions({
-        fetchCommentList: 'comment/fetchList'
-      }),
       init () {
         if (this.$refs.article) {
           this.$refs.article.addEventListener('click', e => {

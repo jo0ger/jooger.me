@@ -40,9 +40,9 @@ fetcher.interceptors.response.use(async response => {
       logMsg(response.data.message)
       break
     case codeMap.SUCCESS:
-      if (response.config.method.toLocaleUpperCase() !== 'GET') {
-        logMsg(response.data.message)
-      }
+      // if (response.config.method.toLocaleUpperCase() !== 'GET') {
+      //   logMsg(response.data.message)
+      // }
       break
     default:
       break
@@ -52,14 +52,11 @@ fetcher.interceptors.response.use(async response => {
     await new Promise((resolve) => setTimeout(() => resolve(), 500))
   }
   return response.data
-}, error => {
-  const status = error.response ? error.response.status : error.code
-  const message = error.message ? error.message : `请求错误${status ? `，code:${status}` : ''}`
+}, err => {
+  const status = err.response ? err.response.status : err.code
+  const message = err.message ? err.message : `请求错误${status ? `，code:${status}` : ''}`
   logMsg(message)
-  return error.response || {
-    code: codeMap.FAILED,
-    message
-  }
+  return Promise.reject(err)
 })
 
 const wrap = (url, type = 'get') => (config = {}) => fetcher.request({ ...config, method: type, url })
@@ -86,7 +83,9 @@ export default {
   },
   auth: {
     githubLogin: wrap('/auth/github/login'),
-    getInfo: wrap('/auth/info')
+    getInfo: wrap('/auth/info'),
+    getGithubToken: wrap('/auth/github/token'),
+    getGithubUser: wrap('/auth/github/user')
   },
   moment: {
     fetchList: wrap('/moments')

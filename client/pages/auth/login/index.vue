@@ -1,0 +1,55 @@
+<template>
+
+</template>
+
+<script>
+  import config from '~/config'
+  import { queryStringify } from '~/utils'
+  
+  export default {
+    name: 'Login',
+    layout: 'auth',
+    validate ({ query }) {
+      return !!query.state
+    },
+    data () {
+      return {}
+    },
+    computed: {
+      githubLoginLink: {
+        get () {
+          const githubOauthUrl = 'https://github.com/login/oauth/authorize'
+          const clientId = config.sns.github.clientId
+          const query = {
+            client_id: clientId,
+            redirect_uri: `${location.origin}/auth/login/callback?state=github`,
+            scope: 'public_repo'
+          }
+          return `${githubOauthUrl}?${queryStringify(query)}`
+        }
+      }
+    },
+    mounted () {
+      this.handle()
+    },
+    methods: {
+      handle () {
+        const state = this.$route.query.state
+        switch (state) {
+          case 'github':
+            this.githubLogin()
+            break
+          default:
+            break
+        }
+      },
+      githubLogin () {
+        window.location.href = this.githubLoginLink
+      }
+    }
+  }
+</script>
+
+<style lang="stylus" scoped>
+
+</style>
