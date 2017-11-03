@@ -12,7 +12,7 @@
 
 ``` bash
 # install dependencies
-$ npm install # Or yarn install*[see note below]
+$ npm install # Or yarn install
 
 # serve with hot reload at localhost:3000
 $ npm run dev
@@ -24,11 +24,6 @@ $ npm start
 # lint code
 $ npm run lint
 ```
-
-*Note: Due to a bug in yarn's engine version detection code if you are
-using a prerelease version of Node (i.e. v7.6.0-rc.1) you will need to either:
-  1. Use `npm install`
-  2. Run `yarn` with a standard release of Node and then switch back
 
 ## Related projects
 

@@ -6,6 +6,7 @@
 
 'use strict'
 
+const path = require('path')
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
@@ -74,19 +75,33 @@ module.exports = {
     { src: '~plugins/auth-token.js', ssr: false }
   ],
   modules: [
-    '@nuxtjs/workbox',
-    '@nuxtjs/manifest'
+    ['@nuxtjs/pwa', {
+      manifest: {
+        name: 'Jooger.me',
+        short_name: 'Jooger.me',
+        display: 'standalone',
+        start_url: 'https://jooger.me',
+        description: '修人、修身，修性、修心',
+        theme_color: '#ed0a75',
+        background_color: '#fff',
+        lang: 'zh-CN'
+      },
+      meta: {
+        charset: 'utf-8',
+        title: 'Jooger.me - 修人、修身，修性、修心',
+        description: '修人、修身，修性、修心',
+        'theme-color': '#ed0a75',
+        lang: 'zh-CN',
+        viewport: 'width=device-width, initial-scale=1.0, user-scalable=no'
+      },
+      workbox: {
+        globIgnores: ['**/*.{mp3,wav,ogg}']
+      },
+      icon: {
+        iconSrc: path.resolve(__dirname, 'static/image', 'logo-pwa.png')
+      }
+    }]
   ],
-  manifest: {
-    name: 'Jooger.me',
-    short_name: 'Jooger.me',
-    display: 'standalone',
-    start_url: 'https://jooger.me',
-    description: '修人、修身，修性、修心',
-    theme_color: '#ed0a75',
-    background_color: '#fff',
-    lang: 'zh-CN'
-  },
   router: {
     linkActiveClass: 'active'
   },
