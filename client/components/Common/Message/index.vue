@@ -37,7 +37,7 @@
       startTimer () {
         if (this.duration > 0) {
           this._timer = setTimeout(() => {
-            if (!closed) {
+            if (!this.closed) {
               this.close()
             }
           }, this.duration)

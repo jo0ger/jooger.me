@@ -6,17 +6,13 @@
 
 'use strict'
 
-import Cookie from 'js-cookie'
 import config from '~/config'
-// import { setLocalStorageItem } from '~/utils'
+import { getLocalStorageItem } from '~/utils'
 
 export default ({ store, isClient }) => {
   if (isClient) {
-    const token = Cookie.get(config.auth.authGithubTokenKey)
-    // if (token) {
-      // setLocalStorageItem(config.storage.userKey, token)
-      // store.commit('auth/SET_TOKEN', token)
-    store.dispatch('auth/fetchInfo', token)
-    // }
+    const token = getLocalStorageItem(config.auth.githubTokenKey) || ''
+    store.commit('auth/SET_TOKEN', token)
+    store.dispatch('auth/fetchGithubInfo', token)
   }
 }

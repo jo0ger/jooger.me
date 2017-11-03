@@ -1,83 +1,80 @@
 <template>
   <section class="comments">
-    <div class="title">评论（共 {{ pagination.total }} 条）</div>
+    <div class="title">评论</div>
     <section class="box">
-      <InputBox></InputBox>
+      <InputBox
+        :loading="commentCreating"
+        @submit="handleCreateComment">
+      </InputBox>
     </section>
     <section class="list">
-      <ul class="comment-list">
-        <li class="comment-item" v-for="comment in list"
-          :key="comment._id">
-          <img :src="comment.author.avatar" alt="" class="avatar">
-          <div class="content-box">
-            <div class="header">
-              <div class="user-info">
-                <a :href="comment.author.github.blog || 'javascript:;'">{{ comment.author.name }}</a>
-              </div>
-              <div class="location"></div>
-            </div>
-            <div class="content md-body md-mini" v-html="comment.renderedContent"></div>
-            <div class="footer">
-              <a class="like-btn">
-                <i class="iconfont icon-up"></i>
-                <span>{{ comment.ups }}</span>
-              </a>
-              <time class="time" :datatitme="comment.createdAt">{{ comment.createdAt | getDateFromNow }}</time>
-              <a class="sub-comment-btn">
-                <i class="iconfont icon-comment"></i>
-                <span>{{ comment.subCount }}条评论</span>
-              </a>
-            </div>
-          </div>
-        </li>
-      </ul>
+      <CommentList
+        :sort="sort"
+        :list="commentList"
+        :total="commentPagination.total"
+        :pagination="commentPagination"
+        :loading="commentListFetching"
+        @sort="handleSort"></CommentList>
     </section>
   </section>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   import config from '~/config'
   import InputBox from './InputBox'
-  import Item from './Item'
+  import CommentList from './List'
 
   export default {
     name: 'ArticleComment',
     components: {
       InputBox,
-      Item
-    },
-    props: {
-      type: {
-        type: Number,
-        default: 0
-      },
-      list: {
-        type: Array,
-        default () {
-          return []
-        }
-      },
-      pagination: {
-        type: Object,
-        default () {
-          return {}
-        }
-      }
+      CommentList
     },
     computed: {
       ...mapGetters({
+        authLoading: 'auth/loading',
         isLogin: 'auth/isLogin',
-        authInfo: 'autho/info'
+        authInfo: 'auth/info',
+        historyLikes: 'app/history',
+        commentCreating: 'comment/creating',
+        commentListFetching: 'comment/listFetching',
+        commentList: 'comment/list',
+        commentPagination: 'comment/pagination',
+        articleDetail: 'article/detail',
       })
     },
     data () {
-      return {}
+      return {
+        sort: 1 // 0 最新 | 1 最热
+      }
     },
     methods: {
-      handleLogin () {
-        let url = `${config.service.baseURL}/auth/github/login?redirectUrl=${window.encodeURIComponent(window.location.href)}`
-        window.location.href = url
+      ...mapActions({
+        fetchCommentList: 'comment/fetchList',
+        createComment: 'comment/create'
+      }),
+      async handleCreateComment ({ content = '', done }) {
+        const success = await this.createComment({
+          content,
+          author: this.authInfo._id,
+          type: 0,
+          article: this.articleDetail._id
+        })
+        if (success) {
+          done && done()
+          this.handleSort(0)
+        }
+      },
+      handleSort (sort) {
+        this.sort = sort
+        const s = {}
+        s.order = -1
+        s.sort_by = this.sort ? 'ups' : 'createdAt'
+        this.fetchCommentList({
+          article: this.articleDetail._id,
+          ...s
+        })
       }
     }
   }
@@ -106,85 +103,6 @@
       //   background $grey
       //   transform translate(-50%, -50%)
       // }
-    }
-
-    .list {
-      .comment-item {
-        flexLayout(, flex-start, flex-start)
-        position relative
-        margin-bottom 1rem
-        padding-bottom 1rem
-
-        &::after {
-          content ''
-          position absolute
-          right 0
-          bottom 0
-          left 3.125rem
-          border-bottom 1px solid $grey
-        }
-
-        .avatar {
-          flex 0 0
-          flex-basis 2.5rem
-          width @flex-basis
-          height @width
-          border-radius 2px
-        }
-
-        .content-box {
-          flex 1 0
-          margin-left .625rem
-
-          .user-info {
-            & > a {
-              color #333
-              font-weight 600
-              font-size 1rem
-            }
-          }
-
-          .content {
-            margin .5rem 0 .8rem
-          }
-
-          .footer {
-            color #909090
-            font-size .875rem
-
-            .like-btn {
-              margin-right 1rem
-              padding 2px 5px
-              background $grey
-
-              .iconfont {
-                margin-right 5px
-                font-size .75rem
-              }
-
-              &:hover {
-                color $text-color
-              }
-
-              &.is-liked {
-                color $base-color
-                background alpha($base-color, .05)
-              }
-            }
-
-            .time {
-              margin-right 1rem
-            }
-
-            .sub-comment-btn {
-              .iconfont {
-                margin-right 5px
-                font-size .75rem
-              }
-            }
-          }
-        }
-      }
     }
   }
 </style>

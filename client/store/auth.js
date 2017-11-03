@@ -8,7 +8,7 @@
 
 import config from '~/config'
 import Service from '~/service'
-import { setLocalStorageItem } from '~/utils'
+import { setLocalStorageItem, removeLocalStorageItem } from '~/utils'
 
 const LOGIN_REQUEST = 'LOGIN_REQUEST'
 const LOGIN_FAILURE = 'LOGIN_FAILURE'
@@ -23,7 +23,7 @@ const FETCH_INFO_SUCCESS = 'FETCH_INFO_SUCCESS'
 const SET_TOKEN = 'SET_TOKEN'
 
 export const state = () => ({
-  loading: false,
+  loading: true,
   info: null,
   token: null
 })
@@ -44,7 +44,6 @@ export const mutations = {
   },
   [CLEAR_INFO]: state => {
     state.info = null
-    state.token = ''
     state.loading = false
   },
   [LOGOUT_REQUEST]: state => (state.loading = true),
@@ -53,13 +52,12 @@ export const mutations = {
   [FETCH_INFO_REQUEST]: state => (state.loading = true),
   [FETCH_INFO_FAILURE]: state => {
     state.loading = false
-    state.token = ''
     state.info = null
+    state.token = null
   },
-  [FETCH_INFO_SUCCESS]: (state, { token, info }) => {
+  [FETCH_INFO_SUCCESS]: (state, info) => {
     state.loading = false
     state.info = info
-    state.token = token
   },
   [SET_TOKEN]: (state, token) => {
     state.token = token
@@ -67,28 +65,49 @@ export const mutations = {
 }
 
 export const actions = {
-  async login ({ commit, state }) {
+  async githubLogin ({ commit, state, dispatch }, code) {
     if (state.loading) {
       return
     }
-    let url = `${config.service.baseURL}/auth/github/login?redirectUrl=${window.encodeURIComponent(window.location.href)}`
-    window.location.href = url
+    const { success, data } = await Service.auth.getGithubToken({
+      params: { code }
+    }).catch(err => {
+      commit(LOGIN_FAILURE, err)
+      return {}
+    })
+    if (success) {
+      const token = data.access_token
+      commit(LOGIN_SUCCESS, token)
+      setLocalStorageItem(config.auth.githubTokenKey, token)
+    } else {
+      commit(LOGIN_FAILURE)
+    }
   },
-  async fetchInfo ({commit, state}, token) {
-    if (state.loading || !token) {
+  async fetchGithubInfo ({commit, state}, token) {
+    if (!token) {
+      commit(FETCH_INFO_FAILURE)
       return
     }
-    const { success, data } = await Service.auth.getInfo({
-      params: { token }
+    const { success, data } = await Service.auth.getGithubUser({
+      params: { access_token: token }
     }).catch(err => {
       commit(FETCH_INFO_FAILURE, err)
       return {}
     })
     if (success) {
       commit(FETCH_INFO_SUCCESS, data)
+      setLocalStorageItem(config.auth.githubTokenKey, token)
     } else {
       commit(FETCH_INFO_FAILURE)
     }
     return success
+  },
+  githubLogout ({ commit, state }) {
+    if (state.loading) {
+      return
+    }
+    commit(CLEAR_INFO)
+    commit(SET_TOKEN, null)
+    removeLocalStorageItem(config.auth.githubTokenKey)
   }
 }

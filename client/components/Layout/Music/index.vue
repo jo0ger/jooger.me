@@ -982,11 +982,6 @@
               .spinner {
                 width 16px
                 height @width
-                margin 0 auto
-                border 1px solid alpha($black, .1)
-                border-left-color $base-color
-                border-radius 50%
-                animation loading .8s infinite linear
               }
             }
 
@@ -1119,17 +1114,6 @@
         opacity .8
         cursor not-allowed
       }
-    }
-  }
-
-
-  @keyframes loading {
-    0% {
-      transform rotate(0deg)
-    }
-
-    100% {
-      transform rotate(1turn)
     }
   }
 </style>
