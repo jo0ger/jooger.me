@@ -8,7 +8,7 @@
 'use strict'
 
 export default ({ isClient }) => {
-  if (process.browser && process.env.NODE_ENV !== 'production' && isClient) {
+  if (process.browser && process.env.NODE_ENV === 'production' && isClient) {
     console.clear()
     // console.log('Font Name: ANSI Shadow')
     console.info(
