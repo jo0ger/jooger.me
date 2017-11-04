@@ -31,7 +31,6 @@
         swiperOption: {
           autoplay: 6000,
           direction: 'vertical',
-          loop: true,
           initialSlide: 0,
           speed: 1500,
           height: 120,

@@ -1,5 +1,10 @@
 <template>
-
+  <section class="login-page">
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>登录中...</p>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -51,5 +56,20 @@
 </script>
 
 <style lang="stylus" scoped>
+  .loading {
+    position fixed
+    top 50%
+    left 50%
+    transform translate3d(-50%, -50%, 0)
 
+    .spinner {
+      width 48px
+      height @width
+    }
+
+    & > p {
+      margin-top 10px
+      text-align center
+    }
+  }
 </style>

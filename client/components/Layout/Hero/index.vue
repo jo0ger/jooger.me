@@ -52,7 +52,7 @@
         swiperOption: {
           autoplay: 5000,
           initialSlide: 0,
-          speed: 800,
+          speed: 1500,
           setWrapperSize: true,
           grabCursor: true,
           pagination: '.swiper-pagination',
@@ -60,7 +60,11 @@
           autoplayDisableOnInteraction: false,
           observeParents: true,
           preloadImages: false,
-          lazyLoading: true
+          lazyLoading: true,
+          effect: 'fade',
+          fade: {
+            crossFade: true
+          }
         },
         showContent: false,
         contentDelta: 80

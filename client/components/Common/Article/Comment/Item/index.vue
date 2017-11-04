@@ -1,11 +1,13 @@
 <template>
   <li class="comment-item" :class="{ 'child-item': isChild }">
-    <img :src="comment.author.avatar" alt="" class="avatar">
+    <a :href="comment.author.github.blog || 'javascript:;'" target="_blank">
+      <img :src="comment.author.avatar" alt="" class="avatar">
+    </a>
     <div class="content-box">
       <div class="header">
         <div class="info">
           <div class="user-info">
-            <a :href="comment.author.github.blog || 'javascript:;'">{{ comment.author.name }}</a>
+            <a :href="comment.author.github.blog || 'javascript:;'" target="_blank">{{ comment.author.name }}</a>
             <span class="text-reply" v-if="forward">
               <span class="text">回复</span>
               <a :href="forward.author.github.blog || 'javascript:;'">{{ forward.author.name }}</a>
@@ -14,11 +16,6 @@
           <div class="meta">
             <span class="os" v-html="OSParse(comment.meta.ua)" v-if="comment.meta.ua"></span>
             <span class="ua" v-html="UAParse(comment.meta.ua)" v-if="comment.meta.ua"></span>
-            <span class="location" v-if="comment.meta.location">
-              <span>{{ comment.meta.location.country }}</span>
-              <span v-if="comment.meta.location.country && comment.meta.location.city">&nbsp;-&nbsp;</span>
-              <span>{{ comment.meta.location.city }}</span>
-            </span>
           </div>
         </div>
       </div>
@@ -38,29 +35,37 @@
           <span v-if="!showSub">{{ comment.subCount }} 条{{ isChild ? '回复' : '评论' }}</span>
           <span v-else>收起评论</span>
         </a>
+        <span class="location" v-if="comment.meta.location && comment.meta.location.country && comment.meta.location.city">
+          <span>{{ comment.meta.location.country }}</span>
+          <span v-if="comment.meta.location.city">&nbsp;-&nbsp;</span>
+          <span>{{ comment.meta.location.city }}</span>
+        </span>
       </div>
-      <div class="sub-comment-box" v-if="showSub">
-        <div class="top-bar"></div>
-        <div class="list">
-          <ArticleCommentList
-            :loading="fetching"
-            :list="children"
-            :sort="subSort"
-            :total="comment.subCount"
-            :pagination="pagination"
-            is-child
-            @sort="handleSort">
-          </ArticleCommentList>
+      <transition name="fade">
+        <div class="sub-comment-box" v-if="showSub">
+          <div class="top-bar"></div>
+          <div class="list">
+            <ArticleCommentList
+              :loading="fetching"
+              :list="children"
+              :sort="subSort"
+              :total="pagination.total"
+              :pagination="pagination"
+              is-child
+              @sort="handleSort"
+              @page-change="handlePageChange">
+            </ArticleCommentList>
+          </div>
+          <div class="action">
+            <InputBox
+              ref="reply"
+              :placeholder="inputPlaceholder"
+              :loading="replying"
+              is-child
+              @submit="handleReply"></InputBox>
+          </div>
         </div>
-        <div class="action">
-          <InputBox
-            ref="reply"
-            :placeholder="inputPlaceholder"
-            :loading="replying"
-            is-child
-            @submit="handleReply"></InputBox>
-        </div>
-      </div>
+      </transition>
     </div>
   </li>
 </template>
@@ -68,7 +73,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import Service from '~/service'
-  import { UAParse, OSParse, scrollTo, easing } from '~/utils'
+  import { UAParse, OSParse } from '~/utils'
   import InputBox from '../InputBox'
 
   export default {
@@ -109,7 +114,7 @@
         return this.children.find(child => child._id === this.replyTarget)
       },
       inputPlaceholder () {
-        return this.replyTargetComment && `回复 ${this.replyTargetComment.author.name}：` || '想回复点儿什么'
+        return this.replyTargetComment ? `回复 ${this.replyTargetComment.author.name}：` : '想回复点儿什么'
       },
       forward () {
         if (!this.comment.forward) {
@@ -132,7 +137,7 @@
           params: Object.assign({}, {
             article: this.comment.article,
             per_page: this.pagination.per_page || 5,
-            page: (this.pagination && this.pagination.current_page || 0) + 1,
+            page: (this.pagination ? this.pagination.current_page : 0) + 1,
             parent: this.comment._id
           }, params)
         }).catch(() => ({}))
@@ -154,7 +159,7 @@
         if (!this.isChild) {
           await this.$store.dispatch('comment/like', commentId)
         } else {
-          const { success } = await Service.comment.like(this.comment._id)().catch(err => ({}))
+          const { success } = await Service.comment.like(this.comment._id)().catch(() => ({}))
           if (success) {
             this.$store.dispatch('app/updateHistory', { commentId: this.comment._id })
             const index = this.$parent.$parent.children.findIndex(child => child._id === this.comment._id)
@@ -172,22 +177,24 @@
       handleToggleSubComments () {
         this.showSub = !this.showSub
         if (this.showSub) {
-          this.fetchSubList({
-            page: 1
-          })
+          this.handleSort(1)
         } else {
           this.$store.commit('comment/SET_REPLY_TARGET', '')
         }
       },
-      handleSort (sort) {
+      handleSort (sort, params = {}) {
         this.subSort = sort
         const s = {}
         s.order = -1
-        s.sort_by = this.sort ? 'ups' : 'createdAt'
+        s.sort_by = sort ? 'ups' : 'createdAt'
         this.fetchSubList({
           page: 1,
+          ...params,
           ...s
         })
+      },
+      handlePageChange (page) {
+        this.handleSort(this.subSort, { page })
       },
       handleSelectReplyTarget (targetId) {
         this.$store.commit('comment/SET_REPLY_TARGET', targetId)
@@ -213,6 +220,7 @@
         this.replying = false
         if (success) {
           done && done()
+          this.$store.commit('comment/REPLY_SUCCESS', this.comment._id)
           this.handleSort(0)
         }
       }
@@ -230,7 +238,6 @@
     margin-bottom 1rem
     padding-bottom 1rem
 
-
     &::after {
       content ''
       position absolute
@@ -240,11 +247,6 @@
       border-bottom 1px solid $grey
     }
 
-    &:last-child {
-      &::after {
-        display none
-      }
-    }
     .avatar {
       flex 0 0
       flex-basis 2.5rem
@@ -274,18 +276,18 @@
           color alpha($base-color, .6)
           font-size 1rem
           .text {
-            margin-right 10px
+            margin-right .5rem
             font-size .75rem
             color $text-color-secondary
           }
         }
         .meta {
           display inline-block
-          margin-left 15px
+          margin-left 1rem
           color alpha($black, 25%)
           font-size .75rem
           & > span {
-            margin-right 10px
+            margin-right .5rem
           }
         }
       }
@@ -299,18 +301,20 @@
         color $text-color-secondary
         font-size .75rem
 
+        & > a {
+          &:hover {
+            color $text-color
+          }
+        }
+
         .like-btn {
           margin-right 1rem
-          padding 2px 5px
+          padding .2rem .4rem
           background $grey
 
           .iconfont {
-            margin-right 5px
+            margin-right .25rem
             font-size .75rem
-          }
-
-          &:hover {
-            color $text-color
           }
 
           &.is-liked {
@@ -326,13 +330,17 @@
         .reply-btn
         .sub-comment-btn {
           .iconfont {
-            margin-right 5px
+            margin-right .25rem
             font-size .75rem
           }
         }
 
         .reply-btn {
           opacity 0
+        }
+
+        .location {
+          float right
         }
       }
 
@@ -386,7 +394,7 @@
   .comment-item {
     .meta {
       .iconfont {
-        margin-right 3px
+        margin-right .25rem
         font-size .75rem
       }
     }

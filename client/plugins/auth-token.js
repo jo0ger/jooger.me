@@ -9,10 +9,9 @@
 import config from '~/config'
 import { getLocalStorageItem } from '~/utils'
 
-export default ({ store, isClient }) => {
+export default async ({ store, isClient }) => {
   if (isClient) {
     const token = getLocalStorageItem(config.auth.githubTokenKey) || ''
-    store.commit('auth/SET_TOKEN', token)
-    store.dispatch('auth/fetchGithubInfo', token)
+    await store.dispatch('auth/fetchGithubInfo', token)
   }
 }

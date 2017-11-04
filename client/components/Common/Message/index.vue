@@ -25,8 +25,8 @@
     watch: {
       closed (val) {
         if (val) {
-          this.visible = false;
-          this.$el.addEventListener('transitionend', this.destroy);
+          this.visible = false
+          this.$el.addEventListener('transitionend', this.destroy)
         }
       }
     },

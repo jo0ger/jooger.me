@@ -19,6 +19,7 @@ const CREATE_REQUEST = 'CREATE_REQUEST'
 const CREATE_FAILURE = 'CREATE_FAILURE'
 const CREATE_SUCCESS = 'CREATE_SUCCESS'
 const SET_REPLY_TARGET = 'SET_REPLY_TARGET'
+const REPLY_SUCCESS = 'REPLY_SUCCESS'
 
 export const state = () => ({
   liking: false,
@@ -75,6 +76,16 @@ export const mutations = {
   },
   [SET_REPLY_TARGET]: (state, targetId = '') => {
     state.replyTarget = targetId
+  },
+  [REPLY_SUCCESS]: (state, parentId = '') => {
+    const index = state.list.data.findIndex(item => item._id === parentId)
+    if (index > -1) {
+      const item = state.list.data[index]
+      state.list.data.splice(index, 1, {
+        ...item,
+        subCount: item.subCount + 1
+      })
+    }
   }
 }
 

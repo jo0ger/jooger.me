@@ -2,7 +2,6 @@
   <div class="tools">
     <div class="wrapper">
       <div class="tool-list">
-        <!-- <a class="tool-item back" @click="handleGoBack" v-if="showBack"></a> -->
         <a class="tool-item go-to-top" :class="{ active: showGoToTop }" @click.prevent.stop="handleGoToTop"></a>
       </div>
     </div>
@@ -18,12 +17,6 @@
       return {
         goToTopThreshold: 200,
         showGoToTop: false
-      }
-    },
-    computed: {
-      showBack () {
-        // 暂未用到
-        return [].includes(this.$route.name)
       }
     },
     mounted () {
@@ -84,36 +77,6 @@
             border-radius 2px
           }
 
-          &.back {
-            &::before
-            &::after {
-              content ''
-              position absolute
-              top 50%
-              left 50%
-              display block
-              width 16px
-              height 2px
-              background $text-color-secondary
-              opacity .6
-              transform-origin center center
-              transform translate(-50%, -50%) rotate(45deg)
-              transition opacity .3s $ease 
-            }
-
-            &::after {
-              transform translate(-50%, -50%) rotate(-45deg)
-            }
-
-            &:hover {
-              transform scale(.9)
-              &::before
-              &::after {
-                opacity 1
-              }
-            }
-          }
-
           &.go-to-top {
             transform translateX(300%)
             transition-timing-function $fuck
@@ -126,8 +89,8 @@
               display block
               width 12px
               height @width
-              border 2px solid $text-color-secondary
-              border-width 2px 2px 0 0
+              border 3px solid $text-color-secondary
+              border-width 3px 3px 0 0
               opacity .6
               transform translate(-50%, -3px) rotate(-45deg)
               transform-origin center center

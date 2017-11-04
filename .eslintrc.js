@@ -15,6 +15,7 @@ module.exports = {
     strict: [0, "global"]
   },
   globals: {
-    logger: true
+    logger: true,
+    Clipboard: true
   }
 }

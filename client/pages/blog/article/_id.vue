@@ -97,7 +97,8 @@
       </a>
     </div>
     <div class="comments-pane" v-if="articleDetail">
-      <CommonArticleComment></CommonArticleComment>
+      <CommonArticleComment
+        :total="articleDetail.meta.comments"></CommonArticleComment>
     </div>
   </div>
 </template>
@@ -105,7 +106,6 @@
 <script>
   import { mapGetters } from 'vuex'
   import { CommonShareBox, CommonArticleComment } from '~/components/Common'
-  import { debounce } from '~/utils'
 
   export default {
     name: 'Blog-Article',
@@ -206,7 +206,6 @@
       margin-bottom 30px
       
       .detail {
-        user-select text
         .header {
           margin-bottom 45px
           text-align center
@@ -422,7 +421,7 @@
       position fixed
       bottom 30px
       left 50%
-      z-index 9999
+      z-index 999
       transform translateX(-50%)
 
       +xxs() {
@@ -440,7 +439,7 @@
         color alpha($white, .6)
         border-radius 50%
         line-height 1
-        box-shadow 0 0 40px 5px alpha($black, .2)
+        box-shadow 0 0 40px 5px alpha($black, .3)
 
         .iconfont {
           font-weight bold

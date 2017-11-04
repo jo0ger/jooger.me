@@ -1,10 +1,10 @@
 <template>
-  <div class="callback-page">
+  <section class="callback-page">
     <div class="loading">
       <div class="spinner"></div>
       <p>登录中...</p>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
