@@ -18,14 +18,14 @@
         </div>
         <div class="info">
           <div class="title">
-            <a :href="`https://music.163.com/#/song?id=${song.id}`" target="_blank" class="song-name">
+            <a :href="`https://music.163.com/#/song?id=${song.id}`" target="_blank" rel="noopener" class="song-name">
               {{ song.name }}
             </a>
             <span class="at-list">
               <span> - </span>
               <template v-for="(at, index) in song.artists">
                 <span :key="at.id" v-if="index !== 0"> / </span>
-                <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" class="artist-name" :key="at.id">
+                <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" rel="noopener" class="artist-name" :key="at.id">
                   {{ at.name }}
                 </a>
               </template>
@@ -68,7 +68,7 @@
           <div class="song-list">
             <div class="hd">
               <span>歌单({{ musicList.length }})</span>
-              <a style="float: right;" :href="`https://music.163.com/#/playlist?id=${option.musicId}`" target="_blank">
+              <a style="float: right;" :href="`https://music.163.com/#/playlist?id=${option.musicId}`" target="_blank" rel="noopener">
                 <i class="iconfont icon-links"></i>
               </a>
             </div>
@@ -93,13 +93,13 @@
                   <div class="artist">
                     <template v-for="(at, index) in item.artists">
                       <span :key="at.id" v-if="index !== 0"> / </span>
-                      <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" class="artist-name" :key="at.id">
+                      <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" rel="noopener" class="artist-name" :key="at.id">
                         {{ at.name }}
                       </a>
                     </template>
                   </div>
                   <!-- <div class="album">
-                    <a :href="`https://music.163.com/#/album?id=${item.album.id}`" target="_blank" class="name">
+                    <a :href="`https://music.163.com/#/album?id=${item.album.id}`" target="_blank" rel="noopener" class="name">
                       <span class="name">{{ item.album.name }}</span>
                       <span class="alias" v-if="item.album.tns && item.album.tns.length">
                         <span> ( </span>
@@ -110,7 +110,7 @@
                       </span>
                     </a>
                   </div> -->
-                  <a :href="`https://music.163.com/#/song?id=${song.id}`" class="song-link" target="_blank">
+                  <a :href="`https://music.163.com/#/song?id=${song.id}`" class="song-link" target="_blank" rel="noopener">
                     <i class="iconfont icon-links"></i>                  
                   </a>
                 </li>

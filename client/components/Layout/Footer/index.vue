@@ -2,25 +2,25 @@
   <footer class="footer" :style="footerStyle">
     <div class="wrapper">
       <div class="contact-list" v-if="option.contact && option.contact.length">
-        <a class="item" :href="item.url" target="_blank" v-for="item in option.contact" :key="item.title">
+        <a class="item" :name="item.title" :href="item.url" target="_blank" rel="noopener" v-for="item in option.contact" :key="item.title">
           <i class="icon iconfont" :class="[`icon-${item.icon}`]"></i>
         </a>
       </div>
       <p>版权所有 © 2017 {{ me.name }}. 保留所有权利
-        <a v-if="!mobileLayout" href="http://www.miitbeian.gov.cn" target="_blank" class="record">
+        <a v-if="!mobileLayout" href="http://www.miitbeian.gov.cn" target="_blank" rel="noopener" class="record">
           豫ICP备17040457号
         </a>
       </p>
       <p v-if="mobileLayout">
-        <a href="http://www.miitbeian.gov.cn" target="_blank" class="record">
+        <a href="http://www.miitbeian.gov.cn" target="_blank" rel="noopener" class="record">
           豫ICP备17040457号
         </a>
       </p>
       <p>
         Powered by 
-        <a class="link" target="_blank" href="https://github.com/nuxt/nuxt.js">nuxt.js</a>、
+        <a class="link" target="_blank" rel="noopener" href="https://github.com/nuxt/nuxt.js">nuxt.js</a>、
         Developed by 
-        <a class="link" target="_blank" :href="'https://github.com/jo0ger'">{{ me.name }}</a>
+        <a class="link" target="_blank" rel="noopener" :href="'https://github.com/jo0ger'">{{ me.name }}</a>
       </p>
     </div>
   </footer>

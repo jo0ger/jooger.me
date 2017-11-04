@@ -6,7 +6,7 @@
       </a>
       <ul class="contact-list" v-if="option.contact && option.contact.length">
         <li class="contact-item" v-for="item in option.contact" :key="item.title">
-          <a class="info" :href="item.url" target="_blank">
+          <a class="info" :href="item.url" target="_blank" rel="noopener">
             <i class="icon iconfont" :class="[`icon-${item.icon}`]"></i>
           </a>
         </li>
@@ -68,7 +68,7 @@
       <hr>
       <ul class="friend-list">
         <li class="friend-item" v-for="item in option.links" :key="item.name">
-          <a class="info" :href="item.site" target="_blank">
+          <a class="info" :href="item.site" target="_blank" rel="noopener">
             <div class="avatar">
               <img :src="item.avatar" :alt="item.name">
             </div>

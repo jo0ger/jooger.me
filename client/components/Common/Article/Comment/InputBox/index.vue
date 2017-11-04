@@ -4,7 +4,7 @@
       <div class="spinner" v-if="!isChild && authLoading"></div>
       <div class="container" v-else-if="!authLoading">
         <div class="comment-box">
-          <a :href="authInfo.github && authInfo.github.blog || 'javascript:;'" target="_blank" class="avatar">
+          <a :href="authInfo.github && authInfo.github.blog || 'javascript:;'" target="_blank" rel="noopener" class="avatar">
             <img :src="authInfo.avatar" alt="" v-if="authInfo && authInfo.avatar">
             <i class="iconfont icon-user" v-else></i>
           </a>
