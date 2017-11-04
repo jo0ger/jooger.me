@@ -655,7 +655,6 @@
         }
       },
       handleViewCover () {
-        console.log(this.song.album.cover)
         this.$imgPop.open(this.song.album.cover)
       },
       handleToggleVolume () {
