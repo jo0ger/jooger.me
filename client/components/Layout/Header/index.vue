@@ -33,6 +33,7 @@
       <form class="search-form" role="search" @submit.stop.prevent="handleSearch">
         <input class="search-input"
           ref="searchInput"
+          label="search"
           type="search"
           autocomplete="off"
           autofocus="true"

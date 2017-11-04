@@ -31,7 +31,7 @@ module.exports = {
       { 'http-equiv': 'Cache-Control', content: 'no-transform' },
       { 'http-equiv': 'Cache-Control', content: 'no-siteapp' },
       { 'http-equiv': 'cleartype', content: 'on' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1.0, user-scalable=no' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' },
       { name: 'MobileOptimized', content: '320' },
       { name: 'HandheldFriendly', content: 'True' },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
@@ -95,7 +95,7 @@ module.exports = {
         description: '修人、修身，修性、修心',
         'theme-color': '#ed0a75',
         lang: 'zh-CN',
-        viewport: 'width=device-width, initial-scale=1.0, user-scalable=no'
+        viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
       },
       workbox: {
         runtimeCaching: [

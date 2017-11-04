@@ -29,7 +29,9 @@
             this.showGoToTop = window.pageYOffset > this.goToTopThreshold
           }
         }
-        window.addEventListener('scroll', this._goToTopScrollHandler, false)
+        window.addEventListener('scroll', this._goToTopScrollHandler, {
+          passive: true
+        }, false)
         this._goToTopScrollHandler()
       },
       handleGoBack () {
