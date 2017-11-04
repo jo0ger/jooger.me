@@ -93,6 +93,7 @@
             content: this.content,
             done: () => {
               this.content = ''
+              this.$store.commit('article/COMMENT_SUCCESS')
             }
           })
         } else {

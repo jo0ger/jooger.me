@@ -124,7 +124,7 @@
         const h = sh / 2
         const t = (sh - h) / 2
         const l = (sw - w) / 2
-        const params = `top=${t},left=${l},width=${w},height=${h},scrollbars=0,status=0,menubar=0,resizable=2,location=0`
+        const params = `top=${t},left=${l},width=${w},height=${h},toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no`
         // 打开新窗口
         const win = window.open(url, title, params)
         // 新窗口获得焦点

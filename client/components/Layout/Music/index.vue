@@ -166,7 +166,7 @@
         index: 0,
         ready: false,
         playing: false,
-        loading: true,
+        loading: false,
         volume: 0.6,
         progress: 0,
         wave: false,
