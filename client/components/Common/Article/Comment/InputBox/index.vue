@@ -81,7 +81,7 @@
         removeSessionStorageItem(config.storage.commentCacheKey)
       },
       handleLogin () {
-        window.open('/auth/login?state=github', 'child', 'height=500, width=500, top=200,left=200, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no')
+        openWindow('/auth/login?state=github', 'Login')
       },
       handleLogout () {
         this.$store.dispatch('auth/githubLogout')
