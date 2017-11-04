@@ -24,7 +24,7 @@ const SET_TOKEN = 'SET_TOKEN'
 
 export const state = () => ({
   loading: true,
-  info: null,
+  info: {},
   token: null
 })
 
@@ -43,7 +43,7 @@ export const mutations = {
     state.token = token
   },
   [CLEAR_INFO]: state => {
-    state.info = null
+    state.info = {}
     state.loading = false
   },
   [LOGOUT_REQUEST]: state => (state.loading = true),
@@ -52,7 +52,7 @@ export const mutations = {
   [FETCH_INFO_REQUEST]: state => (state.loading = true),
   [FETCH_INFO_FAILURE]: state => {
     state.loading = false
-    state.info = null
+    state.info = {}
     state.token = null
   },
   [FETCH_INFO_SUCCESS]: (state, info) => {
@@ -96,6 +96,7 @@ export const actions = {
     })
     if (success) {
       commit(FETCH_INFO_SUCCESS, data)
+      commit(SET_TOKEN, token)
       setLocalStorageItem(config.auth.githubTokenKey, token)
     } else {
       commit(FETCH_INFO_FAILURE)

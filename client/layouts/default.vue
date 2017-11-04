@@ -77,7 +77,7 @@
       this.watchTab()
     },
     methods: {
-      watchTab() {
+      watchTab () {
         let currentTabTitle
         document.addEventListener('visibilitychange', e => {
           if (e.target.hidden || e.target.webkitHidden) {

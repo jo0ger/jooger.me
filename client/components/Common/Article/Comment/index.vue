@@ -11,17 +11,18 @@
       <CommentList
         :sort="sort"
         :list="commentList"
-        :total="commentPagination.total"
+        :total="total"
         :pagination="commentPagination"
         :loading="commentListFetching"
-        @sort="handleSort"></CommentList>
+        @sort="handleSort"
+        @page-change="handlePageChange">
+      </CommentList>
     </section>
   </section>
 </template>
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
-  import config from '~/config'
   import InputBox from './InputBox'
   import CommentList from './List'
 
@@ -30,6 +31,17 @@
     components: {
       InputBox,
       CommentList
+    },
+    props: {
+      total: {
+        type: Number,
+        default: 0
+      }
+    },
+    data () {
+      return {
+        sort: 1 // 0 最新 | 1 最热
+      }
     },
     computed: {
       ...mapGetters({
@@ -41,13 +53,8 @@
         commentListFetching: 'comment/listFetching',
         commentList: 'comment/list',
         commentPagination: 'comment/pagination',
-        articleDetail: 'article/detail',
+        articleDetail: 'article/detail'
       })
-    },
-    data () {
-      return {
-        sort: 1 // 0 最新 | 1 最热
-      }
     },
     methods: {
       ...mapActions({
@@ -66,14 +73,26 @@
           this.handleSort(0)
         }
       },
-      handleSort (sort) {
+      fetchCommentListWrapper (params = {}) {
+        return this.fetchCommentList({
+          article: this.articleDetail._id,
+          ...params
+        })
+      },
+      handleSort (sort, params = {}) {
         this.sort = sort
         const s = {}
         s.order = -1
         s.sort_by = this.sort ? 'ups' : 'createdAt'
-        this.fetchCommentList({
+        return this.fetchCommentList({
           article: this.articleDetail._id,
+          ...params,
           ...s
+        })
+      },
+      handlePageChange (page) {
+        this.handleSort(this.sort, {
+          page
         })
       }
     }
@@ -90,7 +109,7 @@
       margin 1rem 0
       text-align center
       color $text-color-secondary
-      font-size 1rem
+      font-size 1.25rem
       font-weight 500
 
       // &::after {
@@ -103,6 +122,10 @@
       //   background $grey
       //   transform translate(-50%, -50%)
       // }
+    }
+
+    .box {
+      margin-bottom 2rem
     }
   }
 </style>

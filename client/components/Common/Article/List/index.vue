@@ -49,6 +49,7 @@
         if (!ok) {
           return
         }
+        /* eslint-disable camelcase */
         const { current_page, per_page } = this.pagination
         let nextPage = current_page + delta
         if (nextPage < 1) {

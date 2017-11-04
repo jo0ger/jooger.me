@@ -1,12 +1,11 @@
+[![GitHub forks](https://img.shields.io/github/forks/jo0ger/jooger.me.svg?label=Fork&style=flat-square)](https://github.com/jo0ger/jooger.me/network)
+[![GitHub stars](https://img.shields.io/github/stars/jo0ger/jooger.me.svg?label=Stars&style=flat-square)](https://github.com/jo0ger/jooger.me/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/jo0ger/jooger.me.svg?style=flat-square)](https://github.com/jo0ger/jooger.me/issues)
-[![GitHub forks](https://img.shields.io/github/forks/jo0ger/jooger.me.svg?style=flat-square)](https://github.com/jo0ger/jooger.me/network)
-[![GitHub stars](https://img.shields.io/github/stars/jo0ger/jooger.me.svg?style=flat-square)](https://github.com/jo0ger/jooger.me/stargazers)
+[![GitHub last commit](https://img.shields.io/github/last-commit/jo0ger/jooger.me.svg?style=flat-square)](https://github.com/jo0ger/jooger.me/commits/master)
 
 ## jooger.me
 
-> 👍 My personal site，built by [Vue2](https://github.com/vuejs/vue), [Nuxt.js](https://github.com/nuxt/nuxt.js), [Axios](https://github.com/axios/axios).
-
-> Take a look [https://jooger.me](https://jooger.me).
+> 👍 My personal site ( [jooger.me](https://jooger.me) )，built by [Vue2](https://github.com/vuejs/vue), [Nuxt.js](https://github.com/nuxt/nuxt.js), [Axios](https://github.com/axios/axios).
 
 ## Build Setup
 
@@ -38,21 +37,27 @@ $ npm run lint
 
 - ~~音乐播放器~~ (2017.10.18)
 
-- ~~PWA~~ (2017.10.23)
+- ~~PWA支持~~ (2017.10.23)
 
 - ~~文章分享，点赞功能~~ (2017.10.24)
 
 - ~~文章信息优化 （阅读量，评论数，点赞数)~~ (2017.10.28)
 
-- ~~分类页~~ (2017.10.29)
+- ~~文章分类页~~ (2017.10.29)
 
 - ~~个人动态~~ (2017.10.30)
 
-- 评论功能
+- ~~Github第三方登录~~ (2017.11.03)
+
+- ~~评论功能~~ (2017.11.04)
+
+- 移动端评论适配
 
 - 音乐绑定键盘快捷键
 
 - 文章版权说明
+
+- 作品列表
 
 - 短视频播放器
 

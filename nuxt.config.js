@@ -98,7 +98,7 @@ module.exports = {
         globIgnores: ['**/*.{mp3,wav,ogg}']
       },
       icon: {
-        iconSrc: path.resolve(__dirname, 'static/image', 'logo-pwa.png')
+        iconSrc: path.resolve('client/', 'static/image', 'logo-pwa.png')
       }
     }]
   ],

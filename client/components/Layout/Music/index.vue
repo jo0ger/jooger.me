@@ -1,5 +1,5 @@
 <template>
-  <div class="music-pane" ref="music" :class="{ show: showMusic || (!showMusic && mouseTriggerShowMusic), loading }">
+  <div class="music-pane" ref="music" :class="{ show: showMusic, loading }">
     <div class="wrapper" v-if="song">
       <div class="controls">
         <a class="control-item prev" @click.prevent.stop="handlePrevSong">
@@ -217,7 +217,7 @@
               list.push({
                 time: t,
                 text: l[1] || '~ ~ ~',
-                t: tl && tl[1] || ''
+                t: tl ? tl[1] : ''
               })
             }
           })
@@ -277,7 +277,10 @@
         if (success) {
           this.initPlaylist()
           if (process.env.NODE_ENV === 'production') {
-            this.play()
+            setTimeout(() => {
+              // 3秒后播放
+              this.play()
+            }, 3000)
           }
         }
       })
@@ -301,10 +304,19 @@
       //     this.showPlayList = false
       //   }
       // })
+      window.addEventListener('click', e => {
+        if (!this.showMusic) {
+          return
+        }
+        if (!this.$refs.music.contains(e.target)) {
+          this.showPlayList = false
+          this.$store.commit('app/SET_MUSIC', false)
+        }
+      })
     },
     beforeDestroy () {
       this.stop()
-      this.sound = song.howl = null
+      this.sound = this.song.howl = null
     },
     methods: {
       log (msg = '') {
@@ -318,7 +330,7 @@
             return null
           }
           const src = data.data[0]
-          return src && src.url || null
+          return src ? src.url : null
         })
       },
       getSongLyric (id) {
@@ -332,8 +344,8 @@
           const { lrc, tlyric, nolyric } = data.data
           return {
             nolyric: !!nolyric,
-            lyric: lrc && lrc.lyric || '',
-            tlyric: tlyric && tlyric.lyric || ''
+            lyric: lrc ? lrc.lyric : '',
+            tlyric: tlyric ? tlyric.lyric : ''
           }
         })
       },
@@ -341,7 +353,7 @@
         return Promise.all([
           this.getSongUrl(id),
           this.getSongLyric(id)
-        ]).catch(err => ([null, { nolyric: false, lyric: '', tlyric: ''}]))
+        ]).catch(() => ([null, { nolyric: false, lyric: '', tlyric: '' }]))
       },
       initPlaylist () {
         this.playlist = this.musicList.map(song => {
@@ -662,7 +674,7 @@
         if (this.mode > 2) {
           this.mode = 0
         }
-        this.$message(['顺序循环模式','单曲循环模式','随机播放模式'].find((item, index) => index === this.mode))
+        this.$message(['顺序循环模式', '单曲循环模式', '随机播放模式'].find((item, index) => index === this.mode))
       }
     }
   }
@@ -821,7 +833,6 @@
       position relative
       height 100%
       margin 0 30px
-      user-select none
 
       .cover {
         flex 0 0 50px
