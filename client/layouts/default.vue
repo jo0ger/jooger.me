@@ -51,6 +51,11 @@
       LayoutHero,
       LayoutMoment
     },
+    data () {
+      return {
+        title: ''
+      }
+    },
     computed: {
       ...mapGetters({
         mobileLayout: 'app/mobileLayout',
@@ -78,13 +83,12 @@
     },
     methods: {
       watchTab () {
-        let currentTabTitle
+        this.title = document.title
         document.addEventListener('visibilitychange', e => {
           if (e.target.hidden || e.target.webkitHidden) {
-            currentTabTitle = document.title
             document.title = '😱糟糕，浏览器崩溃了'
           } else {
-            document.title = currentTabTitle
+            document.title = this.title || 'Jooger.me'
           }
         }, false)
       }

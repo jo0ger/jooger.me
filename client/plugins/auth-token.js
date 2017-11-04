@@ -12,6 +12,6 @@ import { getLocalStorageItem } from '~/utils'
 export default async ({ store, isClient }) => {
   if (isClient) {
     const token = getLocalStorageItem(config.auth.githubTokenKey) || ''
-    await store.dispatch('auth/fetchGithubInfo', token)
+    store.dispatch('auth/fetchGithubInfo', token)
   }
 }

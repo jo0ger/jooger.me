@@ -220,7 +220,10 @@
         this.replying = false
         if (success) {
           done && done()
-          this.$store.commit('comment/REPLY_SUCCESS', this.comment._id)
+          this.$store.commit('comment/REPLY_SUCCESS', {
+            parentId: this.comment._id,
+            articleId: this.comment.article
+          })
           this.handleSort(0)
         }
       }

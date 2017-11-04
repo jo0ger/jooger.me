@@ -125,12 +125,12 @@
       width 30px
       height @width
       color $white 
-      border 1px solid $white
+      border 2px solid $white
       border-radius 50%
       opacity .6
 
       &:hover {
-        opacity .8
+        opacity 1
       }
     }
   }

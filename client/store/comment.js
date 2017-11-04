@@ -77,7 +77,7 @@ export const mutations = {
   [SET_REPLY_TARGET]: (state, targetId = '') => {
     state.replyTarget = targetId
   },
-  [REPLY_SUCCESS]: (state, parentId = '') => {
+  [REPLY_SUCCESS]: (state, { parentId = '', articleId = '' }) => {
     const index = state.list.data.findIndex(item => item._id === parentId)
     if (index > -1) {
       const item = state.list.data[index]

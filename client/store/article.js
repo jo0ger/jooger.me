@@ -17,6 +17,7 @@ const FETCH_LIKES_SUCCESS = 'FETCH_LIKES_SUCCESS'
 const LIKE_REQUEST = 'LIKE_REQUEST'
 const LIKE_SUCCESS = 'LIKE_SUCCESS'
 const LIKE_FAILURE = 'LIKE_FAILURE'
+const COMMENT_SUCCESS = 'COMMENT_SUCCESS'
 
 export const state = () => ({
   list: {
@@ -72,6 +73,20 @@ export const mutations = {
     state.detail.data.meta.ups++
     const article = state.list.data.find(item => item._id === state.detail.data._id)
     article && article.meta.ups++
+  },
+  [COMMENT_SUCCESS]: state => {
+    state.detail.data.meta.comments++
+    const index = state.list.data.findIndex(item => item._id === state.detail.data._id)
+    if (index > -1) {
+      const item = state.list.data[index]
+      state.list.data.splice(index, 1, {
+        ...item,
+        meta: {
+          ...item.meta,
+          comments: item.meta.comments + 1
+        }
+      })
+    }
   }
 }
 
