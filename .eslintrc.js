@@ -16,6 +16,7 @@ module.exports = {
   },
   globals: {
     logger: true,
-    Clipboard: true
+    Clipboard: true,
+    openWindow: true
   }
 }
