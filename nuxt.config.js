@@ -8,6 +8,7 @@
 
 const path = require('path')
 const isProd = process.env.NODE_ENV === 'production'
+const fixUrl = url => url.replace(/\/\//g, '/').replace(':/', '://')
 
 module.exports = {
   srcDir: 'client/',
@@ -97,7 +98,51 @@ module.exports = {
         viewport: 'width=device-width, initial-scale=1.0, user-scalable=no'
       },
       workbox: {
-        globIgnores: ['**/*.{mp3,wav,ogg}']
+        runtimeCaching: [
+          // Cache routes if offline
+          {
+            urlPattern: fixUrl('/**'),
+            handler: 'networkFirst',
+            options: {
+              cacheName: 'route-cache',
+              cacheExpiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 30 * 24 * 60 * 60 // 30天缓存
+              }
+            }
+          },
+          // Cache other _nuxt resources runtime
+          // They are hashed by webpack so are safe to loaded by cacheFirst handler
+          {
+            urlPattern: fixUrl('/resource/**'),
+            handler: 'cacheFirst',
+            options: {
+              cacheName: 'resource-cache',
+              cacheExpiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 30 * 24 * 60 * 60
+              }
+            }
+          },
+          {
+            urlPattern: fixUrl('/proxy/**'),
+            handler: 'networkOnly'
+          },
+          {
+            urlPattern: fixUrl('https://api.jooger.me/**'),
+            handler: 'networkFirst',
+            options: {
+              cacheName: 'api-cache'
+            }
+          },
+          {
+            urlPattern: fixUrl('https://static.jooger.me/**'),
+            handler: 'networkFirst',
+            options: {
+              cacheName: 'static-cache'
+            }
+          }
+        ]
       },
       icon: {
         iconSrc: path.resolve('client/', 'static/image', 'logo-pwa.png')
