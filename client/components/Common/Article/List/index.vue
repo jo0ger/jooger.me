@@ -72,7 +72,7 @@
 
     .list {
       flexLayout(,flex-start,,wrap)
-      margin 0 -20px
+      margin 0 -1rem
 
       +xxs() {
         margin 0
@@ -81,7 +81,7 @@
       .flex-item {
         flex 0 0 (100% / 3)
         max-width (100% / 3)
-        padding 20px
+        padding 1rem
 
         +respond-below($screen-sm-max) {
           flex-basis 50% !important
@@ -91,22 +91,22 @@
         +xxs() {
           flex-basis 100% !important
           max-width 100%
-          padding 15px 0
+          padding 1rem 0
         }
       }
     }
     .navigation {
-      margin-top 60px
+      margin-top 4rem
       text-align center
 
       +xxs() {
-        margin-top 30px
+        margin-top 2rem
       }
 
       &-item {
         position relative
         display inline-block
-        width 50px
+        width 3rem
         height @width
         opacity .6
         cursor not-allowed
@@ -116,7 +116,7 @@
           top 50%
           left 50%
           display block
-          width 10px
+          width 1.5rem
           height @width
           border 2px solid $text-color
           border-width 2px 2px 0 0
@@ -125,14 +125,14 @@
         }
 
         &.prev {
-          margin-right 60px
+          margin-right 4rem
           &::after {
             transform translate(-3px, -50%) rotate(225deg)
           }
         }
 
         &.next {
-          margin-left 60px
+          margin-left 4rem
         }
 
         &.active {

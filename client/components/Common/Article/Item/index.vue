@@ -91,6 +91,7 @@
           min-height 100%
           border-radius 2px
           object-fit cover
+          object-position center
         }
 
         .placeholder {

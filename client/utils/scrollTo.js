@@ -9,13 +9,21 @@ const BezierEasing = require('bezier-easing')
 
 export const requestAnimationFrame = process.env.VUE_ENV === 'server'
   ? function (callback) {
-    setTimeout(callback, 1000 / 60)
+    return setTimeout(callback, 1000 / 60)
   } : (
     window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||
     window.oRequestAnimationFrame ||
     window.msRequestAnimationFrame
+  )
+
+export const cancelAnimationFrame = process.env.VUE_ENV === 'server'
+  ? function (timerId) {
+    clearTimeout(timerId)
+  } : (
+    window.cancelAnimationFrame ||
+    window.mozCancelAnimationFrame
   )
 
 const _ = {
