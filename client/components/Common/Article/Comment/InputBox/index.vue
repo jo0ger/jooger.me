@@ -26,6 +26,11 @@
             <a class="logout-btn link" v-if="!isChild" @click="handleLogout">
               <span>退出</span>
             </a>
+            <transition name="fade">
+              <a class="cancel-reply-btn link" v-if="isChild && commentReplyTarget" @click="handleCancelReply">
+                <span>取消回复</span>
+              </a>
+            </transition>
             <a class="sb-btn link" @click.stop="handleSubmit" v-if="authInfo && !authInfo.mute">
               <span>{{ isChild ? (loading ? '回复中' : '回复') : (loading ? '评论中' : '评论') }}</span>
             </a>
@@ -66,7 +71,8 @@
       ...mapGetters({
         isLogin: 'auth/isLogin',
         authLoading: 'auth/loading',
-        authInfo: 'auth/info'
+        authInfo: 'auth/info',
+        commentReplyTarget: 'comment/replyTarget'
       })
     },
     mounted () {
@@ -86,6 +92,9 @@
       handleLogout () {
         this.$store.dispatch('auth/githubLogout')
         this.$message('退出成功')
+      },
+      handleCancelReply () {
+        this.$store.commit('comment/SET_REPLY_TARGET', '')
       },
       handleSubmit () {
         if (this.content) {
@@ -199,7 +208,8 @@
       font-size .75rem
 
       .submit-box {
-        .logout-btn {
+        .logout-btn
+        .cancel-reply-btn {
           display inline-block
           padding .5em 0
 
