@@ -6,6 +6,20 @@
         <div class="placeholder" v-else>
           <i class="iconfont icon-logo"></i>
         </div>
+        <div class="statistics">
+          <span class="item pvs">
+            <i class="iconfont icon-visit"></i>
+            <span class="count">{{ data.meta.pvs }}</span>
+          </span>
+          <span class="item ups">
+            <i class="iconfont icon-like"></i>
+            <span class="count">{{ data.meta.ups }}</span>
+          </span>
+          <span class="item comments">
+            <i class="iconfont icon-comments"></i>
+            <span class="count">{{ data.meta.comments }}</span>
+          </span>
+        </div>
       </div>
       <header class="caption">
         <div class="meta">
@@ -67,6 +81,7 @@
       overflow hidden
 
       .cover {
+        position relative
         height 180px
         overflow hidden
         transition opacity .3s $ease
@@ -89,6 +104,28 @@
             color alpha($black, .05)
           }
         }
+
+        .statistics {
+          flexLayout()
+          position absolute
+          bottom 0
+          left 0
+          width 100%
+          padding 5px 0
+          background alpha($black, .3)
+          color $text-color-secondary-dark
+          border-bottom-left-radius 2px
+          border-bottom-right-radius @border-bottom-left-radius
+          .item {
+            margin 0 .5rem
+            font-size .75rem
+
+            .iconfont {
+              margin-right .25rem
+              font-size .75rem
+            }
+          }
+        }
       }
 
       .caption {
@@ -97,19 +134,32 @@
         font-size .875rem
 
         .meta {
-          opacity .5
+          color $text-color-secondary
         }
 
         .title {
           display inline
           line-height 1.8
-          margin 5px auto 0
+          margin .25rem auto 0
           font-size 1rem
           background-image linear-gradient($text-color, $text-color)
           background-size 100% 2px
           background-position 0 calc(100% + 2px)
           background-repeat no-repeat
           transition all .3s $ease
+        }
+
+        .statistics {
+          .item {
+            margin 0 .5rem
+            font-size .75rem
+            color alpha($black, .3)
+
+            .iconfont {
+              margin-right .25rem
+              font-size .75rem
+            }
+          }
         }
       }
       &:hover
