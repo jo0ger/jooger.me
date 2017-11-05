@@ -22,7 +22,7 @@
       <div class="content md-body md-mini" v-html="comment.renderedContent"></div>
       <div class="footer">
         <a class="like-btn" :class="{ 'is-liked': checkLiked(comment._id) }" @click.stop="handleLike(comment._id)">
-          <i class="iconfont icon-up"></i>
+          <i class="iconfont icon-thumb-up"></i>
           <span>{{ comment.ups }}</span>
         </a>
         <time class="time" :datatitme="comment.createdAt">{{ comment.createdAt | getDateFromNow }}</time>

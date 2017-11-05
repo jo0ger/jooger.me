@@ -91,11 +91,6 @@
       </article>
       <p class="no-data" v-else>文章未找到</p>
     </div>
-    <div class="back">
-      <a class="back-btn" @click.prevent.stop="handleBack">
-        <i class="iconfont icon-close"></i>
-      </a>
-    </div>
     <div class="comments-pane" v-if="articleDetail">
       <CommonArticleComment
         :total="articleDetail.meta.comments"></CommonArticleComment>
@@ -186,9 +181,6 @@
         if (id) {
           this.$router.push(`/blog/article/${id}`)
         }
-      },
-      handleBack () {
-        this.$router.back()
       }
     }
   }
@@ -414,44 +406,6 @@
 
       .no-data {
         text-align center
-      }
-    }
-
-    .back {
-      position fixed
-      bottom 30px
-      left 50%
-      z-index 999
-      transform translateX(-50%)
-
-      +xxs() {
-        bottom 10px
-      }
-
-      +xs() {
-        bottom 20px
-      }
-
-      &-btn {
-        flexLayout()
-        padding 10px
-        background alpha($black, .6)
-        color alpha($white, .6)
-        border-radius 50%
-        line-height 1
-        box-shadow 0 0 40px 5px alpha($black, .3)
-
-        .iconfont {
-          font-weight bold
-          font-size 1.125rem
-        }
-
-        &:hover
-        &:active {
-          color $white
-          transform scale(.9) rotate(180deg)
-          box-shadow 0 0 30px 5px alpha($black, .1)
-        }
       }
     }
 
