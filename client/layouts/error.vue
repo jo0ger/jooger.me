@@ -82,12 +82,12 @@
 
           .go-home {
             display inline-block
-            height 50px
+            height 3rem
             line-height @height
-            margin-top 60px
-            padding 0 30px
+            margin-top 4rem
+            padding 0 1.8rem
             color $white
-            border-radius 25px
+            border-radius 1.5rem
             -webkit-text-fill-color $white
             -webkit-background-clip padding-box
 

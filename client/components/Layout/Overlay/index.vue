@@ -13,10 +13,17 @@
         showOverlay: 'app/showOverlay'
       })
     },
+    watch: {
+      showOverlay (val) {
+        if (process.browser) {
+          document.body.style.overflow = val ? 'hidden' : 'auto'
+        }
+      }
+    },
     methods: {
       handleClick () {
         this.$store.commit('app/SET_SEARCH', false)
-        this.$store.commit('app/SET_OVERLAY', false)
+        this.$store.commit('app/SET_SHARE_BOX', false)
       }
     }
   }

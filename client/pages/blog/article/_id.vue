@@ -44,14 +44,11 @@
             <i class="iconfont icon-reward"></i>
             <span class="text">打赏</span>
           </a> -->
-          <a class="action-item share" :class="{ active: showShareBox }" @click="showShareBox = !showShareBox">
+          <a class="action-item share" @click="handleToggleShare">
             <i class="iconfont icon-share"></i>
             <span class="text">分享</span>
           </a>
         </div>
-        <transition name="fade">
-          <CommonShareBox class="share" v-show="showShareBox"></CommonShareBox>
-        </transition>
         <div class="navigation" v-if="articleDetail.adjacent.next || articleDetail.adjacent.prev">
           <router-link v-if="articleDetail.adjacent.prev"
             class="nav-item prev"
@@ -100,12 +97,11 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { CommonShareBox, CommonArticleComment } from '~/components/Common'
+  import { CommonArticleComment } from '~/components/Common'
 
   export default {
     name: 'Blog-Article',
     components: {
-      CommonShareBox,
       CommonArticleComment
     },
     validate ({ params }) {
@@ -129,11 +125,6 @@
           { hid: 'keywords', name: 'keywords', content: data.keywords ? data.keywords.join(',') : data.title },
           { hid: 'description', name: 'description', content: data.description || data.title }
         ]
-      }
-    },
-    data () {
-      return {
-        showShareBox: false
       }
     },
     computed: {
@@ -176,6 +167,9 @@
         if (!this.isLiked && !this.articleDetailLiking) {
           await this.$store.dispatch('article/like', this.articleDetail._id)
         }
+      },
+      handleToggleShare () {
+        this.$store.commit('app/SET_SHARE_BOX', true)
       },
       handleSwitchArticle (id) {
         if (id) {
@@ -315,11 +309,6 @@
             &.share {
               border-color $blue
               color @border-color
-
-              &.active {
-                background-color $blue
-                color $white
-              }
             }
 
             &:hover

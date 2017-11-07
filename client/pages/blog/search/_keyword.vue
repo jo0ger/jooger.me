@@ -17,6 +17,11 @@
     validate ({ params }) {
       return !!params.keyword
     },
+    head () {
+      return {
+        title: `搜索[${this.$route.params.keyword}]`
+      }
+    },
     async fetch ({ store, params }) {
       await store.dispatch('article/fetchList', {
         keyword: params.keyword

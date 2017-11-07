@@ -7,7 +7,7 @@
 export default function ({ app, isClient }) {
   app.router.beforeEach((to, from, next) => {
     app.store.commit('app/SET_SEARCH', false)
-    app.store.commit('app/SET_OVERLAY', false)
+    app.store.commit('app/SET_SHARE_BOX', false)
     app.store.commit('app/SET_MENU', false)
     app.store.commit('app/SET_MUSIC', false)
     next()

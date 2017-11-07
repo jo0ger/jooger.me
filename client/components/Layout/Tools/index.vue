@@ -5,6 +5,9 @@
         <a class="tool-item back" @click.prevent.stop="handleGoBack">
           <i class="iconfont icon-close"></i>
         </a>
+        <a class="tool-item share" @click.prevent.stop="handleShare">
+          <i class="iconfont icon-share"></i>
+        </a>
         <a class="tool-item fullscreen" @click.prevent.stop="toggleFullScreen">
           <i class="iconfont" :class="{
             'icon-exit-fullscreen': fullScreen,
@@ -42,6 +45,9 @@
       }
     },
     methods: {
+      handleShare () {
+        this.$store.commit('app/SET_SHARE_BOX', true)
+      },
       toggleFullScreen () {
         this.fullScreen = !this.fullScreen
         if (this.fullScreen) {
@@ -148,9 +154,16 @@
             border-bottom-color @background
           }
 
-          &.fullscreen {
+          &.share {
             &:hover {
               background $blue
+              border-bottom-color @background
+            }
+          }
+
+          &.fullscreen {
+            &:hover {
+              background $green
               border-bottom-color @background
             }
           }
@@ -160,6 +173,13 @@
               background $red
               border-bottom-color @background
             }
+          }
+
+          &.feedback {
+            &:hover {
+              background #5ba0f8
+              border-bottom-color @background
+            }  
           }
 
           &.go-to-top

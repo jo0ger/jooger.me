@@ -16,12 +16,22 @@
   opacity 0
 }
 
-.message-fade-enter-active
-.message-fade-leave-active {
-  transition all .3s $fuck
+.slide-down-enter-active
+.slide-down-leave-active {
+  transition all .8s $fuck
 }
-.message-fade-enter
-.message-fade-leave-active {
-  opacity 0
-  transform translate(-50%, -100%)
+
+.slide-down-enter 
+.slide-down-leave-active {
+  transform translate3d(0, -100%, 0)
+}
+
+.slide-up-enter-active
+.slide-up-leave-active {
+  transition all .8s $fuck
+}
+
+.slide-up-enter 
+.slide-up-leave-active {
+  transform translate3d(0, 100%, 0)
 }

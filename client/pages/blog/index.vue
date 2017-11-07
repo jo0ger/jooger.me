@@ -14,6 +14,11 @@
         page: store.getters['article/pagination'].current_page
       })
     },
+    head () {
+      return {
+        title: '博客'
+      }
+    },
     components: {
       CommonArticleList
     }

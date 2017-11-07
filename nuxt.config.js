@@ -9,6 +9,7 @@
 const path = require('path')
 const isProd = process.env.NODE_ENV === 'production'
 const fixUrl = url => url.replace(/\/\//g, '/').replace(':/', '://')
+const description = '不忘初心，方得始终'
 
 module.exports = {
   srcDir: 'client/',
@@ -19,7 +20,7 @@ module.exports = {
   },
   dev: !isProd,
   head: {
-    title: 'Jooger.me - 修人、修身，修性、修心',
+    title: 'Jooger.me - ' + description,
     titleTemplate: '%s - Jooger.me',
     htmlAttrs: {
       xmlns: 'http://www.w3.org/1999/xhtml',
@@ -38,7 +39,7 @@ module.exports = {
       { name: 'author', content: 'zzy1198258955@163.com' },
       { name: 'theme-color', content: '#ed0a75' },
       { hid: 'keywords', name: 'keywords', content: 'Jooger,Jooger.me,Blog,FE,前端' },
-      { hid: 'description', name: 'description', content: '修人、修身，修性、修心' }
+      { hid: 'description', name: 'description', content: description }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: 'https://static.jooger.me/img/common/favicon.ico' }
@@ -56,9 +57,12 @@ module.exports = {
     vendor: [
       'axios',
       'swiper',
-      'bezier-easing',
+      'howler',
+      'marked',
+      'clipboard',
       'highlight.js',
-      'marked'
+      'bezier-easing',
+      'vue-awesome-swiper'
     ]
   },
   plugins: [
@@ -84,15 +88,15 @@ module.exports = {
         short_name: 'Jooger.me',
         display: 'standalone',
         start_url: 'https://jooger.me',
-        description: '修人、修身，修性、修心',
+        description: description,
         theme_color: '#ed0a75',
         background_color: '#fff',
         lang: 'zh-CN'
       },
       meta: {
         charset: 'utf-8',
-        title: 'Jooger.me - 修人、修身，修性、修心',
-        description: '修人、修身，修性、修心',
+        title: 'Jooger.me - ' + description,
+        description: description,
         'theme-color': '#ed0a75',
         lang: 'zh-CN',
         viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'

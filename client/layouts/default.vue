@@ -21,6 +21,7 @@
       <LayoutMusic v-if="!mobileLayout"></LayoutMusic>
       <LayoutTools v-if="!showHeroPage"></LayoutTools>
       <LayoutFooter v-if="!isHomePage"></LayoutFooter>
+      <LayoutShare></LayoutShare>
       <LayoutOverlay></LayoutOverlay>
     </div>
   </div>
@@ -35,7 +36,8 @@
     LayoutOverlay,
     LayoutMusic,
     LayoutHero,
-    LayoutMoment
+    LayoutMoment,
+    LayoutShare
   } from '~/components/Layout'
   import { CommonFetchLoading } from '~/components/Common'
 
@@ -49,7 +51,8 @@
       CommonFetchLoading,
       LayoutMusic,
       LayoutHero,
-      LayoutMoment
+      LayoutMoment,
+      LayoutShare
     },
     data () {
       return {
@@ -61,6 +64,7 @@
         mobileLayout: 'app/mobileLayout',
         mobileSidebar: 'app/mobileSidebar',
         showMusic: 'app/showMusic',
+        showOverlay: 'app/overlay',
         option: 'option/option'
       }),
       isHomePage () {
