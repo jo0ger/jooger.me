@@ -17,6 +17,11 @@
     validate ({ params }) {
       return !!params.name
     },
+    head () {
+      return {
+        title: `标签[${this.$route.params.name}]`
+      }
+    },
     async fetch ({ store, params }) {
       await store.dispatch('article/fetchList', {
         tag: params.name

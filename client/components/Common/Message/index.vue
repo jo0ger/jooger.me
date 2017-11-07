@@ -1,5 +1,5 @@
 <template>
-  <transition name="message-fade">
+  <transition name="slide-down">
     <div class="message" v-show="visible">
       <div class="wrapper">
         <p class="content">{{ message }}</p>
@@ -65,12 +65,20 @@
   .message {
     position fixed
     top 0
-    left 50%
-    transform translate(-50%, 0)
+    right 0
+    left 0
+    width auto
+    max-width max-content
+    margin 0 auto
+    text-align center
     z-index 10001
 
+    +xxs() {
+      max-width none
+    }
+
     .wrapper {
-      padding 10px 20px
+      padding .8rem 1.25rem
       background $black
       color $white
       border-radius 2px

@@ -80,20 +80,12 @@
       }
     },
     methods: {
-      setSearch (show) {
-        this.$store.commit('app/SET_SEARCH', show)
-        this.$store.commit('app/SET_OVERLAY', this.showSearch)
-      },
       handleToggleMenu () {
         this.$store.commit('app/SET_MENU', !this.showMenu)
-        if (this.showMenu) {
-          this.setSearch(false)
-        }
       },
       handleGoHome () {
         if (this.$route.name === 'index') {
           this.$store.commit('app/SET_SEARCH', false)
-          this.$store.commit('app/SET_OVERLAY', false)
           this.$store.commit('app/SET_MENU', false)
           this.$store.commit('app/SET_MUSIC', false)
         } else {
@@ -105,19 +97,17 @@
         this.$store.commit('app/SET_MENU', false)
       },
       handleToggleSearch () {
-        this.setSearch(!this.showSearch)
+        this.$store.commit('app/SET_SEARCH', !this.showSearch)
         setTimeout(() => {
           this.$refs.searchInput[this.showSearch ? 'focus' : 'blur']()
         }, 1000)
         if (!this.showSearch) {
           this.$nextTick(() => (this.keyword = ''))
-        } else {
-          this.$store.commit('app/SET_MENU', false)
         }
       },
       handleSearch () {
         if (this.keyword && !this.articleListFetching) {
-          this.setSearch(false)
+          this.$store.commit('app/SET_MENU', false)
           this.$router.push(`/blog/search/${this.keyword}`)
           setTimeout(() => {
             this.keyword = ''
