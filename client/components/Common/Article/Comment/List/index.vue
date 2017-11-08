@@ -1,7 +1,7 @@
 <template>
   <div class="list-container" :class="{ 'child-list': isChild }">
     <div class="list-header">
-      <div class="total-count">{{ total || pagination.total }}条评论</div>
+      <div class="total-count">{{ total || pagination.total || 0 }}条评论</div>
       <div class="sort-list">
         <a class="sort-item" :class="{ active: sort === 0 }" @click="handleSort(0)">最新</a>
         <a class="sort-item" :class="{ active: sort === 1 }" @click="handleSort(1)">最热</a>
@@ -101,7 +101,8 @@
           margin-left 1rem
 
           &.active {
-            color $base-color
+            color $dark
+            font-weight 700
           }
         }
       }
@@ -111,6 +112,7 @@
       width 2rem
       height @width
       margin 3rem auto
+      border-left-color $dark
     }
 
     .no-data {

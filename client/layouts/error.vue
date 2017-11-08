@@ -1,7 +1,6 @@
 <template>
   <div class="app">
     <div class="app-main">
-      <LayoutHeader></LayoutHeader>
       <keep-alive>
         <LayoutHero type="error"></LayoutHero>
       </keep-alive>
@@ -10,11 +9,10 @@
           <div class="hero-content">
             <h1 class="title">{{ error.statusCode }}</h1>
             <h3 class="subtitle">{{ error.message }}</h3>
-            <nuxt-link class="go-home link" to="/">Go Home</nuxt-link>
+            <nuxt-link class="go-home btn normal-btn" to="/">Go Home</nuxt-link>
           </div>
         </div>
       </main>
-      <LayoutOverlay></LayoutOverlay>
     </div>
   </div>
 </template>
@@ -81,24 +79,11 @@
           }
 
           .go-home {
-            display inline-block
-            height 3rem
-            line-height @height
             margin-top 4rem
-            padding 0 1.8rem
-            color $white
-            border-radius 1.5rem
-            -webkit-text-fill-color $white
-            -webkit-background-clip padding-box
-
-            &::after {
-              display none
-            }
 
             &:hover
             &:active {
               font-weight normal
-              transform scale(.93)
             }
           }
         }

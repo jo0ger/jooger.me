@@ -130,7 +130,7 @@
     .wrapper {
       position relative
       box-shadow 0 0 40px -5px alpha($black, .1)
-      border-radius 2px
+      border-radius 4px
       overflow hidden
       .tool-list {
         .tool-item {
@@ -142,51 +142,40 @@
           text-align center
           background $white
           color $text-color-secondary
-          border-bottom 1px solid $border-color-4
-
-          &:last-child {
-            border-bottom none
-          }
 
           &:hover {
             background $base-color
             color $white
-            border-bottom-color @background
           }
 
           &.share {
             &:hover {
-              background $blue
-              border-bottom-color @background
+              background $dark
             }
           }
 
           &.fullscreen {
             &:hover {
               background $green
-              border-bottom-color @background
             }
           }
 
           &.back {
             &:hover {
               background $red
-              border-bottom-color @background
             }
           }
 
           &.feedback {
             &:hover {
               background #5ba0f8
-              border-bottom-color @background
             }  
           }
 
           &.go-to-top
           &.go-to-bottom {
             &:hover {
-              background $text-color
-              border-bottom-color @background
+              background alpha($dark, .6)
             }
           }
         }

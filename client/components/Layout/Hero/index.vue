@@ -72,7 +72,6 @@
     },
     computed: {
       ...mapGetters({
-        hero: 'app/hero',
         option: 'option/option'
       }),
       heroType () {

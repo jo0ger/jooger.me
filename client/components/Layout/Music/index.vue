@@ -844,7 +844,7 @@
         img {
           width 100%
           height 100%
-          border-radius 2px
+          border-radius 4px
         }
       }
 
@@ -959,7 +959,7 @@
               img {
                 width 25px
                 height @width
-                border-radius 2px
+                border-radius 4px
               }
             }
 
@@ -1097,7 +1097,7 @@
       .played {
         width 50%
         height 100%
-        border-radius 2px
+        border-radius 4px
         background alpha($base-color, .8)
         box-shadow 0 0 5px 0 $base-color
       }

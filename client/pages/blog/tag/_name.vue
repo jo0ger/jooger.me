@@ -19,7 +19,7 @@
     },
     head () {
       return {
-        title: `标签[${this.$route.params.name}]`
+        title: `${this.$route.params.name} | Tag`
       }
     },
     async fetch ({ store, params }) {

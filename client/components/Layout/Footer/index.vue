@@ -56,7 +56,7 @@
   .footer {
     width 100%
     margin-top 7rem
-    padding 40px 0 120px
+    padding 3rem 0 8rem
     color $text-color-secondary
 
     .wrapper {
@@ -69,25 +69,29 @@
       layout-wrapper()
 
       .contact-list {
-        margin-bottom 10px
+        margin-bottom 2rem
         .item {
           display inline-block
-          margin 0 10px
+          margin 0 .5rem
           padding 5px
 
+          .iconfont {
+            font-size 1.3rem  
+          }
+
           &:hover {
-            opacity .6
+            color $text-color
           }
         }
       }
       
 
       p {
-        margin-bottom 10px
+        margin-bottom 1rem
       }
 
       .record {
-        margin-left 10px
+        margin-left .5rem
       }
 
     }

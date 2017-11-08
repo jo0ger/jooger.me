@@ -189,20 +189,20 @@
     transition all .8s $ease
 
     .article-pane {
-      margin-bottom 30px
+      margin-bottom 2rem
       
       .detail {
         .header {
-          margin-bottom 45px
+          margin-bottom 3rem
           text-align center
 
           .thumb {
             width 100%
-            margin-bottom 30px
+            margin-bottom 2rem
           }
 
           .meta {
-            margin-top 15px
+            margin-top 1rem
             color $text-color-secondary
           }
 
@@ -212,21 +212,21 @@
         }
 
         .content {
-          padding-bottom 30px
+          padding-bottom 2rem
         }
 
         .extra {
           flexLayout(, space-between)
-          padding-bottom 10px
+          padding-bottom .75rem
           color $text-color-secondary
           border-bottom 1px solid $grey
 
           .category {
             &-item {
-              margin-left 5px
-              padding 3px 8px
+              margin-left .25rem
+              padding .25rem .5rem
               background $grey
-              border-radius 2px
+              border-radius 4px
 
               &:hover {
                 background alpha($base-color, .05)
@@ -237,51 +237,50 @@
 
           .meta {
             .label {
-              margin-right 5px
+              margin-right .25rem
             }
             .value {
-              margin-right 10px
+              margin-right .75rem
             }
           }
         }
 
         .tags {
-          margin-top 10px
+          margin-top .75rem
 
           .tag-item {
             display inline-block
-            margin 5px 10px 0 0
-            padding 5px 10px
+            margin .25rem .75rem 0 0
+            padding .25rem .75rem
             border 1px solid $text-color-secondary
             font-size .8rem
-            border-radius 2px
+            border-radius 4px
             color $text-color
             transition all .3s $ease
 
             &:hover {
-              border-color $base-color
-              background alpha($base-color, .05)
-              color $base-color
+              background $dark
+              color $white
             }
           }
         }
 
         .actions {
-          margin 30px 0 0
+          margin 2rem 0 0
           text-align center
 
           .action-item {
             display inline-block
-            height 30px
+            height 2rem
             line-height @height
-            margin 5px
-            border-radius 2px
-            padding 0 15px
+            margin .25rem
+            border-radius 4px
+            padding 0 1rem
             font-size .8rem
             border 1px solid
 
             .iconfont {
-              margin-right 5px
+              margin-right .25rem
               font-size .8rem
             }
 
@@ -307,7 +306,7 @@
             }
 
             &.share {
-              border-color $blue
+              border-color $dark
               color @border-color
             }
 
@@ -324,7 +323,7 @@
               }
 
               &.share {
-                background-color $blue
+                background-color $dark
                 color $white
               }
             }
@@ -333,15 +332,15 @@
         }
 
         .share {
-          margin-top 15px
+          margin-top 1rem
         }
 
         .navigation {
           flexLayout(, space-between)
           position relative
-          margin-top 30px
+          margin-top 2rem
           overflow hidden
-          border-radius 2px
+          border-radius 4px
 
           +respond-below($screen-xs-max) {
             flex-direction column
@@ -360,7 +359,7 @@
             .wrapper {
               width 100%
               height @width
-              padding 40px 20px
+              padding 2rem 1.25rem
               background-color alpha($black, .8)
               color $white
               text-align center
@@ -399,7 +398,7 @@
     }
 
     .comments-pane {
-      padding-top 15px
+      padding-top 1rem
     }
 
   }

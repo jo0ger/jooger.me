@@ -11,10 +11,10 @@
           <div class="input-box">
             <textarea class="content-input" ref="input" :disabled="!isLogin" v-model.trim="content" :placeholder="placeholder"></textarea>
             <div class="overlay" v-if="!isLogin || authInfo.mute">
-              <a class="link login-btn" v-if="!isLogin" @click="handleLogin">
+              <a class="login-btn btn" v-if="!isLogin" @click="handleLogin">
                 <span>使用Github账号登录</span>
               </a>
-              <a class="mute-btn" v-else-if="authInfo.mute">
+              <a class="mute-btn" v-else>
                 <span>您已被禁言，请联系管理员解除</span>
                 <p>{{ authInfo.github.email }}</p>
               </a>
@@ -23,15 +23,15 @@
         </div>
         <div class="action-box">
           <div class="submit-box" v-if="isLogin">
-            <a class="logout-btn link" v-if="!isChild" @click="handleLogout">
+            <a class="logout-btn btn link-btn" v-if="!isChild" @click="handleLogout">
               <span>退出</span>
             </a>
             <transition name="fade">
-              <a class="cancel-reply-btn link" v-if="isChild && commentReplyTarget" @click="handleCancelReply">
+              <a class="cancel-reply-btn btn link-btn" v-if="isChild && commentReplyTarget" @click="handleCancelReply">
                 <span>取消回复</span>
               </a>
             </transition>
-            <a class="sb-btn link" @click.stop="handleSubmit" v-if="authInfo && !authInfo.mute">
+            <a class="sb-btn btn" @click.stop="handleSubmit" v-if="authInfo && !authInfo.mute">
               <span>{{ isChild ? (loading ? '回复中' : '回复') : (loading ? '评论中' : '评论') }}</span>
             </a>
           </div>
@@ -160,7 +160,7 @@
           padding .75em
           background $grey
           border 1px solid $border-color
-          border-radius 2px
+          border-radius 4px
           resize none
           outline none
           transition all .3s $ease
@@ -180,21 +180,10 @@
           background alpha($white, .6)
 
           .login-btn {
-            padding .5em 2em
-            border-radius 2px
             color $white
-            text-align center
-            -webkit-text-fill-color $white
-            -webkit-background-clip padding-box
-
-            &::after {
-              display none
-            }
           }
 
           .mute-btn {
-            padding .5em 2em
-            border-radius 2px
             color $text-color-secondary
             text-align center
             cursor not-allowed
@@ -210,26 +199,11 @@
       .submit-box {
         .logout-btn
         .cancel-reply-btn {
-          display inline-block
           padding .5em 0
-
-          &::after {
-            display none
-          }
         }
         .sb-btn {
-          display inline-block
           margin-left 1rem
           padding .5em 2em
-          border-radius 2px
-          color $white
-          text-align center
-          -webkit-text-fill-color $white
-          -webkit-background-clip padding-box
-
-          &::after {
-            display none
-          }
         }
       }
     }

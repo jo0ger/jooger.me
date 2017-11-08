@@ -160,10 +160,9 @@
     overflow hidden
     z-index 9998
     background $white
-    border-top-left-radius 2px
+    border-top-left-radius 4px
     border-top-right-radius @border-top-left-radius
     text-align center
-    // box-shadow 0 0 40px -5px alpha($black, .05)
     transform translate3d(0, 100%, 0)
     transition transform .8s $fuck
 
@@ -266,7 +265,7 @@
       padding 1rem 2rem
 
       &:hover {
-        background $grey
+        background alpha($dark, .1)
       }
     }
     
