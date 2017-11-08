@@ -17,6 +17,7 @@
         <a class="cancel-btn btn" @click="handleBack">返回</a>
         <a class="publish-btn btn" v-if="isLogin" @click="handleOpenEditor">写回复</a>
         <a class="login-btn btn" v-else @click="handleLogin">
+          <i class="iconfont icon-github"></i>
           <span>使用Github登录</span>
         </a>
       </div>
@@ -117,7 +118,6 @@
         })
       },
       handleLoadmore (page) {
-        console.log(page)
         // loadmore
         this.fetchSubList(null, true)
       }
@@ -162,6 +162,13 @@
         flex 1 0 50%
         height 3rem
         border-radius 0
+        background-color $white
+      }
+
+      .login-btn {
+        .iconfont {
+          margin-right .5rem
+        }  
       }
 
       .cancel-btn {

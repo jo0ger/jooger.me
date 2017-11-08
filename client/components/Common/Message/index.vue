@@ -72,7 +72,7 @@
     max-width max-content
     margin 0 auto
     text-align center
-    z-index 10001
+    z-index 100001
 
     +xxs() {
       max-width none
