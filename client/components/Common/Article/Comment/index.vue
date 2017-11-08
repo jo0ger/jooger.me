@@ -111,17 +111,6 @@
       color $text-color-secondary
       font-size 1.25rem
       font-weight 500
-
-      // &::after {
-      //   content ''
-      //   position absolute
-      //   bottom -10px
-      //   left 50%
-      //   width 40px
-      //   height 2px
-      //   background $grey
-      //   transform translate(-50%, -50%)
-      // }
     }
 
     .box {

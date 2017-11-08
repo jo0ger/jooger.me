@@ -94,7 +94,7 @@
         this.$message('退出成功')
       },
       handleCancelReply () {
-        this.$store.commit('comment/SET_REPLY_TARGET', '')
+        this.$store.commit('comment/SET_REPLY_TARGET', null)
       },
       handleSubmit () {
         if (this.content) {
@@ -133,7 +133,7 @@
         height @width
         line-height @width
         margin-right .5rem
-        border-radius 50%
+        border-radius 4px
         color $white
         text-align center
         background $text-color-secondary

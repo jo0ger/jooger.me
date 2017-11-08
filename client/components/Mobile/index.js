@@ -6,4 +6,4 @@
 
 'use strict'
 
-
+export { default as MobileComment } from './Comment'

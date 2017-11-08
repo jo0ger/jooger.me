@@ -1,7 +1,8 @@
 <template>
   <li class="comment-item" :class="{ 'child-item': isChild }">
-    <a :href="comment.author.github.blog || 'javascript:;'" target="_blank" rel="noopener">
-      <img :src="comment.author.avatar" alt="" class="avatar">
+    <a :href="comment.author.github.blog || 'javascript:;'" target="_blank" rel="noopener" class="avatar">
+      <img :src="avatar" alt="" v-if="avatar">
+      <i class="iconfont icon-logo" v-else></i>
     </a>
     <div class="content-box">
       <div class="header">
@@ -26,8 +27,8 @@
           <span>{{ comment.ups }}</span>
         </a>
         <time class="time" :datatitme="comment.createdAt">{{ comment.createdAt | getDateFromNow }}</time>
-        <a class="reply-btn" @click.stop="handleSelectReplyTarget(comment._id)" v-if="isChild">
-          <i class="iconfont icon-reply"></i>
+        <a class="reply-btn" @click.stop="handleSelectReplyTarget(comment)" v-if="isChild">
+          <i class="iconfont icon-reply" v-if="!mobileLayout"></i>
           <span>回复</span>
         </a>
         <a class="sub-comment-btn" v-else @click.stop="handleToggleSubComments">
@@ -101,20 +102,26 @@
         liking: false,
         replying: false,
         children: [],
-        pagination: {}
+        pagination: {},
+        avatar: ''
       }
+    },
+    mounted () {
+      this.$imgLoad(this.comment.author.avatar, {
+        success: url => {
+          this.avatar = url
+        }
+      })
     },
     computed: {
       ...mapGetters({
         likeHistory: 'app/history',
+        mobileLayout: 'app/mobileLayout',
         authInfo: 'auth/info',
-        replyTarget: 'comment/replyTarget'
+        commentReplyTarget: 'comment/replyTarget'
       }),
-      replyTargetComment () {
-        return this.children.find(child => child._id === this.replyTarget)
-      },
       inputPlaceholder () {
-        return this.replyTargetComment ? `回复 ${this.replyTargetComment.author.name}：` : '想回复点儿什么'
+        return this.commentReplyTarget ? `回复 ${this.commentReplyTarget.author.name}：` : '想回复点儿什么'
       },
       forward () {
         if (!this.comment.forward) {
@@ -179,7 +186,7 @@
         if (this.showSub) {
           this.handleSort(1)
         } else {
-          this.$store.commit('comment/SET_REPLY_TARGET', '')
+          this.$store.commit('comment/SET_REPLY_TARGET', null)
         }
       },
       handleSort (sort, params = {}) {
@@ -196,8 +203,8 @@
       handlePageChange (page) {
         this.handleSort(this.subSort, { page })
       },
-      handleSelectReplyTarget (targetId) {
-        this.$store.commit('comment/SET_REPLY_TARGET', targetId)
+      handleSelectReplyTarget (target) {
+        this.$store.commit('comment/SET_REPLY_TARGET', target)
         if (!this.authInfo.mute) {
           this.$nextTick(() => {
             this.$parent.$parent.$refs.reply.$refs.input.focus()
@@ -216,16 +223,13 @@
             type: 0,
             article: this.comment.article,
             parent: this.comment._id,
-            forward: this.replyTarget || this.comment._id
+            forward: this.commentReplyTarget ? this.commentReplyTarget._id : this.comment._id
           }
         }).catch(() => ({}))
         this.replying = false
         if (success) {
           done && done()
-          this.$store.commit('comment/REPLY_SUCCESS', {
-            parentId: this.comment._id,
-            articleId: this.comment.article
-          })
+          this.$store.commit('comment/REPLY_SUCCESS', this.comment._id)
           this.handleSort(0)
         }
       }
@@ -257,7 +261,20 @@
       flex-basis 2.5rem
       width @flex-basis
       height @width
-      border-radius 50%
+      line-height @width
+      text-align center
+      border-radius 4px
+      background $grey
+
+      img {
+        width 100%
+        height @width
+        border-radius 4px
+      }
+
+      .iconfont {
+        color alpha($black, .3)  
+      }
     }
 
     .content-box {
@@ -274,7 +291,6 @@
           font-weight 600
           font-size 1rem
           textOverflow()
-
         }
         .text-reply {
           margin-left 10px
@@ -307,6 +323,8 @@
         font-size .75rem
 
         & > a {
+          display inline-block
+          text-align center
           &:hover {
             color $text-color
           }
@@ -314,8 +332,11 @@
 
         .like-btn {
           margin-right 1rem
-          padding .2rem .4rem
+          width 2.5rem
+          height 1.5rem
+          line-height @height
           background $grey
+          border-radius 4px
 
           .iconfont {
             margin-right .25rem
@@ -391,17 +412,6 @@
     +xxs() {
       .meta {
         display none !important
-      }
-    }
-  }
-</style>
-
-<style lang="stylus">
-  .comment-item {
-    .meta {
-      .iconfont {
-        margin-right .25rem
-        font-size .75rem
       }
     }
   }

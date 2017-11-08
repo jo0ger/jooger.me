@@ -990,8 +990,9 @@
               }
 
               .spinner {
-                width 16px
+                width 1rem
                 height @width
+                border-left-color $base-color
               }
             }
 

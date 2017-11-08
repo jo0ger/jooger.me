@@ -93,8 +93,12 @@
     .list-header {
       flexLayout(, space-between)
       margin-bottom 1rem
-      padding-bottom 1rem
+      padding-bottom .5rem
       border-bottom 1px solid $grey
+
+      .total-count {
+        font-weight 700
+      }
 
       .sort-list {
         .sort-item {
@@ -112,7 +116,6 @@
       width 2rem
       height @width
       margin 3rem auto
-      border-left-color $dark
     }
 
     .no-data {
@@ -124,13 +127,6 @@
     .comment-pagination {
       margin 2rem 0
       padding .5rem 0
-    }
-
-    +respond-below($screen-xs-max) {
-      .list-header {
-        margin-bottom .5rem !important
-        padding-bottom .5rem !important
-      }
     }
   }
 </style>
