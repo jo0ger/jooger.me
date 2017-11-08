@@ -11,13 +11,13 @@
 
 ### PC
 
-![Home](https://github.com/jo0ger/jooger.me/tree/master/screenshots/pc-home.png)
+![Home](https://raw.githubusercontent.com/jo0ger/jooger.me/master/screenshots/pc-home.png)
 
-![Blog](https://github.com/jo0ger/jooger.me/tree/master/screenshots/pc-blog.png)
+![Blog](https://raw.githubusercontent.com/jo0ger/jooger.me/master/screenshots/pc-blog.png)
 
 ### Mobile
 
-![Mobile](https://github.com/jo0ger/jooger.me/tree/master/screenshots/mobile.jpg)
+![Mobile](https://raw.githubusercontent.com/jo0ger/jooger.me/master/screenshots/mobile.jpg)
 
 ## Build Setup
 
