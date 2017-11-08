@@ -30,7 +30,7 @@
         <i class="iconfont icon-reply" v-if="!mobileLayout"></i>
         <span>回复</span>
       </a>
-      <a class="sub-comment-btn" v-else @click.stop="handleShowChildComments">
+      <a class="sub-comment-btn" v-else-if="!isChild" @click.stop="handleShowChildComments">
         <i class="iconfont icon-comment"></i>
         <span>{{ comment.subCount }} 条{{ isChild ? '回复' : '评论' }}</span>
       </a>

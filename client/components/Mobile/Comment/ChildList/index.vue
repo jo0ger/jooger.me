@@ -162,7 +162,6 @@
         flex 1 0 50%
         height 3rem
         border-radius 0
-        background-color $white
       }
 
       .login-btn {
