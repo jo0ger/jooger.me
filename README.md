@@ -7,6 +7,18 @@
 
 > 👍 My personal site ( [jooger.me](https://jooger.me) )，built by [Vue2](https://github.com/vuejs/vue), [Nuxt.js](https://github.com/nuxt/nuxt.js), [Axios](https://github.com/axios/axios).
 
+## ScreenShots
+
+### PC
+
+![Home](https://github.com/jo0ger/jooger.me/tree/master/screenshots/pc-home.png)
+
+![Blog](https://github.com/jo0ger/jooger.me/tree/master/screenshots/pc-blog.png)
+
+### Mobile
+
+![Mobile](https://github.com/jo0ger/jooger.me/tree/master/screenshots/mobile.jpg)
+
 ## Build Setup
 
 ``` bash
