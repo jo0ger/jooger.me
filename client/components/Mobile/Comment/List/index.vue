@@ -97,11 +97,12 @@
         this.$emit('page-change', page)
       },
       handleScroll (e) {
+        e.preventDefault()
+        e.stopPropagation()
         const canLoadmore = !this.loading && !this.moreLoading && (this.pagination.current_page < this.pagination.total_page)
         if (!this.isChild || !canLoadmore) {
           return
         }
-        console.log(e.target.scrollHeight, e.target.scrollTop, window.innerHeight)
         if (e.target.scrollHeight <= (e.target.scrollTop + window.innerHeight)) {
           this.$emit('loadmore', this.pagination.current_page + 1)
           e.target.scrollTop--

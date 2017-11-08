@@ -26,7 +26,7 @@
         <span>{{ comment.ups }}</span>
       </a>
       <time class="time" :datatitme="comment.createdAt">{{ comment.createdAt | getDateFromNow }}</time>
-      <a class="reply-btn" @click.stop="handleSelectReplyTarget(comment)" v-if="isChild">
+      <a class="reply-btn" @click.stop="handleSelectReplyTarget(comment)" v-if="isChild && isLogin">
         <i class="iconfont icon-reply" v-if="!mobileLayout"></i>
         <span>回复</span>
       </a>
@@ -64,6 +64,7 @@
     },
     computed: {
       ...mapGetters({
+        isLogin: 'auth/isLogin',
         likeHistory: 'app/history',
         mobileLayout: 'app/mobileLayout',
         mobileCommentChildList: 'app/mobileCommentChildList',
@@ -120,8 +121,12 @@
         this.liking = false
       },
       handleSelectReplyTarget (target) {
-        this.$store.commit('comment/SET_REPLY_TARGET', target)
-        this.$store.commit('app/SET_MOBILE_COMMENT_EDITOR', true)
+        if (this.isLogin) {
+          this.$store.commit('comment/SET_REPLY_TARGET', target)
+          this.$store.commit('app/SET_MOBILE_COMMENT_EDITOR', true)
+        } else {
+          this.$message('请先登录')
+        }
       },
       handleShowChildComments () {
         this.$store.commit('app/SET_MOBILE_COMMENT_CHILD_LIST', !this.mobileCommentChildList)
