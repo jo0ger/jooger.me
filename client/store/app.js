@@ -8,7 +8,6 @@ import config from '~/config'
 import { setLocalStorageItem, isType } from '~/utils'
 
 const SET_MOBILE_LAYOUT = 'SET_MOBILE_LAYOUT'
-const SET_MOBILE_SIDEBAR = 'SET_MOBILE_SIDEBAR'
 const SET_FETCH_LOADING = 'SET_FETCH_LOADING'
 const SET_MENU = 'SET_MENU'
 const SET_OVERLAY = 'SET_OVERLAY'
@@ -18,10 +17,11 @@ const SET_MUSIC = 'SET_MUSIC'
 const SET_MUSIC_PLAY = 'SET_MUSIC_PLAY'
 const SET_HISTORY = 'SET_HISTORY'
 const SET_SHARE_BOX = 'SET_SHARE_BOX'
+const SET_MOBILE_COMMENT_EDITOR = 'SET_MOBILE_COMMENT_EDITOR'
+const SET_MOBILE_COMMENT_CHILD_LIST = 'SET_MOBILE_COMMENT_CHILD_LIST'
 
 export const state = () => ({
   mobileLayout: false,
-  mobileSidebar: false,
   fetchLoading: false,
   overlay: false,
   search: false,
@@ -38,12 +38,13 @@ export const state = () => ({
     articles: [],
     comments: []
   },
-  sharebox: false
+  sharebox: false,
+  mobileCommentEditor: false,
+  mobileCommentChildList: false
 })
 
 export const getters = {
   mobileLayout: state => state.mobileLayout,
-  mobileSidebar: state => state.mobileSidebar,
   fetchLoading: state => state.fetchLoading,
   searchHeader: state => state.searchHeader,
   showMenu: state => state.menu,
@@ -52,15 +53,17 @@ export const getters = {
   showMusic: state => state.music.show,
   musicPlaying: state => state.music.playing,
   history: state => state.history,
-  sharebox: state => state.sharebox
+  sharebox: state => state.sharebox,
+  mobileCommentEditor: state => state.mobileCommentEditor,
+  mobileCommentChildList: state => state.mobileCommentChildList
 }
 
 export const mutations = {
   [SET_MOBILE_LAYOUT]: (state, isMobile) => (state.mobileLayout = isMobile),
-  [SET_MOBILE_SIDEBAR]: (state, show) => (state.mobileSidebar = show),
   [SET_FETCH_LOADING]: (state, loading) => (state.fetchLoading = loading),
   [SET_MENU]: (state, show = false) => {
-    state.menu = state.overlay = show
+    state.menu = show
+    state.overlay = false
     if (show) {
       state.search = false
       state.sharebox = false
@@ -107,6 +110,23 @@ export const mutations = {
       state.menu = false
       state.search = false
       state.music.show = false
+    }
+  },
+  [SET_MOBILE_COMMENT_EDITOR]: (state, show = false) => {
+    state.mobileCommentEditor = show
+    if (show) {
+      state.overlay = false
+      state.menu = false
+      state.search = false
+      state.sharebox = false
+    }
+  },
+  [SET_MOBILE_COMMENT_CHILD_LIST]: (state, show = false) => {
+    state.mobileCommentChildList = show
+    if (show) {
+      state.menu = false
+      state.search = false
+      state.sharebox = false
     }
   }
 }

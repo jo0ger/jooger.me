@@ -10,7 +10,8 @@
     name: 'Layout-Overlay',
     computed: {
       ...mapGetters({
-        showOverlay: 'app/showOverlay'
+        showOverlay: 'app/showOverlay',
+        mobileLayout: 'app/mobileLayout'
       })
     },
     watch: {
@@ -24,6 +25,9 @@
       handleClick () {
         this.$store.commit('app/SET_SEARCH', false)
         this.$store.commit('app/SET_SHARE_BOX', false)
+        if (this.mobileLayout) {
+          this.$store.commit('app/SET_MOBILE_COMMENT_EDITOR', false)
+        }
       }
     }
   }

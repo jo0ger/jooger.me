@@ -29,7 +29,7 @@ export const state = () => ({
     data: [],
     pagination: {}
   },
-  replyTarget: '' // 子评论中相互回复
+  replyTarget: null // 子评论中相互回复
 })
 
 export const getters = {
@@ -74,10 +74,10 @@ export const mutations = {
   [CREATE_SUCCESS]: state => {
     state.creating = false
   },
-  [SET_REPLY_TARGET]: (state, targetId = '') => {
-    state.replyTarget = targetId
+  [SET_REPLY_TARGET]: (state, target = null) => {
+    state.replyTarget = target
   },
-  [REPLY_SUCCESS]: (state, { parentId = '', articleId = '' }) => {
+  [REPLY_SUCCESS]: (state, parentId = '') => {
     const index = state.list.data.findIndex(item => item._id === parentId)
     if (index > -1) {
       const item = state.list.data[index]
@@ -85,6 +85,7 @@ export const mutations = {
         ...item,
         subCount: item.subCount + 1
       })
+      state.replyTarget = null
     }
   }
 }

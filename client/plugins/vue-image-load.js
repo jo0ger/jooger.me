@@ -26,13 +26,13 @@ function imgLoad (url = '', opt = {}) {
   img.src = url
   if (img.complete) {
     if (img[prop]) {
-      success && success.call(img)
+      success && success.call(img, url)
     } else {
-      fail && fail.call(img)
+      fail && fail.call(img, url)
     }
   } else {
     load && load()
-    img.onload = success
-    img.onerror = fail
+    img.onload = success && success.bind(img, url)
+    img.onerror = fail && fail.bind(img, url)
   }
 }

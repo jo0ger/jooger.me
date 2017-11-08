@@ -136,13 +136,22 @@
   }
 }
 
+.comment-item {
+  .meta {
+    .iconfont {
+      margin-right .25rem
+      font-size .75rem
+    }
+  }
+}
+
 .btn {
   position relative
   display inline-block
   margin 0
   padding .8rem 1.8rem
   color $white
-  background alpha($dark, .69)
+  background $dark
   border none
   border-radius 4px
   outline none
@@ -153,24 +162,24 @@
 
   &.link-btn {
     background transparent
-    color alpha($dark, .69)
+    color $dark
 
     &:hover {
-      color $dark
+      color alpha($dark, .69)
       background transparent
     }
   }
 
   &.normal-btn {
-    background alpha($base-color, .69)
+    background $base-color
 
     &:hover {
-      background $base-color
+      background alpha($base-color, .69)
     }
   }
 
   &:hover {
-    background $dark
+    background alpha($dark, .69)
   }
 }
 
@@ -179,7 +188,7 @@
   height @width
   margin 0 auto
   border 1px solid alpha($black, .1)
-  border-left-color $base-color
+  border-left-color $dark
   border-radius 50%
   animation loading .8s infinite linear
 }

@@ -89,8 +89,12 @@
       <p class="no-data" v-else>文章未找到</p>
     </div>
     <div class="comments-pane" v-if="articleDetail">
-      <CommonArticleComment
-        :total="articleDetail.meta.comments"></CommonArticleComment>
+      <MobileComment v-if="mobileLayout"
+        :total="articleDetail.meta.comments">
+      </MobileComment>
+      <CommonArticleComment v-else
+        :total="articleDetail.meta.comments">
+      </CommonArticleComment>
     </div>
   </div>
 </template>
@@ -98,11 +102,13 @@
 <script>
   import { mapGetters } from 'vuex'
   import { CommonArticleComment } from '~/components/Common'
+  import { MobileComment } from '~/components/Mobile'
 
   export default {
     name: 'Blog-Article',
     components: {
-      CommonArticleComment
+      CommonArticleComment,
+      MobileComment
     },
     validate ({ params }) {
       return !!params.id
@@ -132,7 +138,8 @@
         articleDetail: 'article/detail',
         articleDetailFetching: 'article/detailFetching',
         articleDetailLiking: 'article/detailLiking',
-        historyLikes: 'app/history'
+        historyLikes: 'app/history',
+        mobileLayout: 'app/mobileLayout'
       }),
       isLiked () {
         return !!this.historyLikes.articles.find(item => item === this.articleDetail._id)

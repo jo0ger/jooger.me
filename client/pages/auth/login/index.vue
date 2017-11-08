@@ -63,12 +63,12 @@
     transform translate3d(-50%, -50%, 0)
 
     .spinner {
-      width 48px
+      width 3rem
       height @width
     }
 
     & > p {
-      margin-top 10px
+      margin-top 1.25rem
       text-align center
     }
   }

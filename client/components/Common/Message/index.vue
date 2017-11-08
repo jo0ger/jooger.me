@@ -9,6 +9,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import { isType } from '@/utils'
 
   export default {
