@@ -89,7 +89,7 @@
         & > img {
           width 100%
           min-height 100%
-          border-radius 2px
+          border-radius 4px
           object-fit cover
           object-position center
         }
@@ -115,7 +115,7 @@
           padding 5px 0
           background alpha($black, .3)
           color $text-color-secondary-dark
-          border-bottom-left-radius 2px
+          border-bottom-left-radius 4px
           border-bottom-right-radius @border-bottom-left-radius
           .item {
             margin 0 .5rem

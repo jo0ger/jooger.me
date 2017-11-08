@@ -10,6 +10,7 @@ const path = require('path')
 const isProd = process.env.NODE_ENV === 'production'
 const fixUrl = url => url.replace(/\/\//g, '/').replace(':/', '://')
 const description = '不忘初心，方得始终'
+const themeColor = '#ed0a75'
 
 module.exports = {
   srcDir: 'client/',
@@ -35,14 +36,21 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' },
       { name: 'MobileOptimized', content: '320' },
       { name: 'HandheldFriendly', content: 'True' },
+      { name: 'renderer', content: 'webkit' },
+      { name: 'X-UA-Compatible', content: 'IE=edge, chrome=1' },
+      { name: 'screen-orientation', content: 'portrait' },
+      { name: 'x5-orientation', content: 'portrait' },
+      { name: 'msapplication-tap-highlight', content: 'no' },
+      { name: '', content: '' },
+      { name: 'apple-mobile-web-app-title', content: 'Jooger.me - ' + description },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { name: 'author', content: 'zzy1198258955@163.com' },
-      { name: 'theme-color', content: '#ed0a75' },
+      { name: 'theme-color', content: themeColor },
       { hid: 'keywords', name: 'keywords', content: 'Jooger,Jooger.me,Blog,FE,前端' },
       { hid: 'description', name: 'description', content: description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: 'https://static.jooger.me/img/common/favicon.ico' }
+      { rel: 'shortcut icon', type: 'image/x-icon', href: 'https://static.jooger.me/img/common/favicon.ico' }
     ]
   },
   css: [
@@ -89,7 +97,7 @@ module.exports = {
         display: 'standalone',
         start_url: 'https://jooger.me',
         description: description,
-        theme_color: '#ed0a75',
+        theme_color: themeColor,
         background_color: '#fff',
         lang: 'zh-CN'
       },
@@ -97,7 +105,7 @@ module.exports = {
         charset: 'utf-8',
         title: 'Jooger.me - ' + description,
         description: description,
-        'theme-color': '#ed0a75',
+        'theme-color': themeColor,
         lang: 'zh-CN',
         viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
       },

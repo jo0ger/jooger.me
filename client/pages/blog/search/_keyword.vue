@@ -19,7 +19,7 @@
     },
     head () {
       return {
-        title: `搜索[${this.$route.params.keyword}]`
+        title: `${this.$route.params.keyword} | Search`
       }
     },
     async fetch ({ store, params }) {

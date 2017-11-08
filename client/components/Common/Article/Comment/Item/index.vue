@@ -198,9 +198,11 @@
       },
       handleSelectReplyTarget (targetId) {
         this.$store.commit('comment/SET_REPLY_TARGET', targetId)
-        this.$nextTick(() => {
-          this.$parent.$parent.$refs.reply.$refs.input.focus()
-        })
+        if (!this.authInfo.mute) {
+          this.$nextTick(() => {
+            this.$parent.$parent.$refs.reply.$refs.input.focus()
+          })
+        }
       },
       async handleReply ({ content = '', done }) {
         if (this.replying) {
@@ -287,7 +289,7 @@
         .meta {
           display inline-block
           margin-left 1rem
-          color alpha($black, 25%)
+          color alpha($black, .25)
           font-size .75rem
           & > span {
             margin-right .5rem
@@ -344,6 +346,7 @@
 
         .location {
           float right
+          color alpha($black, .25)
         }
       }
 

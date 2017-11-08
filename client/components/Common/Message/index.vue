@@ -81,7 +81,8 @@
       padding .8rem 1.25rem
       background $black
       color $white
-      border-radius 2px
+      border-bottom-left-radius 4px
+      border-bottom-right-radius 4px
     }
   }
 </style>

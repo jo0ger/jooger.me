@@ -58,7 +58,7 @@
     transform translateZ(0)
     text-align center
 
-    @media all and (max-height: 600px) {
+    @media all and (max-height: 550px) {
       display none
     }
 
@@ -134,6 +134,54 @@
       }
     }
   }
+}
+
+.btn {
+  position relative
+  display inline-block
+  margin 0
+  padding .8rem 1.8rem
+  color $white
+  background alpha($dark, .69)
+  border none
+  border-radius 4px
+  outline none
+  cursor pointer
+  text-align center  
+  text-decoration none
+  transition all .3s linear
+
+  &.link-btn {
+    background transparent
+    color alpha($dark, .69)
+
+    &:hover {
+      color $dark
+      background transparent
+    }
+  }
+
+  &.normal-btn {
+    background alpha($base-color, .69)
+
+    &:hover {
+      background $base-color
+    }
+  }
+
+  &:hover {
+    background $dark
+  }
+}
+
+.spinner {
+  width 32px
+  height @width
+  margin 0 auto
+  border 1px solid alpha($black, .1)
+  border-left-color $base-color
+  border-radius 50%
+  animation loading .8s infinite linear
 }
 
 @keyframes scale-in {

@@ -90,7 +90,7 @@
   export default {
     name: 'About',
     head: {
-      title: '关于',
+      title: 'About',
       bodyAttrs: {
         class: 'dark-page'
       }

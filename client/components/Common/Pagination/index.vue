@@ -156,26 +156,26 @@
     color $text-color-secondary
 
     & > a {
-      margin 0 .1rem
+      margin 0 .2rem
       padding .3rem .5rem
       line-height 1
       text-align center
 
       &:hover {
-        color $base-color
+        color $dark
       }
     }
 
     .number {
-      border-radius 2px
+      border-radius 4px
       &:hover {
-        background $base-color
+        background $dark
         color $white
       }
 
       &.active {
-        background alpha($base-color, .1)
-        color $base-color
+        background alpha($dark, .1)
+        color $dark
         cursor default
       }
     }

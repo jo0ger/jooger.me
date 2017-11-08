@@ -19,7 +19,7 @@
     },
     head () {
       return {
-        title: `分类[${this.$route.params.name}]`
+        title: `${this.$route.params.name} | Category`
       }
     },
     async fetch ({ store, params }) {
