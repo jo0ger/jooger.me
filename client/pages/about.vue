@@ -68,7 +68,7 @@
       <hr>
       <ul class="friend-list">
         <li class="friend-item" v-for="item in option.links" :key="item.name">
-          <a class="info" :href="item.site" target="_blank" rel="noopener">
+          <a class="info" :href="item.site" :name="item.name + '-avatar'" target="_blank" rel="noopener">
             <div class="avatar">
               <img :src="item.avatar" :alt="item.name">
             </div>

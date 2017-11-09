@@ -120,9 +120,7 @@
             this.showContent = window.pageYOffset >= this.contentDelta
           }
         }
-        window.addEventListener('scroll', this._scrollerHandler,{
-          passive: true
-        }, false)
+        window.addEventListener('scroll', this._scrollerHandler, { passive: true })
         this._scrollerHandler()
       },
       getSwiperStyle (banner) {

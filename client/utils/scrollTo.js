@@ -35,7 +35,7 @@ const _ = {
       events = [events]
     }
     for (let i = 0; i < events.length; i++) {
-      element.addEventListener(events[i], handler)
+      element.addEventListener(events[i], handler, { passive: true })
     }
   },
   off (element, events, handler) {
