@@ -27,9 +27,7 @@
       closed (val) {
         if (val) {
           this.visible = false
-          this.$el.addEventListener('transitionend', this.destroy, {
-            passive: true
-          })
+          this.$el.addEventListener('transitionend', this.destroy, { passive: true })
         }
       }
     },

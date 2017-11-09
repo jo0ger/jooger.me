@@ -18,15 +18,15 @@
           <i class="iconfont icon-email"></i>
         </a>
         <a class="tool-item go-to-top"
-          @click.prevent.stop="handleGoToTop"
-          @mouseover.prevent.stop="slowScroll(-3)"
-          @mouseleave.prevent.stop="stopSlowScroll()">
+          @click="handleGoToTop"
+          @mouseover="slowScroll(-3)"
+          @mouseleave="stopSlowScroll()">
           <i class="iconfont icon-arrow-up"></i>
         </a>
         <a class="tool-item go-to-bottom"
-          @click.prevent.stop="handleGoToBottom"
-          @mouseover.prevent.stop="slowScroll(3)"
-          @mouseleave.prevent.stop="stopSlowScroll()">
+          @click="handleGoToBottom"
+          @mouseover="slowScroll(3)"
+          @mouseleave="stopSlowScroll()">
           <i class="iconfont icon-arrow-down"></i>
         </a>
       </div>
