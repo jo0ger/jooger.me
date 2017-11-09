@@ -162,7 +162,7 @@
             if (e.target.className.includes('image-view')) {
               this.$imgPop.open(e.target.src)
             }
-          }, false)
+          }, { passive: true })
         }
       },
       getThumbStyle (obj = {}) {

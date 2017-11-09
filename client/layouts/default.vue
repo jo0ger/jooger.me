@@ -94,7 +94,7 @@
           } else {
             document.title = this.title || 'Jooger.me'
           }
-        }, false)
+        }, { passive: true })
       }
     }
   }

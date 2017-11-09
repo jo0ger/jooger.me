@@ -33,7 +33,7 @@ module.exports = {
       { 'http-equiv': 'Cache-Control', content: 'no-transform' },
       { 'http-equiv': 'Cache-Control', content: 'no-siteapp' },
       { 'http-equiv': 'cleartype', content: 'on' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=2' },
       { name: 'MobileOptimized', content: '320' },
       { name: 'HandheldFriendly', content: 'True' },
       { name: 'renderer', content: 'webkit' },

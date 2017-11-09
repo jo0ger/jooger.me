@@ -303,7 +303,7 @@
       //   if (!show) {
       //     this.showPlayList = false
       //   }
-      // })
+      // }, { passive: true })
       window.addEventListener('click', e => {
         if (!this.showMusic) {
           return
@@ -312,7 +312,7 @@
           this.showPlayList = false
           this.$store.commit('app/SET_MUSIC', false)
         }
-      })
+      }, { passive: true })
     },
     beforeDestroy () {
       this.stop()

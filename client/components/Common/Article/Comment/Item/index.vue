@@ -1,6 +1,6 @@
 <template>
   <li class="comment-item" :class="{ 'child-item': isChild }">
-    <a :href="comment.author.github.blog || 'javascript:;'" target="_blank" rel="noopener" class="avatar">
+    <a name="avatar" :href="comment.author.github.blog || 'javascript:;'" target="_blank" rel="noopener" class="avatar">
       <img :src="avatar" alt="" v-if="avatar">
       <i class="iconfont icon-logo" v-else></i>
     </a>
@@ -8,10 +8,10 @@
       <div class="header">
         <div class="info">
           <div class="user-info">
-            <a :href="comment.author.github.blog || 'javascript:;'" target="_blank" rel="noopener">{{ comment.author.name }}</a>
+            <a name="user" :href="comment.author.github.blog || 'javascript:;'" target="_blank" rel="noopener">{{ comment.author.name }}</a>
             <span class="text-reply" v-if="forward">
               <span class="text">回复</span>
-              <a :href="forward.author.github.blog || 'javascript:;'" target="_blank" rel="noopener">{{ forward.author.name }}</a>
+              <a name="user" :href="forward.author.github.blog || 'javascript:;'" target="_blank" rel="noopener">{{ forward.author.name }}</a>
             </span>
           </div>
           <div class="meta">

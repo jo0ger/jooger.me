@@ -72,7 +72,7 @@
     },
     mounted () {
       this.setSize()
-      window.addEventListener('resize', this.resetSize)
+      window.addEventListener('resize', this.resetSize, { passive: true })
     },
     beforeDestroy () {
       window.removeEventListener('resize', this.resetSize)
@@ -104,9 +104,9 @@
           return
         }
         this.onDragStart(e)
-        window.addEventListener('mousemove', this.onDragging)
-        window.addEventListener('mouseup', this.onDragEnd)
-        window.addEventListener('contextmenu', this.onDragEnd)
+        window.addEventListener('mousemove', this.onDragging, { passive: true })
+        window.addEventListener('mouseup', this.onDragEnd, { passive: true })
+        window.addEventListener('contextmenu', this.onDragEnd, { passive: true })
       },
       onDragStart (e) {
         this.dragging = true

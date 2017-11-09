@@ -2,7 +2,7 @@
   <header class="header">
     <div class="wrapper">
       <a class="logo" @click.prevent.stop="handleGoHome">
-        <img src="~static/image/logo.svg" alt="">
+        <img src="~static/image/logo.png" alt="">
       </a>
       <nav class="navigation">
         <a class="music" :class="{ active: showMusic, playing: musicPlaying }" @click.prevent.stop="handleToggleMusic" v-if="!mobileLayout">
@@ -31,9 +31,9 @@
     </div>
     <div class="search-pane" :class="{ active: showSearch }">
       <form class="search-form" role="search" @submit.stop.prevent="handleSearch">
-        <input class="search-input"
+        <label for="search"></label>
+        <input id="search" class="search-input"
           ref="searchInput"
-          label="search"
           type="search"
           autocomplete="off"
           autofocus="true"
