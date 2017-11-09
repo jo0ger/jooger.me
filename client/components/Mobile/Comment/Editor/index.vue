@@ -58,6 +58,7 @@
           })
         } else {
           this.$refs.input.blur()
+          this.content = ''
         }
       }
     },

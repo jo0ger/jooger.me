@@ -105,6 +105,14 @@
     .footer {
       color $text-color-secondary-dark
 
+      .contact-list {
+        .item {
+          &:hover {
+            color $text-color-dark
+          }
+        }
+      }
+
       .link {
         color $text-color-secondary-dark
         border-color $text-color-secondary-dark

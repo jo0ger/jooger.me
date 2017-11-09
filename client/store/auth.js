@@ -78,7 +78,6 @@ export const actions = {
     if (success) {
       const token = data.access_token
       commit(LOGIN_SUCCESS, token)
-      alert(token)
       setLocalStorageItem(config.auth.githubTokenKey, token)
     } else {
       commit(LOGIN_FAILURE)
