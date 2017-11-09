@@ -5,7 +5,7 @@
         <header class="header">
           <h1 class="title">{{ articleDetail.title }}</h1>
           <div class="meta">
-            <time class="time" :datatitme="articleDetail.publishedAt">{{ articleDetail.publishedAt | fmtDate('yyyy-MM-dd') }}</time>
+            <time class="time" :datatitme="articleDetail.createdAt">{{ articleDetail.createdAt | fmtDate('yyyy-MM-dd') }}</time>
           </div>
         </header>
         <div class="content md-body" v-html="articleDetail.renderedContent"></div>
@@ -59,7 +59,7 @@
               <h3 class="label">prev</h3>
               <p class="title">{{ articleDetail.adjacent.prev.title }}</p>
               <div class="meta">
-                <time class="time" :datatitme="articleDetail.adjacent.prev.publishedAt">{{ articleDetail.adjacent.prev.publishedAt | fmtDate('yyyy-MM-dd') }}</time>
+                <time class="time" :datatitme="articleDetail.adjacent.prev.createdAt">{{ articleDetail.adjacent.prev.createdAt | fmtDate('yyyy-MM-dd') }}</time>
                 <template v-if="articleDetail.adjacent.prev.category">
                   <span> - </span>
                   <span class="category">{{ articleDetail.adjacent.prev.category.name }}</span>
@@ -76,7 +76,7 @@
               <h3 class="label">next</h3>
               <p class="title">{{ articleDetail.adjacent.next.title }}</p>
               <div class="meta">
-                <time class="time" :datatitme="articleDetail.adjacent.next.publishedAt">{{ articleDetail.adjacent.next.publishedAt | fmtDate('yyyy-MM-dd') }}</time>
+                <time class="time" :datatitme="articleDetail.adjacent.next.createdAt">{{ articleDetail.adjacent.next.createdAt | fmtDate('yyyy-MM-dd') }}</time>
                 <template v-if="articleDetail.adjacent.next.category">
                   <span> - </span>
                   <span class="category">{{ articleDetail.adjacent.next.category.name }}</span>

@@ -23,7 +23,7 @@
       </div>
       <header class="caption">
         <div class="meta">
-          <time class="time" :datatitme="data.publishedAt">{{ data.publishedAt | fmtDate('yyyy-MM-dd') }}</time>
+          <time class="time" :datatitme="data.createdAt">{{ data.createdAt | fmtDate('yyyy-MM-dd') }}</time>
           <template v-if="data.category">
             <span> - </span>
             <span class="category">{{ data.category.name }}</span>

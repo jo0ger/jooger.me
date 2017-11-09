@@ -66,9 +66,7 @@ module.exports = {
       'axios',
       'swiper',
       'howler',
-      'marked',
       'clipboard',
-      'highlight.js',
       'bezier-easing',
       'vue-awesome-swiper'
     ]
