@@ -2,7 +2,7 @@
   <header class="header">
     <div class="wrapper">
       <a class="logo" @click.prevent.stop="handleGoHome">
-        <img src="~static/image/logo.png" alt="">
+        <svg t="1508910133870" class="icon" style="" viewBox="0 0 1280 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1950" xmlns:xlink="http://www.w3.org/1999/xlink" width="26" height="26"><defs><style type="text/css"></style></defs><path d="M204.928 0 0 364.9744 153.8208 523.504 920.9104 523.504 640 812.2576 463.7808 630.8448 258.0064 630.8448 639.9936 1024 1280 364.9488 171.8848 364.9488 293.9712 146.5472 987.592 146.5472 1058.0544 272.56 1227.9552 272.56 1074.2448 0Z" p-id="1951" fill="#ed0a75"></path></svg>
       </a>
       <nav class="navigation">
         <a class="music" :class="{ active: showMusic, playing: musicPlaying }" @click.prevent.stop="handleToggleMusic" v-if="!mobileLayout">
@@ -32,7 +32,7 @@
     <div class="search-pane" :class="{ active: showSearch }">
       <form class="search-form" role="search" @submit.stop.prevent="handleSearch">
         <label for="search"></label>
-        <input id="search" class="search-input"
+        <input name="search" id="search" class="search-input"
           ref="searchInput"
           type="search"
           autocomplete="off"

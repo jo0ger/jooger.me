@@ -3,7 +3,7 @@
     <div class="runway" :style="runwayStyle" ref="slider" @click="handleSliderClick">
       <div class="bar" :style="barStyle"></div>
       <div class="dot" :style="dotStyle"
-        @mousedown.prevent="handleMouseDown">
+        @mousedown="handleMouseDown">
         <slot></slot>
       </div>
     </div>

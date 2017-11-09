@@ -7,7 +7,7 @@
         <a class="sort-item" :class="{ active: sort === 1 }" @click="handleSort(1)">最热</a>
       </div>
     </div>
-    <div class="list-field" @scroll.prevent.stop="handleScroll">
+    <div class="list-field" @scroll.passive="handleScroll">
       <transition name="fade" mode="out-in">
         <div class="spinner" v-if="loading"></div>
         <ul class="comment-list" v-else-if="list.length">
