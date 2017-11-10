@@ -11,6 +11,9 @@
           </a>
         </li>
       </ul>
+      <a href="https://resume.jooger.me" class="resume btn" target="_blank" rel="noopener">
+        我的简历
+      </a>
     </div>
     <div class="block" v-if="option.welcome">
       <h3>Welcome</h3>
@@ -171,6 +174,18 @@
           img {
             transform scale(1.2)
           }
+        }
+      }
+
+      .resume {
+        margin-top 2rem
+        padding .5rem 1.5rem
+        border-radius 10rem
+        background alpha($white, .69)
+        color $dark
+
+        &:hover {
+          background $white
         }
       }
 
@@ -533,7 +548,6 @@
             }
           }
         }
-        
       }
 
       .friend-list {
