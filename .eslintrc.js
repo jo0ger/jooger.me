@@ -11,12 +11,6 @@ module.exports = {
     'html'
   ],
   // add your custom rules here
-  rules: {
-    strict: [0, "global"]
-  },
-  globals: {
-    logger: true,
-    Clipboard: true,
-    openWindow: true
-  }
+  rules: {},
+  globals: {}
 }
