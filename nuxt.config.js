@@ -54,9 +54,9 @@ module.exports = {
   css: [
     'normalize.css',
     'swiper/dist/css/swiper.css',
-    { src: '~assets/stylus/index.styl', lang: 'stylus' }
+    { src: '@/assets/stylus/index.styl', lang: 'stylus' }
   ],
-  loading: '~/components/layout/PageLoader',
+  loading: '@/components/layout/PageLoader',
   build: {
     analyze: false,
     publicPath: '/resource/',
