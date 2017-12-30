@@ -49,10 +49,6 @@ fetcher.interceptors.response.use(async response => {
     default:
       break
   }
-  // 如果是GET请求，为了配合PageLoading，这里延迟500毫秒
-  if (response.config.method === 'get') {
-    await new Promise((resolve) => setTimeout(() => resolve(), 500))
-  }
   return response.data
 }, err => {
   const status = err.response ? err.response.status : err.code

@@ -1,0 +1,76 @@
+.app-hero {
+  .wrapper {
+
+  }
+
+  .hero-swiper {
+    height 500px
+
+    .swiper {
+      &-container {
+        height 500px
+      }
+
+      &-slide {
+        background-repeat no-repeat
+        background-size cover
+        background-position center center
+      }
+
+      &-pagination {
+        text-align center
+        &-bullet {
+          width 20px
+          height 2px
+          border-radius 1px
+          background alpha($white, .9)
+          opacity .4
+          transition opacity .3s $ease
+          &-active {
+            opacity 1
+          }
+        }
+      }
+    }
+
+    .hot-item {
+      flexLayout()
+      .content {
+        position relative
+        max-width 600px
+        margin auto
+        text-align center
+        z-index 1
+        color $white
+
+        .category {
+          position relative
+          display inline-block
+          margin-bottom 10px
+          padding 5px 10px
+          background alpha($white, .2)
+        }
+
+        .title {
+          font-size 26px
+        }
+      }
+      .permalink {
+        full()
+        z-index 10
+      }
+      &::after {
+        content ''  
+        full()
+        transition background-color .3s $ease
+        background-color alpha($black, .3)
+      }
+
+      &:hover {
+        &::after {
+          background-color alpha($black, .6)
+        }
+      }
+    }
+  }
+}
