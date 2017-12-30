@@ -1,0 +1,78 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.article-item {
+  position relative
+  padding 20px 0
+  border-bottom 1px dashed $border-color-3
+
+  .article-link {
+    display block
+    margin-bottom 10px
+    overflow hidden
+    
+    .title {
+      margin-bottom 8px
+      font-size $font-size-lg
+    }
+
+    .summary {
+      flexLayout(, flex-start, flex-start)
+      color $text-color
+
+      .thumb {
+        flex 0 0 210px
+        position relative
+        width 210px
+        max-height 120px
+        margin-right 16px
+        overflow hidden
+
+        img {
+          width 100%
+          height auto
+          min-width 0
+          min-height 0
+          transition transform .6s $ease-out
+
+          &:hover {
+            transform scale(1.1) rotate(2deg)
+          }
+        }
+      }
+
+      .description {
+        flex 1 0
+      }
+    }
+  }
+
+  .status {
+    flexLayout(, space-between)
+    font-size $font-size-sm
+    color $text-color-secondary
+    .meta {
+      flexLayout(, flex-start)
+      .meta-item {
+        flexLayout(, flex-start)
+        position relative
+        margin-right 12px
+
+        &::before {
+          content ''
+          width 2px
+          height @width
+          margin-right 4px
+          border 1px solid $text-color-secondary
+          border-radius 1px
+        }
+      }
+    }
+
+    .time {
+      .icon {
+        font-size $font-size-sm
+      }
+    }
+  }
+}

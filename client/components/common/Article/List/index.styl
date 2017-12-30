@@ -1,0 +1,29 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.article-list {
+  .indicator {
+    margin 18px 0 6px
+    text-align center
+    font-size $font-size-sm
+    
+    .no-data
+    .no-more-data {
+      color $text-color-secondary
+    }
+
+    .loadmore {
+      padding 8px 36px
+      border 1px solid $border-color-2
+      border-radius 4px
+      cursor pointer
+      transition all $animation-duration-slow $ease-in-out
+
+      &:hover {
+        padding 8px 48px
+        background $base-color
+        color $white
+      }
+    }
+  }
+}

@@ -1,15 +1,13 @@
 <template>
   <div class="app">
-    <div class="site">
-      <AppHeader />
-      <AppHero></AppHero>
-      <main class="app-main">
-        <div class="container">
-          <nuxt />
-        </div>
-      </main>
-      <AppFooter />
-    </div>
+    <AppHeader />
+    <main class="app-main">
+      <div class="container">
+        <nuxt class="page-main-widget" />
+        <AppAside class="page-aside-widget"/>
+      </div>
+    </main>
+    <AppFooter />
   </div>
 </template>
 
@@ -17,7 +15,7 @@
   import {
     AppHeader,
     AppFooter,
-    AppHero
+    AppAside
   } from '@/components/layout'
 
   export default {
@@ -25,10 +23,35 @@
     components: {
       AppHeader,
       AppFooter,
-      AppHero
+      AppAside
     }
   }
 </script>
 
-<style>
+<style lang="stylus">
+  @import '~@/assets/stylus/var/index'
+  @import '~@/assets/stylus/mixin/index'
+  
+  .app {
+    min-width 1170px
+
+    &-main {
+      width $main-width
+      border-top 70px solid transparent
+      margin 0 auto
+      padding 20px 0 80px
+
+      .container {
+        flexLayout(, flex-start, flex-start)
+
+        .page-main-widget {
+          flex 1 0
+        }
+
+        .page-aside-widget {
+          flex 0 0 286px
+        }
+      }
+    }
+  }
 </style>

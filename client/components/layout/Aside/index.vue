@@ -1,9 +1,9 @@
 <style lang="stylus">
-  @import 'index'
+	@import 'index'
 </style>
 
 <template>
-
+  <div class="aside"></div>
 </template>
 
 <script>
@@ -14,3 +14,4 @@
     }
   }
 </script>
+

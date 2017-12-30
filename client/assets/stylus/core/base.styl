@@ -13,6 +13,11 @@
   cursor default
 }
 
+html, body, #__nuxt {
+  width 100%
+  height 100%
+}
+
 body {
   font .875rem $font-family-base
   line-height 1.53
@@ -93,6 +98,10 @@ textarea {
 	box-shadow: none !important;
 }
 
+button {
+  outline: none !important;
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin 0
   padding 0
@@ -104,19 +113,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-input-placeholder {
-  color $grey-2
+  color $text-color
 }
 
 :-moz-placeholder {
-  color $grey-2
+  color $text-color
 }
 
 ::-moz-placeholder {
-  color $grey-2
+  color $text-color
 }
 
 :-ms-input-placeholder {
-  color $grey-2
+  color $text-color
 }
 
 img {

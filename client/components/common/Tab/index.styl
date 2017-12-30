@@ -1,0 +1,45 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.tab {
+  position relative
+
+  .corner {
+    position absolute
+    bottom -2px
+    left 0
+    height 2px
+    width 0
+    background-color $base-color
+    transition all $animation-duration-slow $ease
+  }
+
+  .tab-item {
+    display inline-block
+    margin-right 20px
+    padding 10px 0
+    color $text-color-secondary
+
+    .icon {
+      display inline-block
+      margin-right 6px
+      font-size 12px
+    }
+
+    .title {
+      display inline-block
+      font-weight bold
+    }
+    
+    &:hover {
+      color $text-color
+    }
+    &.active {
+      color $base-color
+    }
+  }
+
+  &.tab-bordered {
+    border-bottom 2px solid $border-color-4
+  }
+}

@@ -1,0 +1,95 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.app-header {
+  position fixed
+  top 0
+  left 0
+  right 0
+  z-index $z-index-header
+  background $white
+  box-shadow 0 2px 4px 0 alpha($black, .16)
+
+  .container {
+    position relative
+    width $main-width
+    height $header-height
+    margin 0 auto
+
+    & > * {
+      display inline-block
+      vertical-align top
+      height $header-height
+      line-height $header-height
+    }
+  }
+
+  .nav {
+    &-logo {
+      margin-right 60px
+      color $base-color
+      i {
+        font-size 26px
+      }
+    }
+
+    &-menus {
+      position relative
+      .menu-item {
+        display inline-block
+        padding 18px 24px
+        line-height 22px
+        color $text-color
+
+        &.active {
+          color $white
+        }
+      }
+
+      .corner {
+        position absolute
+        top 0
+        bottom 0
+        left 0
+        height 100%
+        width 0
+        background-color $base-color
+        transition all $animation-duration-slow $ease
+        z-index -1
+      }
+    }
+
+    &-action {
+      float right
+      flexLayout(, flex-start)
+      color $text-color-secondary
+
+      .search {
+        flexLayout(, flex-start)
+        &-input {
+          position relative
+          display inline-block
+          height 36px
+          line-height @height
+          padding 0 30px 0 10px
+          border 1px solid $border-color
+          border-radius 2px
+          background transparent
+          vertical-align top
+          cursor text
+          transition all $animation-duration-slow $ease
+
+          &:focus {
+            border-color alpha($base-color, .5)
+          }
+        }
+
+        .icon-search {
+          position absolute
+          right 10px
+        }
+      }
+    }
+  }
+
+}

@@ -1,0 +1,48 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+$sizes         = mini small default large
+
+.loading {
+  position relative
+  .wrapper {
+    flexLayout(column, space-around)
+    width 50px
+    height @width
+    margin 0 auto
+    text-transform uppercase
+  }
+
+  .spinner {
+    &-snake {
+      display block
+      width 24px
+      height @width
+      margin 0 auto
+      border 2px solid alpha($black, .08)
+      border-left-color $base-color
+      border-radius 50%
+      animation snake-loading .6s infinite linear
+    }
+  }
+
+  for size, i in $sizes {
+    &-{size} {
+      .spinner {
+        &-snake {
+          width (18px + i * 8px)
+          height @width
+        }
+      }
+    }
+  }
+}
+
+@keyframes snake-loading {
+  0% {
+    transform rotate(0deg)
+  }
+  100% {
+    transform rotate(1turn)
+  }
+}
