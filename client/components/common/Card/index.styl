@@ -1,0 +1,21 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.card {
+  overflow hidden
+  background $white
+  // box-shadow 0 2px 12px 0 alpha($black, .1)
+
+  &.card-bordered {
+    border 1px solid $border-color-3
+  }
+  
+  &-header {
+    padding 12px 20px
+    border-bottom 2px solid $border-color-2
+  }
+
+  &-body {
+    padding 12px 20px
+  }
+}

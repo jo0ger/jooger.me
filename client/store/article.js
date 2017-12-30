@@ -23,6 +23,7 @@ const LIKE_REQUEST = 'LIKE_REQUEST'
 const LIKE_SUCCESS = 'LIKE_SUCCESS'
 const LIKE_FAILURE = 'LIKE_FAILURE'
 const COMMENT_SUCCESS = 'COMMENT_SUCCESS'
+const CLEAR_LIST = 'CLEAR_LIST'
 
 export const state = () => ({
   list: {
@@ -55,10 +56,15 @@ export const getters = {
 export const mutations = {
   [FETCH_LIST_REQUEST]: state => (state.list.fetching = true),
   [FETCH_LIST_FAILURE]: state => (state.list.fetching = false),
-  [FETCH_LIST_SUCCESS]: (state, { list, pagination }) => {
+  [FETCH_LIST_SUCCESS]: (state, { list = [], pagination }) => {
     state.list.fetching = false
-    state.list.data = list
+    state.list.data.push(...list)
     state.list.pagination = pagination
+  },
+  [CLEAR_LIST]: state => {
+    state.list.fetching = false
+    state.list.data = []
+    state.list.pagination = {}
   },
   [FETCH_HOT_REQUEST]: state => (state.hot.fetching = true),
   [FETCH_HOT_FAILURE]: state => (state.hot.fetching = false),
@@ -112,8 +118,14 @@ export const actions = {
     if (state.list.fetching) {
       return
     }
+    const pagination = {
+      page: params.page
+    }
+    if (pagination.page === undefined) {
+      pagination.page = ~~state.list.pagination.current_page + 1
+    }
     commit(FETCH_LIST_REQUEST)
-    const { success, data } = await api.article.fetchList({ params }).catch(err => ((commit(FETCH_LIST_FAILURE, err), {})))
+    const { success, data } = await api.article.fetchList({ params: Object.assign({}, params, pagination) }).catch(err => ((commit(FETCH_LIST_FAILURE, err), {})))
     if (success) {
       commit(FETCH_LIST_SUCCESS, data)
     } else {

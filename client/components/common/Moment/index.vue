@@ -1,5 +1,5 @@
 <style lang="stylus">
-  @import 'index'
+	@import 'index'
 </style>
 
 <template>
@@ -14,3 +14,4 @@
     }
   }
 </script>
+

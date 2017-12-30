@@ -10,15 +10,7 @@ import axios from 'axios'
 import config from '@@/app.config'
 import { Message } from '@/components/common'
 
-const logMsg = (msg = '') => {
-  if (msg) {
-    Message(msg)
-  }
-}
-
-export const fetcher = axios.create(config.service)
-
-const codeMap = {
+const CodeMap = {
   FAILED: -1,
   SUCCESS: 200,
   UNAUTHORIZED: 401,
@@ -27,21 +19,29 @@ const codeMap = {
   PARAMS_ERROR: 10001
 }
 
-fetcher.interceptors.request.use(config => config, err => Promise.reject(err))
+const logMsg = (msg = '') => {
+  if (msg) {
+    Message(msg)
+  }
+}
+
+export const fetcher = axios.create(config.service)
+
+fetcher.interceptors.request.use((config) => config, err => Promise.reject(err))
 
 fetcher.interceptors.response.use(async response => {
   if (!response || !response.data) {
     return logMsg('服务器异常')
   }
   switch (response.data.code) {
-    case codeMap.UNAUTHORIZED:
-    case codeMap.FAILED:
-    case codeMap.FORBIDDEN:
-    case codeMap.SERVER_ERROR:
-    case codeMap.PARAMS_ERROR:
+    case CodeMap.UNAUTHORIZED:
+    case CodeMap.FAILED:
+    case CodeMap.FORBIDDEN:
+    case CodeMap.SERVER_ERROR:
+    case CodeMap.PARAMS_ERROR:
       logMsg(response.data.message)
       break
-    case codeMap.SUCCESS:
+    case CodeMap.SUCCESS:
       // if (response.config.method.toLocaleUpperCase() !== 'GET') {
       //   logMsg(response.data.message)
       // }
@@ -66,6 +66,12 @@ export default {
     fetchLikes: id => wrap(`/articles/${id}/like`),
     like: id => wrap(`/articles/${id}/like`, 'post'),
     hot: wrap('/articles/hot')
+  },
+  category: {
+    fetchList: wrap('/categories')
+  },
+  tag: {
+    fetchList: wrap('/tags')
   },
   user: {
     fetchMe: wrap('/users/me'),

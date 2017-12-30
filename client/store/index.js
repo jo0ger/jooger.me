@@ -16,10 +16,12 @@ export const actions = {
       commit('app/SET_MOBILE_LAYOUT', true)
     }
     const initTask = []
-    initTask.push(...[
+    initTask.push(
       dispatch('option/fetchData'),
-      dispatch('article/fetchHotList')
-    ])
+      dispatch('article/fetchHotList'),
+      dispatch('category/fetchList'),
+      dispatch('tag/fetchList')
+    )
     return Promise.all(initTask)
   }
 }

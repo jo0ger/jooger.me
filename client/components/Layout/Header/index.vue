@@ -1,33 +1,38 @@
+<style lang="stylus">
+  @import 'index'
+</style>
+
 <template>
   <header class="app-header">
     <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand logo">
-          <i class="iconfont icon-logo"></i>
-        </a>
-        <form class="header-search search-form" role="search" @submit.stop.prevent="handleSearch">
-          <div class="navbar-search">
-            <input name="search" id="search" class="search-input"
-              ref="searchInput"
-              type="search"
-              autocomplete="off"
-              autofocus="true"
-              placeholder="搜索..."
-              maxlength="200"
-              v-model.trim="keyword"
-              @keyup.enter="handleSearch">
-            <i class="iconfont icon-search"></i>
-          </div>
+      <nuxt-link class="nav-logo" to="/">
+        <i class="icon icon-logo"></i>
+      </nuxt-link>
+      <div class="nav-menus">
+        <nuxt-link v-for="menu in menuSchema"
+          ref="menu"
+          class="menu-item"
+          :key="menu.key"
+          :to="{ name: menu.key }"
+          exact>
+          {{ menu.title }}
+        </nuxt-link>
+        <i class="corner" :style="cornerStyle"></i>
+      </div>
+      <div class="nav-action">
+        <form class="search" role="search" @submit.stop.prevent="handleSearch">
+          <input name="search" id="search" class="search-input"
+            ref="searchInput"
+            type="search"
+            autocomplete="off"
+            :autofocus="false"
+            placeholder="搜索..."
+            maxlength="200"
+            v-model.trim="keyword"
+            @keyup.enter="handleSearch">
+          <i class="icon icon-search"></i>
         </form>
       </div>
-      <div class="navbar-collapse">
-        <ul class="navbar-nav">
-          <li class="menu-item" v-for="menu in menuSchema" :key="menu.key">
-            <a>{{ menu.title }}</a>
-          </li>
-        </ul>
-      </div>
-      <div class="mobile-navbar"></div>
     </div>
   </header>
 </template>
@@ -38,16 +43,41 @@
     data () {
       return {
         menuSchema: [
-          { key: 'home', title: '首页' },
-          { key: 'home1', title: '首页' },
-          { key: 'home2', title: '首页' },
-          { key: 'home3', title: '首页' },
-          { key: 'home4', title: '首页' }
+          { key: 'index', title: '首页' },
+          { key: 'archive', title: '归档' },
+          { key: 'music', title: '音乐' },
+          { key: 'guestbook', title: '留言墙' },
+          { key: 'about', title: '关于' }
         ],
-        keyword: ''
+        keyword: '',
+        cornerStyle: null
       }
     },
+    computed: {
+      menuIndex () {
+        return this.menuSchema.findIndex(menu => menu.key === this.$route.name)
+      }
+    },
+    watch: {
+      menuIndex () {
+        this.setCornerStyle()
+      }
+    },
+    mounted () {
+      this.setCornerStyle()
+    },
     methods: {
+      setCornerStyle () {
+        const el = this.$refs.menu ? this.$refs.menu[this.menuIndex].$el : null
+        if (!el) {
+          this.cornerStyle = null
+        } else {
+          this.cornerStyle = {
+            left: el.offsetLeft + 'px',
+            width: el.clientWidth + 'px'
+          }
+        }
+      },
       handleSearch () {}
     }
   }

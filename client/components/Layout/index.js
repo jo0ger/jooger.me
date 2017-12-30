@@ -7,6 +7,7 @@
 'use strict'
 
 export { default as AppHeader } from './Header'
+export { default as AppAside } from './Aside'
 export { default as AppFooter } from './Footer'
 export { default as AppPageLoader } from './PageLoader'
 export { default as AppHero } from './Hero'

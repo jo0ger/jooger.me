@@ -61,8 +61,6 @@ module.exports = {
     analyze: false,
     publicPath: '/resource/',
     vendor: [
-      'vuex-class',
-      'nuxt-class-component',
       'axios',
       'swiper',
       'howler',
@@ -70,12 +68,10 @@ module.exports = {
       'vue-awesome-swiper'
     ]
   },
-  modules: [
-    '@/modules/typescript.ts'
-  ],
   plugins: [
     { src: '@/plugins/router.js' },
     { src: '@/plugins/filter.js' },
+    { src: '@/plugins/mixin.js' },
     { src: '@/plugins/google-analytics.js', ssr: false },
     { src: '@/plugins/baidu-statistics.js', ssr: false },
     { src: '@/plugins/baidu-seo-push.js', ssr: false },
