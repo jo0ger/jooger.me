@@ -72,6 +72,7 @@ module.exports = {
     { src: '@/plugins/router.js' },
     { src: '@/plugins/filter.js' },
     { src: '@/plugins/mixin.js' },
+    { src: '@/plugins/click-outside.js' },
     { src: '@/plugins/google-analytics.js', ssr: false },
     { src: '@/plugins/baidu-statistics.js', ssr: false },
     { src: '@/plugins/baidu-seo-push.js', ssr: false },

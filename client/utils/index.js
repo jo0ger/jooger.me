@@ -9,3 +9,4 @@
 export * from './tool'
 export * from './storage'
 export * from './validate'
+export * from './dom'

@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "bezier-easing": "^2.0.3",
     "clipboard": "^1.7.1",
     "cross-env": "^5.0.1",
     "howler": "^2.0.7",
@@ -25,6 +26,7 @@
     "normalize.css": "^7.0.0",
     "nuxt": "^1.0.0-rc11",
     "source-map-support": "^0.4.15",
+    "vue-affix": "^0.2.4",
     "vue-awesome-swiper": "^3.0.6"
   },
   "devDependencies": {

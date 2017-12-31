@@ -8,16 +8,16 @@
 
   .article-link {
     display block
-    margin-bottom 10px
     overflow hidden
     
     .title {
-      margin-bottom 8px
-      font-size $font-size-lg
+      font-size $font-size-lger
+      transition all $animation-duration-slow $ease
     }
 
     .summary {
       flexLayout(, flex-start, flex-start)
+      margin-top 8px
       color $text-color
 
       .thumb {
@@ -33,7 +33,7 @@
           height auto
           min-width 0
           min-height 0
-          transition transform .6s $ease-out
+          transition transform $animation-duration-slower $ease-out
 
           &:hover {
             transform scale(1.1) rotate(2deg)
@@ -43,13 +43,23 @@
 
       .description {
         flex 1 0
+        line-height 1.8
         text-align justify
+        overflow hidden
+        lineLimit(4)
+      }
+    }
+
+    &:hover {
+      .title {
+        color $base-color
       }
     }
   }
 
   .status {
     flexLayout(, space-between)
+    margin-top 10px
     font-size $font-size-sm
     color $text-color-secondary
     .meta {

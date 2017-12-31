@@ -15,7 +15,7 @@ const mixins = [
   // 过滤extends的mixin
   {
     methods: {
-      findExtendItemByKey (key = '', extend = []) {
+      getExtendItemByKey (key = '', extend = []) {
         if (!key || !isType(key, 'String') || !isType(extend, 'Array') || !extend.length) {
           return null
         }

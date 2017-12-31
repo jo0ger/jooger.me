@@ -20,8 +20,8 @@
         <i class="corner" :style="cornerStyle"></i>
       </div>
       <div class="nav-action">
-        <form class="search" role="search" @submit.stop.prevent="handleSearch">
-          <input name="search" id="search" class="search-input"
+        <form class="action-item search" :class="{ opened: searchOpened }" role="search" @submit.stop.prevent="handleSearch">
+          <input name="search" class="search-input"
             ref="searchInput"
             type="search"
             autocomplete="off"
@@ -29,9 +29,13 @@
             placeholder="搜索..."
             maxlength="200"
             v-model.trim="keyword"
+            v-clickoutside="handleCloseSearch"
             @keyup.enter="handleSearch">
-          <i class="icon icon-search"></i>
+          <i class="icon icon-search" @click="handleToggleSearch"></i>
         </form>
+        <div class="action-item music">
+          <i class="icon icon-music"></i>
+        </div>
       </div>
     </div>
   </header>
@@ -50,7 +54,8 @@
           { key: 'about', title: '关于' }
         ],
         keyword: '',
-        cornerStyle: null
+        cornerStyle: null,
+        searchOpened: false
       }
     },
     computed: {
@@ -68,7 +73,7 @@
     },
     methods: {
       setCornerStyle () {
-        const el = this.$refs.menu ? this.$refs.menu[this.menuIndex].$el : null
+        const el = this.$refs.menu && this.$refs.menu[this.menuIndex] ? this.$refs.menu[this.menuIndex].$el : null
         if (!el) {
           this.cornerStyle = null
         } else {
@@ -78,7 +83,29 @@
           }
         }
       },
-      handleSearch () {}
+      handleToggleSearch () {
+        this.searchOpened = !this.searchOpened
+        this.$nextTick(() => {
+          if (this.searchOpened) {
+            this.$refs.searchInput.focus()
+          } else {
+            this.$refs.searchInput.blur()
+          }
+        })
+      },
+      handleCloseSearch () {
+        if (this.searchOpened) {
+          this.handleToggleSearch()
+        }
+      },
+      handleSearch () {
+        if (!this.keyword) {
+          return
+        }
+        this.$router.push(`/search/${this.keyword}`)
+        this.handleToggleSearch()
+        this.keyword = ''
+      }
     }
   }
 </script>
