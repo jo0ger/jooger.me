@@ -5,19 +5,15 @@
 
 ## jooger.me
 
+> In the upgrade(v2)...
+
 > 👍 My personal site ( [jooger.me](https://jooger.me) )，built by [Vue2](https://github.com/vuejs/vue), [Nuxt.js](https://github.com/nuxt/nuxt.js), [Axios](https://github.com/axios/axios).
 
 ## ScreenShots
 
 ### PC
 
-![Home](https://raw.githubusercontent.com/jo0ger/jooger.me/master/screenshots/pc-home.png)
-
-![Blog](https://raw.githubusercontent.com/jo0ger/jooger.me/master/screenshots/pc-blog.png)
-
 ### Mobile
-
-![Mobile](https://raw.githubusercontent.com/jo0ger/jooger.me/master/screenshots/mobile.jpg)
 
 ## Build Setup
 
@@ -70,6 +66,8 @@ $ npm run lint
 - ~~重新设计分享框~~ (2017.11.07)
 
 - ~~移动端评论适配~~ (2017.11.08)
+
+- v2 改版
 
 - 音乐绑定键盘快捷键
 
