@@ -29,6 +29,7 @@
       Loading
     },
     async fetch ({ store }) {
+      store.commit('article/CLEAR_LIST')
       await store.dispatch('article/fetchList', {
         page: 1
       })
