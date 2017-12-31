@@ -58,7 +58,11 @@ export const mutations = {
   [FETCH_LIST_FAILURE]: state => (state.list.fetching = false),
   [FETCH_LIST_SUCCESS]: (state, { list = [], pagination }) => {
     state.list.fetching = false
-    state.list.data.push(...list)
+    if (pagination.current_page === 1) {
+      state.list.data = list
+    } else {
+      state.list.data.push(...list)
+    }
     state.list.pagination = pagination
   },
   [CLEAR_LIST]: state => {
