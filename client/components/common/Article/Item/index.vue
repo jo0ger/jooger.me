@@ -11,7 +11,7 @@
         <div class="thumb" v-if="article.thumb">
           <img :src="article.thumb" alt="">
         </div>
-        <div class="description">{{ article.description }}</div>
+        <p class="description">{{ article.description }}</p>
       </div>
     </nuxt-link>
     <div class="status">
