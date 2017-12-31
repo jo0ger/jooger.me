@@ -37,7 +37,7 @@
 
     &-main {
       width $main-width
-      border-top 70px solid transparent
+      border-top 60px solid transparent
       margin 0 auto
       padding 20px 0 80px
 
@@ -50,6 +50,8 @@
 
         .page-aside-widget {
           flex 0 0 286px
+          width 286px
+          margin-left 12px
         }
       }
     }

@@ -6,6 +6,7 @@
   <div class="article-list">
     <template v-if="list.length">
       <ArticleItem v-for="item in list"
+        :mini="mini"
         :key="item._id"
         :article="item">
       </ArticleItem>
@@ -45,6 +46,10 @@
         }
       },
       loading: {
+        type: Boolean,
+        default: false
+      },
+      mini: {
         type: Boolean,
         default: false
       }

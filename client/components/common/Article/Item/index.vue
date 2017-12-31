@@ -7,7 +7,7 @@
     <nuxt-link class="article-link"
       :to="`/article/${article._id}`">
       <h2 class="title">{{ article.title }}</h2>
-      <div class="summary">
+      <div class="summary" v-if="!mini">
         <div class="thumb" v-if="article.thumb">
           <img :src="article.thumb" alt="">
         </div>
@@ -16,6 +16,9 @@
     </nuxt-link>
     <div class="status">
       <div class="meta">
+        <div class="meta-item category">
+          {{ article.category ? article.category.name : '暂未分类' }}
+        </div>
         <div class="meta-item comments">
           {{ article.meta.comments }}条评论
         </div>
@@ -43,6 +46,10 @@
         default () {
           return {}
         }
+      },
+      mini: {
+        type: Boolean,
+        default: false
       }
     },
     data () {

@@ -35,8 +35,7 @@
     },
     data () {
       return {
-        tab: 0,
-        cornerStyle: null
+        tab: 0
       }
     },
     computed: {
@@ -53,7 +52,7 @@
           icon: 'all',
           title: '全部'
         }].concat(this.categoryList.map(item => {
-          const icon = this.findExtendItemByKey('icon', item.extends)
+          const icon = this.getExtendItemByKey('icon', item.extends)
           return {
             key: icon,
             icon,
@@ -64,13 +63,9 @@
     },
     watch: {
       tab () {
-        this.setCornerStyle()
         this.clearArticleList()
         this.fetchArticleListWrapper()
       }
-    },
-    mounted () {
-      this.setCornerStyle()
     },
     methods: {
       ...mapMutations({
@@ -87,18 +82,7 @@
         await this.fetchArticleList(params)
       },
       getCategoryIconClass (key, item) {
-        return `icon-${this.findExtendItemByKey(key, item.extends)}`
-      },
-      setCornerStyle () {
-        const el = this.$refs.tab ? this.$refs.tab[this.tab] : null
-        if (!el) {
-          this.cornerStyle = null
-        } else {
-          this.cornerStyle = {
-            left: el.offsetLeft + 'px',
-            width: el.clientWidth + 'px'
-          }
-        }
+        return `icon-${this.getExtendItemByKey(key, item.extends)}`
       },
       handleLoadmore () {
         this.fetchArticleListWrapper()
