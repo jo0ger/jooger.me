@@ -2,18 +2,21 @@
   <div class="page-search">
     <Card>
       <div slot="header" class="title">
-        <i class="icon icon-article"></i>
-        <span>
-          和
-          <span class="keyword">{{ $route.params.keyword }}</span>
-          相关的文章
-        </span>
+        <i class="icon icon-search"></i>
+        搜索
       </div>
       <div class="list-content">
-        <div class="count">
-          共搜索到
-          <em class="num">{{ articlePagination.total }}</em>
-          篇文章
+        <div class="result">
+          <span>
+            和
+            <span class="keyword">{{ $route.params.keyword }}</span>
+            相关的文章，
+          </span>
+          <span class="count">
+            共搜索到
+            <em class="num">{{ articlePagination.total || 0 }}</em>
+            篇
+          </span>
         </div>
         <ArticleList
           mini
@@ -28,7 +31,7 @@
 </template>
 
 <script>
-  import { mapGetters, mapMutations, mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   import { Card, Tab, ArticleList, Loading } from '@/components/common'
 
   export default {
@@ -48,6 +51,7 @@
       }
     },
     async fetch ({ store, params }) {
+      store.commit('article/CLEAR_LIST')
       await store.dispatch('article/fetchList', {
         keyword: params.keyword,
         page: 1
@@ -64,35 +68,10 @@
         articlePagination: 'article/pagination'
       })
     },
-    watch: {
-      tab () {
-        this.clearArticleList()
-        this.fetchArticleListWrapper()
-      }
-    },
     methods: {
-      ...mapMutations({
-        clearArticleList: 'article/CLEAR_LIST'
-      }),
       ...mapActions({
         fetchArticleList: 'article/fetchList'
       }),
-      async fetchData () {
-        const tab = this.tabs[this.tab]
-        switch (tab.key) {
-          case 'article':
-            await this.fetchArticleListWrapper()
-            break
-          case 'category':
-            break
-          case 'tag':
-            break
-          case 'project':
-            break
-          default:
-            break
-        }
-      },
       async fetchArticleListWrapper (params = {}) {
         await this.fetchArticleList({
           ...params,
