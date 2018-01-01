@@ -95,11 +95,16 @@ export const mutations = {
   },
   [LIKE_REQUEST]: state => (state.detail.liking = true),
   [LIKE_FAILURE]: state => (state.detail.liking = false),
-  [LIKE_SUCCESS]: (state, data) => {
+  [LIKE_SUCCESS]: (state, like) => {
     state.detail.liking = false
-    state.detail.data.meta.ups++
     const article = state.list.data.find(item => item._id === state.detail.data._id)
-    article && article.meta.ups++
+    if (like) {
+      state.detail.data.meta.ups++
+      article && article.meta.ups++
+    } else {
+      state.detail.data.meta.ups--
+      article && article.meta.ups--
+    }
   },
   [COMMENT_SUCCESS]: state => {
     state.detail.data.meta.comments++
@@ -163,15 +168,30 @@ export const actions = {
     }
     return success
   },
-  async like ({ commit, dispatch, state }, id) {
+  async like ({ commit, dispatch, state, rootState }, { id, like = true }) {
     if (state.detail.liking) {
       return
     }
     commit(LIKE_REQUEST)
-    const { success, data } = await api.article.like(id)().catch(err => ((commit(LIKE_FAILURE, err), {})))
+    const { success } = await api.article.like(id)({
+      data: {
+        like
+      }
+    }).catch(err => ((commit(LIKE_FAILURE, err), {})))
     if (success) {
-      commit(LIKE_SUCCESS, data)
-      dispatch('app/updateHistory', { articleId: id }, { root: true })
+      commit(LIKE_SUCCESS, like)
+      if (like) {
+        dispatch('app/updateHistory', { articleId: id }, { root: true })
+      } else {
+        const articlesHis = rootState.app.history.articles.slice()
+        const index = articlesHis.findIndex(item => item === id)
+        if (index > -1) {
+          articlesHis.splice(index, 1)
+        }
+        dispatch('app/updateHistory', {
+          articles: articlesHis
+        }, { root: true })
+      }
     } else {
       commit(LIKE_FAILURE)
     }

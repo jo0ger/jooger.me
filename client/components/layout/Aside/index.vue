@@ -4,6 +4,7 @@
 
 <template>
   <div class="aside">
+    <Hots></Hots>
     <Affix offsetTop="80">
       <Tags></Tags>
     </Affix>

@@ -1,0 +1,92 @@
+.page-article {
+  .article-widget {
+    padding 20px 30px
+  }
+  .article-detail {
+    .article-title {
+      font-size $font-size-lger
+    }
+
+    .meta {
+      flexLayout(, flex-start)
+      margin 10px 0 20px
+      color $text-color-secondary
+      font-size $font-size-sm
+
+      &-item {
+        flexLayout(, flex-start)
+        position relative
+        margin-right 12px
+
+        &::before {
+          content ''
+          width 2px
+          height @width
+          margin-right 4px
+          border 1px solid $text-color-secondary
+          border-radius 1px
+        }
+      }
+
+      .category {
+        .icon {
+          margin-right 6px
+        }
+      }
+    }
+
+    .thumb {
+      margin-bottom 20px
+    }
+
+    .action {
+      margin 30px 0 10px
+      padding-bottom 10px
+      border-bottom 1px dashed $border-color-3
+      &-item {
+        display inline-block
+        margin-right 20px
+        padding 4px 8px
+        border-radius 2px
+        font-size $font-size-sm
+
+        .icon {
+          margin-right 6px
+          font-size $font-size-sm
+        }
+
+        &:hover {
+          opacity .8
+        }
+      }
+
+      .like {
+        background-color alpha($blue-6, .2)
+        color $blue-6
+        font-weight 700
+
+        &.liked {
+          background-color alpha($blue-6, .8)
+          color $white
+        }
+
+        &.liking {
+          opacity .6
+          cursor not-allowed
+        }
+
+        &:hover {
+          background-color alpha($blue-6, .3)
+        }
+      }
+
+      .share {
+        position relative
+
+        &-list {
+          position absolute
+        }
+      }
+    }
+  }
+}

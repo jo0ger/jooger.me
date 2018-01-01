@@ -27,12 +27,15 @@
         max-height 120px
         margin-right 16px
         overflow hidden
+        border-radius 2px
 
         img {
           width 100%
           height auto
           min-width 0
           min-height 0
+          border-radius 2px
+          object-fit cover
           transition transform $animation-duration-slower $ease-out
 
           &:hover {
@@ -64,7 +67,7 @@
     color $text-color-secondary
     .meta {
       flexLayout(, flex-start)
-      .meta-item {
+      &-item {
         flexLayout(, flex-start)
         position relative
         margin-right 12px
@@ -76,6 +79,12 @@
           margin-right 4px
           border 1px solid $text-color-secondary
           border-radius 1px
+        }
+      }
+
+      .category {
+        .icon {
+          margin-right 6px
         }
       }
     }

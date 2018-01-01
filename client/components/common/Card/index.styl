@@ -2,6 +2,7 @@
 @import '~@/assets/stylus/mixin/index'
 
 .card {
+  margin-bottom 12px
   padding 0 16px
   overflow hidden
   background $white
@@ -14,6 +15,43 @@
   &-header {
     padding 12px 0 6px
     border-bottom 2px solid $border-color-4
+    font-weight 700
+
+    .icon {
+      color $grey-5
+      font-weight normal
+    }
+
+    .search-header {
+      margin-bottom 10px
+      text-align center
+      .icon {
+        color $grey-6
+        font-size 32px
+        font-weight 400
+      }
+
+      .search {
+        font-size $font-size-lger
+        .keyword {
+          color $orange-5
+          letter-spacing 1px
+        }
+      }
+
+
+      .count {
+        font-weight 400
+        color $text-color-secondary
+        font-size $font-size-sm
+
+        .num {
+          margin 0 6px
+          color $orange-5
+          font-weight 700
+        }
+      }
+    }
   }
 
   &-body {

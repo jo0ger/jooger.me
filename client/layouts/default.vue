@@ -4,7 +4,7 @@
     <main class="app-main">
       <div class="container">
         <nuxt class="page-main-widget" />
-        <AppAside class="page-aside-widget"/>
+        <AppAside class="page-aside-widget" v-if="!noAsidePage" />
       </div>
     </main>
     <AppFooter />
@@ -24,6 +24,11 @@
       AppHeader,
       AppFooter,
       AppAside
+    },
+    computed: {
+      noAsidePage () {
+        return ['music', 'guestbook', 'about'].includes(this.$route.name)
+      }
     }
   }
 </script>
