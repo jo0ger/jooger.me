@@ -1,7 +1,7 @@
 <template>
   <div class="page-home">
     <Moment></Moment>
-    <Card>
+    <Card class="home-widget">
       <Tab class="category-tab" :list="tabs" v-model="tab" bordered></Tab>
       <div class="list-content">
         <ArticleList
@@ -53,7 +53,7 @@
           icon: 'all',
           title: '全部'
         }].concat(this.categoryList.map(item => {
-          const icon = this.getExtendItemByKey('icon', item.extends)
+          const icon = this.getExtendsItemByKey('icon', item.extends)
           return {
             key: icon,
             icon,
@@ -83,7 +83,7 @@
         await this.fetchArticleList(params)
       },
       getCategoryIconClass (key, item) {
-        return `icon-${this.getExtendItemByKey(key, item.extends)}`
+        return `icon-${this.getExtendsItemByKey(key, item.extends)}`
       },
       handleLoadmore () {
         this.fetchArticleListWrapper()

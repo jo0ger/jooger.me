@@ -1,23 +1,18 @@
 <template>
   <div class="page-tag">
     <Card>
-      <div slot="header" class="title">
-        <i class="icon icon-tag"></i>
-        标签
+      <div slot="header" class="search-header">
+        <i class="icon" :class="[`icon-${getExtendsItemByKey('icon', tag.extends)}`]"></i>
+        <div class="search">
+          <span class="keyword">{{ $route.params.name }}</span>
+        </div>
+        <div class="count" v-if="!articleListFetching">
+          共找到
+          <em class="num">{{ articlePagination.total || 0 }}</em>
+          篇文章
+        </div>
       </div>
       <div class="list-content">
-        <div class="result">
-          <span>
-            标签
-            <span class="keyword">{{ $route.params.name }}</span>
-            相关的文章，
-          </span>
-          <span class="count">
-            共找到
-            <em class="num">{{ articlePagination.total || 0 }}</em>
-            篇
-          </span>
-        </div>
         <ArticleList
           mini
           :list="articleList"
@@ -57,16 +52,16 @@
         page: 1
       })
     },
-    data () {
-      return {
-      }
-    },
     computed: {
       ...mapGetters({
         articleList: 'article/list',
         articleListFetching: 'article/listFetching',
-        articlePagination: 'article/pagination'
-      })
+        articlePagination: 'article/pagination',
+        tagList: 'tag/list'
+      }),
+      tag () {
+        return this.tagList.find(item => item.name === this.$route.params.name)
+      }
     },
     methods: {
       ...mapActions({

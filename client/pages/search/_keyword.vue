@@ -1,23 +1,19 @@
 <template>
   <div class="page-search">
     <Card>
-      <div slot="header" class="title">
+      <div slot="header" class="search-header">
         <i class="icon icon-search"></i>
-        搜索
+        <div class="search">与
+          <span class="keyword">{{ $route.params.keyword }}</span>
+          有关的文章
+        </div>
+        <div class="count" v-if="!articleListFetching">
+          共搜索到
+          <em class="num">{{ articlePagination.total || 0 }}</em>
+          篇文章
+        </div>
       </div>
       <div class="list-content">
-        <div class="result">
-          <span>
-            和
-            <span class="keyword">{{ $route.params.keyword }}</span>
-            相关的文章，
-          </span>
-          <span class="count">
-            共搜索到
-            <em class="num">{{ articlePagination.total || 0 }}</em>
-            篇
-          </span>
-        </div>
         <ArticleList
           mini
           :list="articleList"

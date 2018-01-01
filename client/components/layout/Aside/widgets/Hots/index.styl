@@ -1,0 +1,69 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.widget-hots {
+  .hot-list {
+    list-style none
+    .hot-item {
+      position relative
+      margin-bottom 10px
+      .thumb {
+        position absolute
+        top 0
+        left 0
+        width 50px
+        height 40px
+        margin-right 10px
+        overflow hidden
+        border-radius 2px
+
+        img {
+          width 100%
+          height 100%
+          object-fit cover
+          object-position left
+          transition transform $animation-duration-slower $ease-out
+
+          &:hover {
+            transform scale(1.1) rotate(2deg)
+          }
+        }
+      }
+
+      .content {
+        margin-left 60px
+
+        .title {
+          display inline-block
+          font-size $font-size-base
+          font-weight 700
+          
+          &:hover {
+            text-decoration underline
+          }
+        }
+
+        .meta {
+          flexLayout(, flex-start)
+          font-size $font-size-sm
+          color $text-color-secondary
+
+          &-item {
+            flexLayout(, flex-start)
+            position relative
+            margin-right 12px
+
+            &::before {
+              content ''
+              width 2px
+              height @width
+              margin-right 4px
+              border 1px solid $text-color-secondary
+              border-radius 1px
+            }
+          }
+        }
+      }
+    }
+  }
+}

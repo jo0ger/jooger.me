@@ -9,26 +9,24 @@
       标签
     </div>
     <div class="tag-list">
-      <nuxt-link v-for="item in tagList"
-        class="tag-item"
-        :to="`/tag/${item.name}`"
-        :key="item.name">
-        <i class="icon" :class="[getTagIconClass(item)]" v-if="getTagIconClass(item)"></i>
-        <span class="name">{{ item.name }}</span>
-        <span class="count">[{{item.count || 0}}]</span>
-      </nuxt-link>
+      <Tag v-for="item in tagList"
+        :key="item.name"
+        :name="item.name"
+        :icon="getExtendsItemByKey('icon', item.extends)"
+        :count="item.count"></Tag>
     </div>
   </Card>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
-  import { Card } from '@/components/common'
+  import { Card, Tag } from '@/components/common'
 
   export default {
     name: 'Tags',
     components: {
-      Card
+      Card,
+      Tag
     },
     data () {
       return {}
@@ -38,12 +36,6 @@
         tagList: 'tag/list',
         fetching: 'tag/fetching'
       })
-    },
-    methods: {
-      getTagIconClass (item) {
-        const icon = this.getExtendItemByKey('icon', item.extends)
-        return icon ? `icon-${icon}` : null
-      }
     }
   }
 </script>

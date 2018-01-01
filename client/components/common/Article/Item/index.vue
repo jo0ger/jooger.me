@@ -17,16 +17,17 @@
     <div class="status">
       <div class="meta">
         <div class="meta-item category">
+          <i class="icon" v-if="article.category" :class="[`icon-${getExtendsItemByKey('icon', article.category.extends)}`]"></i>
           {{ article.category ? article.category.name : '暂未分类' }}
         </div>
         <div class="meta-item comments">
-          {{ article.meta.comments }}条评论
+          {{ article.meta.comments }} 条评论
         </div>
         <div class="meta-item ups">
-          {{ article.meta.ups }}人点赞
+          {{ article.meta.ups }} 人喜欢
         </div>
         <div class="meta-item pvs">
-          {{ article.meta.pvs }}次浏览
+          {{ article.meta.pvs }} 次阅读
         </div>
       </div>
       <time class="time" :datatitme="article.createdAt">
