@@ -1,6 +1,6 @@
 /**
  * @desc Nuxt config
- * @author Jooger <zzy1198258955@163.com>
+ * @author Jooger <iamjooger@gmail.com>
  * @date 20 Dec 2017
  */
 
@@ -8,7 +8,7 @@
 
 const isProd = process.env.NODE_ENV === 'production'
 const description = '不忘初心，方得始终'
-const themeColor = '#ed0a75'
+const themeColor = '#302e31'
 
 module.exports = {
   srcDir: 'client/',
@@ -39,7 +39,6 @@ module.exports = {
       { name: 'screen-orientation', content: 'portrait' },
       { name: 'x5-orientation', content: 'portrait' },
       { name: 'msapplication-tap-highlight', content: 'no' },
-      { name: '', content: '' },
       { name: 'apple-mobile-web-app-title', content: 'Jooger.me - ' + description },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { name: 'author', content: 'zzy1198258955@163.com' },
@@ -65,7 +64,8 @@ module.exports = {
       'swiper',
       'howler',
       'clipboard',
-      'vue-awesome-swiper'
+      'vue-awesome-swiper',
+      'particles.js'
     ]
   },
   plugins: [
@@ -78,7 +78,8 @@ module.exports = {
     { src: '@/plugins/click-outside.js' },
     { src: '@/plugins/swiper.js', ssr: false },
     { src: '@/plugins/image-load.js', ssr: false },
-    { src: '@/plugins/history.js', ssr: false }
+    { src: '@/plugins/history.js', ssr: false },
+    { src: '@/plugins/event-bus.js', ssr: false }
   ],
   router: {
     linkActiveClass: 'active'

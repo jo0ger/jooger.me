@@ -1,0 +1,34 @@
+.page-music {
+  .music-header {
+    position relative
+    width 100%
+    height 400px
+    margin-bottom 12px
+    overflow hidden
+    .cover {
+      full()
+      width 100%
+      height @width
+      background-position center center
+      background-repeat no-repeat
+      background-size cover
+      filter blur(50px)
+      z-index -1
+    }
+
+    .overlay {
+      full()
+      background alpha($black, .5)
+    }
+  }
+
+  .music-content {
+    width $main-width
+    margin 0 auto
+    padding 20px 0 80px
+
+    .music-list {
+      padding 20px 30px
+    }
+  }
+}

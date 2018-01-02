@@ -70,6 +70,7 @@
     },
     mounted () {
       this.setCornerStyle()
+      this.$eventBus.initMusic()
     },
     methods: {
       setCornerStyle () {

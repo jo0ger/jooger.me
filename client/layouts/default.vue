@@ -1,5 +1,6 @@
 <template>
   <div class="app">
+    <AppBackground />
     <AppHeader />
     <main class="app-main">
       <div class="container">
@@ -15,7 +16,8 @@
   import {
     AppHeader,
     AppFooter,
-    AppAside
+    AppAside,
+    AppBackground
   } from '@/components/layout'
 
   export default {
@@ -23,7 +25,8 @@
     components: {
       AppHeader,
       AppFooter,
-      AppAside
+      AppAside,
+      AppBackground
     },
     computed: {
       noAsidePage () {
@@ -59,6 +62,13 @@
           margin-left 12px
         }
       }
+    }
+  }
+
+  body.full-page {
+    .app-main {
+      width 100%
+      padding 0 0 80px
     }
   }
 </style>

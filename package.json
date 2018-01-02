@@ -25,6 +25,7 @@
     "koa": "^2.4.1",
     "normalize.css": "^7.0.0",
     "nuxt": "^1.0.0-rc11",
+    "particles.js": "^2.0.0",
     "source-map-support": "^0.4.15",
     "vue-affix": "^0.2.4",
     "vue-awesome-swiper": "^3.0.6"
