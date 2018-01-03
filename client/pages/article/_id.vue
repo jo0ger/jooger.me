@@ -5,7 +5,7 @@
         <h2 class="article-title">{{ articleDetail.title }}</h2>
         <div class="meta">
           <div class="meta-item category">
-            <i class="icon" v-if="articleDetail.category" :class="[`icon-${getExtendsItemByKey('icon', articleDetail.category.extends)}`]"></i>
+            <i class="icon" v-if="articleDetail.category" :class="[`icon-${getExtendsItemByKey('icon', articleDetail.category.extends) || 'tag'}`]"></i>
             {{ articleDetail.category ? articleDetail.category.name : '暂未分类' }}
           </div>
           <div class="meta-item comments">
@@ -37,7 +37,7 @@
           <Tag v-for="tag in articleDetail.tag"
             :key="tag._id"
             :name="tag.name"
-            :icon="getExtendsItemByKey('icon', tag.extends)">
+            :icon="getExtendsItemByKey('icon', tag.extends) || 'tag'">
           </Tag>
         </div>
       </article>

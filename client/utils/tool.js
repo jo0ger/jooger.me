@@ -142,7 +142,7 @@ export const loadImg = (url = '', opt = {}) => {
   const img = new Image()
   const prop = isType(img.naturalWidth, 'Undefined') ? 'width' : 'naturalWidth'
   if (opt.crossOrigin) {
-    img.setAttribute('crossOrigin', 'anonymous')
+    img.setAttribute('crossOrigin', 'Anonymous')
   }
   img.src = url
   if (img.complete) {

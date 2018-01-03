@@ -1,33 +1,104 @@
 .page-music {
-  .music-header {
+  .player {
     position relative
     width 100%
     height 400px
     margin-bottom 12px
     overflow hidden
-    .cover {
-      full()
-      width 100%
-      height @width
-      // background-position center center
-      // background-repeat no-repeat
-      // background-size cover
-      // filter blur(20px)
-      // z-index -1
 
-      img {
+    .cover-wrapper {
+      full()
+      .cover {
         full()
-        width 100%
-        height auto
-        object-fit cover
-        object-position center center
+        background-position center center
+        background-repeat no-repeat
+        background-size cover
+        background-color alpha($black, .6)
+        z-index -1
+        transition all $animation-duration-slower $ease
+
+        &-blur {
+          filter blur(20px)
+        }
+      }
+
+      &:after {
+        content ''
+        full()
+        background alpha($black, .6)
       }
     }
 
-    &:after {
-      content ''
-      full()
-      background alpha($black, .5)
+    .control {
+      flexLayout()
+      position absolute
+      left 50%
+      width 100%
+      height @width
+      max-width $main-width
+      transform translate(-50%, 0)
+
+      &-item {
+        flex 0 0
+
+        &.play {
+          position relative
+          margin 0 100px
+          .cover {
+            position relative
+            width 316px
+            height @width
+            margin 0 auto
+            overflow hidden
+            border-radius 100%
+            border 8px solid $grey-7
+            background-position center center
+            background-repeat no-repeat
+            background-size cover
+            background-color alpha($black, .6)
+            transition all $animation-duration-slower $ease
+            animation cover-rotate 30s linear infinite
+            animation-fill-mode backwards
+            animation-play-state paused
+
+            &::after {
+              content ''
+              full()
+              background alpha($black, .3)
+            }
+
+          }
+          .icon {
+            position absolute
+            display block
+            top 50%
+            left 50%
+            font-size 72px
+            transform translate3d(-50%, -50%, 0)
+          }
+        }
+      }
+
+      .icon {
+        color $grey-6
+        font-size 48px
+        cursor pointer
+        transition all $animation-duration-slower $ease
+
+        &:hover {
+          color $grey-5
+        }
+      }
+    }
+
+    &.playing {
+      .control {
+        .play {
+          .cover {
+            animation-play-state running
+          }
+        }
+      }
     }
   }
 
@@ -36,8 +107,73 @@
     margin 0 auto
     padding 20px 0 80px
 
-    .music-list {
-      padding 20px 30px
+    .list-header {
+      font-weight 400
+      > .name {
+        font-size $font-size-lger
+        font-weight 400
+      }
+      .description {
+        margin 18px 0 12px
+        color $text-color-secondary
+      }
     }
+
+    .music-list {
+      // padding 20px 30px
+
+      .music-item {
+        flexLayout(, flex-start, flex-start)
+        padding 12px 10px
+        border-bottom 1px dashed $border-color-3
+        cursor pointer
+        transition all $animation-duration-slow $ease
+
+        .cover {
+          flex 0 0 36px
+          width 36px
+          margin-right 12px
+          overflow hidden
+          border-radius 2px
+
+          img {
+            width 100%
+            transition transform $animation-duration-slower $ease-out
+          }
+        }
+
+        .info {
+          flex 1 0
+          .name {
+
+          }
+          .extra {
+            font-size $font-size-sm
+            flexLayout(, space-between)
+          }
+        }
+
+        &.active {
+          background-color $grey-4
+        }
+
+        &:hover {
+          background-color $grey-5
+
+          img {
+            transform scale(1.1) rotate(3deg)
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes cover-rotate {
+  0% {
+    transform rotate(0deg)
+  }
+  100% {
+    transform rotate(360deg)
   }
 }
