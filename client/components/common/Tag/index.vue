@@ -22,7 +22,7 @@
       },
       icon: {
         type: String,
-        default: 'tag'
+        default: ''
       },
       count: {
         type: Number,

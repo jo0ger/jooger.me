@@ -25,13 +25,13 @@ export default {
         volume: 0.6,
         progress: 0,
         wave: false,
-        activeLyricIndex: -1,
         mode: 0               // 0 顺序循环 | 1 单曲循环 | 2 随机播放
       },
       list: {
         data: [],
         fetching: false
-      }
+      },
+      info: null
     }
   },
   computed: {
@@ -71,6 +71,7 @@ export default {
       this.fetchMusicList().then(success => {
         if (success) {
           this.initPlaylist()
+          this.$emit('on-music-init')
           setTimeout(() => {
             // 3秒后播放
             this.play()
@@ -89,7 +90,9 @@ export default {
       })
       this.list.fetching = false
       if (success) {
-        this.list.data = data
+        this.list.data = data.tracks
+        delete data.tracks
+        this.info = data
       }
       return success
     },

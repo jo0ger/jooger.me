@@ -17,7 +17,7 @@
     <div class="status">
       <div class="meta">
         <div class="meta-item category">
-          <i class="icon" v-if="article.category" :class="[`icon-${getExtendsItemByKey('icon', article.category.extends)}`]"></i>
+          <i class="icon" v-if="article.category" :class="[`icon-${getExtendsItemByKey('icon', article.category.extends) || 'tag'}`]"></i>
           {{ article.category ? article.category.name : '暂未分类' }}
         </div>
         <div class="meta-item comments">

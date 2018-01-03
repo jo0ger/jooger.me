@@ -53,7 +53,7 @@
           icon: 'all',
           title: '全部'
         }].concat(this.categoryList.map(item => {
-          const icon = this.getExtendsItemByKey('icon', item.extends)
+          const icon = this.getExtendsItemByKey('icon', item.extends) || 'tag'
           return {
             key: icon,
             icon,
@@ -83,7 +83,7 @@
         await this.fetchArticleList(params)
       },
       getCategoryIconClass (key, item) {
-        return `icon-${this.getExtendsItemByKey(key, item.extends)}`
+        return `icon-${this.getExtendsItemByKey(key, item.extends) || 'tag'}`
       },
       handleLoadmore () {
         this.fetchArticleListWrapper()
