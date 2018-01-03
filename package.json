@@ -27,6 +27,7 @@
     "nuxt": "^1.0.0-rc11",
     "particles.js": "^2.0.0",
     "source-map-support": "^0.4.15",
+    "stackblur-canvas": "^1.4.0",
     "vue-affix": "^0.2.4",
     "vue-awesome-swiper": "^3.0.6"
   },
