@@ -10,8 +10,17 @@
           <i class="icon icon-music-prev" @click="prev"></i>
         </div>
         <div class="control-item play">
-          <div class="cover" :style="coverStyle" v-if="cover">
-            <!-- <img :src="`${cover}`" alt=""> -->
+          <div class="cover" :style="coverStyle" v-if="cover"></div>
+          <div class="song-info" v-if="song">
+            <h3 class="name">{{song.name}}</h3>
+            <p class="artist">
+              <template v-for="(at, index) in song.artists">
+                <span :key="at.id" v-if="index !== 0"> / </span>
+                <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" rel="noopener" class="artist-name" :key="at.id">
+                  {{ at.name }}
+                </a>
+              </template>
+            </p>
           </div>
           <i class="icon" :class="[`icon-music-${player && player.playing ? 'pause' : 'play'}`]" @click="toggle"></i>
         </div>

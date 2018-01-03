@@ -13,7 +13,8 @@
         :key="item.name"
         :name="item.name"
         :icon="getExtendsItemByKey('icon', item.extends)"
-        :count="item.count"></Tag>
+        :count="item.count"
+        link></Tag>
     </div>
   </Card>
 </template>

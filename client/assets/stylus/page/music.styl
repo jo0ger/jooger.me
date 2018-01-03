@@ -46,7 +46,7 @@
           margin 0 100px
           .cover {
             position relative
-            width 316px
+            width 326px
             height @width
             margin 0 auto
             overflow hidden
@@ -64,10 +64,29 @@
             &::after {
               content ''
               full()
-              background alpha($black, .3)
+              background alpha($black, .6)
             }
 
           }
+
+          .song-info {
+            position absolute
+            bottom 60px
+            width 100%
+            text-align center
+            color $text-color-secondary-dark
+            .artist {
+              font-size $font-size-sm
+              color $text-color-secondary-dark
+
+              .artist-name {
+                &:hover {
+                  color $text-color-dark
+                }
+              }
+            }
+          }
+          
           .icon {
             position absolute
             display block
@@ -108,10 +127,8 @@
     padding 20px 0 80px
 
     .list-header {
-      font-weight 400
       > .name {
         font-size $font-size-lger
-        font-weight 400
       }
       .description {
         margin 18px 0 12px
@@ -145,7 +162,7 @@
         .info {
           flex 1 0
           .name {
-
+            text-decoration underline
           }
           .extra {
             font-size $font-size-sm
