@@ -9,14 +9,23 @@
       full()
       width 100%
       height @width
-      background-position center center
-      background-repeat no-repeat
-      background-size cover
-      filter blur(50px)
-      z-index -1
+      // background-position center center
+      // background-repeat no-repeat
+      // background-size cover
+      // filter blur(20px)
+      // z-index -1
+
+      img {
+        full()
+        width 100%
+        height auto
+        object-fit cover
+        object-position center center
+      }
     }
 
-    .overlay {
+    &:after {
+      content ''
       full()
       background alpha($black, .5)
     }

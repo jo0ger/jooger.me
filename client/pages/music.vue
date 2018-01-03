@@ -1,8 +1,10 @@
 <template>
   <div class="page-music">
     <div class="music-header">
-      <div class="cover" :style="coverStyle"></div>
-      <div class="overlay"></div>
+      <div class="cover">
+        <img :src="cover" alt="" ref="coverImage">
+        <canvas ref="coverCanvas"></canvas>
+      </div>
     </div>
     <div class="music-content">
       <Card class="music-list-widget">
@@ -22,6 +24,7 @@
 </template>
 
 <script>
+  import StackBlur from 'stackblur-canvas'
   import { Card } from '@/components/common'
 
   export default {
@@ -47,10 +50,16 @@
         }
         return []
       },
-      coverStyle () {
+      cover () {
         if (this.$eventBus && this.$eventBus.song) {
+          return this.$eventBus.song.album.cover
+        }
+        return ''
+      },
+      coverStyle () {
+        if (this.cover) {
           return {
-            backgroundImage: `url(${this.$eventBus.song.album.cover})`
+            backgroundImage: `url(${this.cover})`
           }
         }
         return null

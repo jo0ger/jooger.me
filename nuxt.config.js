@@ -65,7 +65,8 @@ module.exports = {
       'howler',
       'clipboard',
       'vue-awesome-swiper',
-      'particles.js'
+      'particles.js',
+      'stackblur-canvas'
     ]
   },
   plugins: [
@@ -79,7 +80,8 @@ module.exports = {
     { src: '@/plugins/swiper.js', ssr: false },
     { src: '@/plugins/image-load.js', ssr: false },
     { src: '@/plugins/history.js', ssr: false },
-    { src: '@/plugins/event-bus.js', ssr: false }
+    { src: '@/plugins/event-bus.js', ssr: false },
+    { src: '@/plugins/particles.js', ssr: false }
   ],
   router: {
     linkActiveClass: 'active'
