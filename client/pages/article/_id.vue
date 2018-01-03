@@ -23,7 +23,10 @@
         </div>
         <div class="content md-body" v-html="articleDetail.renderedContent"></div>
         <div class="action">
-          <a class="action-item like" :class="{ 'liked': isLiked, 'liking': articleDetailLiking }" @click="handleLike">
+          <a class="action-item like"
+            :class="{ 'liked': isLiked, 'liking': articleDetailLiking }"
+            :title="isLiked ? '已喜欢' : ''"
+            @click="handleLike">
             <i class="icon" :class="[`icon-like${isLiked ? '-fill' : ''}`]"></i>
             <span class="count">{{ articleDetail.meta.ups }}</span>
           </a>
@@ -37,7 +40,8 @@
           <Tag v-for="tag in articleDetail.tag"
             :key="tag._id"
             :name="tag.name"
-            :icon="getExtendsItemByKey('icon', tag.extends) || 'tag'">
+            :icon="getExtendsItemByKey('icon', tag.extends) || 'tag'"
+            link>
           </Tag>
         </div>
       </article>

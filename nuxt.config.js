@@ -81,7 +81,8 @@ module.exports = {
     { src: '@/plugins/image-load.js', ssr: false },
     { src: '@/plugins/history.js', ssr: false },
     { src: '@/plugins/event-bus.js', ssr: false },
-    { src: '@/plugins/particles.js', ssr: false }
+    { src: '@/plugins/particles.js', ssr: false },
+    { src: '@/plugins/console-say-hi.js', ssr: false }
   ],
   router: {
     linkActiveClass: 'active'
