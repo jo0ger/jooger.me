@@ -46,32 +46,32 @@
         </div>
       </article>
     </Card>
-    <Card class="comment-widget"></Card>
+    <Comment class="comment-widget">
+    </Comment>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
-  import { Card, Tag } from '@/components/common'
+  import { Card, Tag, Comment } from '@/components/common'
 
   export default {
-    name: 'Article',
+    name: 'ArticleDetail',
     components: {
       Card,
-      Tag
+      Tag,
+      Comment
     },
     validate ({ params }) {
       return !!params.id
     },
     fetch ({ params, store }) {
-      store.commit('article/CLEAR_DETAIL')
       return Promise.all([
         store.dispatch('article/fetchDetail', params.id),
-        // store.dispatch('comment/fetchList', {
-        //   article: params.id,
-        //   sort_by: 'ups',
-        //   order: -1
-        // })
+        store.dispatch('comment/fetchList', {
+          article: params.id,
+          type: 0
+        })
       ])
     },
     head () {
@@ -98,6 +98,11 @@
       isLiked () {
         return !!this.historyLikes.articles.find(item => item === this.articleDetail._id)
       }
+    },
+    beforeRouteLeave (to, from, next) {
+      this.$store.commit('article/CLEAR_DETAIL')
+      this.$store.commit('comment/CLEAR_LIST')
+      next()
     },
     methods: {
       async handleLike () {

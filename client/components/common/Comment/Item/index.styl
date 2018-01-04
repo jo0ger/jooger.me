@@ -1,0 +1,100 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.comment-item {
+  position relative
+  padding 20px 0
+  border-bottom 1px dashed $border-color-3
+
+  .header {
+    flexLayout(, space-between)
+    font-size $font-size-sm
+
+    .user-info {
+      .author {
+        .avatar {
+          display inline-block
+          width 26px
+          height @width
+          margin-right 10px
+          border-radius 100%
+          border 1px solid $border-color
+
+          img {
+            width 100%
+            height @width
+            border-radius 100%
+          }
+        }
+      }
+
+      .name {
+        font-weight 700
+      }
+    }
+
+    .meta {
+      color $disabled-color
+
+      > span {
+        margin-left 10px
+      }
+
+      .icon {
+        font-size $font-size-sm
+        margin-right 4px
+      }
+    }
+  }
+
+  .content {
+    margin 6px 0 10px
+  }
+
+  .status {
+    &-item {
+      display inline-block
+      margin-right 20px
+      padding 4px 8px
+      border-radius 2px
+      font-size $font-size-sm
+
+      .icon {
+        margin-right 6px
+        font-size $font-size-sm
+      }
+
+      &:hover {
+        opacity .8
+      }
+    }
+
+    .like {
+      background-color alpha($blue-6, .2)
+      color $blue-6
+      font-weight 700
+
+      &.liked {
+        background-color alpha($blue-6, .8)
+        color $white
+      }
+
+      &.liking {
+        opacity .6
+        cursor not-allowed
+      }
+
+      &:hover {
+        background-color alpha($blue-6, .3)
+      }
+    }
+
+    .subcomments {
+      position relative
+
+      .icon {
+        margin-right 4px
+      }
+    }
+  }
+}
