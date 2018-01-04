@@ -56,8 +56,8 @@
     },
     computed: {
       hasNoMore () {
-        const { current_page, total_page } = this.pagination
-        return current_page >= total_page && total_page >= 1
+        const { current_page, total_page, total } = this.pagination
+        return total > 0 && current_page >= total_page && total_page >= 1
       }
     },
     methods: {
