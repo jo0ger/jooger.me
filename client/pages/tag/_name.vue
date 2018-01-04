@@ -1,7 +1,7 @@
 <template>
   <div class="page-tag">
     <Card>
-      <div slot="header" class="search-header">
+      <div slot="header" class="info-header">
         <i class="icon" :class="[`icon-${getExtendsItemByKey('icon', tag.extends) || 'tag'}`]"></i>
         <div class="search">
           <span class="keyword">{{ $route.params.name }}</span>

@@ -14,6 +14,9 @@ const FETCH_LIST_FAILURE = 'FETCH_LIST_FAILURE'
 const FETCH_HOT_REQUEST = 'FETCH_HOT_REQUEST'
 const FETCH_HOT_SUCCESS = 'FETCH_HOT_SUCCESS'
 const FETCH_HOT_FAILURE = 'FETCH_HOT_FAILURE'
+const FETCH_ARCHIVE_REQUEST = 'FETCH_ARCHIVE_REQUEST'
+const FETCH_ARCHIVE_SUCCESS = 'FETCH_ARCHIVE_SUCCESS'
+const FETCH_ARCHIVE_FAILURE = 'FETCH_ARCHIVE_FAILURE'
 const FETCH_DETAIL_REQUEST = 'FETCH_DETAIL_REQUEST'
 const FETCH_DETAIL_SUCCESS = 'FETCH_DETAIL_SUCCESS'
 const FETCH_DETAIL_FAILURE = 'FETCH_DETAIL_FAILURE'
@@ -39,6 +42,11 @@ export const state = () => ({
   hot: {
     fetching: false,
     data: []
+  },
+  archive: {
+    fetching: false,
+    data: [],
+    count: 0
   }
 })
 
@@ -50,7 +58,10 @@ export const getters = {
   detailFetching: state => state.detail.fetching,
   detailLiking: state => state.detail.liking,
   hot: state => state.hot.data,
-  hotFetching: state => state.hot.fetching
+  hotFetching: state => state.hot.fetching,
+  archives: state => state.archive.data,
+  archivesCount: state => state.archive.count,
+  archivesFetching: state => state.archive.fetching
 }
 
 export const mutations = {
@@ -75,6 +86,13 @@ export const mutations = {
   [FETCH_HOT_SUCCESS]: (state, { list }) => {
     state.hot.fetching = false
     state.hot.data = list
+  },
+  [FETCH_ARCHIVE_REQUEST]: state => (state.archive.fetching = true),
+  [FETCH_ARCHIVE_FAILURE]: state => (state.archive.fetching = false),
+  [FETCH_ARCHIVE_SUCCESS]: (state, { list, count }) => {
+    state.archive.fetching = false
+    state.archive.data = list
+    state.archive.count = count
   },
   [FETCH_DETAIL_REQUEST]: state => (state.detail.fetching = true),
   [FETCH_DETAIL_FAILURE]: state => (state.detail.fetching = false),
@@ -152,6 +170,19 @@ export const actions = {
       commit(FETCH_HOT_SUCCESS, data)
     } else {
       commit(FETCH_HOT_FAILURE)
+    }
+    return success
+  },
+  async fetchArchives ({ commit, state }) {
+    if (state.archive.fetching) {
+      return
+    }
+    commit(FETCH_ARCHIVE_REQUEST)
+    const { success, data } = await api.article.archives().catch(err => ((commit(FETCH_ARCHIVE_FAILURE, err), {})))
+    if (success) {
+      commit(FETCH_ARCHIVE_SUCCESS, data)
+    } else {
+      commit(FETCH_ARCHIVE_FAILURE)
     }
     return success
   },

@@ -18,7 +18,7 @@
   import { Affix } from '@/components/common'
 
   export default {
-    name: 'Aside',
+    name: 'AppAside',
     components: {
       Calendar,
       Hots,
