@@ -143,8 +143,7 @@
         this.$eventBus.handleNextSong()
       },
       play (index) {
-        console.log(index)
-        this.$eventBus.play(index)
+        this.$eventBus.skipTo(index)
       },
       toggle () {
         if (this.player) {
