@@ -43,7 +43,7 @@
 
 <script>
   export default {
-    name: 'Header',
+    name: 'AppHeader',
     data () {
       return {
         menuSchema: [
@@ -70,7 +70,6 @@
     },
     mounted () {
       this.setCornerStyle()
-      this.$eventBus.initMusic()
     },
     methods: {
       setCornerStyle () {

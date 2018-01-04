@@ -65,7 +65,8 @@ export default {
     fetchDetail: id => wrap(`/articles/${id}`),
     fetchLikes: id => wrap(`/articles/${id}/like`),
     like: id => wrap(`/articles/${id}/like`, 'post'),
-    hot: wrap('/articles/hot')
+    hot: wrap('/articles/hot'),
+    archives: wrap('/articles/archives')
   },
   category: {
     fetchList: wrap('/categories')

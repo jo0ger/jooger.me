@@ -1,7 +1,7 @@
 <template>
   <div class="page-search">
     <Card>
-      <div slot="header" class="search-header">
+      <div slot="header" class="info-header">
         <i class="icon icon-search"></i>
         <div class="search">与
           <span class="keyword">{{ $route.params.keyword }}</span>

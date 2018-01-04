@@ -65,8 +65,7 @@ module.exports = {
       'howler',
       'clipboard',
       'vue-awesome-swiper',
-      'particles.js',
-      'stackblur-canvas'
+      'particles.js'
     ]
   },
   plugins: [

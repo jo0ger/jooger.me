@@ -30,8 +30,11 @@
     },
     computed: {
       noAsidePage () {
-        return ['music', 'guestbook', 'about'].includes(this.$route.name)
+        return ['music', 'archive', 'guestbook', 'about'].includes(this.$route.name)
       }
+    },
+    mounted () {
+      // this.$eventBus.initMusic()
     }
   }
 </script>

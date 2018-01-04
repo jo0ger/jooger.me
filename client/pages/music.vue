@@ -1,74 +1,77 @@
 <template>
   <div class="page-music">
-    <div class="player" :class="[player && player.playing ? 'playing' : 'pause']" v-show="player">
-      <div class="cover-wrapper">
-        <div class="cover" :style="coverStyle"></div>
-        <div class="cover cover-blur" :style="coverStyle"></div>
-      </div>
-      <div class="control">
-        <div class="control-item prev">
-          <i class="icon icon-music-prev" @click="prev"></i>
+    <template v-if="musicList.length">
+
+      <div class="player" :class="[player && player.playing ? 'playing' : 'pause']" v-show="player">
+        <div class="cover-wrapper">
+          <div class="cover" :style="coverStyle"></div>
+          <div class="cover cover-blur" :style="coverStyle"></div>
         </div>
-        <div class="control-item play">
-          <div class="cover" :style="coverStyle" v-if="cover"></div>
-          <div class="song-info" v-if="song">
-            <h3 class="name">{{song.name}}</h3>
-            <p class="artist">
-              <template v-for="(at, index) in song.artists">
-                <span :key="at.id" v-if="index !== 0"> / </span>
-                <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" rel="noopener" class="artist-name" :key="at.id">
-                  {{ at.name }}
-                </a>
-              </template>
-            </p>
+        <div class="control">
+          <div class="control-item prev">
+            <i class="icon icon-music-prev" @click="prev"></i>
           </div>
-          <i class="icon" :class="[`icon-music-${player && player.playing ? 'pause' : 'play'}`]" @click="toggle"></i>
-        </div>
-        <div class="control-item next">
-          <i class="icon icon-music-next" @click="next"></i>
+          <div class="control-item play">
+            <div class="cover" :style="coverStyle" v-if="cover"></div>
+            <div class="song-info" v-if="song">
+              <h3 class="name">{{song.name}}</h3>
+              <p class="artist">
+                <template v-for="(at, index) in song.artists">
+                  <span :key="at.id" v-if="index !== 0"> / </span>
+                  <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" rel="noopener" class="artist-name" :key="at.id">
+                    {{ at.name }}
+                  </a>
+                </template>
+              </p>
+            </div>
+            <i class="icon" :class="[`icon-music-${player && player.playing ? 'pause' : 'play'}`]" @click="toggle"></i>
+          </div>
+          <div class="control-item next">
+            <i class="icon icon-music-next" @click="next"></i>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="music-content">
-      <Card class="music-list-widget" v-if="info">
-        <div class="list-header" slot="header">
-          <template v-if="info">
-            <h3 class="name">{{ info.name }}</h3>
-            <p class="description" v-if="info.description">{{ info.description }}</p>
-            <div class="tags" v-if="info.tags.length">
-              <Tag :name="tag" v-for="(tag, index) in info.tags" :key="index"></Tag>
-            </div>
-          </template>
-        </div>
-        <ul class="music-list">
-          <li class="music-item"
-            :class="{ active: song && song.id === item.id }"
-            v-for="(item, index) in musicList"
-            :key="item.id"
-            @dblclick.prevent.stop="play(index)">
-            <div class="cover">
-              <img :src="item.album.cover + '?param=50y50'" alt="">
-            </div>
-            <div class="info">
-              <h4 class="name">{{ item.name }}</h4>
-              <div class="extra">
-                <div class="artist">
-                  <template v-for="(at, index) in item.artists">
-                    <span :key="at.id" v-if="index !== 0"> / </span>
-                    <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" rel="noopener" class="artist-name" :key="at.id">
-                      {{ at.name }}
-                    </a>
-                  </template>
-                </div>
-                <div class="duration">
-                  {{ formatTime(Math.floor(item.duration / 1000)) }}
+      <div class="music-content">
+        <Card class="music-list-widget" v-if="info">
+          <div class="list-header" slot="header">
+            <template v-if="info">
+              <h3 class="name">{{ info.name }}</h3>
+              <p class="description" v-if="info.description">{{ info.description }}</p>
+              <div class="tags" v-if="info.tags.length">
+                <Tag :name="tag" v-for="(tag, index) in info.tags" :key="index"></Tag>
+              </div>
+            </template>
+          </div>
+          <ul class="music-list">
+            <li class="music-item"
+              :class="{ active: song && song.id === item.id }"
+              v-for="(item, index) in musicList"
+              :key="item.id"
+              @dblclick.prevent.stop="play(index)">
+              <div class="cover">
+                <img :src="item.album.cover + '?param=50y50'" alt="">
+              </div>
+              <div class="info">
+                <h4 class="name">{{ item.name }}</h4>
+                <div class="extra">
+                  <div class="artist">
+                    <template v-for="(at, index) in item.artists">
+                      <span :key="at.id" v-if="index !== 0"> / </span>
+                      <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" rel="noopener" class="artist-name" :key="at.id">
+                        {{ at.name }}
+                      </a>
+                    </template>
+                  </div>
+                  <div class="duration">
+                    {{ formatTime(Math.floor(item.duration / 1000)) }}
+                  </div>
                 </div>
               </div>
-            </div>
-          </li>
-        </ul>
-      </Card>
-    </div>
+            </li>
+          </ul>
+        </Card>
+      </div>
+    </template>
   </div>
 </template>
 
