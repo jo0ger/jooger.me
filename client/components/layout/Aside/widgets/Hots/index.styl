@@ -12,60 +12,33 @@
         margin-bottom 0
       }
       
-      .thumb {
-        position absolute
-        top 0
-        left 0
-        width 50px
-        height 40px
-        margin-right 10px
-        overflow hidden
-        border-radius 2px
-
-        img {
-          width 100%
-          height 100%
-          object-fit cover
-          object-position left
-          transition transform $animation-duration-slower $ease-out
-
-          &:hover {
-            transform scale(1.1) rotate(2deg)
-          }
+      .title {
+        display inline-block
+        font-size $font-size-base
+        font-weight 700
+        
+        &:hover {
+          text-decoration underline
         }
       }
 
-      .content {
-        margin-left 60px
+      .meta {
+        flexLayout(, flex-start)
+        font-size $font-size-sm
+        color $text-color-secondary
 
-        .title {
-          display inline-block
-          font-size $font-size-base
-          font-weight 700
-          
-          &:hover {
-            text-decoration underline
-          }
-        }
-
-        .meta {
+        &-item {
           flexLayout(, flex-start)
-          font-size $font-size-sm
-          color $text-color-secondary
+          position relative
+          margin-right 12px
 
-          &-item {
-            flexLayout(, flex-start)
-            position relative
-            margin-right 12px
-
-            &::before {
-              content ''
-              width 2px
-              height @width
-              margin-right 4px
-              border 1px solid $text-color-secondary
-              border-radius 1px
-            }
+          &::before {
+            content ''
+            width 2px
+            height @width
+            margin-right 4px
+            border 1px solid $text-color-secondary
+            border-radius 1px
           }
         }
       }

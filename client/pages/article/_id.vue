@@ -66,6 +66,10 @@
       return !!params.id
     },
     fetch ({ params, store }) {
+      store.commit('comment/CHANGE_SORT', {
+        by: 'createdAt',
+        order: -1
+      })
       return Promise.all([
         store.dispatch('article/fetchDetail', params.id),
         store.dispatch('comment/fetchList', {

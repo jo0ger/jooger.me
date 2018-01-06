@@ -11,7 +11,9 @@
     font-size $font-size-sm
 
     .user-info {
+      flexLayout(, flex-start, center)
       .author {
+        flexLayout(, flex-start, center)
         .avatar {
           display inline-block
           width 26px
@@ -28,8 +30,19 @@
         }
       }
 
+      .reply {
+        .text {
+          margin 0 10px
+          color $text-color-secondary
+        }
+        .name {
+          text-decoration underline
+        }
+      }
+
       .name {
         font-weight 700
+        font-size $font-size-base
       }
     }
 
@@ -58,6 +71,7 @@
       padding 4px 8px
       border-radius 2px
       font-size $font-size-sm
+      color $text-color-secondary
 
       .icon {
         margin-right 6px
@@ -70,13 +84,17 @@
     }
 
     .like {
-      background-color alpha($blue-6, .2)
-      color $blue-6
-      font-weight 700
+      background-color alpha($like-color, .2)
+      color $like-color
 
       &.liked {
-        background-color alpha($blue-6, .8)
+        background-color alpha($like-color, .8)
         color $white
+        font-weight 700
+
+        &:hover {
+          background-color alpha($like-color, .9)
+        }
       }
 
       &.liking {
@@ -85,16 +103,20 @@
       }
 
       &:hover {
-        background-color alpha($blue-6, .3)
+        background-color alpha($like-color, .3)
+      }
+    }
+    .subcomments {
+      color $text-color
+
+      .icon {
+        margin-right 2px
       }
     }
 
-    .subcomments {
-      position relative
-
-      .icon {
-        margin-right 4px
-      }
+    .time {
+      float right
+      margin-right 0
     }
   }
 }

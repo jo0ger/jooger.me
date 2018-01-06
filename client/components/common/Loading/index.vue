@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <div class="loading" :class="[`loading-${size}`]">
+  <div class="loading" :class="[`loading-${size}`, dark && 'loading-dark']">
     <div class="wrapper">
       <div class="spinner">
         <template v-if="type === 'snake'">
@@ -37,6 +37,10 @@
         validator (val) {
           return ['large', 'default', 'small', 'mini'].includes(val)
         }
+      },
+      dark: {
+        type: Boolean,
+        default: false
       }
     },
     data () {

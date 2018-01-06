@@ -5,10 +5,13 @@ $sizes         = mini small default large
 
 .loading {
   position relative
+  display inline-block
+  width 100%
+
   .wrapper {
     flexLayout(column, space-around)
-    width 50px
-    height @width
+    width auto
+    height auto
     margin 0 auto
     text-transform uppercase
   }
@@ -19,7 +22,7 @@ $sizes         = mini small default large
       width 24px
       height @width
       margin 0 auto
-      border 2px solid alpha($black, .08)
+      border 2px solid alpha($black, .1)
       border-left-color $base-color
       border-radius 50%
       animation snake-loading .6s infinite linear
@@ -30,9 +33,18 @@ $sizes         = mini small default large
     &-{size} {
       .spinner {
         &-snake {
-          width (18px + i * 8px)
+          width (14px + i * 8px)
           height @width
         }
+      }
+    }
+  }
+
+  &-dark {
+    .spinner {
+      &-snake {
+        border 2px solid alpha($white, .1)
+        border-left-color $text-color-dark
       }
     }
   }
