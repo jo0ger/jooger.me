@@ -168,7 +168,10 @@ export default {
         },
         onloaderror: (id, err) => {
           this.log(song.name + ' --- 加载失败')
-          // this.$message(`【${song.name}】加载失败`)
+          this.$message({
+            message: `【${song.name}】加载失败`,
+            duration: 2000
+          })
           this._loadError(song)
         },
         onplay: () => {
@@ -186,13 +189,15 @@ export default {
         },
         onplayerror: (id, err) => {
           this.log(song.name + ' --- 播放失败')
-          // this.$message(`【${song.name}】播放失败`)
+          this.$message({
+            message: `【${song.name}】播放失败`,
+            duration: 2000
+          })
           this.player.loading = false
           this.handleNextSong()
         },
         onpause: () => {
           this.log(song.name + ' --- 暂停')
-          // this.$message(`${song.name} - 暂停中`)
           this.player.playing = false
           this.player.wave = false
         },
@@ -253,6 +258,15 @@ export default {
       } else {
         if (!song.src && !song.lyric) {
           const [url, { nolyric, lyric, tlyric }] = await this.getSongUrlAndLyric(song.id)
+          if (!url) {
+            this.player.playlist.splice(index, 1)
+            this.list.data.splice(index, 1)
+            this.$message({
+              message: `【${song.name}】播放地址失效`,
+              duration: 2000
+            })
+            return this.play(index)
+          }
           song.src = url
           song.nolyric = nolyric
           song.lyric = lyric
@@ -293,6 +307,7 @@ export default {
       if (this.player.sound) {
         this.player.sound.stop()
         this.player.sound.unload()
+        this.player.sound = null
       }
       this.player.progress = 0
       this.play(index)
@@ -333,6 +348,7 @@ export default {
       if (this.player.sound) {
         this.player.sound.stop()
         this.player.sound.unload()
+        this.player.sound = null
       }
       song.loaderror = true
       this.player.sound = song.howl = null
@@ -341,9 +357,7 @@ export default {
       this.player.playing = false
       this.player.ready = true
       this.player.loading = false
-      setTimeout(() => {
-        this.handleNextSong()
-      }, 1000)
+      setTimeout(() => this.handleNextSong(), 2000)
     },
     handleNextSong () {
       if (this.randomMode) {

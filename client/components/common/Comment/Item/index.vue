@@ -124,6 +124,10 @@
     beforeCreate () {
       this.$options.components.CommentList = require('../List').default
     },
+    mounted () {
+      // HACK: 去掉的话，icon-like不会fill
+      this.$forceUpdate()
+    },
     methods: {
       UAParse,
       OSParse,

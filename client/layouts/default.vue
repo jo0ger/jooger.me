@@ -34,7 +34,7 @@
       }
     },
     mounted () {
-      // this.$eventBus.initMusic()
+      this.$eventBus.initMusic()
     }
   }
 </script>
