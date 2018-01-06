@@ -1,7 +1,6 @@
 <template>
   <div class="page-music">
     <template v-if="musicList.length">
-
       <div class="player" :class="[player && player.playing ? 'playing' : 'pause']" v-show="player">
         <div class="cover-wrapper">
           <div class="cover" :style="coverStyle"></div>
@@ -49,7 +48,7 @@
               :key="item.id"
               @dblclick.prevent.stop="play(index)">
               <div class="cover">
-                <img :src="item.album.cover + '?param=50y50'" alt="">
+                <img :src="item.album.cover" alt="">
               </div>
               <div class="info">
                 <h4 class="name">{{ item.name }}</h4>

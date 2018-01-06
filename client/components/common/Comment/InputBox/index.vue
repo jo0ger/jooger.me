@@ -21,7 +21,7 @@
               <input type="text" placeholder="站点" required="required" name="site" v-model.trim="model.site">
             </div>
             <div class="clear" v-show="authInfo">
-              <button @click="handleClear">
+              <button @click="handleClear" title="退出">
                 <i class="icon icon-clear"></i>
               </button>
             </div>
@@ -33,7 +33,7 @@
           回复：{{ reply.author.name }}
         </div>
         <div class="clear">
-          <button @click="handleClearReply">
+          <button @click="handleClearReply" title="取消回复">
             <i class="icon icon-clear"></i>
           </button>
         </div>
@@ -164,8 +164,16 @@
           return
         }
         if (!this.content) {
-          // TODO: 提示
-          return
+          return this.$message('请填写内容')
+        }
+        if (!this.model.name) {
+          return this.$message('请填写昵称')
+        }
+        if (!this.model.email) {
+          return this.$message('请填写邮箱')
+        }
+        if (!this.model.site) {
+          return this.$message('请填写站点')
         }
         params = Object.assign({
           type: this.articleDetail ? 0 : 1,
@@ -201,6 +209,7 @@
           this.content = ''
           // TODO: 滚动到评论最上面？
         }
+        this.$message(this.child ? '回复成功' : '评论成功')
         this.$emit('on-publish', data)
       },
       handleClear () {
