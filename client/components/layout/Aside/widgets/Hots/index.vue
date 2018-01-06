@@ -13,23 +13,18 @@
         v-for="item in hotList"
         :key="item._id"
         :title="item.title">
-        <div class="thumb">
-          <img :src="item.thumb" alt="">
-        </div>
-        <div class="content">
-          <nuxt-link
-            class="title"
-            :to="`/article/${item._id}`"
-            :title="item.title">{{ item.title }}</nuxt-link>
-          <div class="meta">
-            <div class="meta-item comments">
-              {{ item.meta.comments }} 条评论
-            </div>
-            <div class="meta-item ups">
-              {{ item.meta.ups }} 人喜欢
-            </div>
+        <nuxt-link
+          class="title"
+          :to="`/article/${item._id}`"
+          :title="item.title">{{ item.title }}</nuxt-link>
+        <!-- <div class="meta">
+          <div class="meta-item comments">
+            {{ item.meta.comments }} 条评论
           </div>
-        </div>
+          <div class="meta-item ups">
+            {{ item.meta.ups }} 人喜欢
+          </div>
+        </div> -->
       </li>
     </ul>
   </Card>

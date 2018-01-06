@@ -89,7 +89,7 @@ export default {
   },
   auth: {
     githubLogin: wrap('/auth/github/login'),
-    getInfo: wrap('/auth/info'),
+    getInfo: id => wrap(`/users/${id}`),
     getGithubToken: wrap('/auth/github/token'),
     getGithubUser: wrap('/auth/github/user')
   },
@@ -99,7 +99,7 @@ export default {
   comment: {
     fetchList: wrap('/comments'),
     fetchDetail: id => wrap(`/comments/${id}`),
-    create: wrap('/comments', 'post'),
+    publish: wrap('/comments', 'post'),
     like: id => wrap(`/comments/${id}/like`, 'post')
   }
 }

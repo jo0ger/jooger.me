@@ -3,112 +3,145 @@
 </style>
 
 <template>
-  <Card class="comment-list" :class="{ loading: commentListFetching }">
-    <div class="list-header" slot="header">
-      <div class="total">
-        共
-        <span class="count">{{ commentPagination.total }}</span>
-        个评论
+  <Card class="comment-list" :class="{ 'sub-comment-list': child , loading, empty: !list.length }">
+    <template v-if="!child || list.length">
+      <div class="list-header" slot="header">
+        <div class="total">
+          共
+          <span class="count">{{ total || pagination.total || 0 }}</span>
+          个{{ listType }}
+        </div>
+        <div class="sort">
+          <a class="sort-type" :class="{ active: latestSort }" @click="handleSort('createdAt', -1)">最新排序</a>
+          <i class="seprate"></i>
+          <a class="sort-type" :class="{ active: hottestSort }" @click="handleSort('ups', -1)">最热排序</a>
+        </div>
       </div>
-      <div class="sort">
-        <a class="sort-type" :class="{ active: latestSort }" @click="handleSort(0)">最新排序</a>
-        <i class="seprate"></i>
-        <a class="sort-type" :class="{ active: hottestSort }" @click="handleSort(1)">最热排序</a>
+      <div class="list-content">
+        <CommentItem v-for="(item, index) in list"
+          :key="item._id"
+          :comment="item"
+          :child="child"
+          :index="index"
+          @on-reply="handleSetReply">
+        </CommentItem>
+        <div class="indicator">
+          <Loading v-if="loading"></Loading>
+          <button class="loadmore" v-else-if="!hasNoMore && list.length" @click="handleLoadmore">来，继续翻</button>
+          <p class="no-data" v-else-if="!hasNoMore">暂无{{ listType }}</p>
+        </div>
       </div>
-    </div>
-    <div class="list-content">
-      <CommentItem v-for="item in commentList"
-        :key="item._id"
-        :comment="item">
-      </CommentItem>
-      <div class="indicator">
-        <transition name="fade" mode="out-in">
-          <Loading v-if="commentListFetching"></Loading>
-          <p class="no-more-data" v-else-if="hasNoMore">暂无更多评论</p>
-          <button class="loadmore" v-else-if="commentList.length" @click="handleLoadmore">来，继续翻</button>
-          <p class="no-data" v-else>暂无评论</p>
-        </transition>
-      </div>
-    </div>
+    </template>
+    <CommentInputBox v-if="child"
+      child
+      placeholder="回复点儿什么"
+      :parent="parent"
+      :reply="replyTarget"
+      @on-publish="handleReplyPublish"
+      @on-clear-reply="handleClearReply">
+    </CommentInputBox>
   </Card>
 </template>
 
 <script>
-  import { mapGetters, mapMutations, mapActions } from 'vuex'
   import Card from '../../Card'
   import CommentItem from '../Item'
+  import CommentInputBox from '../InputBox'
+  import Loading from '../../Loading'
 
   export default {
     name: 'CommentList',
     components: {
       Card,
-      CommentItem
+      CommentInputBox,
+      CommentItem,
+      Loading
+    },
+    props: {
+      parent: {
+        type: String,
+        default: ''
+      },
+      sort: {
+        type: Object,
+        validator (val) {
+          return ['by', 'order'].every(item => val.hasOwnProperty(item))
+        },
+        default () {
+          return {
+            by: 'createdAt',
+            order: -1
+          }
+        }
+      },
+      child: {
+        type: Boolean,
+        default: false
+      },
+      total: {
+        type: Number,
+        default: 0
+      },
+      list: {
+        type: Array,
+        default () {
+          return []
+        }
+      },
+      loading: {
+        type: Boolean,
+        default: false
+      },
+      pagination: {
+        type: Object,
+        default () {
+          return {}
+        }
+      }
     },
     data () {
-      return {}
+      return {
+        replyTarget: null
+      }
     },
     computed: {
-      ...mapGetters({
-        commentSort: 'comment/sort',
-        commentList: 'comment/list',
-        commentPagination: 'comment/pagination',
-        commentListFetching: 'comment/listFetching',
-        articleDetail: 'article/detail',
-      }),
       latestSort () {
-        const { by, order } = this.commentSort
+        const { by, order } = this.sort
         return by === 'createdAt' && order === -1
       },
       hottestSort () {
-        const { by, order } = this.commentSort
+        const { by, order } = this.sort
         return by === 'ups' && order === -1
       },
       hasNoMore () {
-        const { current_page, total_page, total } = this.commentPagination
+        const { current_page, total_page, total } = this.pagination
         return total > 0 && current_page >= total_page && total_page >= 1
+      },
+      listType () {
+        return this.child ? '回复' : '评论'
       }
     },
     methods: {
-      ...mapMutations({
-        changeSort: 'comment/CHANGE_SORT'
-      }),
-      ...mapActions({
-        fetchCommentList: 'comment/fetchList'
-      }),
-      handleSort (type) {
-        if (this.commentListFetching) {
+      handleSort (by, order) {
+        if (by === this.sort.by && order === this.sort.order || this.loading) {
           return
         }
-        switch (type) {
-          case 0:
-            if (this.latestSort) {
-              return
-            }
-            this.changeSort({
-              by: 'createdAt'
-            })
-            break
-          case 1:
-            if (this.hottestSort) {
-              return
-            }
-            this.changeSort({
-              by: 'ups'
-            })
-            break
-        }
-        const params = {
-          page: 1,
-          type: 1
-        }
-        if (this.articleDetail) {
-          params.type = 0
-          params.article = this.articleDetail._id
-        }
-        this.fetchCommentList(params)
+        this.$emit('on-sort', { by, order })
       },
       handleLoadmore () {
-        this.fetchCommentList()
+        if (this.loading) {
+          return
+        }
+        this.$emit('on-loadmore', this.pagination.current_page + 1)
+      },
+      handleSetReply (index) {
+        this.replyTarget = this.list[index]
+      },
+      handleClearReply () {
+        this.replyTarget = null
+      },
+      handleReplyPublish (reply) {
+        this.$emit('on-reply-publish', reply)
       }
     }
   }

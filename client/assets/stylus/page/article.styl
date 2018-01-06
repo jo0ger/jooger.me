@@ -60,13 +60,16 @@
       }
 
       .like {
-        background-color alpha($blue-6, .2)
-        color $blue-6
-        font-weight 700
+        background-color alpha($like-color, .2)
+        color $like-color
 
         &.liked {
-          background-color alpha($blue-6, .8)
+          background-color alpha($like-color, .8)
           color $white
+          font-weight 700
+          &:hover {
+            background-color alpha($like-color, .9)
+          }
         }
 
         &.liking {
@@ -75,7 +78,7 @@
         }
 
         &:hover {
-          background-color alpha($blue-6, .3)
+          background-color alpha($like-color, .3)
         }
       }
 

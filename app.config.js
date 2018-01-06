@@ -27,7 +27,8 @@ export default {
     userLikeKey: isProd ? 'jooger.me.user.like_history' : 'jooger.me.user.like_history_dev'
   },
   auth: {
-    githubTokenKey: 'jooger.me.github.token'
+    githubTokenKey: 'jooger.me.github.token',
+    roleMap: ['管理员', '普通用户', 'GitHub用户']
   },
   sns: {
     github: {

@@ -9,16 +9,17 @@
   }
 
   .loadmore {
-    padding 8px 36px
-    border 1px solid $border-color-2
-    border-radius 4px
+    padding 6px 32px
+    border-radius 2px
+    border 1px solid $border-color
     cursor pointer
     transition all $animation-duration-slow $ease-in-out
 
     &:hover {
-      padding 8px 48px
+      padding 6px 48px
       background $base-color
       color $white
+      border-color @background
       font-weight 700
     }
   }
