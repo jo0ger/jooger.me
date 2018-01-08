@@ -1,5 +1,5 @@
 /**
- * @desc 元素外部点击指令
+ * @desc 元素外部点击指令 参考element-ui
  * @author Jooger <iamjooger@gmail.com>
  * @date 31 Dec 2017
  * @usage
@@ -56,16 +56,13 @@ export default ({ isClient }) => {
           bindingFn: binding.value
         }
       },
-    
       update (el, binding, vnode) {
         el[ctx].documentHandler = createDocumentHandler(el, binding, vnode)
         el[ctx].methodName = binding.expression
         el[ctx].bindingFn = binding.value
       },
-    
       unbind (el) {
         let len = nodeList.length
-    
         for (let i = 0; i < len; i++) {
           if (nodeList[i][ctx].id === el[ctx].id) {
             nodeList.splice(i, 1)

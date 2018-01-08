@@ -42,9 +42,11 @@
         </div>
       </transition>
       <div class="content">
-        <div class="wrapper">
-          <textarea ref="comment" name="comment" id="comment" :placeholder="placeholder" cols="45" :rows="child ? 4 : 8" required="required" aria-required="true" v-model.trim="content"></textarea>
-          <div class="tool-bar"></div>
+        <Editor
+          :rows="child ? 4 : 8"
+          :placeholder="placeholder"
+          v-model="content">
+        </Editor>
         </div>
       </div>
       <div class="action">
@@ -74,12 +76,18 @@
   import { mapGetters, mapActions } from 'vuex'
   import Card from '../../Card'
   import Loading from '../../Loading'
+  import Editor from '../../Editor'
   import config from '@@/app.config'
   import defaultAvatar from '@/static/images/logo.svg'
   import { isEmail, isSiteUrl } from '@/utils'
 
   export default {
     name: 'CommentInputBox',
+    components: {
+      Card,
+      Loading,
+      Editor
+    },
     props: {
       child: {
         type: Boolean,
@@ -103,10 +111,6 @@
           return null
         }
       }
-    },
-    components: {
-      Card,
-      Loading
     },
     data () {
       return {

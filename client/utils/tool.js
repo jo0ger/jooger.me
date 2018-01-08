@@ -8,6 +8,8 @@
 
 import { isType } from './validate'
 
+export const noop = function () {}
+
 export const isEmptyObject = (obj = {}) => {
   for (let key in obj) {
     return !1
