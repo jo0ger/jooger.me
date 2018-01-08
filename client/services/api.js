@@ -52,7 +52,10 @@ fetcher.interceptors.response.use(async response => {
   return response.data
 }, err => {
   const status = err.response ? err.response.status : err.code
-  const message = err.message ? err.message : `请求错误${status ? `，code:${status}` : ''}`
+  let message = err.message ? err.message : `请求错误${status ? `，code:${status}` : ''}`
+  if (message.indexOf('Network Error') > -1) {
+    message = '网络错误'
+  }
   logMsg(message)
   return Promise.reject(err)
 })
