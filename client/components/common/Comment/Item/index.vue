@@ -6,7 +6,7 @@
   <div class="comment-item" :class="{ 'sub-comment-item': child }">
     <div class="header">
       <div class="user-info">
-        <a :href="comment.author.site || 'javascript:void;'" class="author" target="_blank" rel="noopener">
+        <a :href="comment.author.site || 'javascript:void;'" class="author" :class="{ 'no-site': !comment.author.site }" target="_blank" rel="noopener">
           <div class="avatar">
             <img :src="comment.author.avatar" alt="">
           </div>
@@ -17,10 +17,10 @@
           <a class="name" :href="forward.author.site || 'javascript:;'" target="_blank" rel="noopener">@{{ forward.author.name }}</a>
         </span>
       </div>
-      <span class="meta">
+      <!-- <span class="meta">
         <span class="os" v-html="OSParse(comment.meta.ua)" v-if="comment.meta.ua"></span>
         <span class="ua" v-html="UAParse(comment.meta.ua)" v-if="comment.meta.ua"></span>
-      </span>
+      </span> -->
     </div>
     <div class="content md-body md-mini" v-html="comment.renderedContent"></div>
     <div class="status">

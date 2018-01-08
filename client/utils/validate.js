@@ -6,6 +6,10 @@
 
 'use strict'
 
+import validator from 'validator'
+
+export * from 'validator'
+
 /**
  * 类型检测
  * @param {*} obj 检测对象
@@ -29,13 +33,12 @@ export const isMobile = (ua = '') => {
 }
 
 /**
- * 校验手机号码
- * @param  {} phone=''  手机号码
- */
-export const isPhoneNo = (phone = '') => /^1[34578]\d{9}$/.test(phone)
-
-/**
  * 校验是否是常用视频类型
  * @param {String} type
  */
 export const isVideo = (type = '') => /\w+(.flv|.rvmb|.mp4|.avi|.wmv)$/.test(type)
+
+export const isSiteUrl = (site = '') => validator.isURL(site, {
+  protocols: ['http', 'https'],
+  require_protocol: true
+})

@@ -12,10 +12,10 @@
           </div>
           <div class="form">
             <div class="name">
-              <input type="text" placeholder="昵称" required="required" name="name" v-model.trim="model.name">
+              <input type="text" placeholder="昵称（必填）" required="required" name="name" v-model.trim="model.name">
             </div>
             <div class="email">
-              <input type="email" placeholder="邮箱" required="required" name="email" v-model.trim="model.email">
+              <input type="email" placeholder="邮箱（必填）" required="required" name="email" v-model.trim="model.email">
             </div>
             <div class="site">
               <input type="text" placeholder="站点" required="required" name="site" v-model.trim="model.site">
@@ -28,16 +28,19 @@
           </div>
         </div>
       </div>
-      <div class="reply" v-if="reply">
-        <div class="target">
-          回复：{{ reply.author.name }}
+      <transition name="fade">
+        <div class="reply" v-if="reply">
+          <div class="target">
+            回复：
+            <a class="name" :href="reply.author.site || 'javascript:;'" target="_blank" rel="noopener">@{{ reply.author.name }}</a>
+          </div>
+          <div class="clear">
+            <button @click="handleClearReply" title="取消回复">
+              <i class="icon icon-clear"></i>
+            </button>
+          </div>
         </div>
-        <div class="clear">
-          <button @click="handleClearReply" title="取消回复">
-            <i class="icon icon-clear"></i>
-          </button>
-        </div>
-      </div>
+      </transition>
       <div class="content">
         <div class="wrapper">
           <textarea ref="comment" name="comment" id="comment" :placeholder="placeholder" cols="45" :rows="child ? 4 : 8" required="required" aria-required="true" v-model.trim="content"></textarea>
@@ -55,12 +58,13 @@
             <span v-else>{{ child ? '回复' : '发表评论' }}</span>
           </button>
         </div>
-        <div class="action sns-login" v-show="!authInfo">
+        <!-- TODO: sns login -->
+        <!-- <div class="action sns-login" v-show="!authInfo">
           <button class="github-login" @click="handleSnsLogin('github')">
             <i class="icon icon-github"></i>
             GitHub登录
           </button>
-        </div>
+        </div> -->
       </div>
     </div>
   </Card>
@@ -72,6 +76,7 @@
   import Loading from '../../Loading'
   import config from '@@/app.config'
   import defaultAvatar from '@/static/images/logo.svg'
+  import { isEmail, isSiteUrl } from '@/utils'
 
   export default {
     name: 'CommentInputBox',
@@ -166,14 +171,17 @@
         if (!this.content) {
           return this.$message('请填写内容')
         }
-        if (!this.model.name) {
+        const { name, email, site } = this.model
+        if (!name) {
           return this.$message('请填写昵称')
         }
-        if (!this.model.email) {
+        if (!email) {
           return this.$message('请填写邮箱')
+        } else if (!isEmail(email)) {
+          return this.$message('邮箱格式错误')
         }
-        if (!this.model.site) {
-          return this.$message('请填写站点')
+        if (site && !isSiteUrl(site)) {
+          return this.$message('站点格式错误')
         }
         params = Object.assign({
           type: this.articleDetail ? 0 : 1,
