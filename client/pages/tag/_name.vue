@@ -1,6 +1,6 @@
 <template>
   <div class="page-tag">
-    <Card>
+    <Card v-if="tag">
       <div slot="header" class="info-header">
         <i class="icon" :class="[`icon-${getExtendsItemByKey('icon', tag.extends) || 'tag'}`]"></i>
         <div class="search">

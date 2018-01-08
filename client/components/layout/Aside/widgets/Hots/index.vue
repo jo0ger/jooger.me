@@ -8,7 +8,7 @@
       <i class="icon icon-article"></i>
       热门文章
     </div>
-    <ul class="hot-list">
+    <ul class="hot-list" v-if="hotList.length">
       <li class="hot-item"
         v-for="item in hotList"
         :key="item._id"
@@ -27,6 +27,7 @@
         </div> -->
       </li>
     </ul>
+    <p class="no-data" v-else>暂无热门文章</p>
   </Card>
 </template>
 

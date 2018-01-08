@@ -8,7 +8,7 @@
       <i class="icon icon-tag"></i>
       标签
     </div>
-    <div class="tag-list">
+    <div class="tag-list" v-if="tagList.length">
       <Tag v-for="item in tagList"
         :key="item.name"
         :name="item.name"
@@ -16,6 +16,7 @@
         :count="item.count"
         link></Tag>
     </div>
+    <p class="no-data" v-else>暂无标签</p>
   </Card>
 </template>
 
