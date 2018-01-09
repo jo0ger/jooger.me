@@ -44,6 +44,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import Card from '../../Card'
   import CommentItem from '../Item'
   import CommentInputBox from '../InputBox'
@@ -105,6 +106,9 @@
       }
     },
     computed: {
+      ...mapGetters({
+        articleDetail: 'article/detail'
+      }),
       latestSort () {
         const { by, order } = this.sort
         return by === 'createdAt' && order === -1
@@ -118,7 +122,7 @@
         return total > 0 && current_page >= total_page && total_page >= 1
       },
       listType () {
-        return this.child ? '回复' : '评论'
+        return this.articleDetail ? (this.child ? '回复' : '评论') : '留言'
       }
     },
     methods: {
