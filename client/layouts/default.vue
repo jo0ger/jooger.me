@@ -5,7 +5,9 @@
     <main class="app-main">
       <div class="container">
         <nuxt class="page-main-widget" />
-        <AppAside class="page-aside-widget" v-if="!noAsidePage" />
+        <transition name="fade" mode="out-in">
+          <AppAside class="page-aside-widget" v-if="!noAsidePage" />
+        </transition>
       </div>
     </main>
     <AppFooter />
@@ -34,7 +36,7 @@
       }
     },
     mounted () {
-      // this.$eventBus.initMusic()
+      this.$eventBus.initMusic()
     }
   }
 </script>

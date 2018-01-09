@@ -11,7 +11,13 @@
             <i class="icon icon-music-prev" @click="prev"></i>
           </div>
           <div class="control-item play">
-            <div class="cover" :style="coverStyle" v-if="cover"></div>
+            <svg viewBox="0 0 100 100">
+              <path class="el-progress-circle__track" :d="trackPath" stroke="rgba(160, 160, 160, .3)" :stroke-width="relativeStrokeWidth" fill="none"></path>
+              <path class="el-progress-circle__path" :d="trackPath" stroke-linecap="square" stroke="rgba(160, 160, 160, .4)" :stroke-width="relativeStrokeWidth" fill="none" :style="circlePathStyle"></path>
+            </svg>
+            <div class="cover" v-if="cover">
+              <div class="cover-img" :style="coverStyle"></div>
+            </div>
             <div class="song-info" v-if="song">
               <h3 class="name">{{song.name}}</h3>
               <p class="artist">
@@ -91,6 +97,11 @@
         }
       }
     },
+    data () {
+      return {
+        relativeStrokeWidth: 3
+      }
+    },
     computed: {
       musicList () {
         if (this.$eventBus) {
@@ -116,6 +127,12 @@
         }
         return null
       },
+      progress () {
+        if (this.player) {
+          return this.player.progress
+        }
+        return 0
+      },
       cover () {
         if (this.$eventBus && this.$eventBus.song) {
           return this.$eventBus.song.album.cover
@@ -129,6 +146,21 @@
           }
         }
         return null
+      },
+      perimeter() {
+        const radius = 50 - parseFloat(this.relativeStrokeWidth) / 2
+        return 2 * Math.PI * radius
+      },
+      trackPath() {
+        var radius = parseInt(50 - parseFloat(this.relativeStrokeWidth) / 2, 10)
+        return `M 50 50 m 0 -${radius} a ${radius} ${radius} 0 1 1 0 ${radius * 2} a ${radius} ${radius} 0 1 1 0 -${radius * 2}`
+      },
+      circlePathStyle() {
+        const perimeter = this.perimeter
+        return {
+          strokeDasharray: `${perimeter}px,${perimeter}px`,
+          strokeDashoffset: (1 - this.progress / 100) * perimeter + 'px'
+        }
       }
     },
     methods: {
