@@ -25,10 +25,10 @@
           :index="index"
           @on-reply="handleSetReply">
         </CommentItem>
-        <div class="indicator">
+        <div class="indicator" v-if="loading || !hasNoMore">
           <Loading v-if="loading"></Loading>
           <button class="loadmore" v-else-if="!hasNoMore && list.length" @click="handleLoadmore">来，继续翻</button>
-          <p class="no-data" v-else-if="!hasNoMore">暂无{{ listType }}</p>
+          <p class="no-data" v-else>暂无{{ listType }}</p>
         </div>
       </div>
     </template>
@@ -122,7 +122,7 @@
         return total > 0 && current_page >= total_page && total_page >= 1
       },
       listType () {
-        return this.articleDetail ? (this.child ? '回复' : '评论') : '留言'
+        return this.child ? '回复' : this.articleDetail ? '评论' : '留言'
       }
     },
     methods: {
