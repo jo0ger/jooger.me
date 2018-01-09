@@ -34,8 +34,9 @@
         page: 1
       })
     },
-    data () {
-      return {}
+    afterRouteLeave (to, from, next) {
+      this.$store.commit('comment/CLEAR_LIST')
+      next()
     }
   }
 </script>

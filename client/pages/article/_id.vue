@@ -103,7 +103,7 @@
         return !!this.historyLikes.articles.find(item => item === this.articleDetail._id)
       }
     },
-    beforeRouteLeave (to, from, next) {
+    afterRouteLeave (to, from, next) {
       this.$store.commit('article/CLEAR_DETAIL')
       this.$store.commit('comment/CLEAR_LIST')
       next()

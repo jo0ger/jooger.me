@@ -43,6 +43,7 @@
       </transition>
       <div class="content">
         <Editor
+          ref="editor"
           :rows="child ? 4 : 8"
           :placeholder="placeholder"
           v-model="content">
@@ -131,12 +132,12 @@
         authInfo: 'auth/info'
       }),
       type () {
-        return this.articleDetail ? (this.child ? '回复' : '评论') : '留言'
+        return this.child ? '回复' : this.articleDetail ? '评论' : '留言'
       }
     },
     watch: {
       reply (val) {
-        this.$refs.comment[val ? 'focus' : 'blur']()
+        this.$refs.editor[val ? 'focus' : 'blur']()
       }
     },
     mounted () {

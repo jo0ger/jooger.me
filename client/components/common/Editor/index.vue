@@ -86,18 +86,23 @@
         return (val, selection) => makeEmoji(val, selection, emoji)
       },
       executeCommand (cmd) {
-        console.log(cmd)
         const $input = this.$refs.input
         const newValue = cmd.execute ? cmd.execute(this.value, getSelection($input)) : null
         if (!newValue) {
           return
         }
-        $input.focus()
+        this.focus()
         setSelection($input, 0, $input.value.length)
         document.execCommand('insertText', false, newValue.text)
         if (!['emoji'].includes(cmd.key)) {
           setSelection($input, newValue.selection[0], newValue.selection[1])
         }
+      },
+      focus () {
+        this.$refs.input.focus()
+      },
+      blur () {
+        this.$refs.input.blur()
       },
       handleValueChange (e) {
         this.$emit('input', e.target.value.trim())
