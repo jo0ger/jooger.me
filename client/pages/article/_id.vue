@@ -73,7 +73,8 @@
         store.dispatch('article/fetchDetail', params.id),
         store.dispatch('comment/fetchList', {
           article: params.id,
-          type: 0
+          type: 0,
+          page: 1
         })
       ])
     },

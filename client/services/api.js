@@ -10,40 +10,25 @@ import axios from 'axios'
 import config from '@@/app.config'
 import { Message } from '@/components/common'
 
-const CodeMap = {
-  FAILED: -1,
-  SUCCESS: 200,
-  UNAUTHORIZED: 401,
-  FORBIDDEN: 403,
-  SERVER_ERROR: 500,
-  PARAMS_ERROR: 10001
-}
-
-const logMsg = (msg = '') => {
-  if (msg) {
-    Message(msg)
-  }
-}
-
 export const fetcher = axios.create(config.service)
 
 fetcher.interceptors.request.use((config) => config, err => Promise.reject(err))
 
 fetcher.interceptors.response.use(async response => {
   if (!response || !response.data) {
-    return logMsg('服务器异常')
+    return Message.error('服务器异常')
   }
   switch (response.data.code) {
-    case CodeMap.UNAUTHORIZED:
-    case CodeMap.FAILED:
-    case CodeMap.FORBIDDEN:
-    case CodeMap.SERVER_ERROR:
-    case CodeMap.PARAMS_ERROR:
-      logMsg(response.data.message)
+    case config.codeMap.UNAUTHORIZED:
+    case config.codeMap.FAILED:
+    case config.codeMap.FORBIDDEN:
+    case config.codeMap.SERVER_ERROR:
+    case config.codeMap.PARAMS_ERROR:
+      Message.error(response.data.message)
       break
-    case CodeMap.SUCCESS:
+    case config.codeMap.SUCCESS:
       // if (response.config.method.toLocaleUpperCase() !== 'GET') {
-      //   logMsg(response.data.message)
+      //   Message.success(response.data.message)
       // }
       break
     default:
@@ -56,7 +41,7 @@ fetcher.interceptors.response.use(async response => {
   if (message.indexOf('Network Error') > -1) {
     message = '网络错误'
   }
-  logMsg(message)
+  Message.error(message)
   return Promise.reject(err)
 })
 

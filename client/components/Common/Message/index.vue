@@ -3,9 +3,10 @@
 </style>
 
 <template>
-  <transition name="slide-down">
+  <transition name="slide-up-message">
     <div class="message" v-show="visible">
       <div class="wrapper">
+        <i class="icon" :class="[`icon-${type}`]" v-if="type"></i>
         <p class="content">{{ message }}</p>
       </div>
     </div>
@@ -20,6 +21,7 @@
     name: 'Message',
     data () {
       return {
+        type: '', // success | error | warning
         visible: false,
         message: '',
         duration: 3000,

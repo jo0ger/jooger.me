@@ -22,6 +22,14 @@ export default {
     timeout: 12000,
     responseType: 'json'
   },
+  codeMap: {
+    FAILED: -1,
+    SUCCESS: 200,
+    UNAUTHORIZED: 401,
+    FORBIDDEN: 403,
+    SERVER_ERROR: 500,
+    PARAMS_ERROR: 10001
+  },
   storage: {
     userKey: isProd ? 'jooger.me.user' : 'jooger.me.user_dev',
     userLikeKey: isProd ? 'jooger.me.user.like_history' : 'jooger.me.user.like_history_dev'

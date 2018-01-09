@@ -38,6 +38,20 @@ const Message = (opts = {}) => {
   return instance.vm
 }
 
+['success', 'error', 'warning'].forEach(type => {
+  Message[type] = (opts) => {
+    if (isType(opts, 'String')) {
+      opts = {
+        message: opts
+      }
+    }
+    return Message({
+      ...opts,
+      type
+    })
+  }
+})
+
 Message.close = (id, close) => {
   for (let i = 0, len = instances.length; i < len; i++) {
     if (id === instances[i].id) {

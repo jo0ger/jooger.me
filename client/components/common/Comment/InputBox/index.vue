@@ -176,19 +176,19 @@
           return
         }
         if (!this.content) {
-          return this.$message('请填写内容')
+          return this.$message.warning('请填写内容')
         }
         const { name, email, site } = this.model
         if (!name) {
-          return this.$message('请填写昵称')
+          return this.$message.warning('请填写昵称')
         }
         if (!email) {
-          return this.$message('请填写邮箱')
+          return this.$message.warning('请填写邮箱')
         } else if (!isEmail(email)) {
-          return this.$message('邮箱格式错误')
+          return this.$message.warning('邮箱格式错误')
         }
         if (site && !isSiteUrl(site)) {
-          return this.$message('站点格式错误')
+          return this.$message.warning('站点格式错误')
         }
         params = Object.assign({
           type: this.articleDetail ? 0 : 1,
@@ -224,7 +224,7 @@
           this.content = ''
           // TODO: 滚动到评论最上面？
         }
-        this.$message(this.child ? '回复成功' : '评论成功')
+        this.$message.success(`${this.type}成功`)
         this.$emit('on-publish', data)
       },
       handleClear () {
