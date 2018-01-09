@@ -126,10 +126,12 @@ export const mutations = {
     }
   },
   [COMMENT_SUCCESS]: state => {
-    state.detail.data.meta.comments++
-    const article = state.list.data.find(item => item._id === state.detail.data._id)
-    if (article) {
-      article.meta.comments++
+    if (state.detail.data) {
+      state.detail.data.meta.comments++
+      const article = state.list.data.find(item => item._id === state.detail.data._id)
+      if (article) {
+        article.meta.comments++
+      }
     }
   }
 }

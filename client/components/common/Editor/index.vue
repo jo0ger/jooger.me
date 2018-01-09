@@ -26,15 +26,17 @@
             <span v-if="item.text">{{ item.text }}</span>
           </a>
         </div>
-        <div class="emoji-list" v-show="showEmoji" v-clickoutside="handleCloseEmoji">
-          <a class="emoji-item" v-for="item in emoji"
-            :key="item.value"
-            :data-emoji="item.value"
-            @click="hadnleSelectEmoji(item)">
-            <!-- <img :src="item.src" :alt="item.alt"> -->
-            {{ item.alt }}
-          </a>
-        </div>
+        <transition name="slide-down">
+          <div class="emoji-list" v-show="showEmoji" v-clickoutside="handleCloseEmoji">
+            <a class="emoji-item" v-for="item in emoji"
+              :key="item.value"
+              :data-emoji="item.value"
+              @click="hadnleSelectEmoji(item)">
+              <!-- <img :src="item.src" :alt="item.alt"> -->
+              {{ item.alt }}
+            </a>
+          </div>
+        </transition>
       </div>
     </div>
   </div>

@@ -57,7 +57,7 @@
               size="mini"
               dark>
             </Loading>
-            <span v-else>{{ child ? '回复' : '发表评论' }}</span>
+            <span v-else>{{ type }}</span>
           </button>
         </div>
         <!-- TODO: sns login -->
@@ -129,7 +129,10 @@
       ...mapGetters({
         articleDetail: 'article/detail',
         authInfo: 'auth/info'
-      })
+      }),
+      type () {
+        return this.articleDetail ? (this.child ? '回复' : '评论') : '留言'
+      }
     },
     watch: {
       reply (val) {
