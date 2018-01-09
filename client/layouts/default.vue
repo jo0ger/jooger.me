@@ -60,8 +60,8 @@
         }
 
         .page-aside-widget {
-          flex 0 0 286px
-          width 286px
+          flex 0 0 320px
+          width 320px
           margin-left 12px
         }
       }

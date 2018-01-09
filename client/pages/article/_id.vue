@@ -46,8 +46,7 @@
         </div>
       </article>
     </Card>
-    <Comment class="comment-widget">
-    </Comment>
+    <Comment class="comment-widget"></Comment>
   </div>
 </template>
 
