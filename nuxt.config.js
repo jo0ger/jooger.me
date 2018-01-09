@@ -7,7 +7,7 @@
 'use strict'
 
 const isProd = process.env.NODE_ENV === 'production'
-const description = '不忘初心，方得始终'
+const description = 'On the road'
 const themeColor = '#302e31'
 
 module.exports = {
