@@ -168,7 +168,7 @@ export default {
         },
         onloaderror: (id, err) => {
           this.log(song.name + ' --- 加载失败')
-          this.$message({
+          this.$message.error({
             message: `【${song.name}】加载失败`,
             duration: 2000
           })
@@ -176,7 +176,6 @@ export default {
         },
         onplay: () => {
           this.log(song.name + ' --- 播放')
-          // this.$message(`${song.name} - 播放中`)
           song.loaderror = false
           this.player.wave = true
           this.player.progress = 0
@@ -189,7 +188,7 @@ export default {
         },
         onplayerror: (id, err) => {
           this.log(song.name + ' --- 播放失败')
-          this.$message({
+          this.$message.error({
             message: `【${song.name}】播放失败`,
             duration: 2000
           })
@@ -261,7 +260,7 @@ export default {
           if (!url) {
             this.player.playlist.splice(index, 1)
             this.list.data.splice(index, 1)
-            this.$message({
+            this.$message.error({
               message: `【${song.name}】播放地址失效`,
               duration: 2000
             })

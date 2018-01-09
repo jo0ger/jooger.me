@@ -30,7 +30,8 @@
     async fetch ({ store }) {
       store.commit('article/CLEAR_DETAIL')
       await store.dispatch('comment/fetchList', {
-        type: 1
+        type: 1,
+        page: 1
       })
     },
     data () {
