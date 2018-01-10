@@ -1,0 +1,27 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.app-tool {
+  position fixed
+  right 100px
+  bottom 100px
+
+  .tool-list {
+    list-style none
+
+    .tool-item {
+      width 36px
+      height @width
+      line-height @width
+      text-align center
+      background alpha($white, .8)
+      cursor pointer
+      transition all $animation-duration-slow $ease
+
+      &:hover {
+        background $base-color
+        color $white
+      }
+    }
+  }
+}

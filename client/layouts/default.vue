@@ -10,6 +10,7 @@
         </transition>
       </div>
     </main>
+    <AppTool />
     <AppFooter />
   </div>
 </template>
@@ -19,7 +20,8 @@
     AppHeader,
     AppFooter,
     AppAside,
-    AppBackground
+    AppBackground,
+    AppTool
   } from '@/components/layout'
 
   export default {
@@ -28,7 +30,8 @@
       AppHeader,
       AppFooter,
       AppAside,
-      AppBackground
+      AppBackground,
+      AppTool
     },
     computed: {
       noAsidePage () {
