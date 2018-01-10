@@ -10,7 +10,7 @@ import Vue from 'vue'
 import BezierEasing from 'bezier-easing'
 
 const isServer = Vue.prototype.$isServer
-const easing = {
+export const easing = {
   ease: [0.25, 0.1, 0.25, 1.0],
   linear: [0.00, 0.0, 1.00, 1.0],
   'ease-in': [0.55, 0.055, 0.675, 0.19],
@@ -19,6 +19,25 @@ const easing = {
 }
 
 export const $ = selector => document.querySelector(String(selector))
+
+export const requestAnimationFrame = isServer
+  ? function (callback) {
+    return setTimeout(callback, 1000 / 60)
+  } : (
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame
+  )
+
+export const cancelAnimationFrame = isServer
+  ? function (timerId) {
+    clearTimeout(timerId)
+  } : (
+    window.cancelAnimationFrame ||
+    window.mozCancelAnimationFrame
+  )
 
 export const on = !isServer && document.addEventListener
   ? function (element, event, handler) {

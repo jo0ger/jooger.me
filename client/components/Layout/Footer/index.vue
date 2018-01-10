@@ -33,7 +33,7 @@
       <div class="power-by">
         Powered by 
         <a class="link" target="_blank" rel="noopener" href="https://github.com/nuxt/nuxt.js">nuxt.js</a>、
-        Developed by 
+        Design by 
         <a class="link" target="_blank" rel="noopener" :href="'https://github.com/jo0ger'">{{ me.name }}</a>
       </div>
     </div>
