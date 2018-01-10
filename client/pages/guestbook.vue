@@ -1,6 +1,7 @@
 <template>
   <div class="page-guestbook">
     <Card class="hero">
+      <div class="hero-bg"></div>
       <div class="info">
         <h2 class="title">You are here, and we are here</h2>
         <h4 class="subtitle">留言墙</h4>

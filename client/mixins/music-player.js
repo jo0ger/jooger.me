@@ -168,10 +168,10 @@ export default {
         },
         onloaderror: (id, err) => {
           this.log(song.name + ' --- 加载失败')
-          this.$message.error({
-            message: `【${song.name}】加载失败`,
-            duration: 2000
-          })
+          // this.$message.error({
+          //   message: `【${song.name}】加载失败`,
+          //   duration: 2000
+          // })
           this._loadError(song)
         },
         onplay: () => {
@@ -188,10 +188,10 @@ export default {
         },
         onplayerror: (id, err) => {
           this.log(song.name + ' --- 播放失败')
-          this.$message.error({
-            message: `【${song.name}】播放失败`,
-            duration: 2000
-          })
+          // this.$message.error({
+          //   message: `【${song.name}】播放失败`,
+          //   duration: 2000
+          // })
           this.player.loading = false
           this.handleNextSong()
         },
