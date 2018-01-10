@@ -26,6 +26,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import { Card, Comment } from '@/components/common'
+  import config from '@@/app.config'
 
   export default {
     name: 'About',
@@ -43,13 +44,7 @@
     },
     data () {
       return {
-        socials: [
-          { title: 'Email', icon: 'email', url: 'mailto:iamjooger@gmail.com' },
-          { title: 'GitHub', icon: 'github', url: 'https://github.com/jo0ger' },
-          { title: '知乎', icon: 'zhihu', url: 'https://www.zhihu.com/people/bubblypoker' },
-          { title: '微博', icon: 'weibo', url: 'http://weibo.com/jo0ger' },
-          { title: '网易云音乐', icon: 'netease-music', url: 'http://music.163.com/#/user/home?id=36877861' }
-        ]
+        socials: config.socials
       }
     },
     computed: {

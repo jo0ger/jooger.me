@@ -1,0 +1,47 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.app-footer {
+  .wrapper {
+    padding 50px 100px
+    text-align center
+    background alpha($white, .8)
+    // font-weight 700
+
+    .menu-list {
+      .menu-item {
+        display inline-block
+        margin 0 10px
+      }
+    }
+
+    .social-list {
+      margin-top 20px
+      .social-item {
+        display inline-block
+        margin 0 10px
+        .icon {
+          font-size $font-size-lger
+        }
+      }
+    }
+
+    .copyright {
+      margin-top 10px
+
+      .record {
+        margin-left 10px
+      }
+    }
+
+    .power-by {
+      margin-top 10px
+      color $text-color-secondary
+      font-weight 400
+
+      .link {
+        text-decoration underline
+      }
+    }
+  }
+}

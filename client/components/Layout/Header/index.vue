@@ -42,17 +42,13 @@
 </template>
 
 <script>
+  import config from '@@/app.config'
+
   export default {
     name: 'AppHeader',
     data () {
       return {
-        menuSchema: [
-          { key: 'index', title: '首页' },
-          { key: 'archive', title: '归档' },
-          { key: 'music', title: '音乐' },
-          { key: 'guestbook', title: '留言墙' },
-          { key: 'about', title: '关于' }
-        ],
+        menuSchema: config.menus,
         keyword: '',
         cornerStyle: null,
         searchOpened: false
