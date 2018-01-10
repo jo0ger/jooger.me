@@ -18,6 +18,7 @@ export const actions = {
     const initTask = []
     initTask.push(
       dispatch('option/fetchData'),
+      dispatch('me/fetchData'),
       dispatch('article/fetchHotList'),
       dispatch('category/fetchList'),
       dispatch('tag/fetchList')
