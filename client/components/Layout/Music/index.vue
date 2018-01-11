@@ -416,12 +416,10 @@
           },
           onloaderror: (id, err) => {
             this.log(song.name + ' --- 加载失败')
-            this.$message(`【${song.name}】加载失败`)
             this._loadError(song)
           },
           onplay: () => {
             this.log(song.name + ' --- 播放')
-            this.$message(`${song.name} - 播放中`)
             song.loaderror = false
             this.wave = true
             this.progress = 0
@@ -437,13 +435,11 @@
           },
           onplayerror: (id, err) => {
             this.log(song.name + ' --- 播放失败')
-            this.$message(`【${song.name}】播放失败`)
             this.loading = false
             this.handleNextSong()
           },
           onpause: () => {
             this.log(song.name + ' --- 暂停')
-            this.$message(`${song.name} - 暂停中`)
             this._setPlaying(false)
             this.wave = false
           },
@@ -504,6 +500,11 @@
         } else {
           if (!song.src && !song.lyric) {
             const [url, { nolyric, lyric, tlyric }] = await this.getSongUrlAndLyric(song.id)
+            if (!url) {
+              this.playlist.splice(index, 1)
+              this.$store.commit('music/REMOVE_ITEM', index)
+              return this.play(index)
+            }
             song.src = url
             song.nolyric = nolyric
             song.lyric = lyric
@@ -596,9 +597,7 @@
         this.playing = false
         this.ready = true
         this.loading = false
-        setTimeout(() => {
-          this.handleNextSong()
-        }, 1000)
+        setTimeout(() => this.handleNextSong(), 2000)
       },
       lyricIsActive (time, index) {
         if (time <= this.playedTimeFromSeconds) {
