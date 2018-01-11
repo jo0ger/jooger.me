@@ -11,6 +11,7 @@ import Service from '~/service'
 const FETCH_LIST_REQUEST = 'FETCH_LIST_REQUEST'
 const FETCH_LIST_SUCCESS = 'FETCH_LIST_SUCCESS'
 const FETCH_LIST_FAILURE = 'FETCH_LIST_FAILURE'
+const REMOVE_ITEM = 'REMOVE_ITEM'
 
 export const state = () => ({
   list: {
@@ -30,6 +31,9 @@ export const mutations = {
   [FETCH_LIST_SUCCESS]: (state, data) => {
     state.list.data = data
     state.list.fetching = false
+  },
+  [REMOVE_ITEM]: (state, index = 0) => {
+    state.list.splice(index, 1)
   }
 }
 
