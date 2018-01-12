@@ -3,25 +3,27 @@
 
 .app-tool {
   position fixed
-  right 100px
+  right 150px
   bottom 100px
 
-  .tool-list {
-    list-style none
+  .share-item
+  .tool-item {
+    display block
+    width 36px
+    height @width
+    line-height @width
+    text-align center
+    background alpha($white, .8)
+    cursor pointer
+    transition all $animation-duration-slow $ease
 
-    .tool-item {
-      width 36px
-      height @width
-      line-height @width
-      text-align center
-      background alpha($white, .8)
-      cursor pointer
-      transition all $animation-duration-slow $ease
-
-      &:hover {
-        background $base-color
-        color $white
-      }
+    &:hover {
+      background $base-color
+      color $white
     }
+  }
+
+  .share-list {
+    margin-bottom 12px
   }
 }

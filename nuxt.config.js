@@ -63,9 +63,11 @@ module.exports = {
       'axios',
       'swiper',
       'howler',
-      'clipboard',
       'vue-awesome-swiper',
-      'particles.js'
+      'particles.js',
+      'validator',
+      'vue-affix',
+      'bezier-easing'
     ]
   },
   plugins: [
@@ -82,7 +84,8 @@ module.exports = {
     { src: '@/plugins/storage-to-store.js', ssr: false },
     { src: '@/plugins/event-bus.js', ssr: false },
     { src: '@/plugins/particles.js', ssr: false },
-    { src: '@/plugins/console-say-hi.js', ssr: false }
+    { src: '@/plugins/console-say-hi.js', ssr: false },
+    { src: '@/plugins/share.js', ssr: false }
   ],
   router: {
     linkActiveClass: 'active'

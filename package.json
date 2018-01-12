@@ -19,7 +19,6 @@
   "dependencies": {
     "axios": "^0.17.1",
     "bezier-easing": "^2.0.3",
-    "clipboard": "^1.7.1",
     "cross-env": "^5.0.1",
     "howler": "^2.0.7",
     "koa": "^2.4.1",

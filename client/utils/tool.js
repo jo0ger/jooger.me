@@ -129,37 +129,6 @@ export const deepCopy = function (out = {}) {
   return out
 }
 
-export const loadImg = (url = '', opt = {}) => {
-  if (!isType(opt, 'Object')) {
-    if (isType(opt, 'Function')) {
-      opt = { success: opt }
-    } else {
-      opt = {}
-    }
-  }
-  const { success, fail, load } = opt
-  if (!url || !isType(url, 'String')) {
-    return fail && fail()
-  }
-  const img = new Image()
-  const prop = isType(img.naturalWidth, 'Undefined') ? 'width' : 'naturalWidth'
-  if (opt.crossOrigin) {
-    img.setAttribute('crossOrigin', 'Anonymous')
-  }
-  img.src = url
-  if (img.complete) {
-    if (img[prop]) {
-      success && success.call(img, img, url)
-    } else {
-      fail && fail.call(img, img, url)
-    }
-  } else {
-    load && load()
-    img.onload = success && success.bind(img, img, url)
-    img.onerror = fail && fail.bind(img, new Error('Image load error'))
-  }
-}
-
 export const fileToBase64 = (file = null) => {
   return new Promise((resolve, reject) => {
     if (!file || !(file instanceof File) || !FileReader) return ''

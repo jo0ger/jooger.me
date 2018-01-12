@@ -44,18 +44,31 @@ export default {
       clientId: isProd ? 'cc9133ad08a5fbc3b7bd' : '5b4d4a7945347d0fd2e2'
     }
   },
-  socials: [
-    { title: 'Email', icon: 'email', url: 'mailto:iamjooger@gmail.com' },
-    { title: 'GitHub', icon: 'github', url: 'https://github.com/jo0ger' },
-    { title: '知乎', icon: 'zhihu', url: 'https://www.zhihu.com/people/bubblypoker' },
-    { title: '微博', icon: 'weibo', url: 'http://weibo.com/jo0ger' },
-    { title: '网易云音乐', icon: 'netease-music', url: 'http://music.163.com/#/user/home?id=36877861' }
-  ],
-  menus: [
-    { key: 'index', title: '首页' },
-    { key: 'archive', title: '归档' },
-    { key: 'music', title: '音乐' },
-    { key: 'guestbook', title: '留言墙' },
-    { key: 'about', title: '关于' }
-  ]
+  constant: {
+    socials: [
+      { title: 'Email', icon: 'email', url: 'mailto:iamjooger@gmail.com' },
+      { title: 'GitHub', icon: 'github', url: 'https://github.com/jo0ger' },
+      { title: '知乎', icon: 'zhihu', url: 'https://www.zhihu.com/people/bubblypoker' },
+      { title: '微博', icon: 'weibo', url: 'http://weibo.com/jo0ger' },
+      { title: '网易云音乐', icon: 'netease-music', url: 'http://music.163.com/#/user/home?id=36877861' }
+    ],
+    menus: [
+      { key: 'index', title: '首页' },
+      { key: 'archive', title: '归档' },
+      { key: 'music', title: '音乐' },
+      { key: 'guestbook', title: '留言墙' },
+      { key: 'about', title: '关于' }
+    ],
+    shares: [
+      { key: 'link', title: '复制链接' },
+      { key: 'wechat', title: '微信' },
+      { key: 'weibo', title: '微博' },
+      { key: 'qzone', title: 'QQ空间' },
+      { key: 'douban', title: '豆瓣' },
+      { key: 'evernote', title: '映象笔记' },
+      { key: 'twitter', title: 'Twitter' },
+      { key: 'facebook', title: 'Facebook' },
+      { key: 'mail', title: '邮箱' }
+    ]
+  }
 }

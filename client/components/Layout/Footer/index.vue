@@ -48,8 +48,8 @@
     name: 'AppFooter',
     data () {
       return {
-        menus: config.menus,
-        socials: config.socials
+        menus: config.constant.menus,
+        socials: config.constant.socials
       }
     },
     computed: {

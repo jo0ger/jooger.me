@@ -26,9 +26,9 @@
     <div class="status">
       <a class="status-item like"
         :class="{ liked: isLiked, liking }"
-        :title="isLiked ? '已喜欢' : ''"
+        :title="isLiked ? '已点赞' : ''"
         @click="handleLike">
-        <i class="icon" :class="[`icon-like${isLiked ? '-fill' : ''}`]"></i>
+        <i class="icon" :class="[`icon-thumb-up${isLiked ? '-fill' : ''}`]"></i>
         <span class="count">{{ comment.ups }}</span>
       </a>
       <a class="status-item subcomments" @click.stop="handleToggleSubComments">
