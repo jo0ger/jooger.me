@@ -48,7 +48,7 @@
     name: 'AppHeader',
     data () {
       return {
-        menuSchema: config.menus,
+        menuSchema: config.constant.menus,
         keyword: '',
         cornerStyle: null,
         searchOpened: false

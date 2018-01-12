@@ -16,9 +16,17 @@ import { fmtDate, fmtDateFromNow } from '@/utils'
  */
 const getDateFromNow = (time = new Date()) => fmtDateFromNow(new Date() - new Date(time))
 
+const countFilter = (num = 0, limit = 999) => {
+  if (num > limit) {
+    return limit + '+'
+  }
+  return num + ''
+}
+
 const filters = {
   fmtDate,
-  getDateFromNow
+  getDateFromNow,
+  countFilter
 }
 
 Object.keys(filters).forEach(v => Vue.filter(v, filters[v]))

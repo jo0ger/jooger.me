@@ -22,12 +22,12 @@
           <img :src="articleDetail.thumb" alt="">
         </div>
         <div class="content md-body" v-html="articleDetail.renderedContent"></div>
-        <div class="action">
+        <div class="action" v-if="mobileLayout">
           <a class="action-item like"
             :class="{ 'liked': isLiked, 'liking': articleDetailLiking }"
-            :title="isLiked ? '已喜欢' : ''"
+            :title="isLiked ? '已点赞' : ''"
             @click="handleLike">
-            <i class="icon" :class="[`icon-like${isLiked ? '-fill' : ''}`]"></i>
+            <i class="icon" :class="[`icon-thumb-up${isLiked ? '-fill' : ''}`]"></i>
             <span class="count">{{ articleDetail.meta.ups }}</span>
           </a>
           <a class="action-item share">
@@ -45,6 +45,42 @@
           </Tag>
         </div>
       </article>
+      <Affix class="article-action" offsetTop="80" v-if="!mobileLayout">
+        <div class="action-list">
+          <a class="action-item like"
+            :class="{ 'liked': isLiked, 'liking': articleDetailLiking }"
+            :title="isLiked ? '已点赞' : ''"
+            :data-count="articleDetail.meta.ups"
+            @click="handleLike">
+            <i class="icon" :class="[`icon-thumb-up${isLiked ? '-fill' : ''}`]"></i>
+            <span class="count" v-if="articleDetail.meta.ups">{{ articleDetail.meta.ups | countFilter }}</span>
+          </a>
+          <a class="action-item comment"
+            :data-count="articleDetail.meta.comments"
+            @click="handleGoToComment">
+            <i class="icon icon-comment"></i>
+            <span class="count" v-if="articleDetail.meta.comments">{{ articleDetail.meta.comments | countFilter }}</span>
+          </a>
+          <a class="action-item share"
+            @click.stop.prevent="showShareList = !showShareList">
+            <i class="icon icon-share"></i>
+          </a>
+        </div>
+        <transition name="fade">
+          <div class="share-list" v-show="showShareList"
+            v-clickoutside="handleHideShare">
+            <a class="share-item"
+              :class="[item.key]"
+              v-for="item in shareList"
+              :key="item.key"
+              :title="item.title"
+              rel="nofollow"
+              @click="handleShare(item)">
+              <i class="icon" :class="[`icon-${item.key}`]"></i>
+            </a>
+          </div>
+        </transition>
+      </Affix>
     </Card>
     <Comment class="comment-widget"></Comment>
   </div>
@@ -52,14 +88,17 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { Card, Tag, Comment } from '@/components/common'
+  import { Card, Tag, Comment, Affix } from '@/components/common'
+  import { scrollTo, easing } from '@/utils'
+  import config from '@@/app.config'
 
   export default {
     name: 'ArticleDetail',
     components: {
       Card,
       Tag,
-      Comment
+      Comment,
+      Affix
     },
     validate ({ params }) {
       return !!params.id
@@ -89,7 +128,10 @@
       }
     },
     data () {
-      return {}
+      return {
+        showShareList: false,
+        shareList: config.constant.shares
+      }
     },
     computed: {
       ...mapGetters({
@@ -114,6 +156,20 @@
           id: this.articleDetail._id,
           like: !this.isLiked
         })
+      },
+      handleGoToComment () {
+        scrollTo('.comment-widget', 500, {
+          offset: -80,
+          easing: easing['ease']
+        })
+      },
+      handleHideShare () {
+        if (this.showShareList) {
+          this.showShareList = false
+        }
+      },
+      handleShare ({ key }) {
+        this.$share.share(key)
       }
     }
   }
