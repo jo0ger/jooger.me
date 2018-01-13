@@ -22,7 +22,7 @@
           <img :src="articleDetail.thumb" alt="">
         </div>
         <div class="content md-body" v-html="articleDetail.renderedContent"></div>
-        <div class="action" v-if="mobileLayout">
+        <div class="action" v-if="!mobileLayout">
           <a class="action-item like"
             :class="{ 'liked': isLiked, 'liking': articleDetailLiking }"
             :title="isLiked ? '已点赞' : ''"
