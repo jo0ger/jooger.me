@@ -40,9 +40,6 @@
     components: {
       Card
     },
-    data () {
-      return {}
-    },
     computed: {
       ...mapGetters({
         hotList: 'article/hot'

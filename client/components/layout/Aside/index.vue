@@ -20,13 +20,10 @@
   export default {
     name: 'AppAside',
     components: {
+      Affix,
       Calendar,
       Hots,
-      Tags,
-      Affix
-    },
-    data () {
-      return {}
+      Tags
     }
   }
 </script>

@@ -84,7 +84,7 @@ export default {
         return
       }
       this.list.fetching = true
-      const { success, data } = await api.music.fetchList().catch(err => {
+      const { success, data } = await api.music.list().catch(err => {
         console.error(err)
         return {}
       })
@@ -97,7 +97,7 @@ export default {
       return success
     },
     getSongUrl (id) {
-      return api.music.fetchUrl(id)().then(data => {
+      return api.music.url(id)().then(data => {
         if (!isType(data.data, 'Array')) {
           return null
         }
@@ -106,7 +106,7 @@ export default {
       })
     },
     getSongLyric (id) {
-      return api.music.fetchLyric(id)().then(data => {
+      return api.music.lyric(id)().then(data => {
         if (!data || !data.data) {
           return {
             lyric: '',

@@ -18,7 +18,8 @@ export const actions = {
     const initTask = []
     initTask.push(
       dispatch('option/fetchData'),
-      dispatch('me/fetchData'),
+      dispatch('user/fetchBlogger'),
+      dispatch('user/fetchGuests'),
       dispatch('article/fetchHotList'),
       dispatch('category/fetchList'),
       dispatch('tag/fetchList')

@@ -3,9 +3,9 @@
     <Card class="hero">
       <div class="hero-bg"></div>
       <div class="info">
-        <img :src="me.avatar" alt="" class="avatar">
-        <h2 class="name">{{ me.name }}</h2>
-        <h4 class="slogan">{{ me.slogan }}</h4>
+        <img :src="blogger.avatar" alt="" class="avatar">
+        <h2 class="name">{{ blogger.name }}</h2>
+        <h4 class="slogan">{{ blogger.slogan }}</h4>
         <p class="description">A web front-end developer</p>
         <div class="social-list">
           <a :href="social.url" class="social-item" target="_blank" rel="noopener"
@@ -49,7 +49,7 @@
     },
     computed: {
       ...mapGetters({
-        me: 'me/me'
+        blogger: 'user/blogger'
       })
     }
   }

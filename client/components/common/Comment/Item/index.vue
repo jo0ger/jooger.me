@@ -8,7 +8,7 @@
       <div class="user-info">
         <a :href="comment.author.site || 'javascript:void;'" class="author" :class="{ 'no-site': !comment.author.site }" target="_blank" rel="noopener">
           <div class="avatar">
-            <img :src="comment.author.avatar" alt="">
+            <img :src="avatar" alt="">
           </div>
           <span class="name">{{ comment.author.name }}</span>
         </a>
@@ -69,6 +69,7 @@
   import { mapGetters } from 'vuex'
   import { UAParse, OSParse } from '@/utils'
   import { api } from '@/services'
+  import logo from '@/static/images/logo.svg'
 
   export default {
     name: 'CommentItem',
@@ -90,6 +91,7 @@
     },
     data () {
       return {
+        avatar: logo,
         liking: false,
         showSub: false,
         fetching: false,
@@ -127,13 +129,25 @@
     mounted () {
       // HACK: 去掉的话，icon-like不会fill
       this.$forceUpdate()
+      this.loadAvatar()
     },
     methods: {
       UAParse,
       OSParse,
+      loadAvatar () {
+        if (!this.comment.author.avatar) {
+          return
+        }
+        const avatar = this.comment.author.avatar
+        return this.$loadImg(avatar, {
+          success: (img) => {
+            this.avatar = avatar
+          }
+        })
+      },
       async fetchSubList (params = {}) {
         this.fetching = true
-        const { success, data } = await api.comment.fetchList({
+        const { success, data } = await api.comment.list({
           params: Object.assign({}, {
             article: this.comment.article,
             per_page: this.pagination.per_page || 5,

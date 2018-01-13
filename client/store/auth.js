@@ -70,7 +70,7 @@ export const actions = {
       return
     }
     commit(LOGIN_REQUEST)
-    const { success, data } = await api.auth.getGithubToken({
+    const { success, data } = await api.auth.githubToken({
       params: { code }
     }).catch(err => {
       commit(LOGIN_FAILURE, err)
@@ -89,7 +89,7 @@ export const actions = {
       commit(FETCH_INFO_FAILURE)
       return
     }
-    const { success, data } = await api.auth.getGithubUser({
+    const { success, data } = await api.auth.githubUser({
       params: { access_token: token }
     }).catch(err => {
       commit(FETCH_INFO_FAILURE, err)
@@ -117,7 +117,7 @@ export const actions = {
       return
     }
     commit(FETCH_INFO_REQUEST)
-    const { success, data } = await api.auth.getInfo(userid)().catch(err => (commit(FETCH_INFO_FAILURE, err), {}))
+    const { success, data } = await api.auth.info(userid)().catch(err => (commit(FETCH_INFO_FAILURE, err), {}))
     if (success) {
       commit(FETCH_INFO_SUCCESS, data)
     } else {

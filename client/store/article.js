@@ -148,7 +148,7 @@ export const actions = {
       pagination.page = ~~state.list.pagination.current_page + 1
     }
     commit(FETCH_LIST_REQUEST)
-    const { success, data } = await api.article.fetchList({ params: Object.assign({}, params, pagination) }).catch(err => ((commit(FETCH_LIST_FAILURE, err), {})))
+    const { success, data } = await api.article.list({ params: Object.assign({}, params, pagination) }).catch(err => ((commit(FETCH_LIST_FAILURE, err), {})))
     if (success) {
       commit(FETCH_LIST_SUCCESS, data)
     } else {
@@ -187,7 +187,7 @@ export const actions = {
       return
     }
     commit(FETCH_DETAIL_REQUEST)
-    const { success, data } = await api.article.fetchDetail(id)().catch(err => ((commit(FETCH_DETAIL_FAILURE, err), {})))
+    const { success, data } = await api.article.item(id)().catch(err => ((commit(FETCH_DETAIL_FAILURE, err), {})))
     if (success) {
       commit(FETCH_DETAIL_SUCCESS, data)
     } else {

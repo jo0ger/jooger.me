@@ -49,44 +49,45 @@ const wrap = (url, type = 'get') => (config = {}) => fetcher.request({ ...config
 
 export default {
   article: {
-    fetchList: wrap('/articles'),
-    fetchDetail: id => wrap(`/articles/${id}`),
-    fetchLikes: id => wrap(`/articles/${id}/like`),
+    list: wrap('/articles'),
+    item: id => wrap(`/articles/${id}`),
+    likes: id => wrap(`/articles/${id}/like`),
     like: id => wrap(`/articles/${id}/like`, 'post'),
     hot: wrap('/articles/hot'),
     archives: wrap('/articles/archives')
   },
   category: {
-    fetchList: wrap('/categories')
+    list: wrap('/categories')
   },
   tag: {
-    fetchList: wrap('/tags')
+    list: wrap('/tags')
   },
   user: {
-    fetchMe: wrap('/users/me'),
-    fetchDetail: id => wrap(`/users/${id}`)
+    blogger: wrap('/users/blogger'),
+    item: id => wrap(`/users/${id}`),
+    guests: wrap('/users/guests')
   },
   option: {
-    fetchData: wrap('/options')
+    data: wrap('/options')
   },
   music: {
-    fetchList: wrap('/music/songs'),
-    fetchDetail: id => wrap(`/music/songs/${id}`),
-    fetchUrl: id => wrap(`/music/songs/${id}/url`),
-    fetchLyric: id => wrap(`/music/songs/${id}/lyric`)
+    list: wrap('/music/songs'),
+    item: id => wrap(`/music/songs/${id}`),
+    url: id => wrap(`/music/songs/${id}/url`),
+    lyric: id => wrap(`/music/songs/${id}/lyric`)
   },
   auth: {
     githubLogin: wrap('/auth/github/login'),
-    getInfo: id => wrap(`/users/${id}`),
-    getGithubToken: wrap('/auth/github/token'),
-    getGithubUser: wrap('/auth/github/user')
+    info: id => wrap(`/users/${id}`),
+    githubToken: wrap('/auth/github/token'),
+    githubUser: wrap('/auth/github/user')
   },
   moment: {
-    fetchList: wrap('/moments')
+    list: wrap('/moments')
   },
   comment: {
-    fetchList: wrap('/comments'),
-    fetchDetail: id => wrap(`/comments/${id}`),
+    list: wrap('/comments'),
+    item: id => wrap(`/comments/${id}`),
     publish: wrap('/comments', 'post'),
     like: id => wrap(`/comments/${id}/like`, 'post')
   }
