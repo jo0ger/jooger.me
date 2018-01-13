@@ -110,15 +110,23 @@
             display block
             top 50%
             left 50%
-            font-size 72px
+            font-size 54px
             transform translate3d(-50%, -50%, 0)
+
+            &.volume {
+              font-size $font-size-lger
+              bottom 50px
+              top auto
+              transform translateX(-50%)
+            }
+            
           }
         }
       }
 
       .icon {
         color $grey-6
-        font-size 48px
+        font-size 36px
         cursor pointer
         transition all $animation-duration-slower $ease
 
@@ -148,6 +156,15 @@
       font-weight 400
       > .name {
         font-size $font-size-lger
+
+        a {
+          font-size $font-size-sm
+          color $text-color-secondary
+
+          &:hover {
+            color $text-color
+          }
+        }
       }
       .description {
         margin 18px 0 12px
@@ -156,7 +173,6 @@
     }
 
     .music-list {
-      // padding 20px 30px
 
       .music-item {
         flexLayout(, flex-start, flex-start)

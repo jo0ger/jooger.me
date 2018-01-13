@@ -8,7 +8,7 @@
         </div>
         <div class="control">
           <div class="control-item prev">
-            <i class="icon icon-music-prev" @click="prev"></i>
+            <i class="icon icon-prev-song" @click="prev"></i>
           </div>
           <div class="control-item play">
             <svg viewBox="0 0 100 100">
@@ -22,17 +22,18 @@
               <h3 class="name">{{song.name}}</h3>
               <p class="artist">
                 <template v-for="(at, index) in song.artists">
-                  <span :key="at.id" v-if="index !== 0"> / </span>
+                  <span :key="index" v-if="index !== 0"> / </span>
                   <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" rel="noopener" class="artist-name" :key="at.id">
                     {{ at.name }}
                   </a>
                 </template>
               </p>
             </div>
-            <i class="icon" :class="[`icon-music-${player && player.playing ? 'pause' : 'play'}`]" @click="toggle"></i>
+            <i class="icon" :class="[`icon-${player && player.playing ? 'pause' : 'play'}`]" @click="toggle"></i>
+            <i class="icon volume" :class="[`icon-volume${songMute ? '-off' : ''}`]" @click="toggleVolume"></i>
           </div>
           <div class="control-item next">
-            <i class="icon icon-music-next" @click="next"></i>
+            <i class="icon icon-next-song" @click="next"></i>
           </div>
         </div>
       </div>
@@ -40,7 +41,10 @@
         <Card class="music-list-widget" v-if="info">
           <div class="list-header" slot="header">
             <template v-if="info">
-              <h3 class="name">{{ info.name }}</h3>
+              <h3 class="name">
+                {{ info.name }}
+                <a :href="`https://music.163.com/#/playlist?id=${info.id}`" target="_blank" rel="noopener">[前往歌单]</a>
+              </h3>
               <p class="description" v-if="info.description">{{ info.description }}</p>
               <div class="tags" v-if="info.tags.length">
                 <Tag :name="tag" v-for="(tag, index) in info.tags" :key="index"></Tag>
@@ -51,7 +55,7 @@
             <li class="music-item"
               :class="{ active: song && song.id === item.id }"
               v-for="(item, index) in musicList"
-              :key="item.id"
+              :key="index"
               @dblclick.prevent.stop="play(index)">
               <div class="cover">
                 <img :src="item.album.cover" alt="">
@@ -61,7 +65,7 @@
                 <div class="extra">
                   <div class="artist">
                     <template v-for="(at, index) in item.artists">
-                      <span :key="at.id" v-if="index !== 0"> / </span>
+                      <span :key="index" v-if="index !== 0"> / </span>
                       <a :href="`https://music.163.com/#/artist?id=${at.id}`" target="_blank" rel="noopener" class="artist-name" :key="at.id">
                         {{ at.name }}
                       </a>
@@ -127,6 +131,12 @@
         }
         return null
       },
+      songMute () {
+        if (this.$eventBus) {
+          return this.$eventBus.player.volume === 0
+        }
+        return true
+      },
       progress () {
         if (this.player) {
           return this.player.progress
@@ -184,6 +194,9 @@
             this.$eventBus.play()
           }
         }
+      },
+      toggleVolume () {
+        this.$eventBus.setVolume(this.songMute ? 0.6 : 0)
       }
     }
   }

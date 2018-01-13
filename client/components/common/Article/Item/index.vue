@@ -9,7 +9,10 @@
       <h2 class="title">{{ article.title }}</h2>
       <div class="summary" v-if="!mini">
         <div class="thumb" v-if="article.thumb">
-          <img :src="article.thumb" alt="">
+          <img :src="article.thumb" alt="" v-if="thumb">
+          <div class="placeholder" v-else>
+            <i class="icon icon-logo"></i>
+          </div>
         </div>
         <p class="description">{{ article.description }}</p>
       </div>
@@ -54,7 +57,25 @@
       }
     },
     data () {
-      return {}
+      return {
+        thumb: ''
+      }
+    },
+    mounted () {
+      this.loadThumb()
+    },
+    methods: {
+      loadThumb () {
+        if (!this.article.thumb) {
+          return
+        }
+        const thumb = this.article.thumb
+        return this.$loadImg(thumb, {
+          success: (img) => {
+            this.thumb = thumb
+          }
+        })
+      }
     }
   }
 </script>

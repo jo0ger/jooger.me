@@ -28,8 +28,8 @@
     &-logo {
       margin-right 60px
       color $base-color
-      i {
-        font-size 26px
+      img {
+        height 36px
       }
     }
 
@@ -70,7 +70,7 @@
       color $text-color-secondary
 
       .action-item {
-        .icon {
+        > .icon {
           display inline-block
           width $header-height
           height @width
@@ -84,6 +84,45 @@
         }
       }
 
+      .music {
+        flexLayout(column, , flex-start)
+        position relative
+        width 200px
+        height $header-height
+        line-height 1
+        padding 10px
+        color $text-color-secondary
+        opacity .2
+        font-size $font-size-sm
+        transition all $animation-duration-slow $ease
+
+        .control
+        .name {
+          flex 1 0
+          width 100%
+        }
+        .control {
+          flexLayout(, flex-start, center)
+
+          &-item {
+            display inline-block
+            margin-right 16px
+          }
+          .icon {
+            font-size $font-size-sm
+          }
+        }
+
+        .name {
+          line-height 1.53
+          textOverflow()
+        }
+
+        &:hover {
+          opacity 1
+        }
+      }
+      
       .search {
         position relative
         width $header-height

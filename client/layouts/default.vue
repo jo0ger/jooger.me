@@ -39,8 +39,7 @@
       }
     },
     mounted () {
-      // this.$eventBus.initMusic()
-      console.log(process.env.NODE_ENV)
+      this.$eventBus.initMusic()
     }
   }
 </script>
