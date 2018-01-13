@@ -44,7 +44,7 @@
     },
     data () {
       return {
-        socials: config.socials
+        socials: config.constant.socials
       }
     },
     computed: {
