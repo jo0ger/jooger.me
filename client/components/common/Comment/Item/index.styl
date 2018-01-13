@@ -72,7 +72,7 @@
     &-item {
       display inline-block
       margin-right 20px
-      padding 4px 8px
+      padding 3px 6px
       border-radius 2px
       font-size $font-size-sm
       color $text-color-secondary
@@ -92,12 +92,12 @@
       color $like-color
 
       &.liked {
-        background-color alpha($like-color, .8)
-        color $white
+        background-color alpha($like-color-liked, .2)
+        color $like-color-liked
         font-weight 700
 
         &:hover {
-          background-color alpha($like-color, .9)
+          background-color alpha($like-color-liked, .4)
         }
       }
 
@@ -107,7 +107,7 @@
       }
 
       &:hover {
-        background-color alpha($like-color, .3)
+        background-color alpha($like-color, .4)
       }
     }
     .subcomments {
