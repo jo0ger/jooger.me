@@ -47,7 +47,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: description }
     ],
     link: [
-      { rel: 'shortcut icon', type: 'image/x-icon', href: 'https://static.jooger.me/img/common/favicon.ico' }
+      { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
   css: [

@@ -36,6 +36,9 @@
         Design by 
         <a class="link" target="_blank" rel="noopener" :href="'https://github.com/jo0ger'">{{ me.name }}</a>
       </div>
+      <div class="logo">
+        <i class="icon icon-logo"></i>
+      </div>
     </div>
   </footer>
 </template>
