@@ -6,8 +6,8 @@
 
 'use strict'
 
-export default ({ isClient }) => {
-  if (process.browser && process.env.NODE_ENV === 'production' && isClient) {
+export default () => {
+  if (process.browser && process.env.NODE_ENV === 'production') {
     console.clear()
     console.info(
       `

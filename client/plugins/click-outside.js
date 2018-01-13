@@ -40,8 +40,8 @@ function createDocumentHandler (el, binding, vnode) {
   }
 }
 
-export default ({ isClient }) => {
-  if (isClient) {
+export default () => {
+  if (process.client) {
     on(document, 'mousedown', e => (startClick = e))
     on(document, 'mouseup', e => nodeList.forEach(node => node[ctx].documentHandler(e, startClick)))
 

@@ -9,8 +9,8 @@
 import Vue from 'vue'
 import { isType } from '@/utils'
 
-export default ({ isClient }) => {
-  if (isClient) {
+export default () => {
+  if (process.client) {
     Vue.prototype.$loadImg = loadImg
   }
 }

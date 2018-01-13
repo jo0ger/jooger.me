@@ -11,8 +11,8 @@ import { getLocalStorageItem } from '@/utils'
 
 const isProd = process.env.NODE_ENV === 'production'
 
-export default ({ store, isClient }) => {
-  if (isClient) {
+export default ({ store }) => {
+  if (process.client) {
     return Promise.all([
       setHistory(store),
       setUserInfo(store)

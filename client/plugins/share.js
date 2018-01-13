@@ -10,8 +10,8 @@ import Vue from 'vue'
 
 const isProd = process.env.NODE_ENV === 'production'
 
-export default ({ isClient, route }) => {
-  if (isClient) {
+export default ({ route }) => {
+  if (process.client) {
     Vue.prototype.$share = new Share(route)
   }
 }

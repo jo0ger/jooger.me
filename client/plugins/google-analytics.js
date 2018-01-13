@@ -6,8 +6,8 @@
 
 'use strict'
 
-export default ({ app, isClient }) => {
-  if (process.env.NODE_ENV === 'production' && isClient) {
+export default ({ app }) => {
+  if (process.env.NODE_ENV === 'production' && process.client) {
     // Google 统计分析脚本
     (function (i, s, o, g, r, a, m) {
       i['GoogleAnalyticsObject'] = r

@@ -6,8 +6,8 @@
 
 'use strict'
 
-export default ({ app, isClient }) => {
-  if (process.env.NODE_ENV === 'production' && isClient) {
+export default ({ app }) => {
+  if (process.env.NODE_ENV === 'production' && process.client) {
     const hm = document.createElement('script')
     hm.src = 'https://hm.baidu.com/hm.js?cb9683e3a9b2dbea389ab751f46873fc'
     const s = document.getElementsByTagName('script')[0]

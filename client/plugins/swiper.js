@@ -9,8 +9,8 @@
 import Vue from 'vue'
 import VueAwesomeSwiper from 'vue-awesome-swiper/dist/ssr'
 
-export default ({ isClient }) => {
-  if (isClient) {
+export default () => {
+  if (process.client) {
     Vue.use(VueAwesomeSwiper)
   }
 }
