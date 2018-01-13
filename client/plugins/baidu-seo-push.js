@@ -29,8 +29,8 @@ function push (href) {
   }
 }
 
-export default ({app, isClient}) => {
-  if (process.env.NODE_ENV === 'production' && isClient) {
+export default ({ app }) => {
+  if (process.env.NODE_ENV === 'production' && process.client) {
     push()
     window.onNuxtReady(app => {
       app.$nuxt.$on('routeChanged', (to, from) => {
