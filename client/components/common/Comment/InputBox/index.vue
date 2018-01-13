@@ -18,7 +18,7 @@
               <input type="email" placeholder="邮箱（必填）" required="required" name="email" v-model.trim="model.email">
             </div>
             <div class="site">
-              <input type="text" placeholder="站点" required="required" name="site" v-model.trim="model.site">
+              <input type="text" placeholder="站点（需要写上协议）" required="required" name="site" v-model.trim="model.site">
             </div>
             <div class="clear" v-show="authInfo">
               <button @click="handleClear" title="退出">
@@ -177,14 +177,14 @@
           return
         }
         if (!this.content) {
-          return this.$message.warning('请填写内容')
+          return this.$message.warning('你要说啥？')
         }
         const { name, email, site } = this.model
         if (!name) {
-          return this.$message.warning('请填写昵称')
+          return this.$message.warning('你的昵称呢？')
         }
         if (!email) {
-          return this.$message.warning('请填写邮箱')
+          return this.$message.warning('你的邮箱呢？')
         } else if (!isEmail(email)) {
           return this.$message.warning('邮箱格式错误')
         }

@@ -94,7 +94,7 @@ export const actions = {
     args.sort_by = state.sort.by
     args.order = state.sort.order
     commit(FETCH_LIST_REQUEST)
-    const { success, data } = await api.comment.fetchList({ params: Object.assign({}, params, args) }).catch(err => ((commit(FETCH_LIST_FAILURE, err), {})))
+    const { success, data } = await api.comment.list({ params: Object.assign({}, params, args) }).catch(err => ((commit(FETCH_LIST_FAILURE, err), {})))
     if (success) {
       commit(FETCH_LIST_SUCCESS, data)
     } else {

@@ -64,9 +64,46 @@
     }
   }
 
-  .message-widget {
+  > .content {
     width $main-width
     margin 0 auto
     padding 20px 0 80px
+
+    > .wrapper {
+      flexLayout(, flex-start, flex-start)
+      .message-widget {
+        flex 1 0
+      }
+
+      .guests-widget {
+        flex 0 0 320px
+        width 320px
+        margin-left 12px
+
+        .guest-list {
+          flexLayout(, flex-start, flex-start, wrap)
+          .guest-item {
+            flex 0 0 25%
+            width 25%
+            overflow hidden
+            padding 10px
+            text-align center
+            font-size $font-size-sm
+            .avatar {
+              display block
+              width 24px
+              height @width
+              margin 0 auto
+              border-radius 100%
+            }
+
+            .name {
+              display block
+              textOverflow()
+            }
+          }
+        }
+      }
+    }
   }
 }

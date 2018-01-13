@@ -15,16 +15,45 @@
         </h4>
       </div>
     </Card>
-    <Comment class="message-widget"></Comment>
+    <div class="content">
+      <div class="wrapper">
+        <div class="message-widget">
+          <Comment />
+        </div>
+        <div class="guests-widget">
+          <Affix offsetTop="80">
+            <Card>
+              <div class="title" slot="header">
+                <i class="icon icon-guest"></i>
+                共{{guestsCount}}位过客
+              </div>
+              <div class="guest-list">
+                <a :href="guest.site || 'javascript:void(0);'" v-for="guest in guests"
+                  class="guest-item"
+                  target="_blank"
+                  rel="noopener"
+                  :key="guest._id">
+                  <img class="avatar" :src="avatars[guest._id] || logo" alt="">
+                  <span class="name">{{ guest.name }}</span>
+                </a>
+              </div>
+            </Card>
+          </Affix>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-  import { Card, Comment } from '@/components/common'
+  import { mapGetters } from 'vuex'
+  import { Card, Comment, Affix } from '@/components/common'
+  import logo from '@/static/images/logo.svg'
 
   export default {
     name: 'Guestbook',
     components: {
+      Affix,
       Card,
       Comment
     },
@@ -42,6 +71,33 @@
         type: 1,
         page: 1
       })
+    },
+    data () {
+      return {
+        logo,
+        avatars: {}
+      }
+    },
+    computed: {
+      ...mapGetters({
+        guests: 'user/guests',
+        guestsCount: 'user/guestsCount'
+      })
+    },
+    mounted () {
+      this.loadAvatars()
+    },
+    methods: {
+      loadAvatars () {
+        this.guests.forEach(item => {
+          this.$loadImg(item.avatar, {
+            success: () => {
+              this.avatars[item._id] = item.avatar
+              this.$forceUpdate()
+            }
+          })
+        })
+      }
     },
     afterRouteLeave (to, from, next) {
       this.$store.commit('comment/CLEAR_LIST')
