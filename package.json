@@ -17,7 +17,7 @@
     "deploy": "pm2 deploy ecosystem.config.js production"
   },
   "dependencies": {
-    "@nuxtjs/pwa": "^1.0.2",
+    "@nuxtjs/pwa": "^2.0.5",
     "axios": "^0.16.2",
     "bezier-easing": "^2.0.3",
     "clipboard": "^1.7.1",
