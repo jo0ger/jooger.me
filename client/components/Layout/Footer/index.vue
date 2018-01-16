@@ -37,7 +37,9 @@
         <a class="link" target="_blank" rel="noopener" :href="'https://github.com/jo0ger'">{{ blogger.name }}</a>
       </div>
       <div class="logo">
-        <i class="icon icon-logo"></i>
+        <nuxt-link to="/">
+          <i class="icon icon-logo"></i>
+        </nuxt-link>
       </div>
     </div>
   </footer>

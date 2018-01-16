@@ -19,7 +19,9 @@
       </div>
     </Card>
     <div class="content-widget">
-      <Card></Card>
+      <Card class="info">
+        我是 Jooger，是一名 Web 前端开发工程师，我始终相信一句话 “世间的所有相遇都是久别重逢”，所以很荣幸能够在这里认识你
+      </Card>
     </div>
   </div>
 </template>

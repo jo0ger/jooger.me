@@ -138,6 +138,14 @@
     watch: {
       reply (val) {
         this.$refs.editor[val ? 'focus' : 'blur']()
+      },
+      authInfo (val) {
+        if (!val) {
+          this.model.name = ''
+          this.model.email = ''
+          this.model.site = ''
+          this.avatar = defaultAvatar
+        }
       }
     },
     mounted () {
@@ -230,10 +238,6 @@
       },
       handleClear () {
         this.clearInfo()
-        this.model.name = ''
-        this.model.email = ''
-        this.model.site = ''
-        this.avatar = defaultAvatar
       },
       handleClearReply () {
         this.$emit('on-clear-reply')

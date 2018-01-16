@@ -2,7 +2,7 @@
   <div class="app">
     <AppBackground />
     <AppHeader />
-    <main class="app-main">
+    <main class="app-main" :style="mainStyle">
       <div class="container">
         <nuxt class="page-main-widget" />
         <transition name="fade" mode="out-in">
@@ -11,7 +11,7 @@
       </div>
     </main>
     <AppTool />
-    <AppFooter />
+    <AppFooter ref="footer" />
   </div>
 </template>
 
@@ -33,13 +33,22 @@
       AppBackground,
       AppTool
     },
+    data () {
+      return {
+        mainStyle: null
+      }
+    },
     computed: {
       noAsidePage () {
         return ['music', 'archive', 'guestbook', 'about'].includes(this.$route.name)
       }
     },
     mounted () {
-      this.$eventBus.initMusic()
+      // 音乐初始化
+      // this.$eventBus.initMusic()
+      this.mainStyle = {
+        minHeight: `calc(100vh - ${this.$refs.footer.$el.clientHeight}px)`
+      }
     }
   }
 </script>
