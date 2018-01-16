@@ -18,10 +18,62 @@
         </div>
       </div>
     </Card>
-    <div class="content-widget">
-      <Card class="info">
-        我是 Jooger，是一名 Web 前端开发工程师，我始终相信一句话 “世间的所有相遇都是久别重逢”，所以很荣幸能够在这里认识你
-      </Card>
+    <div class="content">
+      <div class="wrapper">
+        <Card class="info-widget">
+          <ul class="info-list">
+            <li class="info-item user">
+              <div class="label">
+                <i class="icon icon-user"></i>
+              </div>
+              <p class="title">
+                我是 Jooger，是一名 Web 前端开发工程师，我始终相信一句话 “世间的所有相遇都是久别重逢”，所以很荣幸能够在这里认识你
+              </p>
+            </li>
+            <li class="info-item about">
+              <div class="label">
+                <i class="icon icon-about"></i>
+              </div>
+              <p class="title">
+                热衷于新技术的学习和探讨，喜欢折腾;
+                崇尚化繁为简理念，有轻微的强迫症
+              </p>
+            </li>
+            <li class="info-item like">
+              <div class="label">
+                <i class="icon icon-like-fill"></i>
+              </div>
+              <p class="title">
+                <i class="icon icon-code"></i>
+                <i class="icon icon-pingpang"></i>
+                <i class="icon icon-music"></i>
+                <i class="icon icon-movie"></i>
+              </p>
+            </li>
+            <li class="info-item music">
+              <div class="label">
+                <i class="icon icon-music"></i>
+              </div>
+              <p class="title">
+                Jay Chou、Electronic music、Remix
+              </p>
+            </li>
+            <li class="info-item location">
+              <div class="label">
+                <i class="icon icon-location"></i>
+              </div>
+              <p class="title">{{ blogger.location }}</p>
+            </li>
+            <li class="info-item company">
+              <div class="label">
+                <i class="icon icon-company"></i>
+              </div>
+              <p class="title">{{ blogger.company }}</p>
+            </li>
+          </ul>
+        </Card>
+        <Card class="location-widget"></Card>
+      </div>
     </div>
   </div>
 </template>

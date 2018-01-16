@@ -65,7 +65,6 @@ export const actions = {
     return success
   },
   async fetchGuests ({ state, commit }) {
-    console.log(state.guests.fetching)
     if (state.guests.fetching) {
       return
     }

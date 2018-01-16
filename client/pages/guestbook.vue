@@ -24,7 +24,7 @@
           <Affix offsetTop="80">
             <Card>
               <div class="title" slot="header">
-                <i class="icon icon-guest"></i>
+                <i class="icon icon-user"></i>
                 共{{guestsCount}}位过客
               </div>
               <div class="guest-list">
