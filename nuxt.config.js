@@ -55,7 +55,9 @@ module.exports = {
     'swiper/dist/css/swiper.css',
     { src: '@/assets/stylus/index.styl', lang: 'stylus' }
   ],
-  loading: '@/components/layout/PageLoader',
+  loading: {
+    color: themeColor
+  },
   build: {
     analyze: false,
     publicPath: '/resource/',
