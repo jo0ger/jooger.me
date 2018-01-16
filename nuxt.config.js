@@ -7,7 +7,7 @@
 'use strict'
 
 const isProd = process.env.NODE_ENV === 'production'
-const description = 'On the road'
+const description = 'On the way to life'
 const themeColor = '#302e31'
 
 module.exports = {
@@ -31,6 +31,7 @@ module.exports = {
       { 'http-equiv': 'Cache-Control', content: 'no-transform' },
       { 'http-equiv': 'Cache-Control', content: 'no-siteapp' },
       { 'http-equiv': 'cleartype', content: 'on' },
+      { 'http-equiv': 'x-dns-prefetch-control', content: 'on' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=2' },
       { name: 'MobileOptimized', content: '320' },
       { name: 'HandheldFriendly', content: 'True' },
@@ -43,11 +44,13 @@ module.exports = {
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { name: 'author', content: 'zzy1198258955@163.com' },
       { name: 'theme-color', content: themeColor },
-      { hid: 'keywords', name: 'keywords', content: 'Jooger,Jooger.me,Blog,FE,前端' },
+      { hid: 'keywords', name: 'keywords', content: 'Jooger,jooger.me,Blog,FE,前端,朱志洋,Vue,Angular,React,Node.js' },
       { hid: 'description', name: 'description', content: description }
     ],
     link: [
-      { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'dns-prefetch', href: '//api.jooger.me' },
+      { rel: 'dns-prefetch', href: '//static.jooger.me' }
     ]
   },
   css: [
