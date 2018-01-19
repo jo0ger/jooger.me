@@ -322,8 +322,8 @@ export default {
     },
     step () {
       if (this.player.sound) {
-        // const seek = this.player.sound.seek() || 0
-        // this.player.progress = (100 * seek / this.player.sound.duration()) || 0
+        const seek = this.player.sound.seek() || 0
+        this.player.progress = (100 * seek / this.player.sound.duration()) || 0
         if (this.player.sound.playing()) {
           requestAnimationFrame(this.step.bind(this))
         }

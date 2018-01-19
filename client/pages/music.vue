@@ -3,7 +3,6 @@
     <template v-if="musicList.length">
       <div class="player" :class="[player && player.playing ? 'playing' : 'pause']" v-show="player">
         <div class="cover-wrapper">
-          <div class="cover" :style="coverStyle"></div>
           <div class="cover cover-blur" :style="coverStyle"></div>
         </div>
         <div class="control">
@@ -12,8 +11,8 @@
           </div>
           <div class="control-item play">
             <svg viewBox="0 0 100 100">
-              <path class="el-progress-circle__track" :d="trackPath" stroke="rgba(160, 160, 160, .3)" :stroke-width="relativeStrokeWidth" fill="none"></path>
-              <path class="el-progress-circle__path" :d="trackPath" stroke-linecap="square" stroke="rgba(160, 160, 160, .4)" :stroke-width="relativeStrokeWidth" fill="none" :style="circlePathStyle"></path>
+              <path :d="trackPath" stroke="rgba(160, 160, 160, .3)" :stroke-width="relativeStrokeWidth" fill="none"></path>
+              <path :d="trackPath" stroke-linecap="square" stroke="rgba(180, 180, 180, .5)" :stroke-width="relativeStrokeWidth" fill="none" :style="circlePathStyle"></path>
             </svg>
             <div class="cover" v-if="cover">
               <div class="cover-img" :style="coverStyle"></div>

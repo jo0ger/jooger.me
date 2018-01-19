@@ -6,12 +6,12 @@
 
     &-bg {
       position absolute
-      width auto
-      height auto
+      width 110%
+      height 110%
       top -10px
-      right -10px
-      bottom -10px
-      left -10px
+      right @top
+      bottom @top
+      left @top
       background-size cover
       background-position center center
       background-repeat no-repeat
@@ -29,7 +29,8 @@
 
     &:hover {
       .hero-bg {
-        filter blur(4px)
+        filter blur(10px)
+        transform scale(1.03)
       }
 
       &::before {
@@ -82,6 +83,8 @@
 
         .guest-list {
           flexLayout(, flex-start, flex-start, wrap)
+          max-height calc(100vh - 165px)
+          overflow auto
           .guest-item {
             flex 0 0 25%
             width 25%
