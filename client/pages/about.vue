@@ -72,7 +72,9 @@
             </li>
           </ul>
         </Card>
-        <Card class="location-widget"></Card>
+        <Card class="location-widget">
+          <iframe src="https://jooger.me/location/" frameborder="0"></iframe>
+        </Card>
       </div>
     </div>
   </div>

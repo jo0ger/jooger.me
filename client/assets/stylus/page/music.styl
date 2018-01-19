@@ -9,23 +9,33 @@
     .cover-wrapper {
       full()
       .cover {
-        full()
+        position absolute
+        width 120%
+        height 120%
+        top -20px
+        right @top
+        bottom @top
+        left @top
         background-position center center
         background-repeat no-repeat
         background-size 105%
         background-color alpha($black, .6)
         z-index -1
+        filter blur(20px)
         transition all $animation-duration-slower $ease
-
-        &-blur {
-          filter blur(20px)
-        }
       }
 
       &:after {
         content ''
         full()
         background alpha($black, .3)
+      }
+
+    }
+    &:hover {
+      .cover-blur {
+        filter blur(30px)
+        transform scale(1.03)
       }
     }
 
