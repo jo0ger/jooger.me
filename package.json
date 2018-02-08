@@ -25,6 +25,7 @@
     "normalize.css": "^7.0.0",
     "nuxt": "^1.1.0",
     "particles.js": "^2.0.0",
+    "raven-js": "^3.22.1",
     "source-map-support": "^0.4.15",
     "validator": "^9.2.0",
     "vue-affix": "^0.2.4",

@@ -70,7 +70,7 @@ export const mutations = {
   [FETCH_LIST_FAILURE]: state => (state.list.fetching = false),
   [FETCH_LIST_SUCCESS]: (state, { list = [], pagination }) => {
     state.list.fetching = false
-    if (pagination.current_page === 1) {
+    if (pagination.cur_page === 1) {
       state.list.data = list
     } else {
       state.list.data.push(...list)
@@ -145,7 +145,7 @@ export const actions = {
       page: params.page
     }
     if (pagination.page === undefined) {
-      pagination.page = ~~state.list.pagination.current_page + 1
+      pagination.page = ~~state.list.pagination.cur_page + 1
     }
     commit(FETCH_LIST_REQUEST)
     const { success, data } = await api.article.list({ params: Object.assign({}, params, pagination) }).catch(err => ((commit(FETCH_LIST_FAILURE, err), {})))
