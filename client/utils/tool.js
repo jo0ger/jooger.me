@@ -6,8 +6,6 @@
 
 'use strict'
 
-import { isType } from './validate'
-
 export const noop = function () {}
 
 export const isEmptyObject = (obj = {}) => {

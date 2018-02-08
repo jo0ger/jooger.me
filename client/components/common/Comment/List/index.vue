@@ -118,8 +118,7 @@
         return by === 'ups' && order === -1
       },
       hasNoMore () {
-        const { cur_page, total_page, total } = this.pagination
-        return total > 0 && cur_page >= total_page && total_page >= 1
+        return this.pagination.total > 0 && this.pagination.cur_page >= this.pagination.total_page && this.pagination.total_page >= 1
       },
       listType () {
         return this.child ? '回复' : this.articleDetail ? '评论' : '留言'
@@ -127,7 +126,7 @@
     },
     methods: {
       handleSort (by, order) {
-        if (by === this.sort.by && order === this.sort.order || this.loading) {
+        if ((by === this.sort.by && order === this.sort.order) || this.loading) {
           return
         }
         this.$emit('on-sort', { by, order })
@@ -150,4 +149,3 @@
     }
   }
 </script>
-

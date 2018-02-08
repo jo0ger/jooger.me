@@ -47,7 +47,6 @@
   import emoji from './lib/emoji'
   import { getSelection, setSelection } from './lib/selectionHelper'
   import { makeEmoji } from './lib/commandsHelper'
-  import { debounce } from '@/utils'
 
   export default {
     name: 'Editor',
@@ -135,4 +134,3 @@
     }
   }
 </script>
-

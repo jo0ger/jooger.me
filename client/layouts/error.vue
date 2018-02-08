@@ -12,9 +12,7 @@
 </template>
 
 <script>
-  import {
-    AppBackground,
-  } from '@/components/layout'
+  import { AppBackground } from '@/components/layout'
 
   export default {
     name: 'nuxt-error',

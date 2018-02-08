@@ -27,7 +27,6 @@ const LIKE_SUCCESS = 'LIKE_SUCCESS'
 const LIKE_FAILURE = 'LIKE_FAILURE'
 const COMMENT_SUCCESS = 'COMMENT_SUCCESS'
 const CLEAR_LIST = 'CLEAR_LIST'
-const ADD_UPS = 'ADD_UPS'
 
 export const state = () => ({
   list: {

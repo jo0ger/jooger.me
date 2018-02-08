@@ -200,10 +200,6 @@
       },
       handleSubSort ({ by, order }, params = {}) {
         this.sort = { by, order }
-        const args = {
-          sort_by: by,
-          order
-        }
         params = Object.assign({ page: 1 }, params, {
           sort_by: by,
           order
@@ -228,4 +224,3 @@
     }
   }
 </script>
-

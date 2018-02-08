@@ -119,7 +119,7 @@
         model: {
           name: '',
           email: '',
-          site: '',
+          site: ''
         },
         avatar: defaultAvatar,
         content: '',
@@ -176,9 +176,9 @@
         return false
       },
       handleSnsLogin (type) {
-        if (this.authInfo) {
-          return
-        }
+        // if (this.authInfo) {
+        //   return
+        // }
       },
       async handleSubmit (params = {}) {
         if (this.loading) {
@@ -201,7 +201,7 @@
         }
         params = Object.assign({
           type: this.articleDetail ? 0 : 1,
-          content: this.content,
+          content: this.content
         }, params)
         if (this.authInfo) {
           params.author = this.authInfo._id
@@ -245,4 +245,3 @@
     }
   }
 </script>
-
