@@ -118,8 +118,8 @@
         return by === 'ups' && order === -1
       },
       hasNoMore () {
-        const { current_page, total_page, total } = this.pagination
-        return total > 0 && current_page >= total_page && total_page >= 1
+        const { cur_page, total_page, total } = this.pagination
+        return total > 0 && cur_page >= total_page && total_page >= 1
       },
       listType () {
         return this.child ? '回复' : this.articleDetail ? '评论' : '留言'
@@ -136,7 +136,7 @@
         if (this.loading) {
           return
         }
-        this.$emit('on-loadmore', this.pagination.current_page + 1)
+        this.$emit('on-loadmore', this.pagination.cur_page + 1)
       },
       handleSetReply (index) {
         this.replyTarget = this.list[index]

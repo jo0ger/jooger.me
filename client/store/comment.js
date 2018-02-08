@@ -45,7 +45,7 @@ export const mutations = {
   [FETCH_LIST_FAILURE]: state => (state.list.fetching = false),
   [FETCH_LIST_SUCCESS]: (state, { list = [], pagination }) => {
     state.list.fetching = false
-    if (pagination.current_page === 1) {
+    if (pagination.cur_page === 1) {
       state.list.data = list
     } else {
       state.list.data.push(...list)
@@ -89,7 +89,7 @@ export const actions = {
       page: params.page
     }
     if (args.page === undefined) {
-      args.page = ~~state.list.pagination.current_page + 1
+      args.page = ~~state.list.pagination.cur_page + 1
     }
     args.sort_by = state.sort.by
     args.order = state.sort.order

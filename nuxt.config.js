@@ -82,15 +82,16 @@ module.exports = {
     { src: '@/plugins/google-analytics.js', ssr: false },
     { src: '@/plugins/baidu-statistics.js', ssr: false },
     { src: '@/plugins/baidu-seo-push.js', ssr: false },
+    { src: '@/plugins/raven.js', ssr: false },
     { src: '@/plugins/click-outside.js', ssr: false },
     { src: '@/plugins/message.js', ssr: false },
     { src: '@/plugins/swiper.js', ssr: false },
+    { src: '@/plugins/share.js', ssr: false },
     { src: '@/plugins/image-load.js', ssr: false },
     { src: '@/plugins/storage-to-store.js', ssr: false },
     { src: '@/plugins/event-bus.js', ssr: false },
     { src: '@/plugins/particles.js', ssr: false },
-    { src: '@/plugins/console-say-hi.js', ssr: false },
-    { src: '@/plugins/share.js', ssr: false }
+    { src: '@/plugins/console-say-hi.js', ssr: false }
   ],
   router: {
     linkActiveClass: 'active'

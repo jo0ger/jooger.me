@@ -34,7 +34,7 @@ $ npm run lint
 
 ## Related projects
 
-- [jooger.me-server](https://github.com/jo0ger/jooger.me-server): The api server for jooger.me, build by [koa](https://github.com/koajs/koa), [mongoose](https://github.com/Automattic/mongoose).
+- [node-server](https://github.com/jo0ger/node-server): The api server for jooger.me, build by [koa](https://github.com/koajs/koa), [mongoose](https://github.com/Automattic/mongoose).
 
 - [jooger.me-admin](https://github.com/jo0ger/jooger.me-admin): The admin site for jooger.me, build by [Vue2](https://github.com/vuejs/vue), [element](https://github.com/ElemeFE/element), [vue-router](https://github.com/vuejs/vue-router), and [vuex](https://github.com/vuejs/vuex).
 
@@ -66,6 +66,8 @@ $ npm run lint
 - ~~重新设计分享框~~ (2017.11.07)
 
 - ~~移动端评论适配~~ (2017.11.08)
+
+- ~~接入Sentry~~ (2018.02.08)
 
 - v2 改版
 

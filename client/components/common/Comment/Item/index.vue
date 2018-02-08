@@ -151,14 +151,14 @@
           params: Object.assign({}, {
             article: this.comment.article,
             per_page: this.pagination.per_page || 5,
-            page: (this.pagination ? this.pagination.current_page : 0) + 1,
+            page: (this.pagination ? this.pagination.cur_page : 0) + 1,
             parent: this.comment._id
           }, params)
         }).catch(() => ({}))
         this.fetching = false
         if (success) {
           this.pagination = data.pagination
-          if (this.pagination.current_page === 1) {
+          if (this.pagination.cur_page === 1) {
             this.children = data.list
           } else {
             this.children.push(...data.list)

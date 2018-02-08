@@ -7,7 +7,7 @@
 'use strict'
 
 import Vue from 'vue'
-import { isType } from '@/utils'
+import { isType, noop } from '@/utils'
 
 export default () => {
   if (process.client) {
@@ -37,11 +37,28 @@ function loadImg (url = '', opt = {}) {
     if (img[prop]) {
       success && success.call(img, img, url)
     } else {
-      fail && fail.call(img, img, url)
+      _fail(opt, img, url)
     }
   } else {
     load && load()
     img.onload = success && success.bind(img, img, url)
-    img.onerror = fail && fail.bind(img, new Error('Image load error'))
+    img.onerror = () => _fail(opt, img, url)
   }
+}
+
+function _fail (opt, img, url, err) {
+  const fail = typeof opt.fail === 'function' ? opt.fail : noop
+  fail.call(img, img, url)
+  reportError(`图片加载失败 ${url}`, url)
+}
+
+function reportError (msg, url) {
+  Raven.captureMessage(msg, {
+    level: 'warning',
+    logger: '图片加载',
+    extra: {
+      type: 'get',
+      url
+    }
+  })
 }
