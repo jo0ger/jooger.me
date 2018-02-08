@@ -91,9 +91,8 @@
         const elHeight = this.$el.offsetHeight
         let parent = null
         let parentOffset = null
-        
         // Fixed Top
-        if (this.offsetType === 'top' && ((elOffset.top - this.offsetTop) < scrollTop && !fixed || (isResize && fixed))) {
+        if (((this.offsetType === 'top' && (elOffset.top - this.offsetTop) < scrollTop && !fixed) || (isResize && fixed))) {
           this.fixed = true
           if ((isResize && fixed)) {
             parent = this.$el.parentNode
@@ -111,7 +110,7 @@
           this.$emit('on-change', false)
         }
         // Fixed Bottom
-        if (this.offsetType === 'bottom' && ((elOffset.top + this.offsetBottom + elHeight) > (scrollTop + windowHeight) && !fixed || (isResize && fixed))) {
+        if (this.offsetType === 'bottom' && (((elOffset.top + this.offsetBottom + elHeight) > (scrollTop + windowHeight) && !fixed) || (isResize && fixed))) {
           this.fixed = true
           if ((isResize && fixed)) {
             parent = this.$el.parentNode

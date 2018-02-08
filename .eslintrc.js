@@ -12,9 +12,12 @@ module.exports = {
     'html'
   ],
   // add your custom rules here
-  rules: {},
+  rules: {
+    'no-sequences': 0
+  },
   globals: {
     window: true,
-    Raven: true
+    Raven: true,
+    particlesJS: true
   }
 }

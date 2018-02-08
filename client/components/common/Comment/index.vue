@@ -38,7 +38,7 @@
         commentPagination: 'comment/pagination',
         commentListFetching: 'comment/listFetching',
         commentPublishing: 'comment/publishing',
-        articleDetail: 'article/detail',
+        articleDetail: 'article/detail'
       })
     },
     methods: {
@@ -78,4 +78,3 @@
     }
   }
 </script>
-

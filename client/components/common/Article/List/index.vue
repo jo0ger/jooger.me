@@ -56,8 +56,7 @@
     },
     computed: {
       hasNoMore () {
-        const { cur_page, total_page, total } = this.pagination
-        return total > 0 && cur_page >= total_page && total_page >= 1
+        return this.pagination.total > 0 && this.pagination.cur_page >= this.pagination.total_page && this.pagination.total_page >= 1
       }
     },
     methods: {
@@ -67,4 +66,3 @@
     }
   }
 </script>
-

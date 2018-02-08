@@ -42,7 +42,7 @@ export const cancelAnimationFrame = isServer
 export const on = !isServer && document.addEventListener
   ? function (element, event, handler) {
     if (element && event && handler) {
-      element.addEventListener(event, handler, false);
+      element.addEventListener(event, handler, false)
     }
   }
   : function (element, event, handler) {
