@@ -23,7 +23,8 @@
           :comment="item"
           :child="child"
           :index="index"
-          @on-reply="handleSetReply">
+          @on-reply="handleSetReply"
+          @on-reply-publish="handleSubReplyPublish">
         </CommentItem>
         <div class="indicator" v-if="loading || !hasNoMore">
           <Loading v-if="loading"></Loading>
@@ -145,6 +146,9 @@
       },
       handleReplyPublish (reply) {
         this.$emit('on-reply-publish', reply)
+      },
+      handleSubReplyPublish () {
+        this.$emit('on-reply')
       }
     }
   }

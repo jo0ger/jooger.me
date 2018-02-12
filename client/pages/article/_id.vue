@@ -18,24 +18,10 @@
             {{ articleDetail.meta.pvs }} 次阅读
           </div>
         </div>
-        <div class="thumb" v-if="articleDetail.thumb">
-          <img :src="articleDetail.thumb" alt="">
+        <div class="thumb" v-if="thumb">
+          <img :src="thumb" alt="">
         </div>
         <div class="content md-body" v-html="articleDetail.renderedContent"></div>
-        <div class="action" v-if="!mobileLayout">
-          <a class="action-item like"
-            :class="{ 'liked': isLiked, 'liking': articleDetailLiking }"
-            :title="isLiked ? '已点赞' : ''"
-            @click="handleLike">
-            <i class="icon" :class="[`icon-thumb-up${isLiked ? '-fill' : ''}`]"></i>
-            <span class="count">{{ articleDetail.meta.ups }}</span>
-          </a>
-          <a class="action-item share">
-            <i class="icon icon-share"></i>
-            <span>分享</span>
-            <ul class="share-list"></ul>
-          </a>
-        </div>
         <div class="tags">
           <Tag v-for="tag in articleDetail.tag"
             :key="tag._id"
@@ -45,7 +31,7 @@
           </Tag>
         </div>
       </article>
-      <Affix class="article-action" offsetTop="80" v-if="!mobileLayout">
+      <Affix class="article-action" offsetTop="80" v-if="articleDetail && !mobileLayout">
         <div class="action-list">
           <a class="action-item like"
             :class="{ 'liked': isLiked, 'liking': articleDetailLiking }"
@@ -129,6 +115,7 @@
     },
     data () {
       return {
+        thumb: '',
         showShareList: false,
         shareList: config.constant.shares
       }
@@ -142,6 +129,7 @@
         mobileLayout: 'app/mobileLayout'
       }),
       isLiked () {
+        if (!this.articleDetail) return false
         return !!this.historyLikes.articles.find(item => item === this.articleDetail._id)
       }
     },
@@ -150,8 +138,25 @@
       this.$store.commit('comment/CLEAR_LIST')
       next()
     },
+    mounted () {
+      this.loadThumb()
+    },
     methods: {
+      loadThumb () {
+        if (!this.articleDetail.thumb) {
+          return
+        }
+        const thumb = this.articleDetail.thumb
+        return this.$loadImg(thumb, {
+          success: (img) => {
+            this.thumb = thumb
+          }
+        })
+      },
       async handleLike () {
+        if (this.isLiked) {
+          return this.$message.info('你已经点过赞了')
+        }
         await this.$store.dispatch('article/like', {
           id: this.articleDetail._id,
           like: !this.isLiked

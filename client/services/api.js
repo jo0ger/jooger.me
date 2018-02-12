@@ -104,7 +104,7 @@ async function handleError (err) {
 function reportError (err) {
   const { config, response, message, stack } = err
   const responseData = (response && response.data) || {}
-  Raven.captureMessage(responseData.message || message, {
+  window.Raven && Raven.captureMessage(responseData.message || message, {
     level: 'warning',
     logger: '接口请求',
     extra: {

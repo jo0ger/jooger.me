@@ -20,7 +20,7 @@
     name: 'Message',
     data () {
       return {
-        type: '', // success | error | warning
+        type: '', // success | error | warning | info
         visible: false,
         message: '',
         duration: 3000,

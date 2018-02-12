@@ -18,7 +18,8 @@
     <div class="content">
       <div class="wrapper">
         <div class="message-widget">
-          <Comment />
+          <Comment
+            @on-publish="handlePublish"/>
         </div>
         <div class="guests-widget">
           <Affix offsetTop="80">
@@ -97,6 +98,9 @@
             }
           })
         })
+      },
+      handlePublish () {
+        this.$store.dispatch('user/fetchGuests')
       }
     },
     afterRouteLeave (to, from, next) {

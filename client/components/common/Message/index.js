@@ -38,7 +38,7 @@ const Message = (opts = {}) => {
   return instance.vm
 }
 
-['success', 'error', 'warning'].forEach(type => {
+['success', 'error', 'warning', 'info'].forEach(type => {
   Message[type] = (opts) => {
     if (isType(opts, 'String')) {
       opts = {

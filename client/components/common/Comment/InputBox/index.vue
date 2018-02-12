@@ -18,7 +18,7 @@
               <input type="email" placeholder="邮箱（必填）" required="required" name="email" v-model.trim="model.email">
             </div>
             <div class="site">
-              <input type="text" placeholder="站点（需要写上协议）" required="required" name="site" v-model.trim="model.site">
+              <input type="text" placeholder="站点（eg: https://jooger.me）" required="required" name="site" v-model.trim="model.site">
             </div>
             <div class="clear" v-show="authInfo">
               <button @click="handleClear" title="退出">
