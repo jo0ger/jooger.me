@@ -53,7 +53,7 @@ function _fail (opt, img, url, err) {
 }
 
 function reportError (msg, url) {
-  Raven.captureMessage(msg, {
+  window.Raven && Raven && Raven.captureMessage(msg, {
     level: 'warning',
     logger: '图片加载',
     extra: {

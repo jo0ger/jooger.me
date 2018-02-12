@@ -166,6 +166,9 @@
         }
       },
       async handleLike () {
+        if (this.isLiked) {
+          return this.$message.info('你已经点过赞了')
+        }
         if (this.liking) {
           return
         }
@@ -214,6 +217,7 @@
         this.handleSubSort(this.sort, { page })
       },
       handleReplyPublish () {
+        this.$emit('on-reply-publish')
         this.handleSubSort({
           by: 'createdAt',
           order: -1

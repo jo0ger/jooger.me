@@ -11,7 +11,8 @@
       :total="articleDetail && articleDetail.meta.comments || 0"
       :loading="commentListFetching"
       @on-sort="handleSort"
-      @on-loadmore="handleLoadmore">
+      @on-loadmore="handleLoadmore"
+      @on-reply="handleReply">
     </CommentList>
     <CommentInputBox
       :loading="commentPublishing"
@@ -67,7 +68,11 @@
       handleLoadmore (page) {
         this.handleSort(this.commentSort, { page })
       },
+      handleReply () {
+        this.$emit('on-publish')
+      },
       handlePublish (comment) {
+        this.$emit('on-publish', comment)
         this.handleSort({
           by: 'createdAt',
           order: -1
