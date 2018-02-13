@@ -4,7 +4,7 @@
       <div class="hero-bg"></div>
       <div class="info">
         <h2 class="title">You are here, and we are here</h2>
-        <h4 class="subtitle">
+        <h4 class="subtitle" v-if="!mobileLayout">
           人的平均寿命77岁
           一共28105天
           67w小时
@@ -21,7 +21,7 @@
           <Comment
             @on-publish="handlePublish"/>
         </div>
-        <div class="guests-widget">
+        <div class="guests-widget" v-if="!mobileLayout">
           <Affix offsetTop="80">
             <Card>
               <div class="title" slot="header">
@@ -57,6 +57,9 @@
       Affix,
       Card,
       Comment
+    },
+    layout ({ store }) {
+      return store.getters['app/mobileLayout'] ? 'mobile' : 'default'
     },
     head () {
       return {

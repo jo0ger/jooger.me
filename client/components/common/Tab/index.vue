@@ -7,7 +7,7 @@
     'tab-bordered': bordered
   }">
     <a v-for="(item, index) in list"
-      :key="item.key || index"
+      :key="index"
       class="tab-item"
       :class="{ active: checkActive(item, index) }"
       ref="tab"

@@ -37,6 +37,9 @@
       ArticleList,
       Loading
     },
+    layout ({ store }) {
+      return store.getters['app/mobileLayout'] ? 'mobile' : 'default'
+    },
     validate ({ params }) {
       return !!params.name
     },
