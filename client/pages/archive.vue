@@ -64,6 +64,9 @@
       Card,
       Tag
     },
+    layout ({ store }) {
+      return store.getters['app/mobileLayout'] ? 'mobile' : 'default'
+    },
     head () {
       return {
         title: 'Archives'

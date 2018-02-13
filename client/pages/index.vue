@@ -1,8 +1,20 @@
 <template>
   <div class="page-home">
-    <Moment></Moment>
+    <Moment v-if="!mobileLayout"/>
+    <template v-if="mobileLayout">
+      <div class="category-tabs">
+        <div class="swiper-container" v-swiper:tabSwiper="tabSwiperOption" @tap="tabTap">
+          <div class="swiper-wrapper">
+            <span class="swiper-slide tab-item" :class="{ active: tab === index }" v-for="(item, index) in tabs" :key="index">{{ item.title }}</span>
+            <div class="corner" :style="cornerStyle" ref="corner">
+              <i class="bar"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
     <Card class="home-widget">
-      <Tab class="category-tab" :list="tabs" v-model="tab" bordered></Tab>
+      <Tab class="category-tab" :list="tabs" v-model="tab" bordered v-if="!mobileLayout"></Tab>
       <div class="list-content">
         <ArticleList
           :list="articleList"
@@ -28,6 +40,9 @@
       ArticleList,
       Loading
     },
+    layout ({ store }) {
+      return store.getters['app/mobileLayout'] ? 'mobile' : 'default'
+    },
     async fetch ({ store }) {
       store.commit('article/CLEAR_LIST')
       await store.dispatch('article/fetchList', {
@@ -36,7 +51,13 @@
     },
     data () {
       return {
-        tab: 0
+        tab: 0,
+        cornerStyle: null,
+        tabSwiperOption: {
+          init: false,
+          slidesPerView: 4,
+          freeMode: true
+        }
       }
     },
     computed: {
@@ -64,8 +85,17 @@
     },
     watch: {
       tab () {
+        if (this.mobileLayout) {
+          this.setCornerStyle()
+        }
         this.clearArticleList()
         this.fetchArticleListWrapper()
+      }
+    },
+    mounted () {
+      if (this.mobileLayout) {
+        this.tabSwiper.on('init', this.tabInit.bind(this))
+        this.tabSwiper.init()
       }
     },
     methods: {
@@ -87,6 +117,20 @@
       },
       handleLoadmore () {
         this.fetchArticleListWrapper()
+      },
+      setCornerStyle (style = {}) {
+        const cur = this.tabSwiper.slides.eq(this.tab)
+        this.cornerStyle = Object.assign({
+          width: cur.css('width'),
+          transform: `translate3d(${cur.offset().left}px, 0, 0)`
+        }, style)
+      },
+      tabInit () {
+        this.setCornerStyle()
+      },
+      tabTap () {
+        this.tab = this.tabSwiper.clickedIndex
+        this.pageSwiper.slideTo(this.tab, 0)
       }
     }
   }
