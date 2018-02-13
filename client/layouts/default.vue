@@ -33,6 +33,13 @@
       AppBackground,
       AppTool
     },
+    head () {
+      return {
+        htmlAttrs: {
+          class: 'pc'
+        }
+      }
+    },
     data () {
       return {
         mainStyle: null
@@ -58,11 +65,11 @@
   @import '~@/assets/stylus/mixin/index'
   
   .app {
-    min-width 1170px
+    min-width $main-width
 
     &-main {
       width $main-width
-      border-top 60px solid transparent
+      border-top $header-height solid transparent
       margin 0 auto
       padding 20px 0 80px
 
