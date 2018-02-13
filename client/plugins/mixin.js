@@ -7,9 +7,19 @@
 'use strict'
 
 import Vue from 'vue'
+import { mapGetters } from 'vuex'
 import { getExtendsItemMixin } from '@/mixins'
 
+const commonMixin = {
+  computed: {
+    ...mapGetters({
+      mobileLayout: 'app/mobileLayout'
+    })
+  }
+}
+
 const mixins = [
+  commonMixin,
   // 过滤数据extends的mixin
   getExtendsItemMixin
 ]
