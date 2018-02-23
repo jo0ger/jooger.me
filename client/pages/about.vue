@@ -6,7 +6,6 @@
         <img :src="blogger.avatar" alt="" class="avatar">
         <h2 class="name">{{ blogger.name }}</h2>
         <h4 class="slogan">{{ blogger.slogan }}</h4>
-        <p class="description">A web front-end developer</p>
         <div class="social-list">
           <a :href="social.url" class="social-item" target="_blank" rel="noopener"
             :class="[`social-${social.icon}`]"
@@ -24,51 +23,45 @@
           <ul class="info-list">
             <li class="info-item user">
               <div class="label">
-                <i class="icon icon-user"></i>
+                <i class="icon icon-logo"></i>
               </div>
-              <p class="title">
-                我是 Jooger，是一名 Web 前端开发工程师，我始终相信一句话 “世间的所有相遇都是久别重逢”，所以很荣幸能够在这里认识你
-              </p>
+              <p class="title">{{ option.welcome }}</p>
             </li>
             <li class="info-item about">
               <div class="label">
-                <i class="icon icon-about"></i>
+                <i class="icon icon-about-fill"></i>
               </div>
-              <p class="title">
-                热衷于新技术的学习和探讨，喜欢折腾;
-                崇尚化繁为简理念，有轻微的强迫症
-              </p>
+              <p class="title">{{ option.description }}</p>
+            </li>
+            <li class="info-item skill">
+              <div class="label">
+                <i class="icon icon-skill"></i>
+              </div>
+              <p class="title">{{ option.skill }}</p>
             </li>
             <li class="info-item like">
               <div class="label">
                 <i class="icon icon-like-fill"></i>
               </div>
-              <p class="title">
-                <i class="icon icon-code"></i>
-                <i class="icon icon-pingpang"></i>
-                <i class="icon icon-music"></i>
-                <i class="icon icon-movie"></i>
-              </p>
+              <p class="title">{{ option.hobby }}</p>
             </li>
             <li class="info-item music">
               <div class="label">
                 <i class="icon icon-music"></i>
               </div>
-              <p class="title">
-                Jay Chou、Electronic music、Remix
-              </p>
+              <p class="title">{{ option.music }}</p>
             </li>
             <li class="info-item location">
               <div class="label">
                 <i class="icon icon-location"></i>
               </div>
-              <p class="title">{{ blogger.location }}</p>
+              <p class="title">{{ option.location }}</p>
             </li>
             <li class="info-item company">
               <div class="label">
                 <i class="icon icon-company"></i>
               </div>
-              <p class="title">{{ blogger.company }}</p>
+              <p class="title">{{ option.company }}</p>
             </li>
           </ul>
         </Card>
@@ -108,7 +101,8 @@
     },
     computed: {
       ...mapGetters({
-        blogger: 'user/blogger'
+        blogger: 'user/blogger',
+        option: 'option/option'
       })
     }
   }

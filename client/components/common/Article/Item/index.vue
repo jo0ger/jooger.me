@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <article class="article-item" :title="article.title">
+  <article class="article-item" :class="{ 'no-desc': !article.description }" :title="article.title">
     <nuxt-link class="article-link"
       :to="`/article/${article._id}`">
       <h2 class="title">{{ article.title }}</h2>

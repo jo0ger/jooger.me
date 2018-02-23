@@ -73,7 +73,7 @@ article.article-item {
   }
 
   .status {
-    flexLayout(, space-between)
+    flexLayout(, space-between,,wrap)
     margin-top 10px
     font-size $font-size-sm
     color $text-color-secondary
@@ -120,6 +120,14 @@ html.mobile {
           line-height @height
         }
       }
-    }  
+    }
+    &.no-desc {
+      .summary {
+        .thumb {
+          flex-basis 100%
+          width 100%
+        }
+      }
+    }
   }
 }

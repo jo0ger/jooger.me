@@ -38,7 +38,13 @@
       }
     },
     methods: {
-      search () {}
+      search () {
+        if (!this.keyword) {
+          return
+        }
+        this.$router.push(`/search/${this.keyword}`)
+        this.keyword = ''
+      }
     }
   }
 </script>
