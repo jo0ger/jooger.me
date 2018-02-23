@@ -22,9 +22,9 @@
       <a class="tool-item" v-if="showShare" @click.stop.prevent="showShareList = !showShareList">
         <i class="icon icon-share"></i>
       </a>
-      <a class="tool-item">
+      <!-- <a class="tool-item">
         <i class="icon icon-feedback"></i>
-      </a>
+      </a> -->
       <a class="tool-item"
         @click="handleGoToTop"
         @mouseover="slowScroll(-3)"
