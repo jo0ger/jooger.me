@@ -52,7 +52,7 @@
     },
     mounted () {
       // 音乐初始化
-      // this.$eventBus.initMusic()
+      this.$eventBus.initMusic()
       this.mainStyle = {
         minHeight: `calc(100vh - ${this.$refs.footer.$el.clientHeight}px)`
       }
