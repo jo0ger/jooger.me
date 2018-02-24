@@ -3,46 +3,18 @@
     <Moment v-if="!mobileLayout"/>
     <template v-if="mobileLayout">
       <div class="category-tabs">
-<<<<<<< HEAD
         <div class="swiper-container" v-swiper:tabSwiper="tabSwiperOption" @tap="tabTap">
           <div class="swiper-wrapper">
             <span class="swiper-slide tab-item" :class="{ active: tab === index }" v-for="(item, index) in tabs" :key="index">{{ item.title }}</span>
             <div class="corner" :style="cornerStyle" ref="corner">
               <i class="bar"></i>
             </div>
-=======
-        <div class="swiper-container" v-swiper:tabSwiper="tabSwiperOption">
-          <div class="swiper-wrapper">
-            <span class="swiper-slide tab-item" v-for="(item, index) in tabs" :key="index">{{ item.title }}</span>
-          </div>
-        </div>
-        <i class="corner" :style="cornerStyle"></i>
-      </div>
-      <div class="tab-pages swiper-container" v-swiper:pageSwiper="pageSwiperOption">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item, index) in tabs" :key="index">
-            <Card>
-              <div class="list-content">
-                <ArticleList
-                  :list="articleList"
-                  :pagination="articlePagination"
-                  :loading="articleListFetching"
-                  @on-loadmore="handleLoadmore">
-                </ArticleList>
-              </div>
-            </Card>
->>>>>>> 163249d6763113cb4460a745da3d039aca6d4f39
           </div>
         </div>
       </div>
     </template>
-<<<<<<< HEAD
     <Card class="home-widget">
       <Tab class="category-tab" :list="tabs" v-model="tab" bordered v-if="!mobileLayout"></Tab>
-=======
-    <Card class="home-widget" v-if="!mobileLayout">
-      <Tab class="category-tab" :list="tabs" v-model="tab" bordered></Tab>
->>>>>>> 163249d6763113cb4460a745da3d039aca6d4f39
       <div class="list-content">
         <ArticleList
           :list="articleList"
