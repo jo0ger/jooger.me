@@ -14,8 +14,7 @@
     "start": "cross-env NODE_ENV=production node build/main.js",
     "precommit": "npm run lint",
     "lint": "eslint --ext .js,.vue,.ts --ignore-path .gitignore .",
-    "deploy": "pm2 deploy ecosystem.config.js production",
-    "commit": "commit-wizard"
+    "deploy": "pm2 deploy ecosystem.config.js production"
   },
   "dependencies": {
     "axios": "^0.17.1",

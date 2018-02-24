@@ -5,15 +5,7 @@
 
 ## jooger.me
 
-> In the upgrade(v2)...
-
 > 👍 My personal site ( [jooger.me](https://jooger.me) )，built by [Vue2](https://github.com/vuejs/vue), [Nuxt.js](https://github.com/nuxt/nuxt.js), [Axios](https://github.com/axios/axios).
-
-## ScreenShots
-
-### PC
-
-### Mobile
 
 ## Build Setup
 
@@ -30,6 +22,9 @@ $ npm start
 
 # lint code
 $ npm run lint
+
+# pm2 deploy
+$ npm run deploy
 ```
 
 ## Related projects
@@ -70,6 +65,8 @@ $ npm run lint
 - ~~接入Sentry~~ (2018.02.08)
 
 - ~~v2 改版~~ (2018.02.23)
+
+- 移动端支持
 
 - 移动端支持
 
