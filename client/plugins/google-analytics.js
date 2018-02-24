@@ -1,14 +1,13 @@
 /**
  * @desc Google Analytics
- * @author Jooger <zzy1198258955@163.com>
- * @date 23 Sep 2017
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 27 Dec 2017
  */
 
-export default ({
-  app,
-  isClient
-}) => {
-  if (process.env.NODE_ENV === 'production' && isClient) {
+'use strict'
+
+export default ({ app }) => {
+  if (process.env.NODE_ENV === 'production' && process.client) {
     // Google 统计分析脚本
     (function (i, s, o, g, r, a, m) {
       i['GoogleAnalyticsObject'] = r

@@ -1,0 +1,30 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.app-tool {
+  position fixed
+  right 150px
+  bottom 100px
+  z-index 10001
+
+  .share-item
+  .tool-item {
+    display block
+    width 36px
+    height @width
+    line-height @width
+    text-align center
+    background alpha($white, .8)
+    cursor pointer
+    transition all $animation-duration-slow $ease
+
+    &:hover {
+      background $base-color
+      color $white
+    }
+  }
+
+  .share-list {
+    margin-bottom 12px
+  }
+}

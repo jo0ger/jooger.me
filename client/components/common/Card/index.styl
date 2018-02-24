@@ -1,0 +1,57 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.card {
+  position relative
+  margin-bottom 12px
+  padding 0 16px
+  background alpha($white, .7)
+
+  &.card-bordered {
+    border 1px solid $border-color-3
+  }
+  
+  &-header {
+    padding 12px 0 6px
+    border-bottom 1px solid $border-color-4
+    font-weight 700
+
+    .icon {
+      margin-right 4px
+      color $grey-5
+      font-weight normal
+    }
+
+    .info-header {
+      margin-bottom 10px
+      text-align center
+      .icon {
+        color $grey-6
+        font-size 42px
+        font-weight 400
+      }
+
+      .keyword {
+        font-size $font-size-lger
+        color $keyword-color
+        letter-spacing 1px
+      }
+
+      .count {
+        font-weight 400
+        color $text-color-secondary
+        font-size $font-size-sm
+
+        .num {
+          margin 0 6px
+          color $keyword-color
+          font-weight 700
+        }
+      }
+    }
+  }
+
+  &-body {
+    padding 12px 0
+  }
+}

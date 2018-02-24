@@ -1,0 +1,32 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.widget-tags {
+
+  .tag-list {
+    max-height calc(100vh - 165px)
+    overflow auto
+    .tag-item {
+      display inline-block
+      margin 0 8px 8px 0
+      padding 4px 8px
+      background-color $grey
+      font-size $font-size-sm
+      border-radius 2px
+
+      .icon {
+        margin-right 4px
+        font-size $font-size-sm
+      }
+
+      .name {
+        margin-right 4px
+      }
+
+      &:hover {
+        background-color $base-color
+        color $white
+      }
+    }
+  }
+}

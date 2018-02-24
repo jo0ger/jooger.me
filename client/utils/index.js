@@ -1,12 +1,13 @@
 /**
- * @desc Utils entry
- * @author Jooger <zzy1198258955@163.com>
- * @date 8 Sep 2017
+ * @desc Utils entrance
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 27 Dec 2017
  */
 
+'use strict'
+
 export * from './tool'
-export * from './scrollTo'
-export * from './ua'
 export * from './storage'
-export * from './query'
-export * from './ua-parse'
+export * from './validate'
+export * from './dom'
+export * from './comment-meta-parse'

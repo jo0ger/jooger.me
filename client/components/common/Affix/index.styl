@@ -1,0 +1,10 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.affix {
+  &.is-fixed {
+    position fixed
+    z-index 100
+    max-height calc(100% - 100px)
+  }
+}

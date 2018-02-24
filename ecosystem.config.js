@@ -1,8 +1,10 @@
 /**
  * @desc PM2 deploy
- * @author Jooger <zzy1198258955@163.com>
- * @date 19 Sep 2017
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 20 Dec 2017
  */
+
+'use strict'
 
 const packageInfo = require('./package.json')
 

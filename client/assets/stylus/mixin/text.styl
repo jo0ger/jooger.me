@@ -1,0 +1,12 @@
+textOverflow() {
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
+}
+
+lineLimit(line = 2) {
+  display -webkit-box
+  overflow hidden
+  -webkit-line-clamp line
+  -webkit-box-orient vertical
+}

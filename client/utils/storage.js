@@ -1,23 +1,31 @@
 /**
  * @desc Local storage
- * @author Jooger <zzy1198258955@163.com>
- * @date 24 Oct 2017
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 27 Dec 2017
  */
 
 'use strict'
 
-import { isType } from './tool'
+import { isType } from './validate'
 
-function checkString (value) {
+function checkValue (value) {
   return isType(value, 'String') ? value : JSON.stringify(value || {})
 }
 
 export const setSessionStorageItem = (key = '', value = '') => {
-  key && window.sessionStorage.setItem(key, checkString(value))
+  key && window.sessionStorage.setItem(key, checkValue(value))
 }
 
-export const getSessionStorageItem = (key = '') => {
-  return key && window.sessionStorage.getItem(key)
+export const getSessionStorageItem = (key = '', format = false) => {
+  let res = window.sessionStorage.getItem(key)
+  if (format) {
+    try {
+      res = JSON.parse(res)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+  return res
 }
 
 export const removeSessionStorageItem = (key = '') => {
@@ -25,11 +33,19 @@ export const removeSessionStorageItem = (key = '') => {
 }
 
 export const setLocalStorageItem = (key = '', value = '') => {
-  key && window.localStorage.setItem(key, checkString(value))
+  key && window.localStorage.setItem(key, checkValue(value))
 }
 
-export const getLocalStorageItem = (key = '') => {
-  return key && window.localStorage.getItem(key)
+export const getLocalStorageItem = (key = '', format = false) => {
+  let res = window.localStorage.getItem(key)
+  if (format) {
+    try {
+      res = JSON.parse(res)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+  return res
 }
 
 export const removeLocalStorageItem = (key = '') => {

@@ -1,10 +1,12 @@
 /**
- * @desc Option store module
- * @author Jooger <zzy1198258955@163.com>
- * @date 21 Sep 2017
+ * @desc 站点配置
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 27 Dec 2017
  */
 
-import Service from '~/service'
+'use strict'
+
+import { api } from '@/services'
 
 const FETCH_OPTION_REQUEST = 'FETCH_OPTION_REQUEST'
 const FETCH_OPTION_SUCCESS = 'FETCH_OPTION_SUCCESS'
@@ -34,7 +36,7 @@ export const actions = {
       return
     }
     commit(FETCH_OPTION_REQUEST)
-    const { success, data } = await Service.option.fetchData().catch(err => ((commit(FETCH_OPTION_FAILURE, err), {})))
+    const { success, data } = await api.option.data().catch(err => ((commit(FETCH_OPTION_FAILURE, err), {})))
     if (success) {
       commit(FETCH_OPTION_SUCCESS, data)
     } else {

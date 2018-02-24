@@ -1,0 +1,182 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.app-header {
+  position fixed
+  top 0
+  left 0
+  right 0
+  z-index $z-index-header
+  background $white
+  // box-shadow 0 2px 4px 0 alpha($black, .16)
+
+  .container {
+    position relative
+    width $main-width
+    height $header-height
+    margin 0 auto
+
+    & > * {
+      display inline-block
+      vertical-align top
+      height $header-height
+      line-height $header-height
+    }
+  }
+
+  .nav {
+    &-logo {
+      margin-right 30px
+      color $base-color
+      img {
+        height 36px
+      }
+    }
+
+    &-menus {
+      position relative
+      .menu-item {
+        display inline-block
+        padding 18px 24px
+        line-height 22px
+        color $text-color
+
+        &:hover {
+          color $base-color
+        }
+
+        &.active {
+          color $base-color
+          font-weight 700
+        }
+      }
+
+      .corner {
+        position absolute
+        bottom 0
+        left 0
+        height 1px
+        width 0
+        background-color $base-color
+        transition all $animation-duration-slow $ease
+        z-index -1
+      }
+    }
+
+    &-action {
+      float right
+      flexLayout(, flex-start)
+      color $text-color-secondary
+
+      .action-item {
+        > .icon {
+          display inline-block
+          width $header-height
+          height @width
+          text-align center
+          cursor pointer
+          transition all $animation-duration-slow $ease
+
+          &:hover {
+            color $text-color  
+          }
+        }
+      }
+
+      .music {
+        flexLayout(column, , flex-start)
+        position relative
+        width 200px
+        height $header-height
+        line-height 1
+        padding 10px
+        color $text-color-secondary
+        opacity .2
+        font-size $font-size-sm
+        transition all $animation-duration-slow $ease
+
+        .control
+        .name {
+          flex 1 0
+          width 100%
+        }
+        .control {
+          flexLayout(, flex-start, center)
+
+          &-item {
+            display inline-block
+            margin-right 16px
+          }
+          .icon {
+            font-size $font-size-sm
+          }
+        }
+
+        .name {
+          line-height 1.53
+          textOverflow()
+        }
+
+        &:hover {
+          opacity 1
+        }
+      }
+      
+      .search {
+        position relative
+        width $header-height
+        height @width
+        transition all $animation-duration-slow $ease
+
+        &-input {
+          width 100%
+          height 100%
+          padding 0 $header-height 0 0
+          border 0
+          background none
+          color $white
+          transition all $animation-duration-slow $ease
+        }
+
+        .icon {
+          position absolute
+          top 0
+          right 0
+          width $header-height
+          height @width
+        }
+
+        ::-webkit-input-placeholder {
+          color $text-color-secondary-dark
+        }
+
+        :-moz-placeholder {
+          color $text-color-secondary-dark
+        }
+
+        ::-moz-placeholder {
+          color $text-color-secondary-dark
+        }
+
+        :-ms-input-placeholder {
+          color $text-color-secondary-dark
+        }
+
+        &.opened {
+          width 260px
+          background-color $base-color
+
+          .search-input {
+            padding-left 20px
+          }
+
+          .icon {
+            color $text-color-secondary-dark
+          }
+        }
+      }
+
+    }
+  }
+
+}

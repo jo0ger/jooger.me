@@ -1,0 +1,126 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.comment-item {
+  position relative
+  padding 20px 0
+  border-bottom 1px dashed $border-color-3
+
+  .header {
+    flexLayout(, space-between)
+    font-size $font-size-sm
+
+    .user-info {
+      flexLayout(, flex-start, center)
+      .author {
+        flexLayout(, flex-start, center)
+        .avatar {
+          display inline-block
+          width 26px
+          height @width
+          margin-right 10px
+          border-radius 100%
+          border 1px solid $border-color
+
+          img {
+            width 100%
+            height @width
+            border-radius 100%
+          }
+        }
+
+        &.no-site {
+          cursor default
+        }
+      }
+
+      .reply {
+        .text {
+          margin 0 10px
+          color $text-color-secondary
+        }
+        .name {
+          text-decoration underline
+        }
+      }
+
+      .name {
+        font-weight 700
+        font-size $font-size-base
+      }
+    }
+
+    .meta {
+      color $disabled-color
+
+      > span {
+        margin-left 10px
+      }
+
+      .icon {
+        font-size $font-size-sm
+        margin-right 4px
+      }
+    }
+  }
+
+  .content {
+    margin 6px 0 10px
+  }
+
+  .status {
+    &-item {
+      display inline-block
+      margin-right 20px
+      padding 3px 6px
+      border-radius 2px
+      font-size $font-size-sm
+      color $text-color-secondary
+
+      .icon {
+        margin-right 6px
+        font-size $font-size-sm
+      }
+
+      &:hover {
+        opacity .8
+      }
+    }
+
+    .like {
+      background-color alpha($like-color, .2)
+      color $like-color
+
+      &.liked {
+        background-color alpha($like-color-liked, .2)
+        color $like-color-liked
+        font-weight 700
+
+        &:hover {
+          background-color alpha($like-color-liked, .4)
+        }
+      }
+
+      &.liking {
+        opacity .6
+        cursor not-allowed
+      }
+
+      &:hover {
+        background-color alpha($like-color, .4)
+      }
+    }
+    .subcomments {
+      color $text-color
+
+      .icon {
+        margin-right 2px
+      }
+    }
+
+    .time {
+      float right
+      margin-right 0
+    }
+  }
+}

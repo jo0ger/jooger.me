@@ -1,94 +1,87 @@
 <template>
-  <div class="app">
-    <div class="app-main">
-      <keep-alive>
-        <LayoutHero type="error"></LayoutHero>
-      </keep-alive>
-      <main class="container">
-        <div class="wrapper">
-          <div class="hero-content">
-            <h1 class="title">{{ error.statusCode }}</h1>
-            <h3 class="subtitle">{{ error.message }}</h3>
-            <nuxt-link class="go-home btn normal-btn" to="/">Go Home</nuxt-link>
-          </div>
-        </div>
-      </main>
+  <div class="page-error">
+    <AppBackground />
+    <div class="error-content">
+      <h1 class="error-code">{{ statusCode }}</h1>
+      <div class="error-wrapper-message">
+        <h3 class="error-message">{{ message }}</h3>
+      </div>
+      <nuxt-link class="error-link" to="/">返回首页</nuxt-link>
     </div>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import { LayoutHeader, LayoutHero, LayoutOverlay } from '~/components/Layout'
+  import { AppBackground } from '@/components/layout'
 
   export default {
-    name: 'Error',
+    name: 'nuxt-error',
+    layout: 'empty',
     components: {
-      LayoutHeader,
-      LayoutHero,
-      LayoutOverlay
+      AppBackground
     },
     props: ['error'],
     head () {
-      let classes = ''
-      if (this.mobileLayout) {
-        classes += 'is-mobile'
-        if (this.mobileSidebar) {
-          classes += ' show-sidebar'
-        }
-      }
       return {
-        bodyAttrs: {
-          class: classes + ' dark-page'
-        }
+        title: this.message,
+        meta: [
+          {
+            name: 'viewport',
+            content: 'width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no'
+          }
+        ]
       }
     },
     computed: {
-      ...mapGetters({
-        mobileLayout: 'app/mobileLayout',
-        mobileSidebar: 'app/mobileSidebar'
-      })
+      statusCode () {
+        return (this.error && this.error.statusCode) || 500
+      },
+      message () {
+        return this.error.message || 'Page not found'
+      }
     }
   }
 </script>
 
-<style lang="stylus" scoped>
-  @import '~assets/stylus/_var'
-  @import '~assets/stylus/_mixin'
+<style lang="stylus">
+  @import '~@/assets/stylus/var/index'
+  @import '~@/assets/stylus/mixin/index'
 
-  .app {
+  .page-error {
+    full()
+    padding 32px 0
+    overflow hidden
+    text-align center
+    .error-content {
+      position absolute
+      top 50%
+      left 50%
+      transform translate3d(-50%, -50%, 0)
+      text-shadow 0 1px 10px $text-color-secondary
 
-    .container {
-      position relative
-      width 100%
-      max-width $content-max-width
-      margin 0 auto
-      padding-bottom 100px
-      z-index 1
+      .error-code {
+        font-size 9rem
+      }
 
-      .wrapper {
-        width 100%
-        layout-wrapper()
+      .error-message {
+        margin 50px 0
+      }
 
-        .hero-content {
-          top 50vh
-          text-align center
+      .error-link {
+        padding 6px 32px
+        border-radius 2px
+        border 1px solid $text-color-secondary
+        text-shadow none
+        transition all $animation-duration-slow $ease-in-out
 
-          .subtitle {
-            text-transform initial
-          }
-
-          .go-home {
-            margin-top 4rem
-
-            &:hover
-            &:active {
-              font-weight normal
-            }
-          }
+        &:hover {
+          padding 6px 48px
+          background $base-color
+          color $white
+          border-color @background
+          font-weight 700
         }
       }
     }
   }
-
 </style>

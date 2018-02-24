@@ -1,22 +1,19 @@
 /**
- * @desc tool
- * @author Jooger <zzy1198258955@163.com>
- * @date 8 Sep 2017
+ * @desc Tool
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 27 Dec 2017
  */
 
-/**
- * 类型检测
- * @param {*} obj 检测对象
- * @param {String | Array[String]} type 类型（数组）
- */
-export const isType = (obj = {}, type = 'Object') => {
-  if (!Array.isArray(type)) {
-    type = [type]
+'use strict'
+
+export const noop = function () {}
+
+export const isEmptyObject = (obj = {}) => {
+  for (let key in obj) {
+    return !1
   }
-  return type.some(t => Object.prototype.toString.call(obj) === `[object ${t}]`)
+  return !0
 }
-
-export const isVideoType = (url = '') => /\w+(.flv|.rvmb|.mp4|.avi|.wmv)$/.test(url)
 
 /**
  * 防抖函数，适用于输入框input的检索，屏幕的拖拽等
@@ -37,6 +34,7 @@ export const debounce = (fn, delta = 0, immediate = false) => {
       clearTimeout(timer)
       timer = setTimeout(() => {
         can = true
+        fn.call(this, ...arguments)
       }, parseInt(delta))
     } else {
       clearTimeout(timer)
@@ -101,27 +99,46 @@ export const fmtDateFromNow = ms => {
   return result
 }
 
-// 获取target的scroll top
-export const getScroll = (target, top) => {
-  const prop = top ? 'pageYOffset' : 'pageXOffset'
-  let ret = target[prop]
-  if (typeof ret !== 'number') {
-    ret = window.document.documentElement[top ? 'scrollTop' : 'scrollLeft']
+/**
+ * Deep Copy
+ * @param {Object | Array} out
+ * @return {Object | Array} out
+ * @usage deepCopy({}[, obj, obj2, ...]) | deepCopy([][, arr1, arr2, ...])
+ */
+export const deepCopy = function (out = {}) {
+  for (let i = 1; i < arguments.length; i++) {
+    const obj = arguments[i]
+
+    if (!obj) {
+      continue
+    }
+
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        if (typeof obj[key] === 'object') {
+          out[key] = Array.isArray(obj[key]) ? [] : {}
+          deepCopy(out[key], obj[key])
+        } else {
+          out[key] = obj[key]
+        }
+      }
+    }
   }
-  return ret
+  return out
 }
 
-// 获取element的offset
-export const getOffset = element => {
-  const rect = element.getBoundingClientRect()
-  const scrollTop = getScroll(window, true)
-  const scrollLeft = getScroll(window)
-  const docElem = window.document.body
-  const clientTop = docElem.clientTop || 0
-  const clientLeft = docElem.clientLeft || 0
-
-  return {
-    top: rect.top + scrollTop - clientTop,
-    left: rect.left + scrollLeft - clientLeft
-  }
+export const fileToBase64 = (file = null) => {
+  return new Promise((resolve, reject) => {
+    if (!file || !(file instanceof File) || !FileReader) return ''
+    let reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onerror = err => {
+      reject(err)
+      reader = null
+    }
+    reader.onload = function (e) {
+      resolve(this.result)
+      reader = null
+    }
+  })
 }

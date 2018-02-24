@@ -1,0 +1,28 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.tag {
+  display inline-block
+  margin 0 8px 8px 0
+  padding 4px 8px
+  border 1px solid $border-color
+  font-size $font-size-sm
+  border-radius 2px
+  transition all $animation-duration-slow $ease
+
+  .icon {
+    margin-right 4px
+    font-size $font-size-sm
+  }
+
+  .name {
+    margin-right 4px
+  }
+
+  &:hover {
+    background-color $base-color
+    border-color $base-color
+    color alpha($white, .8)
+    font-weight 700
+  }
+}

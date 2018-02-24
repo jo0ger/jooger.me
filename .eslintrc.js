@@ -3,7 +3,8 @@ module.exports = {
   parser: 'babel-eslint',
   env: {
     browser: true,
-    node: true
+    node: true,
+    es6: true
   },
   extends: 'standard',
   // required to lint *.vue files
@@ -12,11 +13,11 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-    strict: [0, "global"]
+    'no-sequences': 0
   },
   globals: {
-    logger: true,
-    Clipboard: true,
-    openWindow: true
+    window: true,
+    Raven: true,
+    particlesJS: true
   }
 }

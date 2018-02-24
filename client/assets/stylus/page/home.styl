@@ -1,0 +1,51 @@
+$tab-height     = 45px
+
+.page-home {
+  .category-tabs {
+    position fixed
+    top $header-height-mobile
+    right 0
+    left 0
+    height $tab-height
+    line-height @height
+    z-index $z-index-header
+    background-color $white
+    border-bottom 1px solid $border-color-4
+
+    .corner {
+      position absolute
+      height 3px
+      bottom 0
+      background $base-color
+      transition all .3s $ease
+      .bar {
+        
+      }
+    }
+
+    .tab-item {
+      padding 0 12px
+      text-align center
+      color $grey-7
+
+      &:last-child {
+        margin 0
+      }
+
+      &.active {
+        color $base-color
+        font-weight 700
+      }
+    }
+  }
+
+  html.mobile & {
+    .home-widget {
+      padding-top $tab-height
+    }
+  }
+
+  .tab-pages {
+    padding-top $tab-height
+  }
+}
