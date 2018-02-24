@@ -1,623 +1,109 @@
-  <template>
-  <section class="about-page">
-    <div class="block">
-      <a class="avatar" v-if="me.avatar">
-        <img :src="me.avatar" alt="">
-      </a>
-      <ul class="contact-list" v-if="option.contact && option.contact.length">
-        <li class="contact-item" v-for="item in option.contact" :key="item.title">
-          <a class="info" :href="item.url" target="_blank" rel="noopener">
-            <i class="icon iconfont" :class="[`icon-${item.icon}`]"></i>
+<template>
+  <div class="page-about">
+    <Card class="hero">
+      <div class="hero-bg"></div>
+      <div class="info">
+        <img :src="blogger.avatar" alt="" class="avatar">
+        <h2 class="name">{{ blogger.name }}</h2>
+        <h4 class="slogan">{{ blogger.slogan }}</h4>
+        <div class="social-list">
+          <a :href="social.url" class="social-item" target="_blank" rel="noopener"
+            :class="[`social-${social.icon}`]"
+            v-for="social in socials"
+            :key="social.icon"
+            :title="social.title">
+            <i class="icon" :class="[`icon-${social.icon}`]"></i>
           </a>
-        </li>
-      </ul>
-      <a href="https://resume.jooger.me" class="resume btn" target="_blank" rel="noopener">
-        我的简历
-      </a>
+        </div>
+      </div>
+    </Card>
+    <div class="content">
+      <div class="wrapper">
+        <Card class="info-widget">
+          <ul class="info-list">
+            <li class="info-item user">
+              <div class="label">
+                <i class="icon icon-logo"></i>
+              </div>
+              <p class="title">{{ option.welcome }}</p>
+            </li>
+            <li class="info-item about">
+              <div class="label">
+                <i class="icon icon-about-fill"></i>
+              </div>
+              <p class="title">{{ option.description }}</p>
+            </li>
+            <li class="info-item skill">
+              <div class="label">
+                <i class="icon icon-skill"></i>
+              </div>
+              <p class="title">{{ option.skill }}</p>
+            </li>
+            <li class="info-item like">
+              <div class="label">
+                <i class="icon icon-like-fill"></i>
+              </div>
+              <p class="title">{{ option.hobby }}</p>
+            </li>
+            <li class="info-item music">
+              <div class="label">
+                <i class="icon icon-music"></i>
+              </div>
+              <p class="title">{{ option.music }}</p>
+            </li>
+            <li class="info-item location">
+              <div class="label">
+                <i class="icon icon-location"></i>
+              </div>
+              <p class="title">{{ option.location }}</p>
+            </li>
+            <li class="info-item company">
+              <div class="label">
+                <i class="icon icon-company"></i>
+              </div>
+              <p class="title">{{ option.company }}</p>
+            </li>
+          </ul>
+        </Card>
+        <Card class="location-widget">
+          <iframe src="https://jooger.me/location/" frameborder="0"></iframe>
+        </Card>
+      </div>
     </div>
-    <div class="block" v-if="option.welcome">
-      <h3>Welcome</h3>
-      <hr>
-      <p>{{ option.welcome }}</p>
-    </div>
-    <div class="block">
-      <h3>About</h3>
-      <hr>
-      <p v-for="item in option.description" :key="item">
-        {{ item }}
-        <br>
-      </p>
-    </div>
-    <div class="block" v-if="option.hobby && option.hobby.length">
-      <h3>Hobbies</h3>
-      <hr>
-      <ul class="hobby-list">
-        <li class="hobby-item" v-for="item in option.hobby" :key="item.name">
-          <a class="info" :title="item.name">
-            <i class="icon iconfont" :class="[`icon-${item.icon}`]"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="block" v-if="option.experience && option.experience.length">
-      <h3>Experiences</h3>
-      <hr>
-      <ul class="experience-list">
-        <li class="experience-item" v-for="item in option.experience" :key="item.time">
-          <time class="time">{{ item.time }}</time>
-          <div class="content">
-            <p class="title">{{ item.title }}</p>
-            <p class="subtitle" v-if="item.subtitle">{{ item.subtitle }}</p>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="block" v-if="option.skill && option.skill.length">
-      <h3>Skills</h3>
-      <hr>
-      <ul class="skill-list">
-        <li class="skill-item" v-for="item in option.skill" :key="item.title">
-          <a class="info">
-            <i class="icon iconfont" :class="[`icon-${item.icon}`]"></i>
-            <span class="level">{{ item.level }}%</span>
-            <div class="wave" :class="[`wave-${item.level}`]"></div>
-          </a>
-          <p class="title">{{ item.title }}</p>
-        </li>
-      </ul>
-    </div>
-    <div class="block" v-if="option.links && option.links.length">
-      <h3>Friends</h3>
-      <hr>
-      <ul class="friend-list">
-        <li class="friend-item" v-for="item in option.links" :key="item.name">
-          <a class="info" :href="item.site" :name="item.name + '-avatar'" target="_blank" rel="noopener">
-            <div class="avatar">
-              <img :src="item.avatar" :alt="item.name">
-            </div>
-            <div class="content">
-              <h3 class="name">{{ item.name }}</h3>
-              <p class="slogan">{{ item.slogan }}</p>
-            </div>
-          </span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </section>
+  </div>
 </template>
-
 <script>
   import { mapGetters } from 'vuex'
+  import { Card, Comment } from '@/components/common'
+  import config from '@@/app.config'
 
   export default {
     name: 'About',
-    head: {
-      title: 'About',
-      bodyAttrs: {
-        class: 'dark-page'
+    components: {
+      Card,
+      Comment
+    },
+    layout ({ store }) {
+      return store.getters['app/mobileLayout'] ? 'mobile' : 'default'
+    },
+    head () {
+      return {
+        title: 'About',
+        bodyAttrs: {
+          class: 'full-page'
+        }
       }
     },
-    async fetch () {
-      await new Promise((resolve) => setTimeout(() => resolve(), 500))
+    data () {
+      return {
+        socials: config.constant.socials
+      }
     },
     computed: {
       ...mapGetters({
-        me: 'me/me',
+        blogger: 'user/blogger',
         option: 'option/option'
       })
     }
   }
 </script>
-
-<style lang="stylus" scoped>
-  @import '~assets/stylus/_var'
-  @import '~assets/stylus/_mixin'
-
-  .about-page {
-    position relative
-    padding 80px 0 0
-    text-align center
-
-    h1, h2, h3, h4, h5, p {
-      color $white
-    }
-
-    h1, h2, h3, h4, h5 {
-      margin-bottom 10px
-    }
-
-    p {
-      letter-spacing .2px
-    }
-
-    .block {
-      max-width 60%
-      margin 0 auto 80px
-      text-align center
-
-      +sm() {
-        max-width 70%
-      }
-
-      +xs() {
-        max-width 80%
-      }
-
-      +xxs() {
-        max-width 90%
-      }
-
-      & > h3 {
-        text-transform uppercase
-      }
-
-      .avatar {
-        position relative
-        display inline-block
-        width 100px
-        height @width
-        margin-bottom 30px
-        border-radius 100%
-        text-align center
-        overflow hidden
-        cursor default
-        box-shadow 0 0 0 2px alpha($white, .5), 0px 2px 20px 3px alpha($black, .25)
-
-        img {
-          width 100%
-          height @width
-          transition transform .3s $ease
-        }
-
-        &:hover {
-          img {
-            transform scale(1.2)
-          }
-        }
-      }
-
-      .resume {
-        margin-top 2rem
-        padding .5rem 1.5rem
-        border-radius 10rem
-        background alpha($white, .69)
-        color $dark
-
-        &:hover {
-          background $white
-        }
-      }
-
-      hr {
-        display block
-        height 2px
-        border none
-        width 45px
-        background alpha($white, .2)
-        margin 15px auto 30px
-      }
-
-      .hobby-list {
-        flexLayout()
-
-        .hobby-item {
-
-          .info {
-            position relative
-            display inline-block
-            width 48px
-            height @width
-            margin 0 10px
-            background alpha($white, .1)
-            border-radius 100%
-            overflow hidden
-
-            .icon  {
-              position absolute
-              top 50%
-              left 50%
-              opacity 1
-              font-size 1.3rem
-              transform translate(-50%, -50%)
-              transition all .3s $ease
-            }
-
-
-            &:hover
-            &:active {
-              background alpha($white, .2)
-              transform scale(.9)
-            }
-
-            +sm() {
-              width 44px
-              height @width
-              .icon {
-                font-size 1.2rem
-              }
-            }
-
-            +xs() {
-              width 40px
-              height @width
-              .icon {
-                font-size 1.1rem
-              }
-            }
-
-            +xxs() {
-              width 36px
-              height @width
-              margin 0 5px
-              .icon {
-                font-size 1rem
-              }
-            }
-          }
-        }
-      }
-
-      .experience-list {
-        padding-left 25%
-
-        +sm() {
-          padding-left 20%
-        }
-
-        +xs() {
-          padding-left 15%
-        }
-
-        +xxs() {
-          padding-left 0
-        }
-
-        .experience-item {
-          flexLayout(, flex-start, flex-start)
-          margin-bottom 15px
-
-          p {
-            margin-bottom 0
-          }
-
-          .time {
-            flex 0 0 100px
-            width 100px
-          }
-
-          .content {
-            text-align left
-            
-            .subtitle {
-              font-size .8rem
-              color $text-color-secondary-dark
-            }
-          }
-
-        }
-      }
-
-      .skill-list {
-        flexLayout()
-
-        .skill-item {
-
-          .info {
-            position relative
-            display inline-block
-            width 100px
-            height @width
-            margin 0 20px
-            background alpha($white, .1)
-            border-radius 10px
-            overflow hidden
-
-            .icon
-            .level {
-              position absolute
-              top 50%
-              left 50%
-              opacity 1
-              transform translate(-50%, -50%) scale(1)
-              transition all .3s $ease
-            }
-
-            .icon {
-              font-size 2rem
-            }
-
-            .level {
-              line-height 1
-              opacity 0
-              transform translate(-50%, -50%) scale(0)
-            }
-
-            .wave {
-              position absolute
-              width 100%
-              height @width
-              transform translateY(100%)
-              transition all .3s $ease
-
-              &::before,
-              &::after{
-                content ""
-                position absolute
-                width 300px
-                height @width
-                top 0
-                left 50%
-                background-color alpha($white, .05)
-                border-radius 45%
-                transform translate(-50%, -100%) rotate(0)
-                z-index 10
-                opacity 0
-                transition all .3s $ease
-              }
-              
-              &::after {
-                border-radius 43%
-                background-color alpha($white, .1)
-                transform translate(-50%, -100%) rotate(0)
-                z-index 20
-              }
-
-              for n in 10 20 30 40 50 60 70 80 90 100 {
-                &.wave-{n} {
-                  &::before
-                  &::after {
-                    transform translate(-50%, -(65 + 35 / 100 * n)%) rotate(0)
-                  }
-                }
-              }
-            }
-
-            &:hover
-            &:active {
-              background alpha($white, .2)
-
-              .icon {
-                opacity 0
-                transform translate(-50%, -50%) scale(0)
-              }
-
-              .level {
-                opacity 1
-                transform translate(-50%, -50%) scale(1)
-              }
-
-              .wave {
-                transform translateY(0)
-
-                for n in 10 20 30 40 50 60 70 80 90 100 {
-                  &.wave-{n} {
-                    &::before {
-                      animation 'rotate-%s 6s linear infinite' % n
-                    }
-
-                    &::after {
-                      animation 'rotate-%s 10s linear -5s infinite' % n
-                    }
-                  }
-                }
-
-                &::before
-                &::after { 
-                  opacity 1
-                }
-              }
-            }
-          }
-
-          .title {
-            margin 10px 0 0
-            line-height 1
-          }
-
-          +sm() {
-
-            .info {
-              width 80px
-              height @width
-              margin 0 15px
-              .icon {
-                font-size 1.8rem
-              }
-
-              .wave {
-                &::before,
-                &::after{
-                  width 240px
-                  height @width
-                }
-              }
-            }
-
-            .title {
-              font-size 1rem
-            }
-          }
-
-          +xs() {
-
-            .info {
-              width 65px
-              height @width
-              margin 0 10px
-              .icon {
-                font-size 1.6rem
-              }
-
-              .wave {
-                &::before,
-                &::after{
-                  width 195px
-                  height @width
-                }
-              }
-            }
-
-            .title {
-              font-size 0.9rem
-            }
-          }
-
-          +xxs() {
-
-            .info {
-              width 50px
-              height @width
-              margin 0 5px
-              .icon {
-                font-size 1.4rem
-              }
-
-              .wave {
-                &::before,
-                &::after{
-                  width 150px
-                  height @width
-                }
-              }
-            }
-
-            .title {
-              font-size .8rem
-            }
-          }
-        }
-        
-      }
-
-      .contact-list {
-        flexLayout()
-
-        .contact-item {
-
-          .info {
-            position relative
-            display inline-block
-            width 48px
-            height @width
-            margin 0 10px
-            background alpha($white, .1)
-            border-radius 100%
-            overflow hidden
-
-            .icon  {
-              position absolute
-              top 50%
-              left 50%
-              opacity 1
-              font-size 1.3rem
-              transform translate(-50%, -50%)
-              transition all .3s $ease
-            }
-
-
-            &:hover
-            &:active {
-              background alpha($white, .2)
-              transform scale(.9)
-            }
-
-            +sm() {
-              width 44px
-              height @width
-              .icon {
-                font-size 1.2rem
-              }
-            }
-
-            +xs() {
-              width 40px
-              height @width
-              .icon {
-                font-size 1.1rem
-              }
-            }
-
-            +xxs() {
-              width 36px
-              height @width
-              margin 0 5px
-              .icon {
-                font-size 1rem
-              }
-            }
-          }
-        }
-      }
-
-      .friend-list {
-        flexLayout(,, flex-start, wrap)
-
-        .friend-item {
-          flex 0 0 auto
-          display inline-block
-          margin-bottom 30px
-
-          .info {
-            display block
-            margin 0 20px
-
-            .avatar {
-              position relative
-              width 50px
-              height @width
-              cursor pointer
-            }
-            .content {
-              .name {
-                margin-bottom 5px
-                font-size 1rem
-              }
-
-              .slogan {
-                margin-bottom 0
-                font-size .8rem
-                color $text-color-secondary-dark
-              }
-            }
-          }
-        }
-        +xxs() {
-          padding 0 30px
-          .friend-item {
-            width 100%
-            .info {
-              flexLayout(, flex-start, flex-start)
-              .avatar {
-                flex 0 0 30px
-                width 30px
-                height @width
-                margin-top 5px
-              }
-              .content {
-                margin-left 15px
-                text-align left
-
-                .name {
-                  font-size .9rem
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-  }
-
-  for n in 10 20 30 40 50 60 70 80 90 100 {
-    @keyframes rotate-{n} {
-      50% {
-        transform translate(-50%, -(3 + 65 + 35 / 100 * n)%) rotate(180deg)
-      } 100% {
-        transform translate(-50%, -(65 + 35 / 100 * n)%) rotate(360deg)
-      }
-    }
-  }
-
-</style>

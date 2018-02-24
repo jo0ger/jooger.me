@@ -1,0 +1,188 @@
+.gutter pre {
+  color: #999;
+}
+pre {
+  color: #525252;
+}
+pre .function .keyword,
+pre .constant {
+  color: $blue;
+}
+pre .keyword,
+pre .attribute {
+  color: $orange;
+}
+pre .params {
+  color $purple
+}
+pre .number,
+pre .literal {
+  color: #ae81ff;
+}
+pre .tag,
+pre .tag .title,
+pre .change,
+pre .winutils,
+pre .flow,
+pre .lisp .title,
+pre .clojure .built_in,
+pre .nginx .title,
+pre .tex .special {
+  color: $blue;
+}
+pre .class .title {
+  color: $blue;
+}
+pre .symbol,
+pre .symbol .string,
+pre .value,
+pre .regexp {
+  color: $green;
+}
+pre .title {
+  color: $base-color;
+}
+pre .tag .value,
+pre .string,
+pre .subst,
+pre .haskell .type,
+pre .preprocessor,
+pre .ruby .class .parent,
+pre .built_in,
+pre .sql .aggregate,
+pre .django .template_tag,
+pre .django .variable,
+pre .smalltalk .class,
+pre .javadoc,
+pre .django .filter .argument,
+pre .smalltalk .localvars,
+pre .smalltalk .array,
+pre .attr_selector,
+pre .pseudo,
+pre .addition,
+pre .stream,
+pre .envvar,
+pre .apache .tag,
+pre .apache .cbracket,
+pre .tex .command,
+pre .prompt {
+  color: #42b983;
+}
+pre .comment,
+pre .java .annotation,
+pre .python .decorator,
+pre .template_comment,
+pre .pi,
+pre .doctype,
+pre .deletion,
+pre .shebang,
+pre .apache .sqbracket,
+pre .tex .formula {
+  color: #b3b3b3;
+}
+pre .coffeescript .javascript,
+pre .javascript .xml,
+pre .tex .formula,
+pre .xml .javascript,
+pre .xml .vbscript,
+pre .xml .css,
+pre .xml .cdata {
+  opacity: 0.5;
+}
+
+pre {
+  position: relative;
+  background-color: #f8f8f8;
+  padding: 0.8em 0.8em 0.4em;
+  line-height: 1.1em;
+  border-radius: 4px;
+}
+pre code {
+  overflow-x: auto;
+  display: block;
+  padding: 1.2em 1.4em;
+  line-height: 1.5em;
+  margin: 0;
+  color: #4d4d4c;
+  border-radius: 0;
+  white-space: pre;
+}
+pre code.lang-cpp:after,
+pre code.lang-java:after,
+pre code.lang-c:after,
+pre code.lang-cs:after,
+pre code.lang-js:after,
+pre code.lang-javascript:after,
+pre code.lang-jsx:after,
+pre code.lang-bash:after,
+pre code.lang-html:after,
+pre code.lang-css:after,
+pre code.lang-py:after,
+pre code.lang-rb:after,
+pre code.lang-swift:after,
+pre code.lang-go:after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: right;
+  font-size: .75rem;
+  font-family: $font-family-code;
+  padding: 2px 10px;
+  height: 1rem;
+  line-height: @height;
+  color: $text-color-secondary;
+}
+pre code.lang-cpp:after {
+  content: 'C++';
+}
+pre code.lang-java:after {
+  content: 'Java';
+}
+pre code.lang-c:after {
+  content: 'C';
+}
+pre code.lang-cs:after {
+  content: 'C#';
+}
+pre code.lang-html:after {
+  content: 'Html';
+}
+pre code.lang-css:after {
+  content: 'Css';
+}
+pre code.lang-js:after
+pre code.lang-javascript:after {
+  content: 'JavaScript';
+}
+pre code.lang-jsx:after {
+  content: 'Jsx';
+}
+pre code.lang-bash:after {
+  content: 'Bash';
+}
+pre code.lang-py:after {
+  content: 'Python';
+}
+pre code.lang-rb:after {
+  content: 'Ruby';
+}
+pre code.lang-swift:after {
+  content: 'Swift';
+}
+pre code.lang-go:after {
+  content: 'Go';
+}
+strong {
+  color: #2c3e50;
+}
+code,
+pre {
+  font-family: $font-family-code;
+  font-size: 0.875rem;
+}
+code {
+  padding: 3px 5px;
+  margin: 0 2px;
+  border-radius: 4px;
+  white-space: normal;
+}

@@ -1,0 +1,78 @@
+@import '~@/assets/stylus/var/index'
+@import '~@/assets/stylus/mixin/index'
+
+.editor {
+  background alpha($grey-5, .3)
+  textarea {
+    width 100%
+    padding 8px
+    resize none
+    border none
+    background transparent
+    background-image none
+    transition all $animation-duration-slow $ease
+  }
+
+  .command-bar {
+    position relative
+    .command-list {
+      padding-right 10px
+      text-align right
+      .command-item {
+        display inline-block
+        padding 10px
+        line-height 1
+        color $disabled-color
+        font-weight 400
+        cursor pointer
+        transition all $animation-duration-slow $ease
+
+        .icon {
+          font-size $font-size-lg
+        }
+
+        &.active
+        &:hover {
+          color $text-color
+        }
+      }
+    }
+    
+    .emoji-list {
+      position absolute
+      right 0
+      width 380px
+      padding 10px
+      border 1px solid $border-color-4
+      background alpha($white, .8)
+      box-shadow 0 0 15px 0 alpha($black, .1)
+      z-index 100001
+
+      &::before {
+        content ''
+        position absolute
+        top -8px
+        right 126px
+        border-style solid
+        border-width 0 8px 8px 8px
+        border-color transparent transparent $white transparent
+      }
+
+      .emoji-item {
+        display inline-block
+        width 25px
+        height @width
+        line-height @width
+        margin 3px
+        text-align center
+        font-size $font-size-lger + 2px
+
+        img {
+          display block
+          width 100%
+          height @width
+        }
+      }
+    }
+  }
+}

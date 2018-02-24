@@ -1,14 +1,14 @@
 /**
  * @desc Auth store module
- * @author Jooger <zzy1198258955@163.com>
- * @date 31 Oct 2017
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 6 Jan 2018
  */
 
 'use strict'
 
-import config from '~/config'
-import Service from '~/service'
-import { setLocalStorageItem, removeLocalStorageItem } from '~/utils'
+import config from '@@/app.config'
+import { api } from '@/services'
+import { setLocalStorageItem, removeLocalStorageItem } from '@/utils'
 
 const LOGIN_REQUEST = 'LOGIN_REQUEST'
 const LOGIN_FAILURE = 'LOGIN_FAILURE'
@@ -23,16 +23,15 @@ const FETCH_INFO_SUCCESS = 'FETCH_INFO_SUCCESS'
 const SET_TOKEN = 'SET_TOKEN'
 
 export const state = () => ({
-  loading: true,
-  info: {},
+  loading: false,
+  info: null,
   token: null
 })
 
 export const getters = {
   loading: state => state.loading,
   info: state => state.info,
-  token: state => state.token,
-  isLogin: state => !!state.token
+  token: state => state.token
 }
 
 export const mutations = {
@@ -43,7 +42,7 @@ export const mutations = {
     state.token = token
   },
   [CLEAR_INFO]: state => {
-    state.info = {}
+    state.info = null
     state.loading = false
   },
   [LOGOUT_REQUEST]: state => (state.loading = true),
@@ -52,12 +51,13 @@ export const mutations = {
   [FETCH_INFO_REQUEST]: state => (state.loading = true),
   [FETCH_INFO_FAILURE]: state => {
     state.loading = false
-    state.info = {}
+    state.info = null
     state.token = null
   },
   [FETCH_INFO_SUCCESS]: (state, info) => {
     state.loading = false
     state.info = info
+    setLocalStorageItem(config.storage.userKey, info)
   },
   [SET_TOKEN]: (state, token) => {
     state.token = token
@@ -69,7 +69,8 @@ export const actions = {
     if (state.loading) {
       return
     }
-    const { success, data } = await Service.auth.getGithubToken({
+    commit(LOGIN_REQUEST)
+    const { success, data } = await api.auth.githubToken({
       params: { code }
     }).catch(err => {
       commit(LOGIN_FAILURE, err)
@@ -88,7 +89,7 @@ export const actions = {
       commit(FETCH_INFO_FAILURE)
       return
     }
-    const { success, data } = await Service.auth.getGithubUser({
+    const { success, data } = await api.auth.githubUser({
       params: { access_token: token }
     }).catch(err => {
       commit(FETCH_INFO_FAILURE, err)
@@ -110,5 +111,23 @@ export const actions = {
     commit(CLEAR_INFO)
     commit(SET_TOKEN, null)
     removeLocalStorageItem(config.auth.githubTokenKey)
+  },
+  async fetchUserInfo ({ commit, state }, userid) {
+    if (state.loading || !userid) {
+      return
+    }
+    commit(FETCH_INFO_REQUEST)
+    const { success, data } = await api.auth.info(userid)().catch(err => (commit(FETCH_INFO_FAILURE, err), {}))
+    if (success) {
+      commit(FETCH_INFO_SUCCESS, data)
+    } else {
+      commit(FETCH_INFO_FAILURE)
+    }
+    return success
+  },
+  clearInfo ({ commit, state }) {
+    commit(CLEAR_INFO)
+    commit(SET_TOKEN, null)
+    removeLocalStorageItem(config.storage.userKey)
   }
 }

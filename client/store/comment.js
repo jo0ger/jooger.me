@@ -1,92 +1,82 @@
 /**
- * @desc Comment store module
- * @author Jooger <zzy1198258955@163.com>
- * @date 31 Oct 2017
+ * @desc 评论数据
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 5 Jan 2018
  */
 
 'use strict'
 
-import Service from '~/service'
+import { api } from '@/services'
 
 const FETCH_LIST_REQUEST = 'FETCH_LIST_REQUEST'
 const FETCH_LIST_SUCCESS = 'FETCH_LIST_SUCCESS'
 const FETCH_LIST_FAILURE = 'FETCH_LIST_FAILURE'
-const LIKE_REQUEST = 'LIKE_REQUEST'
-const LIKE_SUCCESS = 'LIKE_SUCCESS'
-const LIKE_FAILURE = 'LIKE_FAILURE'
+const CHANGE_SORT = 'CHANGE_SORT'
 const CLEAR_LIST = 'CLEAR_LIST'
-const CREATE_REQUEST = 'CREATE_REQUEST'
-const CREATE_FAILURE = 'CREATE_FAILURE'
-const CREATE_SUCCESS = 'CREATE_SUCCESS'
-const SET_REPLY_TARGET = 'SET_REPLY_TARGET'
-const REPLY_SUCCESS = 'REPLY_SUCCESS'
+const LIKE_SUCCESS = 'LIKE_SUCCESS'
+const PUBLISH_REQUEST = 'PUBLISH_REQUEST'
+const PUBLISH_FAILURE = 'PUBLISH_FAILURE'
+const PUBLISH_SUCCESS = 'PUBLISH_SUCCESS'
 
 export const state = () => ({
-  liking: false,
-  creating: false,
+  // 默认最新评论
+  sort: {
+    by: 'createdAt',
+    order: -1
+  },
   list: {
     fetching: false,
     data: [],
     pagination: {}
   },
-  replyTarget: null // 子评论中相互回复
+  publishing: false
 })
 
 export const getters = {
-  creating: state => state.creating,
-  liking: state => state.liking,
-  listFetching: state => state.list.fetching,
+  sort: state => state.sort,
   list: state => state.list.data,
+  listFetching: state => state.list.fetching,
   pagination: state => state.list.pagination,
-  replyTarget: state => state.replyTarget
+  publishing: state => state.publishing
 }
 
 export const mutations = {
   [FETCH_LIST_REQUEST]: state => (state.list.fetching = true),
   [FETCH_LIST_FAILURE]: state => (state.list.fetching = false),
-  [FETCH_LIST_SUCCESS]: (state, { list, pagination }) => {
+  [FETCH_LIST_SUCCESS]: (state, { list = [], pagination }) => {
     state.list.fetching = false
-    state.list.data = list
+    if (pagination.cur_page === 1) {
+      state.list.data = list
+    } else {
+      state.list.data.push(...list)
+    }
     state.list.pagination = pagination
   },
-  [CLEAR_LIST]: (state) => {
+  [CLEAR_LIST]: state => {
     state.list = {
       fetching: false,
       data: [],
       pagination: {}
     }
   },
-  [LIKE_REQUEST]: state => (state.liking = true),
-  [LIKE_FAILURE]: state => (state.liking = false),
-  [LIKE_SUCCESS]: (state, id) => {
-    state.liking = false
-    const index = state.list.data.findIndex(item => item._id === id)
-    if (index > -1) {
-      const old = state.list.data[index]
-      state.list.data.splice(index, 1, {
-        ...old,
-        ups: old.ups + 1
-      })
+  [CHANGE_SORT]: (state, sort = {}) => {
+    if (sort.by) {
+      state.sort.by = sort.by
+    }
+    if (sort.order) {
+      state.sort.order = sort.order
     }
   },
-  [CREATE_REQUEST]: state => (state.creating = true),
-  [CREATE_FAILURE]: state => (state.creating = false),
-  [CREATE_SUCCESS]: state => {
-    state.creating = false
-  },
-  [SET_REPLY_TARGET]: (state, target = null) => {
-    state.replyTarget = target
-  },
-  [REPLY_SUCCESS]: (state, parentId = '') => {
-    const index = state.list.data.findIndex(item => item._id === parentId)
-    if (index > -1) {
-      const item = state.list.data[index]
-      state.list.data.splice(index, 1, {
-        ...item,
-        subCount: item.subCount + 1
-      })
-      state.replyTarget = null
+  [LIKE_SUCCESS]: (state, { id, like }) => {
+    const comment = state.list.data.find(item => item._id === id)
+    if (comment) {
+      comment.ups = comment.ups + (like ? 1 : -1)
     }
+  },
+  [PUBLISH_REQUEST]: state => (state.publishing = true),
+  [PUBLISH_FAILURE]: state => (state.publishing = false),
+  [PUBLISH_SUCCESS]: (state) => {
+    state.publishing = false
   }
 }
 
@@ -95,8 +85,16 @@ export const actions = {
     if (state.list.fetching) {
       return
     }
+    const args = {
+      page: params.page
+    }
+    if (args.page === undefined) {
+      args.page = ~~state.list.pagination.cur_page + 1
+    }
+    args.sort_by = state.sort.by
+    args.order = state.sort.order
     commit(FETCH_LIST_REQUEST)
-    const { success, data } = await Service.comment.fetchList({ params }).catch(err => ((commit(FETCH_LIST_FAILURE, err), {})))
+    const { success, data } = await api.comment.list({ params: Object.assign({}, params, args) }).catch(err => ((commit(FETCH_LIST_FAILURE, err), {})))
     if (success) {
       commit(FETCH_LIST_SUCCESS, data)
     } else {
@@ -104,28 +102,48 @@ export const actions = {
     }
     return success
   },
-  async like ({ commit, dispatch, state }, id) {
-    commit(LIKE_REQUEST)
-    const { success } = await Service.comment.like(id)().catch(err => ((commit(LIKE_FAILURE, err), {})))
+  async like ({ commit, dispatch, state, rootState }, { id, like = true }) {
+    const { success } = await api.comment.like(id)({
+      data: {
+        like
+      }
+    }).catch(err => {
+      console.error(err)
+      return {}
+    })
     if (success) {
-      commit(LIKE_SUCCESS, id)
-      dispatch('app/updateHistory', { commentId: id }, { root: true })
-    } else {
-      commit(LIKE_FAILURE)
+      commit(LIKE_SUCCESS, { id, like })
+      if (like) {
+        dispatch('app/updateHistory', { commentId: id }, { root: true })
+      } else {
+        const commentHis = rootState.app.history.comments.slice()
+        const index = commentHis.findIndex(item => item === id)
+        if (index > -1) {
+          commentHis.splice(index, 1)
+        }
+        dispatch('app/updateHistory', {
+          comments: commentHis
+        }, { root: true })
+      }
     }
     return success
   },
-  async create ({ commit, state }, params = {}) {
+  async publish ({ commit, state, rootState }, params = {}) {
     if (state.creating) {
       return
     }
-    commit(CREATE_REQUEST)
-    const { success } = await Service.comment.create({ data: params }).catch(err => ((commit(CREATE_FAILURE, err), {})))
+    commit(PUBLISH_REQUEST)
+    const { success, data } = await api.comment.publish({ data: params }).catch(err => ((commit(PUBLISH_FAILURE, err), {})))
     if (success) {
-      commit(CREATE_SUCCESS)
+      commit(PUBLISH_SUCCESS, data)
+      commit('auth/FETCH_INFO_SUCCESS', data.author, { root: true })
+      commit('article/COMMENT_SUCCESS', null, { root: true })
     } else {
-      commit(CREATE_FAILURE)
+      commit(PUBLISH_FAILURE)
     }
-    return success
+    return {
+      success,
+      data
+    }
   }
 }

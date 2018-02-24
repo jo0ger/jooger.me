@@ -1,24 +1,29 @@
 /**
- * @desc store entry
- * @author Jooger <zzy1198258955@163.com>
- * @date 15 Sep 2017
+ * @desc Store entrance
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 27 Dec 2017
  */
 
-import { hasMobileUA } from '~/utils'
+'use strict'
+
+import { isMobile } from '@/utils'
 
 export const actions = {
-  nuxtServerInit ({ commit, state, dispatch }, { params, route, isServer, isClient, req }) {
-    const ua = isServer ? req.headers['user-agent'] : window.navigator.userAgent
-    const isMobile = hasMobileUA(ua)
-    if (isMobile) {
+  nuxtServerInit ({ commit, state, dispatch }, { params, route, req }) {
+    const ua = process.server ? req.headers['user-agent'] : window.navigator.userAgent
+    const mobileClient = isMobile(ua)
+    if (mobileClient) {
       commit('app/SET_MOBILE_LAYOUT', true)
     }
     const initTask = []
-    initTask.push(...[
+    initTask.push(
       dispatch('option/fetchData'),
-      dispatch('me/fetchData'),
-      dispatch('moment/fetchList')
-    ])
+      dispatch('user/fetchBlogger'),
+      dispatch('user/fetchGuests'),
+      dispatch('article/fetchHotList'),
+      dispatch('category/fetchList'),
+      dispatch('tag/fetchList')
+    )
     return Promise.all(initTask)
   }
 }

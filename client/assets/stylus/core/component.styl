@@ -1,0 +1,71 @@
+.no-data
+.no-more-data{
+  text-align center
+  font-size $font-size-sm
+  color $text-color-secondary
+}
+
+.indicator {
+  margin 18px 0 6px
+  text-align center
+  font-size $font-size-sm
+
+  .loadmore {
+    padding 6px 32px
+    border-radius 2px
+    border 1px solid $border-color
+    cursor pointer
+    transition all $animation-duration-slow $ease-in-out
+
+    &:hover {
+      padding 6px 48px
+      background $base-color
+      color $white
+      border-color @background
+      font-weight 700
+    }
+  }
+}
+
+.share-list {
+  .share-item {
+    &:hover {
+      &.wechat {
+        background #9ddb62
+        color $white
+      }
+      &.qzone {
+        background #ffcd30
+        color $white
+      }
+      &.weibo {
+        background #ec0431
+        color $white
+      }
+      &.douban {
+        background #00b530
+        color $white
+      }
+      &.evernote {
+        background #1dbe65
+        color $white
+      }
+      &.twitter {
+        background #00a3ef
+        color $white
+      }
+      &.facebook {
+        background #3863a6
+        color $white
+      }
+      &.mail {
+        background #5ba0f8
+        color $white
+      }
+      &.link {
+        background $base-color
+        color $white
+      }
+    }
+  }
+}

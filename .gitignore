@@ -2,7 +2,7 @@
 node_modules
 
 # logs
-npm-debug.log
+*.log
 
 # Nuxt build
 .nuxt
@@ -12,9 +12,6 @@ dist
 
 # Nuxt Server Build
 build
-
-# Server Logs
-server/**/*.log
 
 # Npm package lock file
 package-lock.json

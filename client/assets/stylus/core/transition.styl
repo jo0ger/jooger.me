@@ -1,0 +1,43 @@
+.fade-enter-active
+.fade-leave-active {
+  transition opacity .3s $fuck
+}
+.fade-enter
+.fade-leave-active {
+  opacity 0
+}
+
+.slide-down-enter-active
+.slide-down-leave-active {
+  opacity 1
+  transition all $animation-duration-slow $ease
+}
+
+.slide-down-enter 
+.slide-down-leave-active {
+  opacity 0
+  transform translate3d(0, 10px, 0)
+}
+
+.slide-up-enter-active
+.slide-up-leave-active {
+  opacity 1
+  transition all $animation-duration-slow $ease
+}
+
+.slide-up-enter 
+.slide-up-leave-active {
+  opacity 0
+  transform translate3d(0, -10px, 0)
+}
+
+.slide-up-message-enter-active
+.slide-up-message-leave-active {
+  transition all $animation-duration-slow $ease
+}
+
+.slide-up-message-enter 
+.slide-up-message-leave-active {
+  transform translate3d(0, -100%, 0)
+}
+

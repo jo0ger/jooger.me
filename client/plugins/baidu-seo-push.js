@@ -1,8 +1,10 @@
 /**
  * @desc 百度SEO推送
- * @author Jooger <zzy1198258955@163.com>
- * @date 23 Sep 2017
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 27 Dec 2017
  */
+
+'use strict'
 
 function push (href) {
   const e = /([http|https]:\/\/[a-zA-Z0-9_.]+\.baidu\.com)/gi
@@ -27,8 +29,8 @@ function push (href) {
   }
 }
 
-export default ({app, isClient}) => {
-  if (process.env.NODE_ENV === 'production' && isClient) {
+export default ({ app }) => {
+  if (process.env.NODE_ENV === 'production' && process.client) {
     push()
     window.onNuxtReady(app => {
       app.$nuxt.$on('routeChanged', (to, from) => {

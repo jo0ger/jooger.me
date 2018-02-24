@@ -7,18 +7,6 @@
 
 > 👍 My personal site ( [jooger.me](https://jooger.me) )，built by [Vue2](https://github.com/vuejs/vue), [Nuxt.js](https://github.com/nuxt/nuxt.js), [Axios](https://github.com/axios/axios).
 
-## ScreenShots
-
-### PC
-
-![Home](https://raw.githubusercontent.com/jo0ger/jooger.me/master/screenshots/pc-home.png)
-
-![Blog](https://raw.githubusercontent.com/jo0ger/jooger.me/master/screenshots/pc-blog.png)
-
-### Mobile
-
-![Mobile](https://raw.githubusercontent.com/jo0ger/jooger.me/master/screenshots/mobile.jpg)
-
 ## Build Setup
 
 ``` bash
@@ -34,11 +22,14 @@ $ npm start
 
 # lint code
 $ npm run lint
+
+# pm2 deploy
+$ npm run deploy
 ```
 
 ## Related projects
 
-- [jooger.me-server](https://github.com/jo0ger/jooger.me-server): The api server for jooger.me, build by [koa](https://github.com/koajs/koa), [mongoose](https://github.com/Automattic/mongoose).
+- [node-server](https://github.com/jo0ger/node-server): The api server for jooger.me, build by [koa](https://github.com/koajs/koa), [mongoose](https://github.com/Automattic/mongoose).
 
 - [jooger.me-admin](https://github.com/jo0ger/jooger.me-admin): The admin site for jooger.me, build by [Vue2](https://github.com/vuejs/vue), [element](https://github.com/ElemeFE/element), [vue-router](https://github.com/vuejs/vue-router), and [vuex](https://github.com/vuejs/vuex).
 
@@ -70,6 +61,14 @@ $ npm run lint
 - ~~重新设计分享框~~ (2017.11.07)
 
 - ~~移动端评论适配~~ (2017.11.08)
+
+- ~~接入Sentry~~ (2018.02.08)
+
+- ~~v2 改版~~ (2018.02.23)
+
+- 移动端支持
+
+- 移动端支持
 
 - 音乐绑定键盘快捷键
 
