@@ -80,10 +80,6 @@
             icon,
             title: item.name
           }
-        })).concat(new Array(10).fill({
-          key: 'all',
-          icon: 'all',
-          title: '全部'
         }))
       }
     },
