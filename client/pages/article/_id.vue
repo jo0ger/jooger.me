@@ -143,6 +143,12 @@
     },
     mounted () {
       this.loadThumb()
+      this.initImageViewer()
+    },
+    beforeDestroy () {
+      if (this.imageViewer) {
+        this.imageViewer.destroy()
+      }
     },
     methods: {
       loadThumb () {
@@ -154,6 +160,25 @@
           success: (img) => {
             this.thumb = thumb
           }
+        })
+      },
+      initImageViewer () {
+        /* eslint-disable no-new */
+        this.imageViewer = new ImageViewer([
+          document.querySelector('.article-detail')
+        ], {
+          targetFilter: elem => elem.nodeName === 'IMG' && elem.naturalWidth && elem.classList.contains('image-view'),
+          urlGetter: elem => elem.getAttribute('src'),
+          urlHandler: url => url,
+          eventName: 'click',
+          containerClassName: 'image-viewer__container',
+          boxClassName: 'image-viewer__box',
+          imageClassName: 'image-viewer__image',
+          cursor: 'zoom-in',
+          backgroundColor: '#fff',
+          transitionDuration: 200,
+          margin: 100,
+          parent: null
         })
       },
       async handleLike () {

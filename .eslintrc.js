@@ -18,6 +18,7 @@ module.exports = {
   globals: {
     window: true,
     Raven: true,
-    particlesJS: true
+    particlesJS: true,
+    ImageViewer: true
   }
 }

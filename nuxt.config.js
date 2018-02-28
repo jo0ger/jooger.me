@@ -72,7 +72,8 @@ module.exports = {
       'particles.js',
       'validator',
       'vue-affix',
-      'bezier-easing'
+      'bezier-easing',
+      'juejin-image-viewer'
     ]
   },
   plugins: [
@@ -88,6 +89,7 @@ module.exports = {
     { src: '@/plugins/swiper.js', ssr: false },
     { src: '@/plugins/share.js', ssr: false },
     { src: '@/plugins/image-load.js', ssr: false },
+    { src: '@/plugins/image-viewer.js', ssr: false },
     { src: '@/plugins/storage-to-store.js', ssr: false },
     { src: '@/plugins/event-bus.js', ssr: false },
     { src: '@/plugins/particles.js', ssr: false },
