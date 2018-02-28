@@ -130,7 +130,6 @@
       },
       tabTap () {
         this.tab = this.tabSwiper.clickedIndex
-        this.pageSwiper.slideTo(this.tab, 0)
       }
     }
   }
