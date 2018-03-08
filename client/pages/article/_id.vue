@@ -152,7 +152,7 @@
     },
     methods: {
       loadThumb () {
-        if (!this.articleDetail.thumb) {
+        if (!this.articleDetail || !this.articleDetail.thumb) {
           return
         }
         const thumb = this.articleDetail.thumb
