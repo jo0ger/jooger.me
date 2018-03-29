@@ -1,25 +1,24 @@
-/**
- * @desc Nuxt config
- * @author Jooger <iamjooger@gmail.com>
- * @date 20 Dec 2017
- */
-
-'use strict'
-
+const pkg = require('./package')
 const isProd = process.env.NODE_ENV === 'production'
-const description = 'On the way to life'
-const themeColor = '#302e31'
+const theme = '#444'
 
 module.exports = {
+  mode: 'universal',
+
   srcDir: 'client/',
-  offline: true,
+
   cache: {
     max: 20,
     maxAge: 600000
   },
+
   dev: !isProd,
+
+  /*
+  ** Headers of the page
+  */
   head: {
-    title: 'Jooger.me - ' + description,
+    title: 'Jooger.me',
     titleTemplate: '%s - Jooger.me',
     htmlAttrs: {
       xmlns: 'http://www.w3.org/1999/xhtml',
@@ -40,12 +39,12 @@ module.exports = {
       { name: 'screen-orientation', content: 'portrait' },
       { name: 'x5-orientation', content: 'portrait' },
       { name: 'msapplication-tap-highlight', content: 'no' },
-      { name: 'apple-mobile-web-app-title', content: 'Jooger.me - ' + description },
+      { name: 'apple-mobile-web-app-title', content: 'Jooger.me' },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { name: 'author', content: 'zzy1198258955@163.com' },
-      { name: 'theme-color', content: themeColor },
+      { name: 'theme-color', content: theme },
       { hid: 'keywords', name: 'keywords', content: 'Jooger,jooger.me,Blog,FE,前端,朱志洋,Vue,Angular,React,Node.js' },
-      { hid: 'description', name: 'description', content: description }
+      { hid: 'description', name: 'description', content: 'Jooger.me' }
     ],
     link: [
       { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -53,51 +52,73 @@ module.exports = {
       { rel: 'dns-prefetch', href: '//static.jooger.me' }
     ]
   },
+
+  /*
+  ** Customize the progress-bar color
+  */
+  loading: { color: theme },
+
+  /*
+  ** Global CSS
+  */
   css: [
     'normalize.css',
     'swiper/dist/css/swiper.css',
-    { src: '@/assets/stylus/index.styl', lang: 'stylus' }
+    // { src: '@/assets/stylus/index.styl', lang: 'stylus' }
   ],
-  loading: {
-    color: themeColor
-  },
-  build: {
-    analyze: false,
-    publicPath: '/resource/',
-    vendor: [
-      'axios',
-      'swiper',
-      'howler',
-      'vue-awesome-swiper',
-      'particles.js',
-      'validator',
-      'vue-affix',
-      'bezier-easing'
-    ]
-  },
+
+  /*
+  ** Plugins to load before mounting the App
+  */
   plugins: [
-    { src: '@/plugins/router.js' },
-    { src: '@/plugins/filter.js' },
-    { src: '@/plugins/mixin.js' },
-    { src: '@/plugins/google-analytics.js', ssr: false },
-    { src: '@/plugins/baidu-statistics.js', ssr: false },
-    { src: '@/plugins/baidu-seo-push.js', ssr: false },
-    { src: '@/plugins/raven.js', ssr: false },
-    { src: '@/plugins/click-outside.js', ssr: false },
-    { src: '@/plugins/message.js', ssr: false },
-    { src: '@/plugins/swiper.js', ssr: false },
-    { src: '@/plugins/share.js', ssr: false },
-    { src: '@/plugins/image-load.js', ssr: false },
-    { src: '@/plugins/storage-to-store.js', ssr: false },
-    { src: '@/plugins/event-bus.js', ssr: false },
-    { src: '@/plugins/particles.js', ssr: false },
-    { src: '@/plugins/console-say-hi.js', ssr: false }
+    { src: '@/plugins/router-hook.ts' }
   ],
+
   router: {
     linkActiveClass: 'active'
   },
-  transition: {
-    name: 'fade',
-    mode: 'out-in'
+
+  /*
+  ** Nuxt.js modules
+  */
+  modules: [
+    // Doc: https://github.com/nuxt-community/axios-module#usage
+    '@nuxtjs/axios',
+    '~/modules/typescript'
+  ],
+
+  /*
+  ** Axios module configuration
+  */
+  axios: {
+    // See https://github.com/nuxt-community/axios-module#options
+  },
+
+  /*
+  ** Build configuration
+  */
+  build: {
+    analyze: false,
+    // publicPath: '/resource/',
+    vendor: [
+      'axios',
+      'swiper',
+      'vue-awesome-swiper',
+      'bezier-easing'
+    ],
+    // /*
+    // ** You can extend webpack config here
+    // */
+    extend (config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    }
   }
 }

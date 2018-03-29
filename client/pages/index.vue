@@ -1,144 +1,66 @@
 <template>
-  <div class="page-home">
-    <Moment v-if="!mobileLayout"/>
-    <template v-if="mobileLayout">
-      <div class="category-tabs">
-        <div class="swiper-container" v-swiper:tabSwiper="tabSwiperOption">
-          <div class="swiper-wrapper">
-            <span class="swiper-slide tab-item" v-for="(item, index) in tabs" :key="index">{{ item.title }}</span>
-          </div>
-        </div>
-        <i class="corner" :style="cornerStyle"></i>
+  <section class="container">
+    <div>
+      <logo/>
+      <h1 class="title">
+        jooger.me
+      </h1>
+      <h2 class="subtitle">
+        My stylish Nuxt.js project
+      </h2>
+      <div class="links">
+        <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
+        <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
       </div>
-      <div class="tab-pages swiper-container" v-swiper:pageSwiper="pageSwiperOption">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item, index) in tabs" :key="index">
-            <Card>
-              <div class="list-content">
-                <ArticleList
-                  :list="articleList"
-                  :pagination="articlePagination"
-                  :loading="articleListFetching"
-                  @on-loadmore="handleLoadmore">
-                </ArticleList>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </div>
-    </template>
-    <Card class="home-widget" v-if="!mobileLayout">
-      <Tab class="category-tab" :list="tabs" v-model="tab" bordered></Tab>
-      <div class="list-content">
-        <ArticleList
-          :list="articleList"
-          :pagination="articlePagination"
-          :loading="articleListFetching"
-          @on-loadmore="handleLoadmore">
-        </ArticleList>
-      </div>
-    </Card>
-  </div>
+    </div>
+  </section>
 </template>
 
-<script>
-  import { mapGetters, mapMutations, mapActions } from 'vuex'
-  import { Moment, Card, Tab, ArticleList, Loading } from '@/components/common'
+<script lang="ts">
+  import {
+    Component,
+    Vue
+  } from 'vue-property-decorator'
+  import Logo from '../components/Logo.vue'
 
-  export default {
-    name: 'Home',
+  @Component({
     components: {
-      Moment,
-      Card,
-      Tab,
-      ArticleList,
-      Loading
-    },
-    layout ({ store }) {
-      return store.getters['app/mobileLayout'] ? 'mobile' : 'default'
-    },
-    async fetch ({ store }) {
-      store.commit('article/CLEAR_LIST')
-      await store.dispatch('article/fetchList', {
-        page: 1
-      })
-    },
-    data () {
-      return {
-        tab: 0,
-        cornerStyle: null,
-        tabSwiperOption: {
-          slidesPerView: 6,
-          freeMode: true
-        },
-        pageSwiperOption: {
-          watchSlidesProgress: true,
-          resistanceRatio: 0
-        },
-        pageScrollSwiperOption: {
-          slidesOffsetBefore: 100,
-          direction: 'vertical',
-          freeMode: true,
-          slidesPerView: 'auto',
-          mousewheel: {
-            releaseOnEdges: true
-          }
-        }
-      }
-    },
-    computed: {
-      ...mapGetters({
-        articleList: 'article/list',
-        articleListFetching: 'article/listFetching',
-        articlePagination: 'article/pagination',
-        categoryList: 'category/list',
-        categoryFetching: 'category/fetching'
-      }),
-      tabs () {
-        return [{
-          key: 'all',
-          icon: 'all',
-          title: '全部'
-        }].concat(this.categoryList.map(item => {
-          const icon = this.getExtendsItemByKey('icon', item.extends) || 'tag'
-          return {
-            key: icon,
-            icon,
-            title: item.name
-          }
-        })).concat(new Array(10).fill({
-          key: 'all',
-          icon: 'all',
-          title: '全部'
-        }))
-      }
-    },
-    watch: {
-      tab () {
-        this.clearArticleList()
-        this.fetchArticleListWrapper()
-      }
-    },
-    methods: {
-      ...mapMutations({
-        clearArticleList: 'article/CLEAR_LIST'
-      }),
-      ...mapActions({
-        fetchArticleList: 'article/fetchList'
-      }),
-      async fetchArticleListWrapper (params = {}) {
-        const tab = this.tabs[this.tab]
-        if (tab.key !== 'all') {
-          params.category = tab.title
-        }
-        await this.fetchArticleList(params)
-      },
-      getCategoryIconClass (key, item) {
-        return `icon-${this.getExtendsItemByKey(key, item.extends) || 'tag'}`
-      },
-      handleLoadmore () {
-        this.fetchArticleListWrapper()
-      }
+      Logo
     }
+  })
+  export default class Index extends Vue {
+    
   }
 </script>
+
+<style>
+.container
+{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.title
+{
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
+  display: block;
+  font-weight: 300;
+  font-size: 100px;
+  color: #35495e;
+  letter-spacing: 1px;
+}
+.subtitle
+{
+  font-weight: 300;
+  font-size: 42px;
+  color: #526488;
+  word-spacing: 5px;
+  padding-bottom: 15px;
+}
+.links
+{
+  padding-top: 15px;
+}
+</style>

@@ -1,98 +1,53 @@
 <template>
-  <div class="app">
-    <AppBackground />
-    <AppHeader />
-    <main class="app-main" :style="mainStyle">
-      <div class="container">
-        <nuxt class="page-main-widget" />
-        <transition name="fade" mode="out-in">
-          <AppAside class="page-aside-widget" v-if="!noAsidePage" />
-        </transition>
-      </div>
-    </main>
-    <AppTool />
-    <AppFooter ref="footer" />
+  <div>
+    <nuxt/>
   </div>
 </template>
 
-<script>
-  import {
-    AppHeader,
-    AppFooter,
-    AppAside,
-    AppBackground,
-    AppTool
-  } from '@/components/layout'
-
-  export default {
-    name: 'Default',
-    components: {
-      AppHeader,
-      AppFooter,
-      AppAside,
-      AppBackground,
-      AppTool
-    },
-    head () {
-      return {
-        htmlAttrs: {
-          class: 'pc'
-        }
-      }
-    },
-    data () {
-      return {
-        mainStyle: null
-      }
-    },
-    computed: {
-      noAsidePage () {
-        return ['music', 'archive', 'guestbook', 'about'].includes(this.$route.name)
-      }
-    },
-    mounted () {
-      // 音乐初始化
-      this.$eventBus.initMusic()
-      this.mainStyle = {
-        minHeight: `calc(100vh - ${this.$refs.footer.$el.clientHeight}px)`
-      }
-    }
-  }
-</script>
-
-<style lang="stylus">
-  @import '~@/assets/stylus/var/index'
-  @import '~@/assets/stylus/mixin/index'
-  
-  .app {
-    min-width $main-width
-
-    &-main {
-      width $main-width
-      border-top $header-height solid transparent
-      margin 0 auto
-      padding 20px 0 80px
-
-      .container {
-        flexLayout(, flex-start, flex-start)
-
-        .page-main-widget {
-          flex 1 0
-        }
-
-        .page-aside-widget {
-          flex 0 0 320px
-          width 320px
-          margin-left 12px
-        }
-      }
-    }
-  }
-
-  body.full-page {
-    .app-main {
-      width 100%
-      padding 0 0 80px
-    }
-  }
+<style>
+html
+{
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+*, *:before, *:after
+{
+  box-sizing: border-box;
+  margin: 0;
+}
+.button--green
+{
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #3b8070;
+  color: #3b8070;
+  text-decoration: none;
+  padding: 10px 30px;
+}
+.button--green:hover
+{
+  color: #fff;
+  background-color: #3b8070;
+}
+.button--grey
+{
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #35495e;
+  color: #35495e;
+  text-decoration: none;
+  padding: 10px 30px;
+  margin-left: 15px;
+}
+.button--grey:hover
+{
+  color: #fff;
+  background-color: #35495e;
+}
 </style>
