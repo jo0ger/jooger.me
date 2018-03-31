@@ -7,6 +7,8 @@ module.exports = {
 
   srcDir: 'client/',
 
+  buildDir: 'build/client',
+
   cache: {
     max: 20,
     maxAge: 600000
@@ -64,7 +66,7 @@ module.exports = {
   css: [
     'normalize.css',
     'swiper/dist/css/swiper.css',
-    // { src: '@/assets/stylus/index.styl', lang: 'stylus' }
+    { src: '@/assets/stylus/index.styl', lang: 'stylus' }
   ],
 
   /*
@@ -104,7 +106,11 @@ module.exports = {
       'axios',
       'swiper',
       'vue-awesome-swiper',
-      'bezier-easing'
+      'bezier-easing',
+      'nuxt-class-component',
+      'vue-class-component',
+      'vue-property-decorator',
+      'vuex-class'
     ],
     // /*
     // ** You can extend webpack config here

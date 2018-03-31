@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    <nuxt />
+  </div>
 </template>
 
 <script lang="ts">
@@ -7,6 +9,7 @@
     Component,
     Vue
   } from "vue-property-decorator"
+
   @Component({})
   export default class Mobile extends Vue {
     aaa

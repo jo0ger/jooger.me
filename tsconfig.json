@@ -1,9 +1,11 @@
 {
   "include": [
-    "client/**/*"
+    "client/**/*",
+    "typings"
   ],
   "exclude": [
-    "server/*",
+    "server",
+    "build",
     "node_modules"
   ],
   "compilerOptions": {
