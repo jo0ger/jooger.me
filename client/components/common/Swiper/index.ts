@@ -42,7 +42,8 @@ export default class Swiper extends Vue {
   }
 
   updateSwiper () {
-    const childCount = this.$slots.default.length
+    const defaultSlot = this.$slots.default
+    const childCount = defaultSlot && defaultSlot.length || 0
     if (childCount <= this.maxPreview) {
       this.swiperOptions.slidesPerView = childCount
     } else {
