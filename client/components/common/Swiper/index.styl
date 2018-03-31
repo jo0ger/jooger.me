@@ -1,0 +1,52 @@
+@import '~@/assets/stylus/vars/index'
+@import '~@/assets/stylus/mixins/index'
+
+.swiper-slide {
+  position relative
+  width 100px
+  height 50px
+  line-height @height
+  text-align center
+  color $white
+  border-radius 5px
+  box-shadow 0 15px 35px rgba(50,50,93,.04), 0 5px 15px rgba(0,0,0,.08)
+  background-image url('https://static.surmon.me/nodepress/image/FSPLFPQBCZ-1200x800.jpg?imageView2/1/w/350/h/238/format/webp/interlace/1/q/75|watermark/2/text/U3VybW9uLm1l/font/Y2FuZGFyYQ==/fontsize/460/fill/I0ZGRkZGRg==/dissolve/23/gravity/SouthWest/dx/15/dy/7|imageslim')
+  background-size cover
+  overflow hidden
+
+  .overlay {
+    position absolute
+    top 0
+    right 0
+    bottom 0
+    left 0
+    opacity .9
+  }
+
+  span {
+    position relative
+  }
+
+  &:first-child {
+    margin-left 16px
+  }
+
+  &:nth-child(1) .overlay {
+    background: linear-gradient(135deg, #FFFE9F 0%, #FCA180 100%)
+  }
+  &:nth-child(2) .overlay {
+    background: linear-gradient(135deg, #ABDCFF 0%, #0396FF 100%)
+  }
+  &:nth-child(3) .overlay {
+    background: linear-gradient(135deg, #90F7EC 0%, #32CCBC 100%)
+  }
+  &:nth-child(4) .overlay {
+    background: linear-gradient(135deg, #FAD7A1 0%, #E96D71 100%)
+  }
+  &:nth-child(5) .overlay {
+    background: linear-gradient(135deg, #92FFC0 0%, #002661 100%)
+  }
+  &:nth-child(6) .overlay {
+    background: linear-gradient(135deg, #E8D07A 0%, #5312D6 100%)
+  }
+}

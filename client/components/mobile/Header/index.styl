@@ -1,0 +1,23 @@
+@import '~@/assets/stylus/vars/index'
+@import '~@/assets/stylus/mixins/index'
+
+.app-header {
+  background $white
+  .wrapper {
+    padding 12px 16px
+    .search-field {
+      display flex
+      align-items center
+      justify-content center
+      height 32px
+      padding 8px 8px
+      text-align center
+      background $grey
+      border-radius 16px
+      color $text-color-secondary
+      .placeholder {
+        margin-left 8px
+      }
+    }
+  }
+}

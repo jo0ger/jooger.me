@@ -66,6 +66,8 @@ module.exports = {
   css: [
     'normalize.css',
     'swiper/dist/css/swiper.css',
+    "ionicons/dist/css/ionicons.css",
+    "simple-line-icons/css/simple-line-icons.css",
     { src: '@/assets/stylus/index.styl', lang: 'stylus' }
   ],
 
@@ -73,7 +75,9 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/router-hook.ts' }
+    { src: '@/plugins/router-hook.ts' },
+    { src: '@/plugins/axios-interceptor.ts' },
+    { src: '@/plugins/vue-addons.ts', ssr: false }
   ],
 
   router: {
@@ -94,6 +98,12 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    baseURL: isProd ? 'https://api.jooger.me' : 'http://localhost:3001',
+    prefix: '/',
+    https: isProd,
+    debug: false,
+    withCredentials: true,
+    retry: { retries: 3 }
   },
 
   /*

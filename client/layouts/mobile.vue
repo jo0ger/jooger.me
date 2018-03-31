@@ -1,17 +1,20 @@
 <template>
-  <div>
+  <div class="app" id="app">
+    <Header />
     <nuxt />
   </div>
 </template>
 
 <script lang="ts">
-  import {
-    Component,
-    Vue
-  } from "vue-property-decorator"
+import { Component, Vue } from 'vue-property-decorator'
+import { Header } from '../components/mobile'
 
-  @Component({})
-  export default class Mobile extends Vue {
-    aaa
-  };
+@Component({
+  components: {
+    Header
+  }
+})
+export default class Mobile extends Vue {
+
+}
 </script>

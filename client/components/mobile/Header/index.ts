@@ -6,15 +6,8 @@
 
 'use strict'
 
-import {
-  Vue,
-  Component
-} from 'vue-property-decorator'
+import { Vue } from 'vue-property-decorator'
 
 export default class Header extends Vue {
-  data () {
-    return {
-      name: 'Jooger'
-    }
-  }
+
 }

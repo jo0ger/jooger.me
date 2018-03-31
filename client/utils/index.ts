@@ -8,3 +8,4 @@
 
 export * from './tool'
 export * from './validate'
+export { default as types } from './mutation-types'
