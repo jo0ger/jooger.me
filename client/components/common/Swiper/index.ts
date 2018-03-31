@@ -8,9 +8,13 @@
 
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
-// interface SwiperList {
-
-// }
+interface Options {
+  spaceBetween?: number
+  setWrapperSize?: boolean
+  observeParents?: boolean
+  grabCursor?: boolean
+  slidesPerView?: number | string
+}
 
 @Component
 export default class Swiper extends Vue {
@@ -20,13 +24,30 @@ export default class Swiper extends Vue {
   @Prop([Array])
   list: Array<any>
 
-  swiperOptions = {
+  swiperOptions: Options = {
     spaceBetween: 16,
     setWrapperSize: true,
     observeParents: true,
-    grabCursor: true,
-    slidesPerView: 'auto'
+    grabCursor: true
   }
 
-  banners = ['全部', '编码', '生活', '思考', '吐槽', '感悟']
+  maxPreview = 4
+
+  created () {
+    this.updateSwiper()
+  }
+
+  destroy () {
+    this.swiper && this.swiper.destroy()
+  }
+
+  updateSwiper () {
+    const childCount = this.$slots.default.length
+    if (childCount <= this.maxPreview) {
+      this.swiperOptions.slidesPerView = childCount
+    } else {
+      this.swiperOptions.slidesPerView = this.maxPreview
+    }
+    Object.assign(this.swiperOptions, this.options)
+  }
 }

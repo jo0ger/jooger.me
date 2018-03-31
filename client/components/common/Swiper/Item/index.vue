@@ -1,8 +1,6 @@
 <template>
-	<div class="swiper" v-swiper:swiper="swiperOptions">
-		<div class="swiper-wrapper">
-			<slot />
-		</div>
+	<div class="swiper-item swiper-slide">
+		<slot />
 	</div>
 </template>
 

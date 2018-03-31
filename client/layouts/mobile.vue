@@ -1,7 +1,9 @@
 <template>
   <div class="app" id="app">
     <Header />
-    <nuxt />
+    <main class="app-main">
+      <nuxt />
+    </main>
   </div>
 </template>
 
@@ -18,3 +20,17 @@ export default class Mobile extends Vue {
 
 }
 </script>
+
+<style lang="stylus" scoped>
+@import '~@/assets/stylus/vars/index'
+@import '~@/assets/stylus/mixins/index'
+
+.app {
+  width 100%
+  &-main {
+    width 100%
+    padding 0 16px
+  }
+}
+</style>
+
