@@ -1,0 +1,67 @@
+@import '~@/assets/stylus/vars/index'
+@import '~@/assets/stylus/mixins/index'
+
+.slide-up-message-enter-active
+.slide-up-message-leave-active {
+  transition all $animation-duration-slow $ease
+}
+
+.slide-up-message-enter 
+.slide-up-message-leave-active {
+  transform translate3d(0, -100%, 0)
+}
+
+.message {
+  position fixed
+  top 0
+  right 0
+  left 0
+  width auto
+  max-width 300px
+  margin 0 auto
+  text-align center
+  z-index 100001
+  box-shadow 0 15px 35px rgba(50, 50, 93, .04), 0 5px 15px rgba(0, 0, 0, .08)
+  .wrapper {
+    flexLayout(column)
+    padding 15px 20px
+    background $white
+    color $text-color
+    border-bottom-left-radius 4px
+    border-bottom-right-radius 4px
+    box-shadow 0 0 15px 0 alpha($black, .1)
+    transition all $animation-duration $fuck
+
+    .icon {
+      font-size 36px
+      &-success {
+        color $green-6
+      }
+
+      &-error {
+        color $red-6
+      }
+
+      &-warning {
+        color $yellow-6
+      }
+
+      &-info {
+        color $blue-6
+      }
+    }
+  }
+
+  +mobile() {
+    max-width none
+    .wrapper {
+      flexLayout()
+
+      .icon {
+        margin-right 8px
+        line-height 1
+        font-size 24px
+      }
+    }
+  }
+}

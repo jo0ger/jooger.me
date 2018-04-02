@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Swiper, SwiperItem } from '../components/common'
+import { Swiper, SwiperItem, Message } from '../components/common'
 import { Getter, namespace } from 'vuex-class'
 
 const AppModuleGetter = namespace('app', Getter)
@@ -69,6 +69,11 @@ export default class Index extends Vue {
     const categoryRef: any = this.$refs.categorySwiper
     this.activeIndex = pageRef.swiper.activeIndex
     categoryRef.swiper.slideTo(this.activeIndex)
+  }
+
+  mounted () {
+    console.dir(Message)
+    Message.error('123')
   }
 }
 </script>
