@@ -6,6 +6,8 @@
 
 'use strict'
 
+import { Message } from '~/components/common'
+
 const codeMap = {
   FAILED: -1,
   SUCCESS: 200,
@@ -45,11 +47,32 @@ export default function ({ $axios, redirect, store }) {
       message = '网络错误'
     }
     showErrorMsg(message)
-    // reportError(err)
+    reportError(err)
     return Promise.reject(err)
   })
 
   function showErrorMsg (msg: string) {
-    return msg
+    if ((process as any).client) {
+      Message.error(msg)
+    }
+  }
+
+  // Sentry 上报接口请求错误
+  function reportError (err) {
+    const { config, response, message, stack } = err
+    const responseData = (response && response.data) || {}
+    const Raven = (global as any).Raven
+    Raven && Raven.captureMessage(responseData.message || message, {
+      level: 'warning',
+      logger: '接口请求',
+      extra: {
+        type: config.method,
+        url: config.url,
+        data: config.data,
+        status: response.status,
+        error: stack || message,
+        response: JSON.stringify(responseData)
+      }
+    })
   }
 }

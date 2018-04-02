@@ -75,9 +75,9 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '@/plugins/vue-addons.ts' },
     { src: '@/plugins/router-hook.ts' },
     { src: '@/plugins/axios-interceptor.ts' },
-    { src: '@/plugins/vue-addons.ts', ssr: false }
   ],
 
   router: {
