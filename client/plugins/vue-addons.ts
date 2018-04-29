@@ -7,12 +7,12 @@
 'use strict'
 
 import Vue from 'vue'
-import VueAwesomeSwiper from 'vue-awesome-swiper/dist/ssr'
 
 const isProd = process.env.NODE_ENV === 'production'
 
 export default () => {
   if ((process as any).client) {
+    const VueAwesomeSwiper = require('vue-awesome-swiper/dist/ssr')
     Vue.use(VueAwesomeSwiper)
   }
 

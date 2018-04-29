@@ -1,0 +1,9 @@
+/**
+ * @desc Component Entrance
+ * @author {{ author }}
+ * @since {{ date }}
+ */
+
+import component from './{{ name }}'
+
+export default component

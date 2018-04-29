@@ -73,7 +73,6 @@ export default class Index extends Vue {
 
   mounted () {
     console.dir(Message)
-    Message.error('123')
   }
 }
 </script>

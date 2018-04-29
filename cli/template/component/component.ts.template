@@ -1,0 +1,14 @@
+/**
+ * @desc {{ name }}
+ * @author Jooger <iamjooger@gmail.com>
+ * @since {{ date }}
+ */
+
+import { Vue, Component } from 'vue-property-decorator'
+
+@Component({
+  name: '{{ name }}'
+})
+export default class {{ camelName }} extends Vue {
+
+}

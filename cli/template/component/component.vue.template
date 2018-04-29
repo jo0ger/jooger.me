@@ -1,0 +1,9 @@
+<template>
+	<div class="{{ name }}">
+		{{ name }}
+	</div>
+</template>
+
+<script src="./{{ name }}.ts" lang="ts"></script>
+
+<style src="./{{ name }}.styl" lang="stylus" scoped></style>
