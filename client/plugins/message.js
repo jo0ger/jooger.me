@@ -9,4 +9,8 @@
 import Vue from 'vue'
 import { Message } from '@/components/common'
 
-Vue.prototype.$message = Message
+export default () => {
+  if (process.client) {
+    Vue.prototype.$message = Message
+  }
+}

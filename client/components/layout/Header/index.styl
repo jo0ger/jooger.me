@@ -26,15 +26,27 @@
 
   .nav {
     &-logo {
-      margin-right 30px
+      position absolute
+      flexLayout(column)
+      width 80px
       color $base-color
-      img {
-        height 36px
+      font-size 30px
+      line-height 1
+      font-family Oleo Script
+
+      .desc {
+        font-size 14px
+        font-weight normal
+        color $text-color-secondary
       }
+      // img {
+      //   height 36px
+      // }
     }
 
     &-menus {
       position relative
+      margin-left 110px
       .menu-item {
         display inline-block
         padding 18px 24px
@@ -83,44 +95,44 @@
         }
       }
 
-      .music {
-        flexLayout(column, , flex-start)
-        position relative
-        width 200px
-        height $header-height
-        line-height 1
-        padding 10px
-        color $text-color-secondary
-        opacity .2
-        font-size $font-size-sm
-        transition all $animation-duration-slow $ease
+      // .music {
+      //   flexLayout(column, , flex-start)
+      //   position relative
+      //   width 200px
+      //   height $header-height
+      //   line-height 1
+      //   padding 10px
+      //   color $text-color-secondary
+      //   opacity .2
+      //   font-size $font-size-sm
+      //   transition all $animation-duration-slow $ease
 
-        .control
-        .name {
-          flex 1 0
-          width 100%
-        }
-        .control {
-          flexLayout(, flex-start, center)
+      //   .control
+      //   .name {
+      //     flex 1 0
+      //     width 100%
+      //   }
+      //   .control {
+      //     flexLayout(, flex-start, center)
 
-          &-item {
-            display inline-block
-            margin-right 16px
-          }
-          .icon {
-            font-size $font-size-sm
-          }
-        }
+      //     &-item {
+      //       display inline-block
+      //       margin-right 16px
+      //     }
+      //     .icon {
+      //       font-size $font-size-sm
+      //     }
+      //   }
 
-        .name {
-          line-height 1.53
-          textOverflow()
-        }
+      //   .name {
+      //     line-height 1.53
+      //     textOverflow()
+      //   }
 
-        &:hover {
-          opacity 1
-        }
-      }
+      //   &:hover {
+      //     opacity 1
+      //   }
+      // }
       
       .search {
         position relative

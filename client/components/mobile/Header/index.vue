@@ -6,7 +6,9 @@
   <header class="app-header">
     <div class="container">
       <nuxt-link class="logo" to="/">
-        <img :src="logo" alt="">
+        <!-- <img :src="logo" alt=""> -->
+        <p class="name">{{ blogger.name }}</p>
+        <span class="desc">{{ blogger.slogan }}</span>
       </nuxt-link>
       <div class="search">
         <form class="search-form" role="search" @submit.stop.prevent="search">
@@ -27,6 +29,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import logo from '@/static/images/logo.svg'
 
   export default {
@@ -36,6 +39,11 @@
         logo,
         keyword: ''
       }
+    },
+    computed: {
+      ...mapGetters({
+        blogger: 'user/blogger'
+      })
     },
     methods: {
       search () {

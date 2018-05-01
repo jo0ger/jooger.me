@@ -18,11 +18,21 @@
     padding 0 16px
 
     .logo {
-      display inline-block
+      flexLayout(column)
+      color $base-color
+      font-size 22px
+      line-height 1
+      font-family Oleo Script
 
-      img {
-        max-height 32px
+      .desc {
+        font-size 12px
+        font-weight normal
+        color $text-color-secondary
       }
+
+      // img {
+      //   max-height 32px
+      // }
     }
     
     .search {
