@@ -6,6 +6,8 @@
 
 'use strict'
 
+const path = require('path')
+const fixUrl = url => url.replace(/\/\//g, '/').replace(':/', '://')
 const isProd = process.env.NODE_ENV === 'production'
 const description = 'On the way to life'
 const themeColor = '#302e31'
@@ -49,6 +51,7 @@ module.exports = {
     ],
     link: [
       { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=Oleo+Script:700' },
       { rel: 'dns-prefetch', href: '//api.jooger.me' },
       { rel: 'dns-prefetch', href: '//static.jooger.me' }
     ]
@@ -101,5 +104,77 @@ module.exports = {
   transition: {
     name: 'fade',
     mode: 'out-in'
-  }
+  },
+  modules: [
+    ['@nuxtjs/pwa', {
+      manifest: {
+        name: 'Jooger.me',
+        short_name: 'Jooger.me',
+        display: 'standalone',
+        start_url: 'https://jooger.me',
+        description: description,
+        theme_color: themeColor,
+        background_color: '#fff',
+        lang: 'zh-CN'
+      },
+      meta: {
+        charset: 'utf-8',
+        title: 'Jooger.me - ' + description,
+        description: description,
+        'theme-color': themeColor,
+        lang: 'zh-CN',
+        viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+      },
+      workbox: {
+        runtimeCaching: [
+          // Cache routes if offline
+          {
+            urlPattern: fixUrl('/**'),
+            handler: 'networkFirst',
+            options: {
+              cacheName: 'route-cache',
+              cacheExpiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 30 * 24 * 60 * 60 // 30天缓存
+              }
+            }
+          },
+          // Cache other _nuxt resources runtime
+          // They are hashed by webpack so are safe to loaded by cacheFirst handler
+          {
+            urlPattern: fixUrl('/resource/**'),
+            handler: 'cacheFirst',
+            options: {
+              cacheName: 'resource-cache',
+              cacheExpiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 30 * 24 * 60 * 60
+              }
+            }
+          },
+          {
+            urlPattern: fixUrl('/proxy/**'),
+            handler: 'networkOnly'
+          },
+          {
+            urlPattern: fixUrl('https://api.jooger.me/**'),
+            handler: 'networkFirst',
+            options: {
+              cacheName: 'api-cache'
+            }
+          },
+          {
+            urlPattern: fixUrl('https://static.jooger.me/**'),
+            handler: 'networkFirst',
+            options: {
+              cacheName: 'static-cache'
+            }
+          }
+        ]
+      },
+      icon: {
+        iconSrc: path.resolve('client/', 'static/images', 'logo.png')
+      }
+    }]
+  ]
 }

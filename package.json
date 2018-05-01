@@ -17,6 +17,7 @@
     "deploy": "pm2 deploy ecosystem.config.js production"
   },
   "dependencies": {
+    "@nuxtjs/pwa": "^1.0.2",
     "axios": "^0.17.1",
     "bezier-easing": "^2.0.3",
     "cross-env": "^5.0.1",
@@ -56,5 +57,8 @@
       ],
       "post-commit": "git status"
     }
+  },
+  "release": {
+    "analyzeCommits": "simple-commit-message"
   }
 }

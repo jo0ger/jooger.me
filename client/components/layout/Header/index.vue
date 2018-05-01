@@ -7,7 +7,9 @@
     <div class="container">
       <nuxt-link class="nav-logo" to="/">
         <!-- <i class="icon icon-logo"></i> -->
-        <img :src="logo" alt="">
+        <!-- <img :src="logo" alt=""> -->
+        <p class="name">{{ blogger.name }}</p>
+        <span class="desc">{{ blogger.slogan }}</span>
       </nuxt-link>
       <div class="nav-menus">
         <nuxt-link v-for="menu in menuSchema"
@@ -34,7 +36,7 @@
             @keyup.enter="handleSearch">
           <i class="icon icon-search" @click="handleToggleSearch"></i>
         </form>
-        <transition name="fade">
+        <!-- <transition name="fade">
           <div class="action-item music" v-if="song">
             <div class="control">
               <a class="control-item prev" @click="prev">
@@ -60,13 +62,14 @@
               </span>
             </nuxt-link>
           </div>
-        </transition>
+        </transition> -->
       </div>
     </div>
   </header>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import config from '@@/app.config'
   import logo from '@/static/images/logo.svg'
 
@@ -82,33 +85,36 @@
       }
     },
     computed: {
-      menuIndex () {
-        return this.menuSchema.findIndex(menu => menu.key === this.$route.name)
-      },
-      player () {
-        if (this.$eventBus) {
-          return this.$eventBus.player
-        }
-        return null
-      },
-      song () {
-        if (this.$eventBus) {
-          return this.$eventBus.song
-        }
-        return null
-      },
-      songMute () {
-        if (this.$eventBus) {
-          return this.$eventBus.player.volume === 0
-        }
-        return true
-      }
+      ...mapGetters({
+        blogger: 'user/blogger'
+      })
+      // menuIndex () {
+      //   return this.menuSchema.findIndex(menu => menu.key === this.$route.name)
+      // },
+      // player () {
+      //   if (this.$eventBus) {
+      //     return this.$eventBus.player
+      //   }
+      //   return null
+      // },
+      // song () {
+      //   if (this.$eventBus) {
+      //     return this.$eventBus.song
+      //   }
+      //   return null
+      // },
+      // songMute () {
+      //   if (this.$eventBus) {
+      //     return this.$eventBus.player.volume === 0
+      //   }
+      //   return true
+      // }
     },
-    watch: {
-      menuIndex () {
-        this.setCornerStyle()
-      }
-    },
+    // watch: {
+    //   menuIndex () {
+    //     this.setCornerStyle()
+    //   }
+    // },
     mounted () {
       this.setCornerStyle()
     },
@@ -146,25 +152,25 @@
         this.$router.push(`/search/${this.keyword}`)
         this.handleToggleSearch()
         this.keyword = ''
-      },
-      prev () {
-        this.$eventBus.handlePrevSong()
-      },
-      next () {
-        this.$eventBus.handleNextSong()
-      },
-      toggleMusicVolume () {
-        this.$eventBus.setVolume(this.songMute ? 0.6 : 0)
-      },
-      toggleMusicPlay () {
-        if (this.player) {
-          if (this.player.playing) {
-            this.$eventBus.pause()
-          } else {
-            this.$eventBus.play()
-          }
-        }
       }
+      // prev () {
+      //   this.$eventBus.handlePrevSong()
+      // },
+      // next () {
+      //   this.$eventBus.handleNextSong()
+      // },
+      // toggleMusicVolume () {
+      //   this.$eventBus.setVolume(this.songMute ? 0.6 : 0)
+      // },
+      // toggleMusicPlay () {
+      //   if (this.player) {
+      //     if (this.player.playing) {
+      //       this.$eventBus.pause()
+      //     } else {
+      //       this.$eventBus.play()
+      //     }
+      //   }
+      // }
     }
   }
 </script>

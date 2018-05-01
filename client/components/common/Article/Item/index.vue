@@ -23,10 +23,10 @@
           <i class="icon" v-if="article.category" :class="[`icon-${getExtendsItemByKey('icon', article.category.extends) || 'tag'}`]"></i>
           {{ article.category ? article.category.name : '暂未分类' }}
         </div>
-        <div class="meta-item comments">
+        <div class="meta-item comments" v-if="!mobileLayout">
           {{ article.meta.comments }} 条评论
         </div>
-        <div class="meta-item ups">
+        <div class="meta-item ups" v-if="!mobileLayout">
           {{ article.meta.ups }} 人喜欢
         </div>
         <div class="meta-item pvs">
@@ -42,6 +42,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     name: 'ArticleItem',
     props: {
@@ -60,6 +62,11 @@
       return {
         thumb: ''
       }
+    },
+    computed: {
+      ...mapGetters({
+        mobileLayout: 'app/mobileLayout'
+      })
     },
     mounted () {
       this.loadThumb()
