@@ -4,7 +4,14 @@
     "require": true
   },
   "rules": {
-    "eofline": false,
-    "radix": false
+    "quotemark": [true, "single"],
+    "indent": [true, "spaces", 4],
+    "interface-name": false,
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "no-consecutive-blank-lines": false,
+    "ter-indent": [true, 4],
+    "space-before-function-paren": false,
+    "eofline": false
   }
 }

@@ -6,22 +6,29 @@
 
 'use strict'
 
-import { GetterTree, MutationTree } from 'vuex'
-import { RootState } from 'store'
-import { types } from '~/utils'
+import {
+    GetterTree,
+    MutationTree
+} from 'vuex'
+import {
+    RootState
+} from 'store'
+import {
+    types
+} from '@/utils'
 
 interface State {
-  mobileLayout: boolean
+    mobileLayout: boolean
 }
 
 export const state = (): State => ({
-  mobileLayout: false
+    mobileLayout: false
 })
 
-export const getters: GetterTree<State, RootState> = {
-  mobileLayout: state => state.mobileLayout
+export const getters: GetterTree < State, RootState > = {
+    mobileLayout: state => state.mobileLayout
 }
 
-export const mutations: MutationTree<State> = {
-  [types.SET_MOBILE_LAYOUT]: (state, mobileLayout) => (state.mobileLayout = mobileLayout)
+export const mutations: MutationTree < State > = {
+    [types.SET_MOBILE_LAYOUT]: (state, mobileLayout) => (state.mobileLayout = mobileLayout)
 }

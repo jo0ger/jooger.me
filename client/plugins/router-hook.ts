@@ -6,8 +6,10 @@
 
 'use strict'
 
-export default ({ app }): void => {
-  app.router.beforeEach((to, from, next): void => {
-    next()
-  })
+export default ({
+    app
+}): void => {
+    app.router.beforeEach((to, from, next): void => {
+        next()
+    })
 }

@@ -34,46 +34,46 @@ const AppModuleGetter = namespace('app', Getter)
 const CategoryModuleGetter = namespace('category', Getter)
 
 @Component({
-  name: 'PageIndex',
-  layout ({ store }) {
-    return store.getters['app/mobileLayout'] ? 'mobile' : 'default'
-  },
-  components: {
-    Swiper,
-    SwiperItem
-  }
+    name: 'PageIndex',
+    layout ({ store }) {
+        return store.getters['app/mobileLayout'] ? 'mobile' : 'default'
+    },
+    components: {
+        Swiper,
+        SwiperItem
+    }
 })
 export default class Index extends Vue {
-  @AppModuleGetter('mobileLayout') mobileLayout
+    @AppModuleGetter('mobileLayout') mobileLayout
 
-  @CategoryModuleGetter('list') categoryList
+    @CategoryModuleGetter('list') categoryList
 
-  pageSwiperOpts = {
-    slidesPerView: 1,
-    on: {
-      transitionStart: this.onArticleSwiperTransitionStart
+    pageSwiperOpts = {
+        slidesPerView: 1,
+        on: {
+            transitionStart: this.onArticleSwiperTransitionStart
+        }
     }
-  }
 
-  scrollSwiperOpts = {
-    slidesOffsetBefore: 138,
-  	direction: 'vertical',
-  	freeMode: true,
-  	slidesPerView: 'auto'
-  }
+    scrollSwiperOpts = {
+        slidesOffsetBefore: 138,
+        direction: 'vertical',
+        freeMode: true,
+        slidesPerView: 'auto'
+    }
 
-  activeIndex = 0
+    activeIndex = 0
 
-  onArticleSwiperTransitionStart () {
-    const pageRef: any = this.$refs.pageSwiper
-    const categoryRef: any = this.$refs.categorySwiper
-    this.activeIndex = pageRef.swiper.activeIndex
-    categoryRef.swiper.slideTo(this.activeIndex)
-  }
+    onArticleSwiperTransitionStart () {
+        const pageRef: any = this.$refs.pageSwiper
+        const categoryRef: any = this.$refs.categorySwiper
+        this.activeIndex = pageRef.swiper.activeIndex
+        categoryRef.swiper.slideTo(this.activeIndex)
+    }
 
-  mounted () {
-    console.dir(Message)
-  }
+    mounted () {
+        console.dir(Message)
+    }
 }
 </script>
 

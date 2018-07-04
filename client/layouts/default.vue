@@ -1,20 +1,24 @@
 <template>
-  <div>
-    <Header />
-    <nuxt/>
-  </div>
+    <div>
+        <Header />
+        <nuxt/>
+    </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { Header } from '@/components/pc'
-
-console.log(Header);
-@Component({
-  name: 'DefaultLayout',
-  components: {
+import {
+    Component,
+    Vue
+} from 'vue-property-decorator'
+import {
     Header
-  }
+} from '@/components/pc/index'
+
+@Component({
+    name: 'DefaultLayout',
+    components: {
+        Header
+    }
 })
 export default class DefaultLayout extends Vue {
 
@@ -22,5 +26,6 @@ export default class DefaultLayout extends Vue {
 </script>
 
 <style>
+
 
 </style>
