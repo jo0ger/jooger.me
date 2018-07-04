@@ -38,16 +38,16 @@
     "sourceMap": true,
     "pretty": true,
     "paths": {
-      "~/": ["./client/*"],
-      "~/assets/*": ["./client/assets/*"],
-      "~/modules/*": ["./client/modules/*"],
-      "~/components/*": ["./client/components/*"],
-      "~/middleware/*": ["./client/middleware/*"],
-      "~/pages/*": ["./client/pages/*"],
-      "~/plugins/*": ["./client/plugins/*"],
-      "~/static/*": ["./client/static/*"],
-      "~/store/*": ["./client/store/*"],
-      "~/utils/*": ["./client/utils/*"]
+      "@/": ["./client/*"],
+      "@/assets/*": ["./client/assets/*"],
+      "@/modules/*": ["./client/modules/*"],
+      "@/components/*": ["./client/components/*"],
+      "@/middleware/*": ["./client/middleware/*"],
+      "@/pages/*": ["./client/pages/*"],
+      "@/plugins/*": ["./client/plugins/*"],
+      "@/static/*": ["./client/static/*"],
+      "@/store/*": ["./client/store/*"],
+      "@/utils/*": ["./client/utils/*"]
     }
   }
 }
