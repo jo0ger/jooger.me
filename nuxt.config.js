@@ -14,6 +14,7 @@ const themeColor = '#302e31'
 
 module.exports = {
   srcDir: 'client/',
+  buildDir: 'dist',
   offline: true,
   cache: {
     max: 20,
@@ -66,7 +67,7 @@ module.exports = {
   },
   build: {
     analyze: false,
-    publicPath: '/resource/',
+    publicPath: (isProd ? '//static.jooger.me' : '') + '/resource/',
     vendor: [
       'axios',
       'swiper',

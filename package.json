@@ -10,14 +10,14 @@
   },
   "scripts": {
     "dev": "backpack dev",
-    "build": "nuxt build && backpack build",
+    "build": "cross-env NODE_ENV=production nuxt build && backpack build",
     "start": "cross-env NODE_ENV=production node build/main.js",
     "precommit": "npm run lint",
-    "lint": "eslint --ext .js,.vue,.ts --ignore-path .gitignore .",
-    "deploy": "pm2 deploy ecosystem.config.js production"
+    "lint": "eslint --ext .js,.vue,.ts --ignore-pattern ./client/static/**/* ./client",
+    "deploy": "node deploy.js"
   },
   "dependencies": {
-    "@nuxtjs/pwa": "^1.0.2",
+    "@nuxtjs/pwa": "^2.0.8",
     "axios": "^0.17.1",
     "bezier-easing": "^2.0.3",
     "cross-env": "^5.0.1",
@@ -46,6 +46,7 @@
     "nodemon": "^1.11.0",
     "pre-git": "^3.17.0",
     "scmp": "^2.0.0",
+    "scp": "^0.0.3",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1"
   },
@@ -53,7 +54,6 @@
     "pre-git": {
       "enabled": true,
       "pre-commit": [
-        "npm run precommit"
       ],
       "post-commit": "git status"
     }
