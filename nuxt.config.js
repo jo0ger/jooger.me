@@ -67,7 +67,8 @@ module.exports = {
   },
   build: {
     analyze: false,
-    publicPath: (isProd ? '//static.jooger.me' : '') + '/resource/',
+    // publicPath: (isProd ? '//static.jooger.me' : '') + '/resource/',
+    publicPath: '/resource/',
     vendor: [
       'axios',
       'swiper',
