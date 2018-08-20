@@ -6,14 +6,8 @@ const axios = require('axios')
 run()
 
 async function run () {
-    await build()
     await scpToServer()
     // await cdn()
-    await pm2()
-}
-
-function build () {
-    return exec('npm run build')
 }
 
 function scpToServer () {
@@ -44,10 +38,6 @@ function cdn () {
         }
         console.error(res.message)
     })
-}
-
-function pm2 () {
-    return exec('pm2 deploy ecosystem.config.js production')
 }
 
 function exec (cmd, options = {}) {
