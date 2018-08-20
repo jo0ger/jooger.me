@@ -14,7 +14,7 @@ const themeColor = '#302e31'
 
 module.exports = {
   srcDir: 'client/',
-  // buildDir: 'dist',
+  buildDir: 'dist',
   offline: true,
   cache: {
     max: 20,
