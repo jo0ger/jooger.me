@@ -2,17 +2,21 @@ const path = require('path')
 const scp = require('scp')
 const child_process = require('child_process')
 const axios = require('axios')
+const rm = require('rimraf')
+
+const dist = path.join(__dirname, 'dist')
 
 run()
 
 async function run () {
+    rm.sync(dist)
     await scpToServer()
     // await cdn()
 }
 
 function scpToServer () {
     const opt = {
-        file: path.join(__dirname, 'dist'),
+        file: dist,
         user: 'root',
         host: 'jooger.me',
         port: '22',
