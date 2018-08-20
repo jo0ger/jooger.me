@@ -14,7 +14,7 @@
     "start": "cross-env NODE_ENV=production node build/main.js",
     "precommit": "npm run lint",
     "lint": "eslint --ext .js,.vue,.ts --ignore-pattern ./client/static/**/* ./client",
-    "deploy": "node deploy.js"
+    "deploy": "npm run build && node deploy.js && pm2 deploy ecosystem.config.js production"
   },
   "dependencies": {
     "@nuxtjs/pwa": "^2.0.8",
