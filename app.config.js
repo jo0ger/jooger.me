@@ -11,6 +11,7 @@ const isProd = process.env.NODE_ENV === 'production'
 const baseApiUrl = isProd ? 'https://api.jooger.me' : 'http://127.0.0.1:3001'
 
 export default {
+  gaTrackingId: 'UA-106909754-1',
   service: {
     url: '/',
     method: 'get',

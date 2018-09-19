@@ -235,6 +235,19 @@
         }
         this.$message.success(`${this.type}成功`)
         this.$emit('on-publish', data)
+        if (this.articleDetail) {
+          window.gtag('event', 'article_comment_publish', {
+            event_category: 'article_comment_publish',
+            event_label: '文章评论',
+            value: 1
+          })
+        } else {
+          window.gtag('event', 'site_message_publish', {
+            event_category: 'site_message_publish',
+            event_label: '站内留言',
+            value: 1
+          })
+        }
       },
       handleClear () {
         this.clearInfo()
