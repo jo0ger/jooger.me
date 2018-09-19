@@ -2,20 +2,10 @@
 node_modules
 
 # logs
-*.log
+npm-debug.log
 
 # Nuxt build
 .nuxt
 
 # Nuxt generate
 dist
-
-# Nuxt Server Build
-build
-
-# Npm package lock file
-package-lock.json
-
-# PWA
-sw.*
-workbox-*

@@ -1,0 +1,46 @@
+{
+    "include": [
+        "src/**/*.vue",
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "build",
+        "cli",
+        "node_modules"
+    ],
+    "compilerOptions": {
+        "target": "es5",
+        "lib": [
+            "dom",
+            "es5",
+            "es6",
+            "es7",
+            "es2015.promise",
+            "es2017"
+        ],
+        "types": [
+            "node"
+        ],
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "module": "esNext",
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "noImplicitAny": false,
+        "noImplicitThis": false,
+        "strictNullChecks": true,
+        "strict": true,
+        "removeComments": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "allowSyntheticDefaultImports": true,
+        "strictFunctionTypes": false,
+        "baseUrl": "src",
+        "allowJs": true,
+        "sourceMap": true,
+        "pretty": true,
+        "paths": {
+            "@/*": ["./*"]
+        }
+    }
+}
