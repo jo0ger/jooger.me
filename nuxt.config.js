@@ -1,21 +1,34 @@
-/**
- * @desc Nuxt config
- * @author Jooger <iamjooger@gmail.com>
- * @date 20 Dec 2017
- */
+const parseArgs = require('minimist')
+const argv = parseArgs(process.argv.slice(2), {
+    alias: {
+        H: 'hostname',
+        p: 'port'
+    },
+    string: ['H'],
+    unknown: parameter => false
+})
 
-'use strict'
+const port =
+    argv.port ||
+    process.env.PORT ||
+    process.env.npm_package_config_nuxt_port ||
+    '3000'
+const host =
+    argv.hostname ||
+    process.env.HOST ||
+    process.env.npm_package_config_nuxt_host ||
+    'localhost'
 
-const path = require('path')
-const fixUrl = url => url.replace(/\/\//g, '/').replace(':/', '://')
 const isProd = process.env.NODE_ENV === 'production'
 const description = 'On the way to life'
 const themeColor = '#302e31'
 
 module.exports = {
-  srcDir: 'client/',
+  srcDir: 'src/',
   buildDir: 'dist',
-  offline: true,
+  env: {
+    baseUrl: process.env.BASE_URL || `http://${host}:${port}`
+  },
   cache: {
     max: 20,
     maxAge: 600000
@@ -57,49 +70,18 @@ module.exports = {
       { rel: 'dns-prefetch', href: '//static.jooger.me' }
     ]
   },
+  /*
+    ** Customize the progress-bar color
+    */
+  loading: {
+    color: '#3B8070'
+  },
+  /*
+    ** Build configuration
+    */
   css: [
     'normalize.css',
-    'swiper/dist/css/swiper.css',
-    { src: '@/assets/stylus/index.styl', lang: 'stylus' }
-  ],
-  loading: {
-    color: themeColor
-  },
-  build: {
-    analyze: false,
-    // publicPath: (isProd ? '//static.jooger.me' : '') + '/resource/',
-    publicPath: '/resource/',
-    vendor: [
-      'axios',
-      'swiper',
-      'howler',
-      'vue-awesome-swiper',
-      'particles.js',
-      'validator',
-      'vue-affix',
-      'bezier-easing',
-      'juejin-image-viewer'
-    ]
-  },
-  plugins: [
-    { src: '@/plugins/router.js' },
-    { src: '@/plugins/filter.js' },
-    { src: '@/plugins/mixin.js' },
-    // { src: '@/plugins/google-analytics.js', ssr: false },
-    { src: '@/plugins/google-tag.js', ssr: false },
-    { src: '@/plugins/baidu-statistics.js', ssr: false },
-    { src: '@/plugins/baidu-seo-push.js', ssr: false },
-    { src: '@/plugins/raven.js', ssr: false },
-    { src: '@/plugins/click-outside.js', ssr: false },
-    { src: '@/plugins/message.js', ssr: false },
-    { src: '@/plugins/swiper.js', ssr: false },
-    { src: '@/plugins/share.js', ssr: false },
-    { src: '@/plugins/image-load.js', ssr: false },
-    { src: '@/plugins/image-viewer.js', ssr: false },
-    { src: '@/plugins/storage-to-store.js', ssr: false },
-    { src: '@/plugins/event-bus.js', ssr: false },
-    { src: '@/plugins/particles.js', ssr: false },
-    { src: '@/plugins/console-say-hi.js', ssr: false }
+    { src: '@/assets/style/index.styl', lang: 'stylus' }
   ],
   router: {
     linkActiveClass: 'active'
@@ -108,76 +90,23 @@ module.exports = {
     name: 'fade',
     mode: 'out-in'
   },
+  build: {
+    analyze: false,
+    // publicPath: (isProd ? '//static.jooger.me' : '') + '/resource/',
+    publicPath: '/resource/',
+    vendor: [
+      'axios',
+      'particles.js',
+      'validator',
+      'vue-affix',
+    ]
+  },
   modules: [
-    ['@nuxtjs/pwa', {
-      manifest: {
-        name: 'Jooger.me',
-        short_name: 'Jooger.me',
-        display: 'standalone',
-        start_url: 'https://jooger.me',
-        description: description,
-        theme_color: themeColor,
-        background_color: '#fff',
-        lang: 'zh-CN'
-      },
-      meta: {
-        charset: 'utf-8',
-        title: 'Jooger.me - ' + description,
-        description: description,
-        'theme-color': themeColor,
-        lang: 'zh-CN',
-        viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-      },
-      workbox: {
-        runtimeCaching: [
-          // Cache routes if offline
-          {
-            urlPattern: fixUrl('/**'),
-            handler: 'networkFirst',
-            options: {
-              cacheName: 'route-cache',
-              cacheExpiration: {
-                maxEntries: 100,
-                maxAgeSeconds: 30 * 24 * 60 * 60 // 30天缓存
-              }
-            }
-          },
-          // Cache other _nuxt resources runtime
-          // They are hashed by webpack so are safe to loaded by cacheFirst handler
-          {
-            urlPattern: fixUrl('/resource/**'),
-            handler: 'cacheFirst',
-            options: {
-              cacheName: 'resource-cache',
-              cacheExpiration: {
-                maxEntries: 100,
-                maxAgeSeconds: 30 * 24 * 60 * 60
-              }
-            }
-          },
-          {
-            urlPattern: fixUrl('/proxy/**'),
-            handler: 'networkOnly'
-          },
-          {
-            urlPattern: fixUrl('https://api.jooger.me/**'),
-            handler: 'networkFirst',
-            options: {
-              cacheName: 'api-cache'
-            }
-          },
-          {
-            urlPattern: fixUrl('https://static.jooger.me/**'),
-            handler: 'networkFirst',
-            options: {
-              cacheName: 'static-cache'
-            }
-          }
-        ]
-      },
-      icon: {
-        iconSrc: path.resolve('client/', 'static/images', 'logo.png')
-      }
-    }]
-  ]
+    '@nuxtjs/axios',
+    '~/modules/typescript.js'
+  ],
+  plugins: [
+    { src: '@/plugins/particles', ssr: false }
+  ],
+  axios: {}
 }

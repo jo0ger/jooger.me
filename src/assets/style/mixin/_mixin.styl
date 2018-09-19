@@ -1,0 +1,20 @@
+full() {
+  position fixed
+  top 0
+  right 0
+  bottom 0
+  left 0
+}
+
+textOverflow() {
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
+}
+
+lineLimit(line = 2) {
+  display -webkit-box
+  overflow hidden
+  -webkit-line-clamp line
+  -webkit-box-orient vertical
+}
