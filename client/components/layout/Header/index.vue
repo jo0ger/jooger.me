@@ -152,6 +152,11 @@
         this.$router.push(`/search/${this.keyword}`)
         this.handleToggleSearch()
         this.keyword = ''
+        window.gtag('event', 'article_search', {
+          event_category: 'article_search',
+          event_label: '文章搜索',
+          value: 1
+        })
       }
       // prev () {
       //   this.$eventBus.handlePrevSong()

@@ -106,7 +106,8 @@
     },
     computed: {
       ...mapGetters({
-        historyLikes: 'app/history'
+        historyLikes: 'app/history',
+        articleDetail: 'article/detail'
       }),
       forward () {
         if (!this.comment.forward) {
@@ -185,6 +186,19 @@
           if (child) {
             child.ups += (like ? 1 : -1)
           }
+        }
+        if (this.articleDetail) {
+          window.gtag('event', 'article_comment_like', {
+            event_category: 'article_comment_like',
+            event_label: '文章评论点在',
+            value: 1
+          })
+        } else {
+          window.gtag('event', 'site_message_like', {
+            event_category: 'site_message_like',
+            event_label: '站内留言点赞',
+            value: 1
+          })
         }
       },
       handleToggleSubComments () {

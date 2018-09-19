@@ -189,6 +189,11 @@
           id: this.articleDetail._id,
           like: !this.isLiked
         })
+        window.gtag('event', 'article_like', {
+          event_category: 'article_like',
+          event_label: '文章点赞',
+          value: 1
+        })
       },
       handleGoToComment () {
         scrollTo('.comment-widget', 500, {

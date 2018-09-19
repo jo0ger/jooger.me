@@ -114,5 +114,10 @@ class Share {
       link = encodeURI(link)
     }
     this.openWindow(link, title)
+    window.gtag('event', 'page_share', {
+      event_category: 'page_share',
+      event_label: '页面分享',
+      value: 1
+    })
   }
 }
