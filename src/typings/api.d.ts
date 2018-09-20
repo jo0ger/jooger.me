@@ -156,7 +156,7 @@ declare namespace WebApi {
         }
 
         namespace list {
-            export type Req =  IPageableRequest & {
+            export type Req =  {
                 keyword?: string,
             }
 
@@ -189,7 +189,7 @@ declare namespace WebApi {
         }
 
         namespace list {
-            export type Req =  IPageableRequest & {
+            export type Req =  {
                 keyword?: string,
             }
 

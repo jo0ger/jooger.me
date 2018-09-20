@@ -13,7 +13,7 @@ export const WHITE_API_LIST = []
 
 // axios默认配置
 export const AXIOS_DEFAULT_CONFIG = {
-  baseURL: IS_PROD ? 'https://api.jooger.me/v2/backend' : 'http://127.0.0.1:7001/v2/backend',
+  baseURL: IS_PROD ? 'https://api.jooger.me/v2' : 'http://127.0.0.1:7001/v2',
   url: '/',
   method: 'get',
   headers: {

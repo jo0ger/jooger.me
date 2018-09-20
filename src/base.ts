@@ -7,27 +7,28 @@ import api from '@/api'
 import { Component } from '@/utils/decorators'
 import { processModel, findExtendsItem, moment, filters } from '@/utils'
 import * as config from '@/config'
-// import { namespace } from 'vuex-class'
+import { namespace } from 'vuex-class'
 
-// const sMod = namespace('setting')
-
-export default Vue
+const { Getter } = namespace('app')
 
 @Component({
   name: 'Base'
 })
-export class Base extends Vue {
-    protected config = config
-    protected api = api
+export default class Base extends Vue {
+  @Getter protected setting!: WebApi.SettingModule.Setting
+  @Getter protected categoryList!: WebApi.CategoryModule.Category[]
 
-    protected processModel = processModel
-    protected findExtendsItem = findExtendsItem
-    protected moment = moment
-    protected formatDate = filters.dateFormat
+  protected config = config
+  protected api = api
 
-    constructor () {
-        super()
-        // 如果需要在组件template中直接访问Base的方法，需要先在constructor中bind
-        // this.exampleMethod = this.exampleMethod.bind(this)
-    }
+  protected processModel = processModel
+  protected findExtendsItem = findExtendsItem
+  protected moment = moment
+  protected formatDate = filters.dateFormat
+
+  constructor () {
+    super()
+    // 如果需要在组件template中直接访问Base的方法，需要先在constructor中bind
+    // this.exampleMethod = this.exampleMethod.bind(this)
+  }
 }
