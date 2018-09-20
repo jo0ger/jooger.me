@@ -7,8 +7,10 @@ export const actions = {
     if (mobileClient) {
       commit('app/SET_MOBILE_LAYOUT', true)
     }
-    const initTask = []
-    initTask.push()
+    const initTask = [
+      dispatch('app/getSettingData'),
+      dispatch('app/getCategoryList')
+    ]
     return Promise.all(initTask)
   }
 }

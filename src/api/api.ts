@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from 'axios'
+import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import Http from './http'
 import { symbolApiPrefix, symbolApiContext } from '@/utils/decorators'
 
@@ -12,7 +12,7 @@ export default class Api extends Http {
         return this.processPromise<Res>(Http.client.request(Object.assign({}, config)))
     }
 
-    public originGet<Req, Res> (url: string = '', params?: Req) {
+    public async originGet<Req, Res> (url: string = '', params?: Req) {
         return this.processPromise<Res>(Http.client.get(url, { params }))
     }
 
@@ -54,7 +54,7 @@ export default class Api extends Http {
         return url
     }
 
-    private processPromise<Res> (ps: Promise<any>): Promise<Res> {
+    private processPromise<Res> (ps: Promise<AxiosResponse<Res>>): Promise<Res> {
         return ps.then(res => res && res.data || {})
     }
 }

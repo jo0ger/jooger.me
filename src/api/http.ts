@@ -29,7 +29,7 @@ export default class Http {
       transformResponse: [
         (data: any) => {
           if (data) {
-            return data
+            return JSON.parse(data)
           }
           throw new Error('网络错误')
         },
@@ -48,7 +48,7 @@ export default class Http {
     }
   }
 
-  private processResponse(response: AxiosResponse < WebApi.IResponse > ) {
+  private processResponse(response: AxiosResponse <WebApi.IResponse>) {
     let errMsg = '接口错误，请稍后重试'
     if (!response || !response.data) {
       throw new Error(errMsg)
