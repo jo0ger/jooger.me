@@ -1,7 +1,13 @@
 {
   "name": "jooger.me",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
+  "config": {
+    "nuxt": {
+      "host": "0.0.0.0",
+      "port": "7000"
+    }
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
