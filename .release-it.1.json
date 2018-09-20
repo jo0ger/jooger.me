@@ -1,0 +1,90 @@
+{
+    "non-interactive": false,
+    "dry-run": false,
+    "verbose": false,
+    "force": false,
+    "pkgFiles": ["package.json"],
+    "increment": "patch",
+    "preReleaseId": null,
+    "buildCommand": false,
+    "safeBump": true,
+    "beforeChangelogCommand": false,
+    "changelogCommand": "git log --pretty=format:\"* %s (%h)\" [REV_RANGE]",
+    "requireCleanWorkingDir": true,
+    "requireUpstream": true,
+    "src": {
+        "commit": true,
+        "commitMessage": "[chore] release %s",
+        "commitArgs": "",
+        "tag": true,
+        "tagName": "release-v%s",
+        "tagAnnotation": "Release %s",
+        "push": true,
+        "pushArgs": "",
+        "pushRepo": "origin",
+        "beforeStartCommand": false,
+        "afterReleaseCommand": false,
+        "addUntrackedFiles": false
+    },
+    "npm": {
+        "publish": false,
+        "publishPath": ".",
+        "tag": "latest",
+        "private": false,
+        "access": null,
+        "otp": null
+    },
+    "github": {
+        "release": false,
+        "releaseName": "Release %s",
+        "preRelease": false,
+        "draft": false,
+        "tokenRef": "GITHUB_TOKEN",
+        "assets": null,
+        "host": null,
+        "timeout": 0,
+        "proxy": false
+    },
+    "dist": {
+        "repo": false,
+        "stageDir": ".stage",
+        "baseDir": "dist",
+        "files": ["**/*"],
+        "pkgFiles": null,
+        "commit": true,
+        "commitMessage": "Release %s",
+        "commitArgs": "",
+        "tag": true,
+        "tagName": "%s",
+        "tagAnnotation": "Release %s",
+        "push": true,
+        "pushArgs": "",
+        "beforeStageCommand": false,
+        "afterReleaseCommand": false,
+        "addUntrackedFiles": false,
+        "github": {
+            "release": false
+        },
+        "npm": {
+            "publish": false
+        }
+    },
+    "prompt": {
+        "src": {
+            "status": false,
+            "commit": true,
+            "tag": true,
+            "push": true,
+            "release": true,
+            "publish": true
+        },
+        "dist": {
+            "status": false,
+            "commit": true,
+            "tag": false,
+            "push": true,
+            "release": false,
+            "publish": false
+        }
+    }
+}
