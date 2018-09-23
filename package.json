@@ -25,6 +25,7 @@
     "raven-js": "^3.27.0",
     "validator": "^10.7.1",
     "vue-affix": "^0.4.0",
+    "vue-lazyload": "^1.2.6",
     "vuex-class": "^0.3.0"
   },
   "devDependencies": {

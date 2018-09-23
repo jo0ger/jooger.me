@@ -106,7 +106,8 @@ module.exports = {
     '~/modules/typescript.js'
   ],
   plugins: [
-    { src: '@/plugins/particles', ssr: false }
+    { src: '@/plugins/particles', ssr: false },
+    { src: '@/plugins/lazyload', ssr: false }
   ],
   axios: {}
 }

@@ -26,14 +26,6 @@ export default class Http {
       transformRequest: [
         (data: any) => data,
       ],
-      transformResponse: [
-        (data: any) => {
-          if (data) {
-            return JSON.parse(data)
-          }
-          throw new Error('网络错误')
-        },
-      ],
     }))
     client.interceptors.request.use(config => this.processRequest(config), err => Promise.reject(err))
     client.interceptors.response.use(response => this.processResponse(response), err => this.processError(err))
@@ -98,9 +90,7 @@ export default class Http {
       return null
     }
     let payload = data
-    if (payload instanceof FormData) {
-      // pass
-    } else if (method === 'post' || method === 'patch') {
+    if (method === 'post' || method === 'patch') {
       payload = JSON.stringify(data)
     }
     return payload

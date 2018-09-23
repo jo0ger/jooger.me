@@ -22,6 +22,33 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+
+    a {
+        color inherit
+        background transparent
+        text-decoration none
+        outline none
+        cursor pointer
+        transition all $animation-duration-slow $ease
+
+        &:focus {
+            text-decoration none
+            text-decoration-skip ink
+        }
+
+        &:active,
+        &:hover {
+            color $black
+            outline 0
+            text-decoration none
+        }
+
+        &[disabled] {
+            color $text-color-placeholder
+            cursor not-allowed
+            pointer-events none
+        }
+    }
 }
 
 ul, ol {

@@ -3,10 +3,10 @@
     <Background></Background>
     <PCHeader></PCHeader>
     <main class="app-main">
-      <PCSider></PCSider>
       <div class="content-container">
         <nuxt/>
       </div>
+      <div class="aside-container"></div>
     </main>
   </div>
 </template>
@@ -34,12 +34,17 @@
   @import '~@/assets/style/init'
   .app {
     .app-main {
+      display flex
       width 1088px
       margin 0 auto
       padding-top 24px
 
       .content-container {
-        margin-left 132px
+        flex 1 0
+      }
+
+      .aside-container {
+        flex 0 0 320px
       }
     }
   }
