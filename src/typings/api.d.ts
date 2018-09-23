@@ -89,6 +89,10 @@ declare namespace WebApi {
             export type Res = IPageableResponse<Article>
         }
 
+        namespace hotList {
+            export type Res = IResponse<Article[]>
+        }
+
         namespace item {
             export type Res = IResponse<Article>
         }

@@ -1,8 +1,11 @@
 import Vue from 'vue'
+import { NuxtContext } from 'nuxt'
 
 declare module 'vue/types/options' {
     interface ComponentOptions<V extends Vue> {
-        layout?: string
+        layout?: string | ((args: NuxtContext) => string)
+        fetch?(args: NuxtContext): Promise<any>
+        head?: object | (() => object)
     }
 }
 

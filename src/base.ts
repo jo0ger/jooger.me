@@ -12,7 +12,10 @@ import { namespace } from 'vuex-class'
 const { Getter } = namespace('app')
 
 @Component({
-  name: 'Base'
+  name: 'Base',
+  filters: {
+    ...filters
+  }
 })
 export default class Base extends Vue {
   @Getter protected setting!: WebApi.SettingModule.Setting

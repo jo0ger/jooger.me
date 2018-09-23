@@ -1,24 +1,14 @@
 import { USER_LIKE_KEY } from '@/config'
 import { isType, storage } from '@/utils'
 import api from '@/api'
-import { StateTree, Getters, RootState, Mutations, Actions } from '@/utils/interfaces'
+import { AppStateTree, Getters, RootState, Mutations, Actions } from '@/utils/interfaces'
 
 const SET_MOBILE_LAYOUT = 'SET_MOBILE_LAYOUT'
 const SET_HISTORY = 'SET_HISTORY'
 const FETCH_SETTING = 'FETCH_SETTING'
 const FETCH_CATEGORY_LIST = 'FETCH_CATEGORY_LIST'
 
-interface State extends StateTree {
-  mobileLayout: boolean
-  history: {
-    articles: string[]
-    comments: string[]
-  }
-  setting: null | WebApi.SettingModule.Setting
-  categoryList: WebApi.CategoryModule.Category[]
-}
-
-export const state = (): State => ({
+export const state = (): AppStateTree => ({
   mobileLayout: false,
   history: {
     articles: [],
@@ -28,14 +18,14 @@ export const state = (): State => ({
   categoryList: []
 })
 
-export const getters: Getters<State, RootState> = {
+export const getters: Getters<AppStateTree, RootState> = {
   mobileLayout: state => state.mobileLayout,
   history: state => state.history,
   setting: state => state.setting,
   categoryList: state => state.categoryList
 }
 
-export const mutations: Mutations<State> = {
+export const mutations: Mutations<AppStateTree> = {
   [SET_MOBILE_LAYOUT]: (state, mobileLayout) => (state.mobileLayout = mobileLayout),
   [SET_HISTORY]: (state, history: any = {}) => {
     const { articles, comments, articleId, commentId } = history
@@ -52,13 +42,13 @@ export const mutations: Mutations<State> = {
   [FETCH_CATEGORY_LIST]: (state, list) => (state.categoryList = list)
 }
 
-export const actions: Actions<State, RootState> = {
+export const actions: Actions<AppStateTree, RootState> = {
   updateHistory ({ commit, state }, history = {}) {
     commit(SET_HISTORY, history)
     storage.set(USER_LIKE_KEY, JSON.stringify(state.history))
   },
   async getSettingData ({ commit }) {
-    const { success, data } = await api.getSettingata()
+    const { success, data } = await api.getSettingData()
     if (success) {
         commit(FETCH_SETTING, data)
     }

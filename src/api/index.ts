@@ -3,7 +3,7 @@ import Api from './api'
 export const apiClient = new Api()
 
 class ApiModule extends Api {
-  public getSettingata () {
+  public getSettingData () {
     type Res = WebApi.SettingModule.getData.Res
     return this.get<null, Res>('/setting')
   }
@@ -14,9 +14,18 @@ class ApiModule extends Api {
     return this.get<Req, Res>('/articles', params)
   }
 
+  public getHotArticleList () {
+    type Res = WebApi.ArticleModule.hotList.Res
+    return this.get<null, Res>('/articles/hot')
+  }
+
   public getArticleDetail (id: string) {
     type Res = WebApi.ArticleModule.item.Res
     return this.get<null, Res>(`/articles/${id}`)
+  }
+
+  public getArchives () {
+    return this.get<null, any>('/articles/archives')
   }
 
   public likeArticle (id: string) {
