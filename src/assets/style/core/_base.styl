@@ -1,27 +1,28 @@
 * {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+    box-sizing border-box
+    -webkit-tap-highlight-color transparent
 }
 
 *:before,
 *:after {
-    box-sizing: border-box;
+    box-sizing border-box
 }
 
 :root {
-    text-size-adjust: 100%;
-    cursor: default;
+    text-size-adjust 100%
+    cursor default
 }
 
 body {
-    font-family: Helvetica Neue For Number, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
-    line-height: 1.42857143;
-    background-color: $body-bg-color;
-    color: $text-color;
-    font-size: $font-size-base;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+    font-family Helvetica Neue For Number, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif
+    line-height 1.42857143
+    background-color $body-bg-color
+    color $text-color
+    font-size $font-size-base
+    -moz-osx-font-smoothing grayscale
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing antialiased
+    text-rendering optimizeLegibility
 
     a {
         color inherit
@@ -51,6 +52,89 @@ body {
     }
 }
 
-ul, ol {
-    list-style none
+// unify the setting of elements's margin and padding for browsers
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+  margin 0
+  padding 0
+}
+
+// Reset fonts for relevant elements
+button,input,select,textarea {
+  font-family inherit
+  font-size inherit
+  line-height inherit
+  color inherit
+}
+
+// Remove the clear button of a text input control in IE10+
+input::-ms-clear, input::-ms-reveal {
+  display none
+}
+
+textarea {
+  resize none !importan
+}
+
+input,
+input:focus,
+input[type="text"],
+input[type="text"]:focus,
+select,
+textarea {
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+button {
+  outline: none !important;
+}
+
+ol, ul {
+  list-style none
+}
+
+svg:not(:root) {
+  overflow hidden
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin 0
+  padding 0
+  line-height $line-height-base
+  font-family $font-family-title
+}
+
+.none {
+  display none !important
+}
+
+::-webkit-input-placeholder {
+  color $text-color-secondary
+}
+
+:-moz-placeholder {
+  color $text-color-secondary
+}
+
+::-moz-placeholder {
+  color $text-color-secondary
+}
+
+:-ms-input-placeholder {
+  color $text-color-secondary
+}
+
+::selection {
+  background $base-color
+  color $white
+}
+
+::webkit-selection {
+  background $base-color
+  color $white
+}
+
+::moz-selection {
+  background $base-color
+  color $white
 }
