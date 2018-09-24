@@ -4,7 +4,7 @@
       <div class="category"
         v-for="item in categoryList"
         :key="item._id">
-        <router-link :to="`/category/${item._id}`">
+        <router-link :to="`/category/${item.name}`">
           <img class="background" v-if="findExtendsItem(item.extends, 'image')"
             :src="findExtendsItem(item.extends, 'image')" alt="">
           <div class="mask"></div>
@@ -16,29 +16,21 @@
       </div>
     </div>
     <Card class="article-panel">
-      <ArticleList
-        :list="articleList"
-        :loading="articleListFetching"
-        :page-info="pageInfo"
-        :on-loadmore="loadmore"></ArticleList>
+      <ArticleList></ArticleList>
     </Card>
   </section>
 </template>
 
 <script lang="ts">
 import Base from "@/base"
-import { namespace } from 'vuex-class'
 import { Component } from "@/utils/decorators"
 import { Card, ArticleList, ArticleItem, Loading } from '@/components/common'
-
-const aMod = namespace('article')
 
 @Component({
   name: 'Index',
   components: {
     Card,
     ArticleList,
-    ArticleItem,
     Loading
   },
   head: {
@@ -50,14 +42,6 @@ const aMod = namespace('article')
   }
 })
 export default class extends Base {
-  @aMod.Getter('list') articleList!: WebApi.ArticleModule.Article[]
-  @aMod.Getter('listFetching') articleListFetching!: boolean
-  @aMod.Getter pageInfo!: WebApi.PageInfo
-  @aMod.Action('fetchList') getArticleList!: () => void
-
-  private loadmore () {
-    this.getArticleList()
-  }
 }
 </script>
 <style lang="stylus" scoped>

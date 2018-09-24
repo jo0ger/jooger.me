@@ -1,28 +1,22 @@
 <template>
     <section class="search-page">
         <Card>
-            <div slot="header" class="info-header">
+          <div slot="header" class="info-header">
             <i class="icon icon-search"></i>
             <div class="search">与
-            <span class="keyword">{{ $route.params.keyword }}</span>
-            有关的文章
+              <span class="keyword">{{ $route.params.keyword }}</span>
+              关键词有关的文章
             </div>
-            <div class="count" v-if="!articleListFetching">
-            共搜索到
-            <em class="num">{{ pageInfo.total || 0 }}</em>
-            篇文章
+            <div class="count" v-if="!listFetching">
+              共搜索到
+              <em class="num">{{ pageInfo.total || 0 }}</em>
+              篇文章
             </div>
-        </div>
+          </div>
         <div class="list-content">
-            <ArticleList
-              mini
-              :list="articleList"
-              :page-info="pageInfo"
-              :loading="articleListFetching"
-              @on-loadmore="loadmore">
-            </ArticleList>
+          <ArticleList :mini="true"></ArticleList>
         </div>
-        </Card>
+      </Card>
     </section>
 </template>
 
@@ -32,7 +26,7 @@ import { Component } from "@/utils/decorators"
 import { Card, ArticleList } from '@/components/common'
 import { namespace } from 'vuex-class'
 
-const aMod = namespace('article')
+const { Getter } = namespace('article')
 
 @Component({
   name: 'Search',
@@ -60,16 +54,8 @@ const aMod = namespace('article')
   }
 })
 export default class extends Base {
-  @aMod.Getter('list') articleList!: WebApi.ArticleModule.Article[]
-  @aMod.Getter('listFetching') articleListFetching!: boolean
-  @aMod.Getter pageInfo!: WebApi.PageInfo
-  @aMod.Action('fetchList') getArticleList!: (params: any) => void
-
-  private loadmore () {
-    this.getArticleList({
-      keyword: this.$route.params.keyword
-    })
-  }
+  @Getter pageInfo!: WebApi.PageInfo
+  @Getter listFetching!: boolean
 }
 </script>
 
