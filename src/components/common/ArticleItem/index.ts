@@ -13,4 +13,7 @@ import { Component, Prop } from '@/utils/decorators'
 export default class ArticleItem extends Base {
   @Prop()
   private article!: any
+
+  @Prop()
+  mini!: boolean
 }

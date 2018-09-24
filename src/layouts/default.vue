@@ -40,13 +40,14 @@
   @import '~@/assets/style/init'
   .app {
     .app-main {
-      display flex
+      flexLayout(, flex-start, flex-start)
       width 1088px
       margin 0 auto
       padding-top (60 + $padding-md)px
 
       .content-container {
         flex 1 0
+        overflow hidden
       }
 
       .aside-container {

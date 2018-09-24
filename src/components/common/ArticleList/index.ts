@@ -20,14 +20,10 @@ const aMod = namespace('article')
   }
 })
 export default class ArticleList extends Base {
-  @Prop()
-  private list!: WebApi.ArticleModule.Article[]
-
-  @Prop()
-  private pageInfo!: WebApi.PageInfo
-
-  @Prop()
-  private loading!: boolean
+  @aMod.Getter('list') articleList!: WebApi.ArticleModule.Article[]
+  @aMod.Getter('listFetching') articleListFetching!: boolean
+  @aMod.Getter pageInfo!: WebApi.PageInfo
+  @aMod.Action('fetchList') getArticleList!: () => void
 
   @Prop()
   private mini!: boolean
@@ -39,6 +35,6 @@ export default class ArticleList extends Base {
   }
 
   private loadmore () {
-    this.$emit('on-loadmore', this.pageInfo)
+    this.getArticleList()
   }
 }

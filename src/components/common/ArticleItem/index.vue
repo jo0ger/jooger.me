@@ -8,7 +8,7 @@
     <nuxt-link class="article-link"
       :to="`/article/${article._id}`">
       <h2 class="title">{{ article.title }}</h2>
-      <div class="summary">
+      <div class="summary" v-if="!mini">
         <div class="thumb" v-if="article.thumb">
           <img v-lazy="article.thumb" alt="">
         </div>
@@ -35,9 +35,7 @@
         <i class="icon icon-time"></i>
         {{ article.createdAt | dateFormat('YYYY-MM-DD') }}
       </time>
-      <div class="source">
-        {{ ['原创', '转载'][article.source] }}
-      </div>
+      <div class="source">{{ article.source | constantFilter('ARTICLE_SOURCE') }}</div>
     </div>
   </article>
 </template>

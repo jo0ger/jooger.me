@@ -11,3 +11,14 @@ export type ConstantItem = Array<{
 export interface Constant {
     [type: string]: ConstantItem
 }
+
+export const ARTICLE_SOURCE: ConstantItem = [
+    {
+        label: '原创',
+        value: 0,
+    },
+    {
+        label: '转载',
+        value: 1,
+    },
+]
