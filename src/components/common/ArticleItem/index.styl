@@ -8,7 +8,8 @@
 
 .article-item {
     position relative
-    padding-bottom 16px
+    margin-bottom $padding-md
+    padding-bottom $padding-xs
     border-bottom 1px dashed $border-color-3
 
     .article-link {
@@ -26,10 +27,10 @@
             color $text-color-secondary
 
             .thumb {
-                flex 0 0 210px
+                flex 0 0 150px
                 position relative
-                width 210px
-                max-height 120px
+                width 150px
+                max-height 90px
                 margin-right 16px
                 overflow hidden
                 border-radius 4px
@@ -63,6 +64,7 @@
 
             .description {
                 flex 1 0
+                margin 0
                 line-height 1.8
                 text-align justify
                 overflow hidden
@@ -102,7 +104,8 @@
 
             .category {
                 .icon {
-                    margin-right 6px
+                    margin-right $padding-xs
+                    font-size $font-size-sm
                 }
             }
         }

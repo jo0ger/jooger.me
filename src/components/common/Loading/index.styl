@@ -1,0 +1,61 @@
+/**
+ * @desc Loading
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-09-24 13:32:09
+ */
+
+@import '~@/assets/style/init'
+
+$sizes         = small default large
+
+.loading {
+    position relative
+    display inline-block
+    width 100%
+
+    .wrapper {
+        flexLayout(row)
+        width auto
+        height auto
+        margin 0 auto
+        text-transform uppercase
+    }
+
+    .spinner {
+        position relative
+    }
+
+    .text {
+        margin-left $padding-sm
+        font-size $font-size-sm
+    }
+
+    .circular {
+        position absolute
+        width 100%
+        height @width
+        top 0
+        bottom 0
+        left 0
+        right 0
+        margin auto
+        transform-origin center center
+        animation rotate 2s linear infinite
+    }
+
+    .path {
+        stroke-dasharray 1,200
+        stroke-dashoffset 0
+        animation dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite
+        stroke-linecap round
+    }
+
+    for size, i in $sizes {
+        &-{size} {
+            .spinner {
+                width (14px + i * 6px)
+                height @width
+            }
+        }
+    }
+}
