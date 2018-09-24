@@ -35,6 +35,9 @@
         <i class="icon icon-time"></i>
         {{ article.createdAt | dateFormat('YYYY-MM-DD') }}
       </time>
+      <div class="source">
+        {{ ['原创', '转载'][article.source] }}
+      </div>
     </div>
   </article>
 </template>

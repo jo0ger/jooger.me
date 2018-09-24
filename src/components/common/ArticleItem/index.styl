@@ -23,8 +23,7 @@
 
         .summary {
             flexLayout(, flex-start, flex-start)
-            margin-top 8px
-            color $text-color-secondary
+            margin-top $padding-sm
 
             .thumb {
                 flex 0 0 150px
@@ -65,9 +64,9 @@
             .description {
                 flex 1 0
                 margin 0
-                line-height 1.8
                 text-align justify
                 overflow hidden
+                color $text-color-secondary
                 lineLimit(4)
             }
         }
@@ -80,11 +79,13 @@
     }
 
     .status {
-        flexLayout(, space-between,,wrap)
-        margin-top 10px
+        flexLayout(, flex-start,,wrap)
+        margin-top $padding-md
         font-size $font-size-sm
         color $text-color-secondary
+
         .meta {
+            flex 1 0
             flexLayout(, flex-start)
 
             &-item {
@@ -114,6 +115,10 @@
             .icon {
                 font-size $font-size-sm
             }
+        }
+
+        .source {
+            margin-left $padding-sm
         }
     }
 }

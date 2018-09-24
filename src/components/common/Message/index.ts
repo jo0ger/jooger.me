@@ -1,14 +1,14 @@
 /**
- * @desc Sider
+ * @desc Message
  * @author Jooger <iamjooger@gmail.com>
- * @date 2018-09-21 00:46:47
+ * @date 2018-09-24 17:45:40
  */
 
 import Base from '@/base'
 import { Component } from '@/utils/decorators'
 
 @Component({
-  name: 'Sider',
+  name: 'Message',
 })
-export default class Sider extends Base {
+export default class Message extends Base {
 }

@@ -18,8 +18,11 @@ const { Getter } = namespace('app')
   }
 })
 export default class Base extends Vue {
+  @Getter protected mobileLayout!: boolean
   @Getter protected setting!: WebApi.SettingModule.Setting
+  @Getter protected hotList!: WebApi.ArticleModule.Article[]
   @Getter protected categoryList!: WebApi.CategoryModule.Category[]
+  @Getter protected tagList!: WebApi.TagModule.Tag[]
 
   protected config = config
   protected api = api

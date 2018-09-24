@@ -21,7 +21,9 @@ export interface AppStateTree {
         comments: string[]
     }
     setting: null | WebApi.SettingModule.Setting
+    hotList: WebApi.ArticleModule.Article[]
     categoryList: WebApi.CategoryModule.Category[]
+    tagList: WebApi.TagModule.Tag[]
 }
 
 export interface ArticleStateTree {
@@ -34,10 +36,6 @@ export interface ArticleStateTree {
         fetching: boolean
         liking: boolean
         data: WebApi.ArticleModule.Article
-    }
-    hot: {
-        fetching: boolean
-        data: WebApi.ArticleModule.Article[]
     }
     archive: {
         fetching: boolean

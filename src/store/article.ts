@@ -4,9 +4,6 @@ import { ArticleStateTree, Getters, RootState, Mutations, Actions } from '@/util
 const FETCH_LIST_REQUEST = 'FETCH_LIST_REQUEST'
 const FETCH_LIST_SUCCESS = 'FETCH_LIST_SUCCESS'
 const FETCH_LIST_FAILURE = 'FETCH_LIST_FAILURE'
-const FETCH_HOT_REQUEST = 'FETCH_HOT_REQUEST'
-const FETCH_HOT_SUCCESS = 'FETCH_HOT_SUCCESS'
-const FETCH_HOT_FAILURE = 'FETCH_HOT_FAILURE'
 const FETCH_ARCHIVE_REQUEST = 'FETCH_ARCHIVE_REQUEST'
 const FETCH_ARCHIVE_SUCCESS = 'FETCH_ARCHIVE_SUCCESS'
 const FETCH_ARCHIVE_FAILURE = 'FETCH_ARCHIVE_FAILURE'
@@ -39,10 +36,6 @@ export const state = (): ArticleStateTree => ({
     liking: false,
     data: {}
   },
-  hot: {
-    fetching: false,
-    data: []
-  },
   archive: {
     fetching: false,
     data: [],
@@ -57,8 +50,6 @@ export const getters: Getters<ArticleStateTree, RootState> = {
   detail: state => state.detail.data,
   detailFetching: state => state.detail.fetching,
   detailLiking: state => state.detail.liking,
-  hot: state => state.hot.data,
-  hotFetching: state => state.hot.fetching,
   archives: state => state.archive.data,
   archivesCount: state => state.archive.count,
   archivesFetching: state => state.archive.fetching
@@ -80,12 +71,6 @@ export const mutations: Mutations<ArticleStateTree> = {
     state.list.fetching = false
     state.list.data = []
     state.list.pageInfo = getDefaultPageInfo()
-  },
-  [FETCH_HOT_REQUEST]: state => (state.hot.fetching = true),
-  [FETCH_HOT_FAILURE]: state => (state.hot.fetching = false),
-  [FETCH_HOT_SUCCESS]: (state, { list }) => {
-    state.hot.fetching = false
-    state.hot.data = list
   },
   [FETCH_ARCHIVE_REQUEST]: state => (state.archive.fetching = true),
   [FETCH_ARCHIVE_FAILURE]: state => (state.archive.fetching = false),
@@ -142,7 +127,7 @@ export const mutations: Mutations<ArticleStateTree> = {
 }
 
 export const actions: Actions<ArticleStateTree, RootState> = {
-  async fetchList ({ commit, state }, params: WebApi.IPageableRequest) {
+  async fetchList ({ commit, state }, params: WebApi.ArticleModule.list.Req) {
     if (state.list.fetching) {
       return
     }
@@ -158,19 +143,6 @@ export const actions: Actions<ArticleStateTree, RootState> = {
       commit(FETCH_LIST_SUCCESS, data)
     } else {
       commit(FETCH_LIST_FAILURE)
-    }
-    return success
-  },
-  async fetchHotList ({ commit, state }) {
-    if (state.hot.fetching) {
-      return
-    }
-    commit(FETCH_HOT_REQUEST)
-    const { success, data } = await api.getHotArticleList()
-    if (success) {
-      commit(FETCH_HOT_SUCCESS, data)
-    } else {
-      commit(FETCH_HOT_FAILURE)
     }
     return success
   },

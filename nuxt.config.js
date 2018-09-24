@@ -92,13 +92,11 @@ module.exports = {
   },
   build: {
     analyze: false,
-    // publicPath: (isProd ? '//static.jooger.me' : '') + '/resource/',
     publicPath: '/resource/',
     vendor: [
       'axios',
       'particles.js',
       'validator',
-      'vue-affix',
     ]
   },
   modules: [
@@ -106,6 +104,7 @@ module.exports = {
     '~/modules/typescript.js'
   ],
   plugins: [
+    { src: '@/plugins/google-tag', ssr: false },
     { src: '@/plugins/particles', ssr: false },
     { src: '@/plugins/lazyload', ssr: false }
   ],

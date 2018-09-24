@@ -1,0 +1,35 @@
+/**
+ * @desc ArticleList
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-09-24 16:56:51
+ */
+
+@import '~@/assets/style/init'
+
+.article-list {
+    .indicator {
+      margin-top $padding-md
+      text-align center
+      font-size $font-size-sm
+
+      p {
+        margin 0
+        color $text-color-secondary
+      }
+
+      .loadmore {
+        padding 6px 32px
+        border-radius 2px
+        border 1px solid $border-color
+        cursor pointer
+        transition all $animation-duration-slow $ease-in-out
+
+        &:hover {
+          padding 6px 48px
+          background $base-color
+          color $white
+          border-color @background
+        }
+      }
+    }
+}
