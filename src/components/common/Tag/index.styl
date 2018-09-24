@@ -1,0 +1,32 @@
+/**
+ * @desc Tag
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-09-24 15:51:33
+ */
+
+@import '~@/assets/style/init'
+
+.tag {
+  display inline-block
+  margin 0 8px 8px 0
+  padding 4px 8px
+  border 1px solid $border-color
+  font-size $font-size-sm
+  border-radius 4px
+  transition all $animation-duration-slow $ease
+
+  .icon {
+    margin-right 4px
+    font-size $font-size-sm
+  }
+
+  .name {
+    margin-right 4px
+  }
+
+  &:hover {
+    background-color $base-color
+    border-color $base-color
+    color $white
+  }
+}

@@ -9,7 +9,9 @@ export const actions = {
     }
     await dispatch('app/getSettingData')
     const initTask = [
+      dispatch('app/getHotList'),
       dispatch('app/getCategoryList'),
+      dispatch('app/getTagList'),
     ]
     return Promise.all(initTask)
   }

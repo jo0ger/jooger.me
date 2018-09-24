@@ -1,27 +1,33 @@
 <template>
   <div class="app">
     <Background></Background>
-    <PCHeader></PCHeader>
-    <main class="app-main">
-      <div class="content-container">
-        <nuxt/>
-      </div>
-      <div class="aside-container"></div>
-    </main>
+    <div class="wrapper">
+      <PCHeader></PCHeader>
+      <main class="app-main">
+        <div class="content-container">
+          <nuxt/>
+        </div>
+        <div class="aside-container">
+          <PCAside></PCAside>
+        </div>
+      </main>
+      <PCFooter></PCFooter>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
   import Base from "@/base"
   import { Component  } from "@/utils/decorators"
-  import { PCHeader, PCSider } from "@/components/pc"
+  import { PCHeader, PCAside, PCFooter } from "@/components/pc"
   import { Background  } from "@/components/common"
 
   @Component({
     name: 'LayoutDefault',
     components: {
       PCHeader,
-      PCSider,
+      PCAside,
+      PCFooter,
       Background
     }
   })
@@ -37,7 +43,7 @@
       display flex
       width 1088px
       margin 0 auto
-      padding-top 24px
+      padding-top (60 + $padding-md)px
 
       .content-container {
         flex 1 0
@@ -45,6 +51,8 @@
 
       .aside-container {
         flex 0 0 320px
+        width 320px
+        margin-left $padding-md
       }
     }
   }

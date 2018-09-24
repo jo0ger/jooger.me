@@ -1,0 +1,68 @@
+/**
+ * @desc Hots
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-09-24 15:29:18
+ */
+
+@import '~@/assets/style/init'
+
+.widget-hots {
+    .hot-list {
+        list-style none
+
+        .hot-item {
+            display flex
+            position relative
+            margin-bottom $padding-md
+
+            &:last-child {
+                margin-bottom 0
+            }
+
+            .index {
+                flex 0 0 20px
+                display inline-block
+                width 20px
+                height @width
+                line-height @width
+                margin-right $padding-sm
+                background-color rgba($base-color, .1)
+                border-radius 4px
+                text-align center
+                font-size $font-size-sm
+                font-style italic
+            }
+      
+            .title {
+                display inline-block
+                font-size $font-size-base
+                lineLimit(1)
+                
+                &:hover {
+                    text-decoration underline
+                }
+            }
+
+            .meta {
+                flexLayout(, flex-start)
+                font-size $font-size-sm
+                color $text-color-secondary
+
+                &-item {
+                flexLayout(, flex-start)
+                position relative
+                margin-right 12px
+
+                &::before {
+                    content ''
+                    width 2px
+                    height @width
+                    margin-right 4px
+                    border 1px solid $text-color-secondary
+                    border-radius 1px
+                }
+                }
+            }
+        }
+    }
+}

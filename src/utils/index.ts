@@ -7,6 +7,8 @@ export * from './share'
 
 export * from './validate'
 
+export * from './dom'
+
 export {
   storage,
   decorators,
