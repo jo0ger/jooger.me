@@ -4,6 +4,7 @@ import api from '@/api'
 import { AppStateTree, Getters, RootState, Mutations, Actions } from '@/utils/interfaces'
 
 const SET_MOBILE_LAYOUT = 'SET_MOBILE_LAYOUT'
+const SET_FULL_COLUMN = 'SET_FULL_COLUMN'
 const SET_HISTORY = 'SET_HISTORY'
 const FETCH_SETTING = 'FETCH_SETTING'
 const FETCH_HOT_LIST = 'FETCH_HOT_LIST'
@@ -12,6 +13,7 @@ const FETCH_TAG_LIST = 'FETCH_TAG_LIST'
 
 export const state = (): AppStateTree => ({
   mobileLayout: false,
+  fullColumn: false,
   history: {
     articles: [],
     comments: []
@@ -24,6 +26,7 @@ export const state = (): AppStateTree => ({
 
 export const getters: Getters<AppStateTree, RootState> = {
   mobileLayout: state => state.mobileLayout,
+  fullColumn: state => state.fullColumn,
   history: state => state.history,
   setting: state => state.setting,
   hotList: state => state.hotList,
@@ -33,6 +36,7 @@ export const getters: Getters<AppStateTree, RootState> = {
 
 export const mutations: Mutations<AppStateTree> = {
   [SET_MOBILE_LAYOUT]: (state, mobileLayout) => (state.mobileLayout = mobileLayout),
+  [SET_FULL_COLUMN]: (state, fullColumn) => (state.fullColumn = fullColumn),
   [SET_HISTORY]: (state, history: any = {}) => {
     const { articles, comments, articleId, commentId } = history
     if (articles && isType(articles, 'Array')) {
