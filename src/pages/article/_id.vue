@@ -5,10 +5,10 @@
           <span class="source" :class="[article.source ? 'reprint' : 'original']">{{ article.source | constantFilter('ARTICLE_SOURCE') }}</span>
           <h2 class="title">{{ article.title }}</h2>
           <div class="meta">
-            <div class="meta-item category">
+            <nuxt-link :to="`/category/${article.category.name}`" class="meta-item category">
               <i class="icon" v-if="article.category" :class="[`icon-${findExtendsItem(article.category.extends, 'icon') || 'tag'}`]"></i>
               {{ article.category ? article.category.name : '暂未分类' }}
-            </div>
+            </nuxt-link>
             <div class="meta-item comments">
               {{ article.meta.comments }} 条评论
             </div>
@@ -28,6 +28,9 @@
               :link="true">
             </Tag>
           </div>
+          <div class="like">
+            <Like :liked="liked" @on-click="likeClick"></Like>
+          </div>
         </article>
       </Card>
     </section>
@@ -37,7 +40,7 @@
 import Base from '@/base'
 import { Component, Prop } from '@/utils/decorators'
 import { namespace } from 'vuex-class'
-import { Card, Tag } from '@/components/common'
+import { Card, Tag, Like } from '@/components/common'
 
 const aMod = namespace('article')
 
@@ -45,7 +48,8 @@ const aMod = namespace('article')
   name: 'ArticleDetail',
   components: {
     Card,
-    Tag
+    Tag,
+    Like
   },
   layout ({ store }) {
     return store.getters['app/mobileLayout'] ? 'mobile' : 'default'
@@ -76,6 +80,12 @@ const aMod = namespace('article')
 })
 export default class extends Base {
   @aMod.Getter('detail') private article!: WebApi.ArticleModule.Article
+
+  private liked = false
+
+  private likeClick () {
+    this.liked = !this.liked
+  }
 }
 </script>
 
@@ -113,6 +123,7 @@ export default class extends Base {
     }
 
     .title {
+      margin $padding-md 0
       font-size $font-size-lger + 2px
       text-align center
     }
@@ -149,6 +160,10 @@ export default class extends Base {
       padding-top 10px
       border-top 1px dashed $border-color-3
       text-align center
+    }
+
+    .like {
+      flexLayout()
     }
   }
 }

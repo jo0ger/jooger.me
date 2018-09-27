@@ -32,8 +32,6 @@ export default class Tab extends Base {
   @Watch('$route.name')
   public watchRoute (val) {
     if (this.$router) {
-      console.log(this.config.MENUS.find(item => item.key === val));
-
       if (!this.config.MENUS.find(item => item.key === val)) {
         this.value = -1
       } else {
