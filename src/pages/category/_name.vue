@@ -78,14 +78,14 @@ export default class extends Base {
     .background {
       width 100%
       height auto
-      transition all .3s $ease
+      transition(,,$ease)
       filter blur(5px)
     }
 
     .mask {
       full()
       background-color rgba($black, .6)
-      transition all .3s $ease
+      transition(,,$ease)
     }
 
     .content {

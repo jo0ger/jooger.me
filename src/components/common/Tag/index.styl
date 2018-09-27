@@ -13,7 +13,7 @@
   border 1px solid $border-color
   font-size $font-size-sm
   border-radius 4px
-  transition all $animation-duration-slow $ease
+  transition(,,$ease)
 
   .icon {
     margin-right 4px
@@ -25,8 +25,8 @@
   }
 
   &:hover {
-    background-color $base-color
-    border-color $base-color
-    color $white
+    background-color rgba($base-color, .2)
+    border-color rgba($base-color, .2)
+    color $base-color
   }
 }
