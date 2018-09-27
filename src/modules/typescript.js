@@ -1,5 +1,7 @@
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
+let hasForkTsCheckerPlugin = false
+
 module.exports = function () {
   // Add .ts extension for store, middleware and more
   this.nuxt.options.extensions.push("ts")
@@ -25,12 +27,15 @@ module.exports = function () {
       config.resolve.extensions.push(".ts");
     }
 
-    config.plugins.push(new ForkTsCheckerWebpackPlugin({
-      vue: true,
-      tslint: true,
-      formatter: 'codeframe',
-      // https://github.com/TypeStrong/ts-loader#happypackmode-boolean-defaultfalse
-      checkSyntacticErrors: process.env.NODE_ENV === 'production'
-    }))
+    if (!hasForkTsCheckerPlugin) {
+      hasForkTsCheckerPlugin = true
+      config.plugins.push(new ForkTsCheckerWebpackPlugin({
+        vue: true,
+        tslint: true,
+        formatter: 'codeframe',
+        // https://github.com/TypeStrong/ts-loader#happypackmode-boolean-defaultfalse
+        checkSyntacticErrors: process.env.NODE_ENV === 'production'
+      }))
+    }
   })
 }

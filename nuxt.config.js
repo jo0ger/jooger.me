@@ -88,7 +88,8 @@ module.exports = {
   },
   transition: {
     name: 'fade',
-    mode: 'out-in'
+    mode: 'out-in',
+    duration: 3000
   },
   build: {
     analyze: false,

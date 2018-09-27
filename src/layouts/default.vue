@@ -1,9 +1,9 @@
 <template>
   <div class="app">
     <Background></Background>
+    <PCHeader></PCHeader>
     <div class="wrapper">
-      <PCHeader></PCHeader>
-      <main class="app-main">
+      <main class="main">
         <div class="content-container">
           <nuxt/>
         </div>
@@ -11,7 +11,7 @@
           <PCAside></PCAside>
         </div>
       </main>
-      <PCFooter></PCFooter>
+      <PCFooter class="footer"></PCFooter>
     </div>
   </div>
 </template>
@@ -39,7 +39,17 @@
 <style lang="stylus" scoped>
   @import '~@/assets/style/init'
   .app {
-    .app-main {
+    width 100vw
+    height 100vh
+
+    .wrapper {
+      flexLayout(column, flex-start, flex-start)
+      width 100%
+      height 100%
+    }
+
+    .main {
+      flex 1 0 auto
       flexLayout(, flex-start, flex-start)
       width 1088px
       margin 0 auto
@@ -55,6 +65,10 @@
         width 320px
         margin-left $padding-md
       }
+    }
+
+    .footer {
+      width 100%
     }
   }
 </style>

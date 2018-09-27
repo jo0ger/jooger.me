@@ -18,7 +18,7 @@
         
         .title {
             font-size $font-size-lger
-            transition all $animation-duration-slow $ease
+            transition(,, $ease)
         }
 
         .summary {
@@ -41,7 +41,7 @@
                     min-height 0
                     border-radius 2px
                     object-fit cover
-                    transition transform $animation-duration-slower $ease-out
+                    transition(transform, ,$ease-out)
 
                     &:hover {
                         transform scale(1.1) rotate(2deg)
@@ -73,7 +73,7 @@
 
         &:hover {
             .title {
-                color $base-color
+                color $heading-color
             }
         }
     }

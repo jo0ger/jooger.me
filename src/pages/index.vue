@@ -69,13 +69,13 @@ export default class extends Base {
       .background {
         width 100%
         height 100%
-        transition all .3s $ease
+        transition(,,$ease)
       }
 
       .mask {
         full()
         background-color rgba($black, .6)
-        transition all .3s $ease
+        transition(,,$ease)
       }
 
       .content {
