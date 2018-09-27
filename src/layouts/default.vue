@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="app" :class="appClass">
     <Background></Background>
     <PCHeader></PCHeader>
     <div class="wrapper">
@@ -7,9 +7,11 @@
         <div class="content-container">
           <nuxt/>
         </div>
-        <div class="aside-container">
-          <PCAside></PCAside>
-        </div>
+        <transition name="fade" mode="out-in">
+          <div class="aside-container" v-if="!fullColumn">
+            <PCAside></PCAside>
+          </div>
+        </transition>
       </main>
       <PCFooter class="footer"></PCFooter>
     </div>
@@ -21,6 +23,9 @@
   import { Component  } from '@/utils/decorators'
   import { PCHeader, PCAside, PCFooter } from '@/components/pc'
   import { Background  } from '@/components/common'
+  import { namespace } from 'vuex-class'
+
+  const { Getter } = namespace('app')
 
   @Component({
     name: 'LayoutDefault',
@@ -32,7 +37,13 @@
     }
   })
   export default class LayoutDefault extends Base {
+    @Getter private fullColumn!: boolean
 
+    private get appClass () {
+      return {
+        'full-column': this.fullColumn
+      }
+    }
   }
 </script>
 
@@ -58,6 +69,7 @@
       .content-container {
         flex 1 0
         overflow hidden
+        transition(flex-basis,,$ease)
       }
 
       .aside-container {
@@ -69,6 +81,12 @@
 
     .footer {
       width 100%
+    }
+
+    &.full-column {
+      .content-container {
+        flex 1 0 100%
+      }
     }
   }
 </style>
