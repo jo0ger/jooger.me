@@ -13,27 +13,27 @@ import { isType } from '@/utils'
 })
 export default class Tab extends Base {
   @Prop()
-  list!: any[]
+  public list!: any[]
 
   @Prop()
-  bordered!: boolean
+  public bordered!: boolean
 
   @Prop({ default: false })
-  router!: boolean
+  public router!: boolean
 
   private value: number | string = -1
   private cornerStyle: any = null
 
   @Watch('value')
-  watchValue () {
+  public watchValue () {
     this.setCornerStyle()
   }
 
   @Watch('$route.name')
-  watchRoute (val) {
+  public watchRoute (val) {
     if (this.$router) {
       console.log(this.config.MENUS.find(item => item.key === val));
-      
+
       if (!this.config.MENUS.find(item => item.key === val)) {
         this.value = -1
       } else {

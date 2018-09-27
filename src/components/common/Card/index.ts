@@ -12,11 +12,11 @@ import { Component, Prop } from '@/utils/decorators'
 })
 export default class Card extends Base {
   @Prop({ default: '' })
-  header!: string
+  public header!: string
 
   @Prop({ default: null })
-  borderStyle!: any
+  public borderStyle!: any
 
   @Prop({ default: false })
-  bordered!: boolean
+  public bordered!: boolean
 }

@@ -21,8 +21,8 @@
 </template>
 
 <script lang="ts">
-import Base from "@/base"
-import { Component } from "@/utils/decorators"
+import Base from '@/base'
+import { Component } from '@/utils/decorators'
 import { Card, ArticleList } from '@/components/common'
 import { namespace } from 'vuex-class'
 
@@ -54,8 +54,8 @@ const aMod = namespace('article')
   }
 })
 export default class extends Base {
-  @aMod.Getter listFetching!: boolean
-  @aMod.Getter pageInfo!: WebApi.PageInfo
+  @aMod.Getter private listFetching!: boolean
+  @aMod.Getter private pageInfo!: WebApi.PageInfo
 
   private get category () {
     return this.categoryList.find(item => item.name === this.$route.params.name)

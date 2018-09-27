@@ -17,10 +17,10 @@
 </template>
 
 <script lang="ts">
-  import Base from "@/base"
-  import { Component  } from "@/utils/decorators"
-  import { PCHeader, PCAside, PCFooter } from "@/components/pc"
-  import { Background  } from "@/components/common"
+  import Base from '@/base'
+  import { Component  } from '@/utils/decorators'
+  import { PCHeader, PCAside, PCFooter } from '@/components/pc'
+  import { Background  } from '@/components/common'
 
   @Component({
     name: 'LayoutDefault',

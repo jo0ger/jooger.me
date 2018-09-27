@@ -5,15 +5,6 @@ module.exports = function () {
   this.nuxt.options.extensions.push("ts")
   // Extend build
   this.extendBuild(config => {
-    const tslintLoader = {
-      test: /\.tsx?$/,
-      exclude: /node_modules/,
-      enforce: 'pre',
-      loader: 'tslint-loader',
-      options: {
-        typeCheck: true
-      }
-    }
     const tsLoader = {
       loader: 'ts-loader',
       options: {
@@ -22,7 +13,6 @@ module.exports = function () {
       }
     }
     // Add TypeScript loader
-    // config.module.rules.push(tslintLoader)
     config.module.rules.push(
       Object.assign({
           test: /((client|server)\.js)|(\.tsx?)$/
@@ -30,14 +20,6 @@ module.exports = function () {
         tsLoader
       )
     )
-    // Add TypeScript loader for vue files
-    for (let rule of config.module.rules) {
-      if (rule.loader === "vue-loader") {
-        rule.options.loaders = {
-          ts: 'ts-loader!tslint-loader'
-        }
-      }
-    }
     // Add .ts extension in webpack resolve
     if (config.resolve.extensions.indexOf(".ts") === -1) {
       config.resolve.extensions.push(".ts");

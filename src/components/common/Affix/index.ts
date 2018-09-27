@@ -28,7 +28,7 @@ export default class Affix extends Base {
   }
 
   @Watch('offsetTop')
-  watchOffsetTop (newVal, oldVal) {
+  public watchOffsetTop (newVal, oldVal) {
     if (newVal !== null && oldVal !== undefined && typeof newVal === 'number') {
       this.handleScroll()
       if (!this.resizeHandler) {

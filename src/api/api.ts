@@ -12,7 +12,7 @@ export default class Api extends Http {
         return this.processPromise<Res>(Http.client.request(Object.assign({}, config)))
     }
 
-    public async originGet<Req, Res> (url: string = '', params?: Req) {
+    public originGet<Req, Res> (url: string = '', params?: Req) {
         return this.processPromise<Res>(Http.client.get(url, { params }))
     }
 
