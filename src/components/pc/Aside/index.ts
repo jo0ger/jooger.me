@@ -10,6 +10,7 @@ import { Affix } from '@/components/common'
 import Hots from './widgets/Hots/index.vue'
 import Calendar from './widgets/Calendar/index.vue'
 import Tags from './widgets/Tags/index.vue'
+import ReadTool from './widgets/ReadTool/index.vue'
 
 @Component({
   name: 'Aside',
@@ -17,8 +18,12 @@ import Tags from './widgets/Tags/index.vue'
     Affix,
     Hots,
     Calendar,
-    Tags
+    Tags,
+    ReadTool
   }
 })
 export default class Aside extends Base {
+  private get showReadTool () {
+    return this.$route.name === 'article-id'
+  }
 }

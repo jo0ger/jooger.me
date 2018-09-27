@@ -16,6 +16,7 @@ export interface ActionCtx<S, R> extends ActionContext <S, R> {}
 
 export interface AppStateTree {
     mobileLayout: boolean
+    fullColumn: boolean
     history: {
         articles: string[]
         comments: string[]

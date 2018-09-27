@@ -1,0 +1,58 @@
+/**
+ * @desc ReadTool
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-09-28 01:14:12
+ */
+
+@import '~@/assets/style/init'
+
+.read-tool {
+    .tools {
+        flexLayout(, flex-start, flex-start, wrap)
+
+        .tool-item {
+            flex 1 0 auto
+            flexLayout(column)
+            position relative
+            height 64px
+            padding 0 $padding-xs
+            cursor pointer
+            transition(background-color)
+
+            .icon {
+                font-size $font-size-lg + 2px
+            }
+
+            .title {
+                margin-top 2px
+                font-size $font-size-sm
+            }
+
+            .like {
+                width 100px
+                height @width
+                background url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat
+                background-position 0 0
+                animation: fave-heart 1s steps(28);
+
+                &:hover {
+                    background-position: -2800px 0;
+                    transition: background 1s steps(28);
+                }
+            }
+
+            &:hover {
+                background-color rgba($base-color, .05)
+            }
+        }
+    }
+}
+
+@keyframes fave-heart {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -2800px 0;
+  }
+}

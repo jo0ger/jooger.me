@@ -88,8 +88,7 @@ module.exports = {
   },
   transition: {
     name: 'fade',
-    mode: 'out-in',
-    duration: 3000
+    mode: 'out-in'
   },
   build: {
     analyze: false,
@@ -107,7 +106,8 @@ module.exports = {
   plugins: [
     { src: '@/plugins/google-tag', ssr: false },
     { src: '@/plugins/particles', ssr: false },
-    { src: '@/plugins/lazyload', ssr: false }
+    { src: '@/plugins/lazyload', ssr: false },
+    { src: '@/plugins/router', ssr: false },
   ],
   axios: {}
 }
