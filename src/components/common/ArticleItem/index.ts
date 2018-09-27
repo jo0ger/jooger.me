@@ -15,5 +15,5 @@ export default class ArticleItem extends Base {
   private article!: any
 
   @Prop()
-  mini!: boolean
+  private mini!: boolean
 }

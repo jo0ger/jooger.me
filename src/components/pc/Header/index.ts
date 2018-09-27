@@ -16,7 +16,7 @@ import { Tab } from '@/components/common'
 })
 export default class Header extends Base {
   private keyword: string = ''
-  
+
   private search () {
     if (!this.keyword) return
     this.$router.push(`/search/${this.keyword}`)

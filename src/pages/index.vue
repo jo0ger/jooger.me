@@ -22,8 +22,8 @@
 </template>
 
 <script lang="ts">
-import Base from "@/base"
-import { Component } from "@/utils/decorators"
+import Base from '@/base'
+import { Component } from '@/utils/decorators'
 import { Card, ArticleList, ArticleItem, Loading } from '@/components/common'
 
 @Component({

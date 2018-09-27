@@ -21,8 +21,8 @@
 </template>
 
 <script lang="ts">
-import Base from "@/base"
-import { Component } from "@/utils/decorators"
+import Base from '@/base'
+import { Component } from '@/utils/decorators'
 import { Card, ArticleList } from '@/components/common'
 import { namespace } from 'vuex-class'
 
@@ -54,8 +54,8 @@ const { Getter } = namespace('article')
   }
 })
 export default class extends Base {
-  @Getter pageInfo!: WebApi.PageInfo
-  @Getter listFetching!: boolean
+  @Getter private pageInfo!: WebApi.PageInfo
+  @Getter private listFetching!: boolean
 }
 </script>
 

@@ -34,8 +34,8 @@
 </template>
 
 <script lang="ts">
-import Base from "@/base"
-import { Component, Prop } from "@/utils/decorators"
+import Base from '@/base'
+import { Component, Prop } from '@/utils/decorators'
 import { namespace } from 'vuex-class'
 import { Card, Tag } from '@/components/common'
 
@@ -75,7 +75,7 @@ const aMod = namespace('article')
   }
 })
 export default class extends Base {
-  @aMod.Getter('detail') article!: WebApi.ArticleModule.Article
+  @aMod.Getter('detail') private article!: WebApi.ArticleModule.Article
 }
 </script>
 

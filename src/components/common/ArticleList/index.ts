@@ -20,10 +20,10 @@ const aMod = namespace('article')
   }
 })
 export default class ArticleList extends Base {
-  @aMod.Getter('list') articleList!: WebApi.ArticleModule.Article[]
-  @aMod.Getter('listFetching') articleListFetching!: boolean
-  @aMod.Getter pageInfo!: WebApi.PageInfo
-  @aMod.Action('fetchList') getArticleList!: () => void
+  @aMod.Getter('list') public articleList!: WebApi.ArticleModule.Article[]
+  @aMod.Getter('listFetching') public articleListFetching!: boolean
+  @aMod.Getter public pageInfo!: WebApi.PageInfo
+  @aMod.Action('fetchList') public getArticleList!: () => void
 
   @Prop()
   private mini!: boolean

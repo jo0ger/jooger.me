@@ -12,7 +12,7 @@ import { Component, Prop } from '@/utils/decorators'
 })
 export default class Loading extends Base {
   @Prop({ default: '加载中...' })
-  text!: string
+  public text!: string
 
   @Prop({
     default: 'small',
@@ -20,8 +20,8 @@ export default class Loading extends Base {
       return ['large', 'default', 'small'].includes(val)
     }
   })
-  size!: string
+  public size!: string
 
   @Prop({ default: false })
-  dark!: boolean
+  public dark!: boolean
 }
