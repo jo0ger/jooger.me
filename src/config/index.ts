@@ -46,3 +46,10 @@ export const SOCIALS = [
   { title: '微博', icon: 'weibo', url: 'http://weibo.com/jo0ger' },
   { title: '网易云音乐', icon: 'netease-music', url: 'http://music.163.com/#/user/home?id=36877861' }
 ]
+
+export const SHARES = [
+  { key: 'link', title: '复制链接' },
+  { key: 'wechat', title: '微信' },
+  { key: 'weibo', title: '微博' },
+  { key: 'qzone', title: 'QQ空间' }
+]

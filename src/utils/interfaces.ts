@@ -25,6 +25,7 @@ export interface AppStateTree {
     hotList: WebApi.ArticleModule.Article[]
     categoryList: WebApi.CategoryModule.Category[]
     tagList: WebApi.TagModule.Tag[]
+    articleFontSize: number
 }
 
 export interface ArticleStateTree {

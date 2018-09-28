@@ -19,7 +19,11 @@
               {{ article.meta.pvs }} 次阅读
             </div>
           </div>
-          <div class="content markdown-body" v-html="article.renderedContent"></div>
+          <div class="content markdown-body"
+            :style="{
+              fontSize: articleFontSize + 'px'
+            }"
+            v-html="article.renderedContent"></div>
           <div class="tags">
             <Tag v-for="tag in article.tag"
               :key="tag._id"
@@ -42,7 +46,8 @@ import { Component, Prop } from '@/utils/decorators'
 import { namespace } from 'vuex-class'
 import { Card, Tag, Like } from '@/components/common'
 
-const aMod = namespace('article')
+const appMod = namespace('app')
+const articleMod = namespace('article')
 
 @Component({
   name: 'ArticleDetail',
@@ -79,9 +84,17 @@ const aMod = namespace('article')
   }
 })
 export default class extends Base {
-  @aMod.Getter('detail') private article!: WebApi.ArticleModule.Article
+  @appMod.Getter private articleFontSize
+  @appMod.Mutation('SET_ARTICLE_FONTSIZE') private setFontSize
+  @articleMod.Getter('detail') private article!: WebApi.ArticleModule.Article
 
   private liked = false
+
+  private mounted () {
+    this.$bus.$on('on-article-fontsize-change', (val) => {
+      this.setFontSize(val)
+    })
+  }
 
   private likeClick () {
     this.liked = !this.liked
