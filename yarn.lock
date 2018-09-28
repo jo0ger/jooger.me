@@ -7461,6 +7461,10 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.1"
   resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.3.1.tgz#b2d3d95402a811602380783ea4f566eb875569a2"
 
+vue-js-popover@^1.1.7:
+  version "1.1.7"
+  resolved "http://registry.npm.taobao.org/vue-js-popover/download/vue-js-popover-1.1.7.tgz#29df244018ba2ad89406421cf88338faae4eddb2"
+
 vue-lazyload@^1.2.6:
   version "1.2.6"
   resolved "http://registry.npm.taobao.org/vue-lazyload/download/vue-lazyload-1.2.6.tgz#baa04c172d52a812608eb12c7a6bfb14f5c91079"

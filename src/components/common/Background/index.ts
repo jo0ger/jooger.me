@@ -5,9 +5,7 @@
  */
 
 import Base from '@/base'
-import {
-  Component
-} from '@/utils/decorators'
+import { Component } from '@/utils/decorators'
 
 @Component({
   name: 'Background',

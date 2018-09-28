@@ -14,6 +14,8 @@ declare module 'vue/types/options' {
 declare module 'vue/types/vue' {
     interface Vue {
         $route: Route
+        $message: any
+        $bus: CombinedVueInstance<Vue, object, object, object, Record<never, any>>
     }
     interface VueConstructor<V extends Vue> {}
 }

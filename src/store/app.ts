@@ -10,6 +10,7 @@ const FETCH_SETTING = 'FETCH_SETTING'
 const FETCH_HOT_LIST = 'FETCH_HOT_LIST'
 const FETCH_CATEGORY_LIST = 'FETCH_CATEGORY_LIST'
 const FETCH_TAG_LIST = 'FETCH_TAG_LIST'
+const SET_ARTICLE_FONTSIZE = 'SET_ARTICLE_FONTSIZE'
 
 export const state = (): AppStateTree => ({
   mobileLayout: false,
@@ -21,7 +22,8 @@ export const state = (): AppStateTree => ({
   setting: null,
   categoryList: [],
   hotList: [],
-  tagList: []
+  tagList: [],
+  articleFontSize: 16
 })
 
 export const getters: Getters<AppStateTree, RootState> = {
@@ -31,7 +33,8 @@ export const getters: Getters<AppStateTree, RootState> = {
   setting: state => state.setting,
   hotList: state => state.hotList,
   categoryList: state => state.categoryList,
-  tagList: state => state.tagList
+  tagList: state => state.tagList,
+  articleFontSize: state => state.articleFontSize
 }
 
 export const mutations: Mutations<AppStateTree> = {
@@ -51,7 +54,13 @@ export const mutations: Mutations<AppStateTree> = {
   [FETCH_SETTING]: (state, data) => (state.setting = data),
   [FETCH_HOT_LIST]: (state, list) => (state.hotList = list),
   [FETCH_CATEGORY_LIST]: (state, list) => (state.categoryList = list),
-  [FETCH_TAG_LIST]: (state, list) => (state.tagList = list)
+  [FETCH_TAG_LIST]: (state, list) => (state.tagList = list),
+  [SET_ARTICLE_FONTSIZE]: (state, diff) => {
+    let size = state.articleFontSize + diff
+    if (size < 12) size = 12
+    if (size > 18) size = 18
+    state.articleFontSize = size
+  }
 }
 
 export const actions: Actions<AppStateTree, RootState> = {

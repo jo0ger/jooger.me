@@ -1,13 +1,5 @@
-import axios, {
-  AxiosInstance,
-  AxiosResponse,
-  AxiosRequestConfig,
-  AxiosError
-} from 'axios'
-import {
-  WHITE_API_LIST,
-  AXIOS_DEFAULT_CONFIG
-} from '@/config'
+import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios'
+import { WHITE_API_LIST, AXIOS_DEFAULT_CONFIG } from '@/config'
 
 let msgVisible = false
 
@@ -49,7 +41,9 @@ export default class Http {
       // 如果在白名单内，就不全局处理了
       if (response.request.url && !WHITE_API_LIST.some(item => response.request.url.includes(item))) {
         errMsg = response.data.message || errMsg
-        // TODO: message
+        if (window.Message) {
+          window.Message.error(errMsg)
+        }
         throw new Error(errMsg)
       }
     }
@@ -60,26 +54,28 @@ export default class Http {
     if (!msgVisible) {
       msgVisible = true
       if (err.response && err.response.status === 401) {
-        // TODO: message
-        // Message.error({
-        //     content: err.response.data.message,
-        //     onClose: () => {
-        //         msgVisible = false
-        //     },
-        // })
+        if (window.Message) {
+          window.Message.error({
+            content: err.response.data.message,
+            onClose: () => {
+              msgVisible = false
+            },
+          })
+        }
         return
       }
       // 如果是手动取消的请求，不显示错误信息
       if (axios.isCancel(err)) {
         console.error(err)
       } else {
-        // TODO: message
-        // Message.error({
-        //     content: err.response && err.response.data.message || '网络错误',
-        //     onClose: () => {
-        //         msgVisible = false
-        //     },
-        // })
+        if (window.Message) {
+          window.Message.error({
+            content: err.response && err.response.data.message || '网络错误',
+            onClose: () => {
+                msgVisible = false
+              },
+          })
+        }
       }
     }
     throw err

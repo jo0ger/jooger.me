@@ -7,7 +7,7 @@ export * from 'validator'
  * @param {*} obj 检测对象
  * @param {String | Array[String]} type 类型（数组）
  */
-export const isType = (obj = {}, type: string | string[] = 'Object') => {
+export const isType = (obj: any = {}, type: string | string[] = 'Object') => {
   if (!Array.isArray(type)) {
     type = [type]
   }

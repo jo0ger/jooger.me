@@ -108,6 +108,9 @@ module.exports = {
     { src: '@/plugins/particles', ssr: false },
     { src: '@/plugins/lazyload', ssr: false },
     { src: '@/plugins/router', ssr: false },
+    { src: '@/plugins/bus', ssr: false },
+    { src: '@/plugins/message', ssr: false },
+    { src: '@/plugins/popover', ssr: false },
   ],
   axios: {}
 }

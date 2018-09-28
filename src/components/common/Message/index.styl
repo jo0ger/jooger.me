@@ -6,4 +6,46 @@
 
 @import '~@/assets/style/init'
 
-.message {}
+.message {
+    position fixed
+    top $padding-md
+    right 0
+    left 0
+    margin 0 auto
+    text-align center
+    pointer-events none
+    opacity 1
+    z-index 9999
+
+    .wrapper {
+        display inline-block
+        padding $padding-xs $padding-md
+        background $white
+        color $text-color
+        border-radius 4px
+        box-shadow 0 4px 12px 0 rgba($black, .15)
+
+        .icon {
+            display inline-block
+            margin-right 2px
+            font-weight bold
+            vertical-align -.05em
+            
+            &-success {
+                color $green-6
+            }
+
+            &-error {
+                color $red-6
+            }
+
+            &-warning {
+                color $yellow-6
+            }
+
+            &-info {
+                color $blue-6
+            }
+        }
+    }
+}

@@ -7,6 +7,7 @@ declare interface Window {
   dataLayer: any[]
   gtag: (...args: any[]) => void
   onNuxtReady: (...args: any[]) => void
+  Message: any
 }
 
 declare namespace NodeJS {
