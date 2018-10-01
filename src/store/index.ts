@@ -7,6 +7,7 @@ export const actions = {
     const mobileClient = isMobile(ua)
     if (mobileClient) {
       commit('app/SET_MOBILE_LAYOUT', true)
+      commit('app/SET_ARTICLE_FONTSIZE', -2)
     }
     await dispatch('app/getSettingData')
     const initTask = [

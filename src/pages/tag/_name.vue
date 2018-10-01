@@ -34,9 +34,6 @@ const { Getter } = namespace('article')
     Card,
     ArticleList
   },
-  layout ({ store }) {
-    return store.getters['app/mobileLayout'] ? 'mobile' : 'default'
-  },
   validate ({ params }) {
     return !!params.name
   },
@@ -58,7 +55,7 @@ export default class extends Base {
   @Getter private listFetching!: boolean
 
   private get tag () {
-    return this.tagList.find(item => item.name === this.$route.params.name)
+    return this.tagList.find(item => item.name === this.$route.params.name) || {}
   }
 }
 </script>
@@ -66,6 +63,8 @@ export default class extends Base {
 <style lang="stylus" scoped>
 @import '~@/assets/style/init'
 
-.tag-page {}
+.tag-page {
+  width 100%
+}
 </style>
 

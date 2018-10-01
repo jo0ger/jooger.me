@@ -5,7 +5,7 @@
     <div class="wrapper">
       <main class="main">
         <div class="content-container">
-          <nuxt/>
+          <nuxt></nuxt>
         </div>
         <transition name="fade" mode="out-in">
           <div class="aside-container" v-if="!fullColumn">
@@ -13,7 +13,7 @@
           </div>
         </transition>
       </main>
-      <PCFooter class="footer"></PCFooter>
+      <PCFooter></PCFooter>
     </div>
   </div>
 </template>
@@ -65,7 +65,8 @@
       padding-top (60 + $padding-md)px
 
       .content-container {
-        flex 1 0
+        width 'calc(1088px - 320px - %s)' % $padding-md
+        flex 1 0 @width
         transition(flex-basis)
       }
 
@@ -74,10 +75,6 @@
         width 320px
         margin-left $padding-md
       }
-    }
-
-    .footer {
-      width 100%
     }
 
     &.full-column {

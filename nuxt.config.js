@@ -48,7 +48,7 @@ module.exports = {
       { 'http-equiv': 'Cache-Control', content: 'no-siteapp' },
       { 'http-equiv': 'cleartype', content: 'on' },
       { 'http-equiv': 'x-dns-prefetch-control', content: 'on' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=2' },
+      { name: 'viewport', content: 'width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover' },
       { name: 'MobileOptimized', content: '320' },
       { name: 'HandheldFriendly', content: 'True' },
       { name: 'renderer', content: 'webkit' },

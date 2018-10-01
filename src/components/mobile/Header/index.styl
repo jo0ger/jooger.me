@@ -1,0 +1,156 @@
+/**
+ * @desc Header
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-10-01 18:10:43
+ */
+
+@import '~@/assets/style/init'
+
+$header-height = 48px
+
+.header {
+  position fixed
+  width 100%
+  height $header-height
+  z-index 99
+  box-shadow 0 5px 10px 0 rgba($black, .1)
+
+  .wrapper {
+    flexLayout(, space-between)
+    position relative
+    height 100%
+    padding 0 $padding-xs
+    background-color $white
+    z-index 2
+
+    & > a {
+      flexLayout()
+      height 100%
+    }
+  }
+
+  .menu-trigger {
+    flex 0 0 $header-height
+
+    .line {
+      position relative
+      display block
+      height 2px
+      border-radius 1px
+      background-color $text-color
+      transform scale(1.2)
+      transform-origin left center
+      transition()
+
+      &:nth-child(1) {
+        width 18px
+      }
+
+      &:nth-child(2) {
+        width 12px
+        margin-top $padding-xs
+      }
+    }
+  }
+
+  .logo {
+    flex 1 0
+    font-family Oleo Script
+    text-align center
+
+    img {
+      height 14px
+    }
+
+    &-text {
+      display inline-block
+      margin-left $padding-sm
+      font-size 18px
+      color $text-color
+    }
+  }
+
+  .search-trigger {
+    flex 0 0 $header-height
+    text-align right
+  }
+
+  .menu-field {
+    position fixed
+    top $header-height
+    right 0
+    left 0
+  }
+
+  .search-field {
+    flexLayout(, flex-start)
+    position fixed
+    top 0
+    right 0
+    left 0
+    height $header-height
+    z-index 3
+    background-color $white
+
+    input {
+      flex 1 0
+      height 100%
+      padding $padding-xs $padding-sm
+    }
+
+    .close-btn {
+      flex 0 0 $header-height
+      width $header-height
+      height 100%
+      line-height $header-height
+      text-align center
+
+      .icon {
+        color $text-color-secondary
+      }
+    }
+  }
+
+  .menu {
+    position relative
+    width 100%
+    padding $padding-xs
+    background-color $white
+    z-index 1
+
+    &-item {
+      flexLayout(, flex-start)
+      padding $padding-md $padding-sm
+      font-size $font-size-lg
+      border-radius 4px
+
+      .menu-icon {
+        flex 0 0 36px
+      }
+
+      &.active {
+        background rgba($base-color, .1)
+      }
+    }
+  }
+
+  .overylay {
+    position fixed
+    width 100%
+    height 100vh
+    background-color alpha($black, .6)
+  }
+
+  &.menu-opened {
+    .menu-trigger {
+      .line {
+        width 18px
+        transform rotate(45deg) translate(-3.5px, -1px) scale(1.2)
+
+        &:nth-child(2) {
+          transform rotate(-45deg) translate(-2.5px, .5px) scale(1.2)
+        }
+      }
+    }
+  }
+}

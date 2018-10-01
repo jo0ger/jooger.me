@@ -78,6 +78,7 @@ export const processModel = (query: any = {}) => {
 }
 
 export const findExtendsItem = (ext, key) => {
+  if (!ext) return ''
   const hit = ext.find(item => item.key === key)
   return hit && hit.value || ''
 }

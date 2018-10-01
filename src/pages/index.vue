@@ -96,6 +96,7 @@ export default class extends Base {
 
         .icon {
           font-size 28px
+          color $white
         }
 
         .name {
@@ -115,8 +116,33 @@ export default class extends Base {
     }
   }
 
-  .article-panel {
+  .mobile-layout & {
+    padding-top $padding-xs
+  }
+}
 
+.app.mobile-layout {
+  .home-page {
+    .category-panel {
+      margin 0 0 $padding-xs
+      padding 0 ($padding-xs / 2)
+
+      .category {
+        margin 0 ($padding-xs / 2)
+        max-height 60px
+
+        .content {
+          .icon {
+            font-size $font-size-lger
+          }
+
+          .name {
+            margin-top ($padding-xs / 2)
+            font-size $font-size-base
+          }
+        }
+      }
+    }
   }
 }
 </style>

@@ -1,32 +1,15 @@
 <!--
  * @desc Footer
  * @author Jooger <iamjooger@gmail.com>
- * @date 2018-09-24 14:56:16
+ * @date 2018-10-01 19:05:56
  -->
 <template>
   <footer class="footer">
     <div class="wrapper">
-      <div class="menu-list">
-        <nuxt-link v-for="menu in config.MENUS"
-          ref="menu"
-          class="menu-item"
-          :key="menu.key"
-          :to="{ name: menu.key }"
-          exact>
-          {{ menu.title }}
-        </nuxt-link>
-      </div>
-      <div class="social-list">
-        <a :href="social.url" class="social-item" target="_blank" rel="noopener"
-          :class="[`social-${social.icon}`]"
-          v-for="social in config.SOCIALS"
-          :key="social.icon"
-          :title="social.title">
-          <i class="icon" :class="[`icon-${social.icon}`]"></i>
-        </a>
-      </div>
       <div class="copyright">
         <span>版权所有 © {{ new Date() | dateFormat('YYYY') }} <nuxt-link to="/about" v-if="setting.personal.user">{{ setting.personal.user.name }}</nuxt-link>. 保留所有权利</span>
+      </div>
+      <div class="record">
         <a href="http://www.miitbeian.gov.cn" target="_blank" rel="noopener" class="record">
           豫ICP备17040457号
         </a>
@@ -36,11 +19,6 @@
         <a class="link" target="_blank" rel="noopener" href="https://github.com/nuxt/nuxt.js">nuxt.js</a>、
         Design by
         <a class="link" target="_blank" rel="noopener" :href="'https://github.com/jo0ger'" v-if="setting.personal.user">{{ setting.personal.user.name }}</a>
-      </div>
-      <div class="logo">
-        <nuxt-link to="/">
-          <i class="icon icon-logo"></i>
-        </nuxt-link>
       </div>
     </div>
   </footer>

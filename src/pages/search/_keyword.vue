@@ -34,9 +34,6 @@ const { Getter } = namespace('article')
     Card,
     ArticleList
   },
-  layout ({ store }) {
-    return store.getters['app/mobileLayout'] ? 'mobile' : 'default'
-  },
   validate ({ params }) {
     return !!params.keyword
   },
@@ -62,6 +59,8 @@ export default class extends Base {
 <style lang="stylus" scoped>
 @import '~@/assets/style/init'
 
-.search-page {}
+.search-page {
+  width 100%
+}
 </style>
 
