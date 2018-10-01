@@ -10,7 +10,6 @@ import { Affix } from '@/components/common'
 import Hots from './widgets/Hots/index.vue'
 import Calendar from './widgets/Calendar/index.vue'
 import Tags from './widgets/Tags/index.vue'
-import ReadTool from './widgets/ReadTool/index.vue'
 
 @Component({
   name: 'Aside',
@@ -18,8 +17,7 @@ import ReadTool from './widgets/ReadTool/index.vue'
     Affix,
     Hots,
     Calendar,
-    Tags,
-    ReadTool
+    Tags
   }
 })
 export default class Aside extends Base {

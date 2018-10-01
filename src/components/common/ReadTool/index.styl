@@ -1,0 +1,93 @@
+/**
+ * @desc ReadTool
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-09-28 01:14:12
+ */
+
+@import '~@/assets/style/init'
+
+$tool-width = 36px
+
+.read-tool {
+    flexLayout(column, flex-start)
+
+    .tool-meta
+    .tool-action {
+      flex 1 0
+      width 100%
+
+      .tool-item {
+        position relative
+        display block
+        width 100%
+        height $tool-width
+        line-height @height
+        text-align center
+        background-color $card-color
+
+        &:hover {
+          background-color rgba($base-color, .1)
+        }
+      }
+    }
+
+    .tool-meta {
+      margin-bottom $padding-md
+
+      .tool-item {
+        .count {
+          content attr(data-count)
+          position absolute
+          top 0
+          left 20px
+          line-height 1
+          padding 2px 4px
+          font-size $font-size-sm
+          background alpha($base-color, .4)
+          color $white
+          font-style italic
+          border-radius 8px
+          transition all $animation-duration-slow $ease
+        }
+      }
+
+      .like {
+        .background {
+          position absolute
+          top -50px + ($tool-width / 2)
+          left @top
+          width 100px
+          height @width
+          background url(https://static.jooger.me/img/common/like.png) no-repeat
+          background-position 0 0
+          pointer-events none
+          overflow hidden
+          z-index 999
+        }
+
+        &.liked {
+          color $red
+          background-color rgba($red, .1)
+
+          .background {
+            animation fave-like 1s steps(28)
+            background-position -2800px 0
+          }
+
+          .count {
+            color $red
+            background-color rgba($red, .3)
+          }
+        }
+      }
+    }
+}
+
+@keyframes fave-like {
+  0% {
+    background-position 0 0
+  }
+  100% {
+    background-position -2800px 0
+  }
+}

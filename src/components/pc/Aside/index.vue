@@ -4,13 +4,12 @@
  * @date 2018-09-24 15:27:56
  -->
 <template>
-  <Affix class="aside" offsetTop="76">
-    <transition name="fade" mode="out-in">
-      <ReadTool v-if="showReadTool"></ReadTool>
-    </transition>
+  <div class="aside">
     <Hots></Hots>
-    <Tags></Tags>
-  </Affix>
+    <Affix offset-top="76">
+      <Tags></Tags>
+    </Affix>
+  </div>
 </template>
 
 <script lang="ts" src="./index.ts"></script>

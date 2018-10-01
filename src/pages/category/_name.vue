@@ -71,7 +71,7 @@ export default class extends Base {
     height 150px
     position relative
     margin-bottom $padding-sm
-    background alpha($white, .7)
+    background-color $card-color
     overflow hidden
     text-align center
 

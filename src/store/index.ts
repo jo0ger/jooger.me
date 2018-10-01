@@ -1,4 +1,5 @@
-import { isMobile } from '@/utils'
+import { USER_LIKE_KEY, USER_KEY } from '@/config'
+import { isMobile, storage } from '@/utils'
 
 export const actions = {
   async nuxtServerInit ({ commit, state, dispatch }, { params, route, req }) {

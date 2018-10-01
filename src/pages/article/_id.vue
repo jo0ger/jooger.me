@@ -1,5 +1,14 @@
 <template>
     <section class="article-page">
+      <div class="action-widget">
+        <Affix offset-top="76">
+          <ReadTool
+            :article="article"
+            :liked="liked"
+            :liking="articleLiking"
+            @on-like="like"></ReadTool>
+        </Affix>
+      </div>
       <Card class="article-widget">
         <article class="article" v-if="article">
           <span class="source" :class="[article.source ? 'reprint' : 'original']">{{ article.source | constantFilter('ARTICLE_SOURCE') }}</span>
@@ -32,9 +41,6 @@
               :link="true">
             </Tag>
           </div>
-          <div class="like">
-            <Like :liked="liked" @on-click="likeClick"></Like>
-          </div>
         </article>
       </Card>
     </section>
@@ -44,7 +50,7 @@
 import Base from '@/base'
 import { Component, Prop } from '@/utils/decorators'
 import { namespace } from 'vuex-class'
-import { Card, Tag, Like } from '@/components/common'
+import { Affix, Card, Tag, Like, ReadTool } from '@/components/common'
 
 const appMod = namespace('app')
 const articleMod = namespace('article')
@@ -52,9 +58,11 @@ const articleMod = namespace('article')
 @Component({
   name: 'ArticleDetail',
   components: {
+    Affix,
     Card,
     Tag,
-    Like
+    Like,
+    ReadTool
   },
   layout ({ store }) {
     return store.getters['app/mobileLayout'] ? 'mobile' : 'default'
@@ -84,11 +92,17 @@ const articleMod = namespace('article')
   }
 })
 export default class extends Base {
-  @appMod.Getter private articleFontSize
+  @appMod.Getter private articleFontSize!: number
   @appMod.Mutation('SET_ARTICLE_FONTSIZE') private setFontSize
   @articleMod.Getter('detail') private article!: WebApi.ArticleModule.Article
+  @articleMod.Getter('detailFetching') private articleFetching!: boolean
+  @articleMod.Getter('detailLiking') private articleLiking!: boolean
+  @articleMod.Action('like') private likeArticle
 
-  private liked = false
+  private get liked () {
+    if (!this.article) return false
+    return !!this.history.articles.find(item => item === this.article._id)
+  }
 
   private mounted () {
     this.$bus.$on('on-article-fontsize-change', (val) => {
@@ -96,8 +110,11 @@ export default class extends Base {
     })
   }
 
-  private likeClick () {
-    this.liked = !this.liked
+  private like () {
+    this.likeArticle({
+      id: this.article._id,
+      like: !this.liked
+    })
   }
 }
 </script>
@@ -105,8 +122,19 @@ export default class extends Base {
 <style lang="stylus" scoped>
 @import '~@/assets/style/init'
 
+$action-widget-width = 36px
+
 .article-page {
+  flexLayout(, flex-start, flex-start)
+
+  .action-widget {
+    flex 0 0 $action-widget-width
+    width $action-widget-width
+    margin-right $padding-md
+  }
+
   .article-widget {
+    flex 1 0
     padding 20px 30px
     overflow hidden
   }
@@ -123,12 +151,12 @@ export default class extends Base {
       transform rotateZ(-45deg)
       text-align center
       font-size $font-size-sm
-      
+
       &.original {
         background-color rgba($blue, .2)
         color $blue
       }
-  
+
       &.reprint {
         background-color rgba($orange, .2)
         color $orange
@@ -146,7 +174,7 @@ export default class extends Base {
       margin 10px 0 20px
       color $text-color-secondary
       font-size $font-size-sm
-      
+
       .category {
         .icon {
           margin-right 6px

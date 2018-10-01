@@ -7,8 +7,8 @@
   <div class="header">
     <div class="wrap">
       <router-link to="/" class="logo">
-        <img src="https://static.jooger.me/img/common/logo.png" alt="" srcset="">
-        <span class="logo-text">{{ setting.personal.user.name }}</span>
+        <img :src="setting.site.logo" alt="" srcset="">
+        <span class="logo-text" v-if="setting.personal.user">{{ setting.personal.user.name }}</span>
       </router-link>
       <Tab class="menus" :list="config.MENUS" :router="true" ref="menu"></Tab>
       <div class="search">

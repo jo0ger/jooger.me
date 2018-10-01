@@ -16,11 +16,13 @@ export interface ActionCtx<S, R> extends ActionContext <S, R> {}
 
 export interface AppStateTree {
     mobileLayout: boolean
+    fullScreen: boolean
     fullColumn: boolean
     history: {
         articles: string[]
         comments: string[]
     }
+    user: {} | WebApi.UserModule.User,
     setting: null | WebApi.SettingModule.Setting
     hotList: WebApi.ArticleModule.Article[]
     categoryList: WebApi.CategoryModule.Category[]

@@ -14,7 +14,7 @@
         v-for="(item, index) in hotList"
         :key="item._id"
         :title="item.title">
-        <span class="index">{{ index }}</span>
+        <span class="index">{{ index + 1 }}</span>
         <nuxt-link
           class="title"
           :to="`/article/${item._id}`"

@@ -73,11 +73,13 @@ export default class Affix extends Base {
     // 这里得套一层，不然用bind的话，在unbindEvent中获取不到
     this.resizeHandler = e => this.handleScroll(e, true)
     window.addEventListener('resize', this.resizeHandler, false)
+    this.$bus.$on('affix-reset', this.resizeHandler)
   }
 
   private unbindEvent () {
     window.removeEventListener('scroll', this.handleScroll, false)
     window.removeEventListener('resize', this.resizeHandler, false)
+    this.$bus.$off('affix-reset', this.resizeHandler)
     this.resizeHandler = null
     this.fixed = false
   }
