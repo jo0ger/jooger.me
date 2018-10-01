@@ -16,6 +16,11 @@ const { Getter, Action } = namespace('app')
   name: 'Base',
   filters: {
     ...filters
+  },
+  layout ({ store }) {
+    const mobileLayout = store.getters['app/mobileLayout']
+    if (mobileLayout) return 'mobile'
+    return 'default'
   }
 })
 export default class Base extends Vue {
@@ -46,8 +51,10 @@ export default class Base extends Vue {
 
   private setFullColumn (val) {
     this.$store.commit('app/SET_FULL_COLUMN', val)
-    setTimeout(() => {
-      this.$bus.$emit('affix-reset')
-    }, 80)
+    if (!val) {
+      setTimeout(() => {
+        this.$bus.$emit('affix-reset')
+      }, 80)
+    }
   }
 }

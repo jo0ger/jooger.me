@@ -5,7 +5,7 @@
  -->
 <template>
   <div class="header">
-    <div class="wrap">
+    <div class="wrapper">
       <router-link to="/" class="logo">
         <img :src="setting.site.logo" alt="" srcset="">
         <span class="logo-text" v-if="setting.personal.user">{{ setting.personal.user.name }}</span>

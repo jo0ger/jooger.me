@@ -1,6 +1,6 @@
 <template>
     <section class="article-page">
-      <div class="action-widget">
+      <div class="action-widget" v-if="!mobileLayout">
         <Affix offset-top="76">
           <ReadTool
             :article="article"
@@ -64,9 +64,6 @@ const articleMod = namespace('article')
     Like,
     ReadTool
   },
-  layout ({ store }) {
-    return store.getters['app/mobileLayout'] ? 'mobile' : 'default'
-  },
   validate ({ params }) {
     return !!params.id
   },
@@ -126,6 +123,7 @@ $action-widget-width = 36px
 
 .article-page {
   flexLayout(, flex-start, flex-start)
+  width 100%
 
   .action-widget {
     flex 0 0 $action-widget-width
@@ -135,7 +133,7 @@ $action-widget-width = 36px
 
   .article-widget {
     flex 1 0
-    width 0
+    width 100%
     padding $padding-md $padding-lg
     overflow hidden
   }

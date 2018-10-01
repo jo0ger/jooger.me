@@ -13,10 +13,9 @@
   background-color $white
   z-index 99
 
-  .wrap {
+  .wrapper {
+    flexLayout(, flex-start)
     display flex
-    justify-content flex-start
-    align-items center
     max-width 1088px
     height 100%
     margin 0 auto
@@ -33,7 +32,7 @@
 
     &-text {
       display inline-block
-      margin-left 16px
+      margin-left $padding-md
       font-size 28px
       color $text-color
     }

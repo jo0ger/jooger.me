@@ -34,9 +34,6 @@ const aMod = namespace('article')
     Card,
     ArticleList
   },
-  layout ({ store }) {
-    return store.getters['app/mobileLayout'] ? 'mobile' : 'default'
-  },
   validate ({ params }) {
     return !!params.name
   },
@@ -98,6 +95,7 @@ export default class extends Base {
       .icon {
         font-size 42px
         font-weight 400
+        color $white
       }
 
       .name {
@@ -113,6 +111,12 @@ export default class extends Base {
       .mask {
         background-color rgba($black, .8)
       }
+    }
+  }
+
+  .mobile-layout & {
+    .info {
+      margin-bottom 0
     }
   }
 }

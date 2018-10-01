@@ -9,15 +9,14 @@
 .article-item {
     position relative
     margin-bottom $padding-md
-    padding-bottom $padding-xs
+    padding-bottom $padding-md
     border-bottom 1px dashed $border-color-3
 
     .article-link {
         display block
         overflow hidden
-        
+
         .title {
-            font-size $font-size-lger
             transition(,, $ease)
         }
 
@@ -93,13 +92,10 @@
                 position relative
                 margin-right 12px
 
-                &::before {
-                content ''
-                width 2px
-                height @width
-                margin-right 4px
-                border 1px solid $text-color-secondary
-                border-radius 1px
+                .icon {
+                  margin-right $padding-xs
+                  font-size $font-size-sm
+                  color $text-color-secondary
                 }
             }
 
