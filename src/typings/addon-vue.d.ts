@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { Route } from 'vue-router'
 import { NuxtContext } from 'nuxt'
+import { Share } from '@/plugins/share'
 
 declare module 'vue/types/options' {
     interface ComponentOptions<V extends Vue> {
@@ -16,6 +17,7 @@ declare module 'vue/types/vue' {
         $route: Route
         $message: any
         $bus: CombinedVueInstance<Vue, object, object, object, Record<never, any>>
+        $share: Share
     }
     interface VueConstructor<V extends Vue> {}
 }

@@ -30,6 +30,8 @@ export const USER_KEY = IS_PROD ? 'jooger.me.user' : 'jooger.me.user_dev'
 
 export const USER_LIKE_KEY = IS_PROD ? 'jooger.me.user.like_history' : 'jooger.me.user.like_history_dev'
 
+export const SITE = 'https://jooger.me'
+
 export const CDN = 'https://static.jooger.me'
 
 export const MENUS = [

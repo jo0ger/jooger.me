@@ -113,6 +113,7 @@ module.exports = {
     { src: '@/plugins/click-outside', ssr: false },
     { src: '@/plugins/storage-to-store', ssr: false },
     { src: '@/plugins/full-screen', ssr: false },
+    { src: '@/plugins/share', ssr: false },
   ],
   axios: {}
 }
