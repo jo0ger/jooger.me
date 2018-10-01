@@ -8,26 +8,58 @@
     <div class="tool-meta">
       <a class="tool-item like"
         :class="{ liked, 'liking': liking }"
+        style="-webkit-background-clip: text;"
         :title="liked ? '已点赞' : ''"
         :data-count="article.meta.ups"
         @click="like">
         <div class="background"></div>
-        <i class="icon icon-thumb-up"></i>
+        <i class="icon icon-thumb-up-fill" v-if="liked"></i>
+        <i class="icon icon-thumb-up" v-else></i>
         <span class="count" v-if="article.meta.ups">{{ article.meta.ups | countFilter }}</span>
       </a>
       <a class="tool-item comment"
         :data-count="article.meta.comments"
+        title="文章评论"
         @click="gotoComment">
         <i class="icon icon-comment"></i>
         <span class="count" v-if="article.meta.comments">{{ article.meta.comments | countFilter }}</span>
       </a>
     </div>
     <div class="tool-action">
-      <a class="tool-item tool-item-share">
+      <a class="tool-item tool-item-share"
+        :class="{ active: shareBoxVisible }"
+        title="文章分享"
+        @click="shareBoxVisible = true">
         <i class="icon icon-share"></i>
+        <Popover placement="right" v-model="shareBoxVisible">
+          <div class="pop-list share-list">
+            <a class="pop-item share-item"
+              :class="[item.key]"
+              v-for="item in config.SHARES"
+              :key="item.key"
+              :title="item.title"
+              rel="nofollow"
+              @click="share(item)">
+              <i class="icon" :class="[`icon-${item.key}`]"></i>
+            </a>
+          </div>
+        </Popover>
       </a>
-      <a class="tool-item tool-item-fontsize">
+      <a class="tool-item tool-item-fontsize"
+        :class="{ active: fontBoxVisible }"
+        title="设置字体大小"
+        @click="fontBoxVisible = true">
         <i class="icon icon-font-size"></i>
+        <Popover placement="right" v-model="fontBoxVisible">
+          <div class="pop-list font-list">
+            <a class="pop-item font-item" title="减小字号" ref="nofollow" @click="setFont(-1)">
+              <i class="icon iconfont icon-font-decrease"></i>
+            </a>
+            <a class="pop-item font-item" title="增大字号" ref="nofollow" @click="setFont(1)">
+              <i class="icon iconfont icon-font-increase"></i>
+            </a>
+          </div>
+        </Popover>
       </a>
       <a class="tool-item tool-item-fullcolumn"
         :title="fullColumn ? '退出通栏' : '通栏阅读'"

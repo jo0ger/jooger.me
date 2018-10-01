@@ -135,7 +135,8 @@ $action-widget-width = 36px
 
   .article-widget {
     flex 1 0
-    padding 20px 30px
+    width 0
+    padding $padding-md $padding-lg
     overflow hidden
   }
 
@@ -197,8 +198,8 @@ $action-widget-width = 36px
     }
 
     .tags {
-      margin-top 10px
-      padding-top 10px
+      margin-top $padding-md
+      padding-top $padding-md
       border-top 1px dashed $border-color-3
       text-align center
     }

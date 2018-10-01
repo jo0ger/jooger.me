@@ -6,13 +6,14 @@
 
 import Base from '@/base'
 import { Component, Prop } from '@/utils/decorators'
-import { Like } from '@/components/common'
+import { Like, Popover } from '@/components/common'
 import { requestFullscreen, exitFullscreen } from '@/utils'
 
 @Component({
   name: 'ReadTool',
   components: {
-    Like
+    Like,
+    Popover
   }
 })
 export default class ReadTool extends Base {
@@ -25,6 +26,13 @@ export default class ReadTool extends Base {
   @Prop({ type: Boolean, default: false })
   private liked!: boolean
 
+  private shareBoxVisible = false
+  private fontBoxVisible = false
+
+  private mounted () {
+    this.$forceUpdate()
+  }
+
   private like () {
     if (this.liked) return this.$message.info('你已经点过赞了')
     this.$emit('on-like')
@@ -32,13 +40,16 @@ export default class ReadTool extends Base {
 
   private gotoComment () {}
 
-  private share () {}
+  private share ({ key }) {
+    this.$share.share(key)
+    this.$nextTick(() => {
+      this.shareBoxVisible = false
+    })
+  }
 
   private setFont (inc) {
     this.$bus.$emit('on-article-fontsize-change', inc)
   }
-
-  private handleShare () {}
 
   private toggleFullScreen () {
     if (this.fullScreen) {
