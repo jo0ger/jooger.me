@@ -23,7 +23,7 @@ const create = async () => {
             name: 'componentPath',
             message: '请输入组件路径（基于src目录）:',
             type: 'input',
-            default: 'components'
+            default: 'components/common'
         },
         {
             name: 'yes',
@@ -37,7 +37,7 @@ const create = async () => {
         componentPath = path.join(baseDir, componentPath)
         componentName = utils.capitalize(componentName)
         const component = path.join(componentPath, componentName)
-        
+
         const pass = await judge(componentPath, componentName)
 
         if (!pass) return
@@ -50,7 +50,7 @@ const create = async () => {
 
             const author = utils.getGitUser() || os.userInfo({ encoding: 'utf8' })
             const date = utils.getDate()
-    
+
             files.forEach((filename) => {
                 let content = compile(path.join(tplPath, filename), {
                     author,
@@ -63,7 +63,7 @@ const create = async () => {
                 console.log(colors.green(' => '), colors.underline(filePath))
                 fs.writeFileSync(filePath, content, 'utf8')
             })
-    
+
             console.log(colors.green(`组件 ${componentName} 生成成功`))
         })
     }
@@ -89,7 +89,7 @@ function compile (file, data) {
 }
 
 module.exports = () => {
-    
+
     create().catch(async err => {
         console.error(err)
         process.exit(1)

@@ -26,16 +26,16 @@
         </a>
       </div>
       <div class="copyright">
-        <span>版权所有 © 2017 <nuxt-link to="/about">{{ setting.personal.user.name }}</nuxt-link>. 保留所有权利</span>
+        <span>版权所有 © 2017 <nuxt-link to="/about" v-if="setting.personal.user">{{ setting.personal.user.name }}</nuxt-link>. 保留所有权利</span>
         <a v-if="!mobileLayout" href="http://www.miitbeian.gov.cn" target="_blank" rel="noopener" class="record">
           豫ICP备17040457号
         </a>
       </div>
       <div class="power-by">
-        Powered by 
+        Powered by
         <a class="link" target="_blank" rel="noopener" href="https://github.com/nuxt/nuxt.js">nuxt.js</a>、
-        Design by 
-        <a class="link" target="_blank" rel="noopener" :href="'https://github.com/jo0ger'">{{ setting.personal.user.name }}</a>
+        Design by
+        <a class="link" target="_blank" rel="noopener" :href="'https://github.com/jo0ger'" v-if="setting.personal.user">{{ setting.personal.user.name }}</a>
       </div>
       <div class="logo">
         <nuxt-link to="/">

@@ -11,7 +11,7 @@ import { Component, Prop } from '@/utils/decorators'
   name: 'Like',
 })
 export default class Like extends Base {
-  @Prop({ default: true })
+  @Prop({ default: false })
   private showText!: boolean
 
   @Prop({ default: '喜欢' })

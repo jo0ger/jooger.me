@@ -37,8 +37,6 @@
     }
   })
   export default class LayoutDefault extends Base {
-    @Getter private fullColumn!: boolean
-
     private get appClass () {
       return {
         'full-column': this.fullColumn
@@ -68,8 +66,7 @@
 
       .content-container {
         flex 1 0
-        overflow hidden
-        transition(flex-basis,,$ease)
+        transition(flex-basis)
       }
 
       .aside-container {

@@ -23,7 +23,7 @@ export default class Message extends Base {
   private type: MessageOption['type'] = 'info'
   private visible = false
   private message = ''
-  private duration = 3000
+  private duration = 2000
   private closed = false
   private onClose: ((args: any) => any) = noop
   private timer: null | NodeJS.Timer = null
@@ -44,7 +44,7 @@ export default class Message extends Base {
     if (this.duration > 0) {
       this.timer = setTimeout(() => {
         if (!this.closed) {
-          // this.close()
+          this.close()
         }
       }, this.duration)
     }

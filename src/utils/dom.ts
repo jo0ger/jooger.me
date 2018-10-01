@@ -141,3 +141,27 @@ export const scrollTo = (element: Element | null | number = null, duration = 500
     }
   })
 }
+
+export const getFullscreenElement = () => {
+  return document.fullscreenElement
+    || document.webkitFullscreenElement
+    || document.mozFullScreenElement
+    || document.msFullscreenElement
+}
+
+export const requestFullscreen = () => {
+  const docElm = document.documentElement
+  const requestEvent = docElm.requestFullscreen
+     || docElm.mozRequestFullScreen
+     || docElm.webkitRequestFullScreen
+     || docElm.msRequestFullscreen
+  if (requestEvent) requestEvent.call(docElm)
+}
+
+export const exitFullscreen = () => {
+  const exitEvent = document.exitFullscreen
+    || document.webkitExitFullscreen
+    || document.mozCancelFullScreen
+    || document.msExitFullscreen
+  if (exitEvent) exitEvent.call(document)
+}

@@ -5,8 +5,11 @@
         v-for="item in categoryList"
         :key="item._id">
         <router-link :to="`/category/${item.name}`">
-          <img class="background" v-if="findExtendsItem(item.extends, 'image')"
+          <img class="background-image" v-if="findExtendsItem(item.extends, 'image')"
             :src="findExtendsItem(item.extends, 'image')" alt="">
+          <div class="background" :style="{
+            backgroundImage: `url(${findExtendsItem(item.extends, 'image') || 'https://static.jooger.me/img/common/banner-03.jpg'})`
+          }"></div>
           <div class="mask"></div>
           <div class="content">
             <i class="icon" :class="[`icon-${findExtendsItem(item.extends, 'icon') || 'category'}`]"></i>
@@ -55,6 +58,7 @@ export default class extends Base {
     .category {
       position relative
       flex 1 0
+      max-height 100px
       margin 0 8px
       text-align center
       overflow hidden
@@ -67,9 +71,15 @@ export default class extends Base {
       }
 
       .background {
-        width 100%
-        height 100%
+        full()
+        background-size cover
+        background-position center center
         transition(,,$ease)
+
+        &-image {
+          width 100%
+          height 100%
+        }
       }
 
       .mask {
@@ -85,7 +95,7 @@ export default class extends Base {
         transform translate(-50%, -50%)
 
         .icon {
-          font-size 20px
+          font-size 28px
         }
 
         .name {
@@ -106,7 +116,7 @@ export default class extends Base {
   }
 
   .article-panel {
-    
+
   }
 }
 </style>

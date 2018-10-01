@@ -21,3 +21,10 @@ export const extendsFilter = findExtendsItem
 export const dateFormat = (val: any, format: string = 'YYYY-MM-DD HH:mm') => {
     return moment(val).format(format)
 }
+
+export const countFilter = (num: number = 0, limit: number = 999) => {
+  if (num > limit) {
+    return limit + '+'
+  }
+  return num + ''
+}

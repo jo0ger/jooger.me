@@ -1,0 +1,61 @@
+/**
+ * @desc Popover
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-10-01 01:31:01
+ */
+
+@import '~@/assets/style/init'
+
+.popover {
+  position absolute
+  background-color $white
+  box-shadow 0 0 15px 0 rgba($black,.2)
+  border-radius 4px
+  z-index 9999
+
+  &::after {
+    content ''
+    position absolute
+    border-style solid
+  }
+
+  &-top {
+    &::after {
+      bottom -8px
+      left 50%
+      transform translateX(-50%)
+      border-width 8px 8px 0
+      border-color $white transparent transparent
+    }
+  }
+
+  &-right {
+    &::after {
+      top 50%
+      left -8px
+      transform translateY(-50%)
+      border-width 8px 8px 8px 0
+      border-color transparent $white transparent transparent
+    }
+  }
+
+  &-bottom {
+    &::after {
+      top -8px
+      left 50%
+      transform translateX(-50%)
+      border-width 0 8px 8px
+      border-color transparent transparent $white
+    }
+  }
+
+  &-left {
+    &::after {
+      top 50%
+      right -8px
+      transform translateY(-50%)
+      border-width 8px 0px 8px 8px
+      border-color transparent transparent transparent $white
+    }
+  }
+}

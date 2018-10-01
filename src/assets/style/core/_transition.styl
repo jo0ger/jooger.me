@@ -18,7 +18,7 @@
   transition all $animation-duration-slow $ease
 }
 
-.slide-down-enter 
+.slide-down-enter
 .slide-down-leave-active {
   opacity 0
   transform translate3d(0, 10px, 0)
@@ -30,19 +30,44 @@
   transition all $animation-duration-slow $ease
 }
 
-.slide-up-enter 
+.slide-up-enter
 .slide-up-leave-active {
   opacity 0
   transform translate3d(0, -10px, 0)
 }
 
-.slide-up-message-enter-active
-.slide-up-message-leave-active {
+.slide-right-enter-active
+.slide-right-leave-active {
+  opacity 1
   transition all $animation-duration-slow $ease
 }
 
-.slide-up-message-enter 
-.slide-up-message-leave-active {
-  transform translate3d(0, -100%, 0)
+.slide-right-enter
+.slide-right-leave-active {
   opacity 0
+  transform translate3d(10px, 0, 0)
+}
+
+.slide-left-enter-active
+.slide-left-leave-active {
+  opacity 1
+  transition all $animation-duration-slow $ease
+}
+
+.slide-left-enter
+.slide-left-leave-active {
+  opacity 0
+  transform translate3d(-10px, 0, 0)
+}
+
+.slide-up-message-enter-active
+.slide-up-message-leave-active {
+  opacity 1
+  transition all $animation-duration-slow $ease
+}
+
+.slide-up-message-enter
+.slide-up-message-leave-active {
+  opacity 0
+  transform translate3d(0, -160%, 0)
 }
