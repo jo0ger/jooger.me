@@ -32,7 +32,7 @@
                 max-height 90px
                 margin-right 16px
                 overflow hidden
-                border 6px solid $grey
+                border 6px solid $grey3
 
                 img {
                     width 100%
@@ -115,6 +115,34 @@
 
         .source {
             margin-left $padding-sm
+            width 36px
+            height 20px
+            line-height @height
+            text-align center
+            border-radius 2px
+            opacity .5
+            transition(opacity)
+
+            &.original {
+              color $base-color
+              background-color rgba($base-color, .2)
+            }
+
+            &.reprint {
+              color $orange
+              background-color rgba($orange, .2)
+            }
+
+            &:hover {
+              opacity 1
+            }
         }
+    }
+
+    &:hover {
+      .title {
+        text-decoration underline
+        transform translateX(5px)
+      }
     }
 }
