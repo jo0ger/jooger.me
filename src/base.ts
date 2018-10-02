@@ -54,7 +54,7 @@ export default class Base extends Vue {
     if (!val) {
       setTimeout(() => {
         this.$bus.$emit('affix-reset')
-      }, 80)
+      }, 300)
     }
   }
 }

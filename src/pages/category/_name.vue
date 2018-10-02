@@ -55,7 +55,9 @@ export default class extends Base {
   @aMod.Getter private pageInfo!: WebApi.PageInfo
 
   private get category () {
-    return this.categoryList.find(item => item.name === this.$route.params.name)
+    return this.categoryList.find(item => item.name === this.$route.params.name) || {
+      name: this.$route.params.name
+    }
   }
 }
 </script>

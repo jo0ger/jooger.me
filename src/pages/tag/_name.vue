@@ -55,7 +55,9 @@ export default class extends Base {
   @Getter private listFetching!: boolean
 
   private get tag () {
-    return this.tagList.find(item => item.name === this.$route.params.name) || {}
+    return this.tagList.find(item => item.name === this.$route.params.name) || {
+      name: this.$route.params.name
+    }
   }
 }
 </script>
