@@ -28,6 +28,10 @@
               {{ article.meta.pvs }} 次阅读
             </div>
           </div>
+          <div class="from" v-if="article.from">
+            转载自
+            <a :href="article.from" target="_blank">{{ article.from }}</a>
+          </div>
           <div class="content markdown-body"
             :style="{
               fontSize: articleFontSize + 'px'
@@ -193,6 +197,15 @@ $action-widget-width = 36px
           border-radius 1px
         }
       }
+    }
+
+    .from {
+      line-height 1.8
+      margin-bottom $padding-md
+      padding $padding-xs
+      background-color $grey
+      border-left 4px solid rgba($orange, .2)
+      font-weight 300
     }
 
     .tags {
