@@ -141,7 +141,7 @@ export default class extends Base {
     mousewheel: true,
     autoplay: {
       delay: 5000,
-      disableOnInteraction: false,
+      disableOnInteraction: true,
     },
     observeParents: true,
     grabCursor: true,
@@ -214,8 +214,8 @@ $action-widget-width = 36px
       font-size $font-size-sm
 
       &.original {
-        background-color rgba($blue, .2)
-        color $blue
+        background-color rgba($base-color, .2)
+        color $base-color
       }
 
       &.reprint {
@@ -326,7 +326,6 @@ $action-widget-width = 36px
             position absolute
             left 50%
             width 100%
-            padding 0 $padding-md
             transform translateX(-50%)
             font-weight 400
             color $white

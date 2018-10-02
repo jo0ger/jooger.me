@@ -51,7 +51,7 @@
         <i class="icon icon-time" v-if="!mobileLayout"></i>
         {{ article.createdAt | dateFormat('YYYY-MM-DD') }}
       </time>
-      <div class="source">{{ article.source | constantFilter('ARTICLE_SOURCE') }}</div>
+      <div class="source" :class="[article.source ? 'reprint' : 'original']">{{ article.source | constantFilter('ARTICLE_SOURCE') }}</div>
     </div>
   </article>
 </template>
