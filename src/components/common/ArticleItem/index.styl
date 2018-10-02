@@ -17,12 +17,13 @@
         overflow hidden
 
         .title {
+            margin-bottom $padding-md
             transition(,, $ease)
         }
 
         .summary {
             flexLayout(, flex-start, flex-start)
-            margin-top $padding-md
+            margin-bottom $padding-md
 
             .thumb {
                 flex 0 0 150px
@@ -31,7 +32,7 @@
                 max-height 90px
                 margin-right 16px
                 overflow hidden
-                border-radius 4px
+                border 6px solid $grey
 
                 img {
                     width 100%
@@ -79,7 +80,6 @@
 
     .status {
         flexLayout(, flex-start,,wrap)
-        margin-top $padding-md
         font-size $font-size-sm
         color $text-color-secondary
 
