@@ -58,6 +58,7 @@ export default class extends Base {
     .category {
       position relative
       flex 1 0
+      min-height 100px
       max-height 100px
       margin 0 8px
       text-align center
@@ -129,6 +130,7 @@ export default class extends Base {
 
       .category {
         margin 0 ($padding-xs / 2)
+        min-height 60px
         max-height 60px
 
         .content {

@@ -14,7 +14,7 @@
           </div>
         </div>
       <div class="list-content">
-        <ArticleList :mini="true"></ArticleList>
+        <ArticleList></ArticleList>
       </div>
     </Card>
   </section>

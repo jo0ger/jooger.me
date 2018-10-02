@@ -9,50 +9,86 @@
             @on-like="like"></ReadTool>
         </Affix>
       </div>
-      <Card class="article-widget">
-        <article class="article" v-if="article">
-          <span class="source" :class="[article.source ? 'reprint' : 'original']">{{ article.source | constantFilter('ARTICLE_SOURCE') }}</span>
-          <h2 class="title">{{ article.title }}</h2>
-          <div class="meta">
-            <nuxt-link :to="`/category/${article.category.name}`" class="meta-item category">
-              <i class="icon" v-if="article.category" :class="[`icon-${findExtendsItem(article.category.extends, 'icon') || 'tag'}`]"></i>
-              {{ article.category ? article.category.name : '暂未分类' }}
-            </nuxt-link>
-            <div class="meta-item comments">
-              {{ article.meta.comments }} 条评论
+      <div class="article-widget">
+        <Card class="article-detail">
+          <article class="article" v-if="article">
+            <span class="source" :class="[article.source ? 'reprint' : 'original']">{{ article.source | constantFilter('ARTICLE_SOURCE') }}</span>
+            <h2 class="title">{{ article.title }}</h2>
+            <div class="meta">
+              <nuxt-link :to="`/category/${article.category.name}`" class="meta-item category">
+                <i class="icon" v-if="article.category" :class="[`icon-${findExtendsItem(article.category.extends, 'icon') || 'tag'}`]"></i>
+                {{ article.category ? article.category.name : '暂未分类' }}
+              </nuxt-link>
+              <div class="meta-item comments">
+                {{ article.meta.comments }} 条评论
+              </div>
+              <div class="meta-item ups">
+                {{ article.meta.ups }} 人喜欢
+              </div>
+              <div class="meta-item pvs">
+                {{ article.meta.pvs }} 次阅读
+              </div>
             </div>
-            <div class="meta-item ups">
-              {{ article.meta.ups }} 人喜欢
+            <div class="content markdown-body"
+              v-copyright
+              :style="{
+                fontSize: articleFontSize + 'px'
+              }"
+              v-html="article.renderedContent"></div>
+            <div class="tags">
+              <Tag v-for="tag in article.tag"
+                :key="tag._id"
+                :name="tag.name"
+                :icon="findExtendsItem(tag.extends, 'icon') || 'tag'"
+                :link="true">
+              </Tag>
             </div>
-            <div class="meta-item pvs">
-              {{ article.meta.pvs }} 次阅读
+          </article>
+          <div class="article-info">
+            <div class="from" v-if="article.from">
+              转载来源：
+              <a :href="article.from" target="_blank">{{ article.from }}</a>
+            </div>
+            <div class="created-at">
+              发布时间：{{ article.createdAt | dateFormat('YYYY-MM-DD HH:mm') }}
+            </div>
+            <div class="updated-at" v-if="article.createdAt !== article.updatedAt">
+              更新时间：{{ article.updatedAt | dateFormat('YYYY-MM-DD HH:mm') }}
+            </div>
+            <div class="copyright">
+              版权声明：自由转载-署名-非商业性使用<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+              <a href="https://creativecommons.org/licenses/by-nc/3.0/cn/deed.zh" target="_blank"
+                rel="external nofollow noopenter">CC BY-NC 3.0 CN</a>
             </div>
           </div>
-          <div class="from" v-if="article.from">
-            转载自
-            <a :href="article.from" target="_blank">{{ article.from }}</a>
+        </Card>
+        <Card class="article-related" header="相关文章" v-if="article.related.length">
+          <div class="related-list swiper" v-swiper:relatedSwiper="swiperOption">
+            <div class="swiper-wrapper">
+              <div class="related-item swiper-slide"
+                v-for="item in article.related"
+                :key="item._id">
+                <nuxt-link :to="`/article/${item._id}`" :title="item.title" class="item-box">
+                  <!-- <img :src="item.thumb" :alt="item.title" class="thumb"> -->
+                  <div class="thumb"
+                    :style="{
+                      backgroundImage: `url('${item.thumb}')`
+                    }"></div>
+                  <div class="mask"></div>
+                  <h4 class="title">{{ item.title }}</h4>
+                  <time>{{ article.createdAt | dateFormat('YYYY-MM-DD') }}</time>
+                </nuxt-link>
+              </div>
+            </div>
           </div>
-          <div class="content markdown-body"
-            :style="{
-              fontSize: articleFontSize + 'px'
-            }"
-            v-html="article.renderedContent"></div>
-          <div class="tags">
-            <Tag v-for="tag in article.tag"
-              :key="tag._id"
-              :name="tag.name"
-              :icon="findExtendsItem(tag.extends, 'icon') || 'tag'"
-              :link="true">
-            </Tag>
-          </div>
-        </article>
-      </Card>
+        </Card>
+      </div>
     </section>
 </template>
 
 <script lang="ts">
 import Base from '@/base'
-import { Component, Prop } from '@/utils/decorators'
+import { Component, Prop, Watch } from '@/utils/decorators'
 import { namespace } from 'vuex-class'
 import { Affix, Card, Tag, Like, ReadTool } from '@/components/common'
 
@@ -100,13 +136,34 @@ export default class extends Base {
   @articleMod.Getter('detailLiking') private articleLiking!: boolean
   @articleMod.Action('like') private likeArticle
 
+  private swiperOption = {
+    setWrapperSize: true,
+    mousewheel: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    observeParents: true,
+    grabCursor: true,
+    slidesPerView: 'auto',
+    spaceBetween: 16
+  }
+
   private get liked () {
     if (!this.article) return false
     return !!this.history.articles.find(item => item === this.article._id)
   }
 
+  @Watch('fullColumn')
+  private watchFullColumn (val) {
+    setTimeout(() => {
+      (this as any).relatedSwiper.update()
+    }, 300)
+  }
+
   private mounted () {
     this.$bus.$on('on-article-fontsize-change', (val) => {
+      console.log(val)
       this.setFontSize(val)
     })
   }
@@ -138,11 +195,12 @@ $action-widget-width = 36px
   .article-widget {
     flex 1 0
     width 100%
-    padding $padding-md $padding-lg
     overflow hidden
   }
 
-  .article {
+  .article-detail {
+    padding $padding-md $padding-lg
+
     .source {
       position absolute
       top -8px
@@ -199,15 +257,6 @@ $action-widget-width = 36px
       }
     }
 
-    .from {
-      line-height 1.8
-      margin-bottom $padding-md
-      padding $padding-xs
-      background-color $grey
-      border-left 4px solid rgba($orange, .2)
-      font-weight 300
-    }
-
     .tags {
       margin-top $padding-md
       padding-top $padding-md
@@ -217,6 +266,104 @@ $action-widget-width = 36px
 
     .like {
       flexLayout()
+    }
+
+    .article-info {
+      margin-top $padding-xs
+      padding $padding-xs
+      line-height 2
+      background-color $grey
+      border-left 4px solid rgba($base-color, .2)
+      font-weight 300
+
+      a {
+        text-decoration underline
+      }
+    }
+  }
+
+  .article-related {
+    overflow: hidden;
+
+    .related-list.swiper {
+      overflow hidden
+
+      .swiper-wrapper {
+        height 120px
+        overflow hidden
+
+        .swiper-slide.related-item {
+          display inline-block
+          width 250px
+          height 100%
+          border 8px solid $grey3
+          text-align center
+
+          .item-box {
+            position relative
+            display block
+            width auto
+            height 100%
+            overflow hidden
+          }
+
+          .thumb {
+            width 100%
+            height 100%
+            background-size cover
+            background-position center
+            transition(,,$ease)
+          }
+
+          .mask {
+            full()
+            background-color rgba($black, .6)
+            transition(,,$ease)
+          }
+
+          .title
+          time {
+            position absolute
+            left 50%
+            width 100%
+            padding 0 $padding-md
+            transform translateX(-50%)
+            font-weight 400
+            color $white
+          }
+
+          .title {
+            top $padding-sm
+          }
+
+          time {
+            bottom $padding-sm
+            font-size $font-size-sm
+          }
+
+          &:hover {
+            .thumb {
+              transform scale(1.2)
+            }
+
+            .mask {
+              background-color rgba($black, .8)
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .app.mobile-layout & {
+    .article-related {
+      .swiper-wrapper {
+        height 100px
+
+        .swiper-slide.related-item {
+          width 180px !important
+        }
+      }
     }
   }
 }

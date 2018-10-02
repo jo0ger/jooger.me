@@ -114,6 +114,8 @@ module.exports = {
     { src: '@/plugins/storage-to-store', ssr: false },
     { src: '@/plugins/full-screen', ssr: false },
     { src: '@/plugins/share', ssr: false },
+    { src: '@/plugins/swiper', ssr: false },
+    { src: '@/plugins/copyright', ssr: false },
   ],
   axios: {}
 }

@@ -15,5 +15,8 @@ export default class ArticleItem extends Base {
   private article!: any
 
   @Prop()
-  private mini!: boolean
+  private noThumb!: boolean
+
+  @Prop()
+  private compact!: boolean
 }
