@@ -18,6 +18,8 @@ declare module 'vue/types/vue' {
         $message: any
         $bus: CombinedVueInstance<Vue, object, object, object, Record<never, any>>
         $share: Share
+        $scrollTo: (element: string | Element | null | number, duration: number, options: any) => void
+        $scrollToComments: (...args: any[]) => void
     }
     interface VueConstructor<V extends Vue> {}
 }

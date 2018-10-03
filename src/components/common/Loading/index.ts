@@ -15,7 +15,7 @@ export default class Loading extends Base {
   public text!: string
 
   @Prop({
-    default: 'small',
+    default: 'default',
     validator (val) {
       return ['large', 'default', 'small'].includes(val)
     }
@@ -24,4 +24,7 @@ export default class Loading extends Base {
 
   @Prop({ default: false })
   public dark!: boolean
+
+  @Prop({ type: Boolean, default: false })
+  public noText!: boolean
 }

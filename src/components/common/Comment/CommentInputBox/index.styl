@@ -1,0 +1,229 @@
+/**
+ * @desc CommentInputBox
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-10-03 14:23:17
+ */
+
+@import '~@/assets/style/init'
+
+.comment-input-box {
+  padding $padding-md $padding-lg
+
+  button {
+    background $grey
+    border-radius 2px
+    border none
+    cursor pointer
+    transition all $animation-duration-slow $ease-in-out
+
+    &:hover {
+      opacity .8
+    }
+  }
+
+  .wrapper {
+    .clear {
+      flex 0 0 !important
+
+      button {
+        height 40px
+        width @height
+        background $grey
+
+        .icon {
+          color $text-color-secondary
+          transition(color)
+        }
+
+        &:hover {
+          .icon {
+            color $text-color
+          }
+        }
+      }
+    }
+
+    .author {
+      flexLayout(, flex-start, flex-start)
+      margin-bottom $padding-sm
+
+      .avatar {
+        flex 0 0 40px
+        width 40px
+        height @width
+        margin-right $padding-sm
+        text-align center
+        overflow hidden
+
+        img {
+          width 100%
+          height @width
+          border-radius 50%
+        }
+      }
+
+      .form {
+        flex 1 0
+        flexLayout(, flex-start)
+
+        > div {
+          flex 1 0
+          position relative
+          margin-right $padding-sm
+
+          > .icon {
+            position absolute
+            top 50%
+            left 8px
+            transform translateY(-50%)
+            color $text-color-secondary
+          }
+
+          input {
+            width 100%
+            height 40px
+            padding $padding-xs $padding-sm $padding-xs 30px
+            border none
+            background $grey
+            background-image none
+            transition all $animation-duration-slow $ease
+          }
+
+          &:last-child {
+            margin-right 0
+          }
+        }
+      }
+
+      .info {
+        flexLayout(, space-between)
+        .user {
+          flexLayout(, flex-start)
+        }
+
+        .status {
+          color $text-color-secondary
+          font-size $font-size-sm
+        }
+
+        .action {
+          &-item {
+            margin-left 10px
+          }
+
+          .exit {
+            color $text-color-secondary
+          }
+        }
+      }
+    }
+
+    .reply {
+      flexLayout(, flex-start)
+      margin-bottom 12px
+
+      .target {
+        flex 1 0
+        height 40px
+        line-height @height
+        margin-right 12px
+        padding 0 8px
+        background $grey3
+      }
+
+      .clear {
+        button {
+          width 80px
+        }
+      }
+    }
+
+    .content {
+      margin 0 0 12px
+    }
+
+    .action {
+      flexLayout(, space-between)
+      &-item {
+        display inline-block
+      }
+
+      .cancel-btn {
+        margin-right 12px
+        background transparent
+        color $text-color-secondary
+        border 1px solid $border-color
+
+        &:hover {
+          background $bg
+          border-color @background
+          color $text-color
+        }
+      }
+
+      .submit-btn {
+        width 100%
+        padding 6px 32px
+        border 1px solid $border-color
+      }
+    }
+  }
+
+  &.child-input-box {
+    margin 0
+    padding 0
+    background transparent
+
+    .card-body {
+      padding 0
+    }
+
+    .content {
+      .editor {
+        background $grey3
+      }
+    }
+
+    .clear {
+      button {
+        background $grey3
+      }
+    }
+  }
+
+  &.loading {
+    button {
+      cursor not-allowed
+    }
+
+    .wrapper {
+      .content {
+        cursor not-allowed
+        opacity .5
+      }
+    }
+  }
+
+  .app.mobile-layout & {
+    .wrapper {
+      .form {
+        flex-wrap wrap
+
+        > div {
+          flex-basis 100%
+          margin-bottom $padding-sm
+          margin-right 0
+
+          &:last-child {
+            margin-bottom 0
+          }
+        }
+      }
+
+      .submit {
+        width 100%
+      }
+    }
+  }
+}
+

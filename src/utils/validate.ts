@@ -1,7 +1,5 @@
 import validator from 'validator'
 
-export * from 'validator'
-
 /**
  * 类型检测
  * @param {*} obj 检测对象
@@ -34,3 +32,5 @@ export const isSiteUrl = (site = '') => validator.isURL(site, {
   protocols: ['http', 'https'],
   require_protocol: true
 })
+
+export const isEmail = validator.isEmail

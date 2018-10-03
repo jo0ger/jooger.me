@@ -82,6 +82,7 @@
             </div>
           </div>
         </Card>
+        <Comment class="article-comments" :article="article"></Comment>
       </div>
     </section>
 </template>
@@ -90,7 +91,7 @@
 import Base from '@/base'
 import { Component, Prop, Watch } from '@/utils/decorators'
 import { namespace } from 'vuex-class'
-import { Affix, Card, Tag, Like, ReadTool } from '@/components/common'
+import { Affix, Card, Tag, Like, ReadTool, Comment } from '@/components/common'
 
 const appMod = namespace('app')
 const articleMod = namespace('article')
@@ -102,19 +103,18 @@ const articleMod = namespace('article')
     Card,
     Tag,
     Like,
-    ReadTool
+    ReadTool,
+    Comment
   },
   validate ({ params }) {
     return !!params.id
   },
   fetch ({ params, store }) {
+    store.commit('comment/RESET_SORT')
+    const article = params.id
     return Promise.all([
-      store.dispatch('article/fetchDetail', params.id),
-      // store.dispatch('comment/fetchList', {
-      //   article: params.id,
-      //   type: 0,
-      //   page: 1
-      // })
+      store.dispatch('article/fetchDetail', article),
+      store.dispatch('comment/fetchList', { article })
     ])
   },
   head () {
@@ -196,11 +196,11 @@ $action-widget-width = 36px
 
   .article-widget {
     width 100%
-    overflow hidden
   }
 
   .article-detail {
     padding $padding-md $padding-lg
+    overflow hidden
 
     .source {
       position absolute

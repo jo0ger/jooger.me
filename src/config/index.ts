@@ -21,6 +21,7 @@ export const AXIOS_DEFAULT_CONFIG = {
   headers: {
     'x-requested-with': 'XMLHttpRequest',
     'Accept': 'application/json',
+    'Content-Type': 'application/json;charset=UTF-8'
   },
   timeout: 100000,
   responseType: 'json'

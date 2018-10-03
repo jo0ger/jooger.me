@@ -224,6 +224,7 @@ declare namespace WebApi {
             name: string
             email: string
             avatar: string
+            site: string
             role: number
             password?: string
             mute: boolean,
@@ -309,7 +310,7 @@ declare namespace WebApi {
             ups: number
             sticky: boolean
             type: number
-            article?: ArticleModule.Article
+            article?: ArticleModule.Article | string
             meta: {
                 ip: string
                 location: object
@@ -318,6 +319,7 @@ declare namespace WebApi {
             }
             parent: Comment
             forward: Comment,
+            subCount: number
         }
 
         namespace list {

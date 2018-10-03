@@ -22,7 +22,7 @@ export const state = (): AppStateTree => ({
     articles: [],
     comments: []
   },
-  user: {},
+  user: null,
   setting: null,
   categoryList: [],
   hotList: [],
@@ -77,8 +77,12 @@ export const actions: Actions<AppStateTree, RootState> = {
     storage.set(USER_LIKE_KEY, state.history)
   },
   updateUser ({ commit, state }, user = {}) {
-    commit(SET_USER, user)
-    storage.set(USER_KEY, state.user)
+    commit(SET_USER, user || null)
+    if (user) {
+      storage.set(USER_KEY, state.user)
+    } else {
+      storage.remove(USER_KEY)
+    }
   },
   async getSettingData ({ commit }) {
     const { success, data } = await api.getSettingData()

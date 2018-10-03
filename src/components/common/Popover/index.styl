@@ -71,3 +71,51 @@
     }
   }
 }
+
+.popover-slide-down-enter-active
+.popover-slide-down-leave-active {
+  opacity 1 !important
+  transition all $animation-duration-slow $ease !important
+}
+
+.popover-slide-down-enter
+.popover-slide-down-leave-active {
+  opacity 0 !important
+  transform translate3d(-50%, 10px, 0) !important
+}
+
+.popover-slide-up-enter-active
+.popover-slide-up-leave-active {
+  opacity 1 !important
+  transition all $animation-duration-slow $ease !important
+}
+
+.popover-slide-up-enter
+.popover-slide-up-leave-active {
+  opacity 0 !important
+  transform translate3d(-50%, -10px, 0) !important
+}
+
+.popover-slide-right-enter-active
+.popover-slide-right-leave-active {
+  opacity 1 !important
+  transition all $animation-duration-slow $ease !important
+}
+
+.popover-slide-right-enter
+.popover-slide-right-leave-active {
+  opacity 0 !important
+  transform translate3d(10px, -50%, 0) !important
+}
+
+.popover-slide-left-enter-active
+.popover-slide-left-leave-active {
+  opacity 1 !important
+  transition all $animation-duration-slow $ease !important
+}
+
+.popover-slide-left-enter
+.popover-slide-left-leave-active {
+  opacity 0 !important
+  transform translate3d(-10px, -50%, 0) !important
+}

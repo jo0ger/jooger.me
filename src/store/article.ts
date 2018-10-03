@@ -11,7 +11,6 @@ const FETCH_DETAIL_REQUEST = 'FETCH_DETAIL_REQUEST'
 const FETCH_DETAIL_SUCCESS = 'FETCH_DETAIL_SUCCESS'
 const FETCH_DETAIL_FAILURE = 'FETCH_DETAIL_FAILURE'
 const CLEAR_DETAIL = 'CLEAR_DETAIL'
-const FETCH_LIKES_SUCCESS = 'FETCH_LIKES_SUCCESS'
 const LIKE_REQUEST = 'LIKE_REQUEST'
 const LIKE_SUCCESS = 'LIKE_SUCCESS'
 const LIKE_FAILURE = 'LIKE_FAILURE'
@@ -89,12 +88,6 @@ export const mutations: Mutations<ArticleStateTree> = {
     state.detail.fetching = false
     state.detail.liking = false
     state.detail.data = {}
-    // state.detail.likes = []
-    // state.detail.isLiked = false
-  },
-  [FETCH_LIKES_SUCCESS]: (state, { list, isLiked }) => {
-    // state.detail.likes = list
-    // state.detail.isLiked = isLiked
   },
   [LIKE_REQUEST]: state => (state.detail.liking = true),
   [LIKE_FAILURE]: state => (state.detail.liking = false),
@@ -114,14 +107,8 @@ export const mutations: Mutations<ArticleStateTree> = {
     }
   },
   [COMMENT_SUCCESS]: state => {
-    if (state.detail.data) {
-      if (state.detail.data.meta) {
-        state.detail.data.meta.comments--
-      }
-      const article = state.list.data.find(item => item._id === state.detail.data._id)
-      if (article && article.meta) {
-        article.meta.comments++
-      }
+    if (state.detail.data.meta) {
+      state.detail.data.meta.comments++
     }
   }
 }
@@ -133,9 +120,6 @@ export const actions: Actions<ArticleStateTree, RootState> = {
     }
     const pageInfo = {
       page: params && params.page || 1
-    }
-    if (pageInfo.page === undefined) {
-      pageInfo.page = Number(state.list.pageInfo.current) + 1
     }
     commit(FETCH_LIST_REQUEST)
     const { success, data } = await api.getArticleList(Object.assign({}, params, pageInfo))

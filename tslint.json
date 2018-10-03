@@ -26,6 +26,8 @@
         "curly": [true, "ignore-same-line"],
         "no-shadowed-variable": false,
         "trailing-comma": false,
-        "max-line-length": false
+        "max-line-length": false,
+        "no-conditional-assignment": false,
+        "only-arrow-functions": false
     }
 }

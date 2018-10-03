@@ -11,7 +11,7 @@
           <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke-miterlimit="10"></circle>
         </svg>
       </div>
-      <div class="text" v-if="text">{{ text || 'Loading' }}</div>
+      <div class="text" v-if="!noText">{{ text }}</div>
     </div>
   </div>
 </template>

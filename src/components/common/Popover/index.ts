@@ -30,10 +30,10 @@ export default class Popover extends Base {
 
   private get transitionName () {
     return {
-      top: 'slide-up',
-      right: 'slide-right',
-      bottom: 'slide-down',
-      left: 'slide-left'
+      top: 'popover-slide-up',
+      right: 'popover-slide-right',
+      bottom: 'popover-slide-down',
+      left: 'popover-slide-left'
     }[this.placement] || 'fade'
   }
 

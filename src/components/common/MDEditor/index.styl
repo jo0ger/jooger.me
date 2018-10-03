@@ -1,0 +1,80 @@
+/**
+ * @desc MDEditor
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-10-03 15:39:54
+ */
+
+@import '~@/assets/style/init'
+
+.md-editor {
+  background $grey
+
+  textarea {
+    width 100%
+    padding 8px
+    resize none
+    border none
+    background transparent
+    background-image none
+    transition all $animation-duration-slow $ease
+  }
+
+  .command-bar {
+    position relative
+
+    .command-list {
+      padding-right 10px
+      text-align right
+
+      .command-item {
+        position relative
+        display inline-block
+        padding 10px
+        line-height 1
+        font-weight 400
+        cursor pointer
+        transition all $animation-duration-slow $ease
+
+        .icon {
+          color $text-color-secondary
+          font-size $font-size-lg
+        }
+
+        &.active
+        &:hover {
+          color $text-color
+        }
+      }
+    }
+
+    .emoji-list {
+      width 280px
+      padding $padding-xs $padding-md
+      text-align left
+
+      .emoji-item {
+        display inline-block
+        width 25px
+        height @width
+        line-height @width
+        margin 3px
+        text-align center
+        font-size $font-size-lger + 2px
+
+        img {
+          display block
+          width 100%
+          height @width
+        }
+      }
+    }
+  }
+
+  &.disabled {
+    textarea
+    .command-list {
+      cursor not-allowed
+      pointer-events none
+    }
+  }
+}
