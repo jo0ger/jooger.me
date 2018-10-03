@@ -107,8 +107,10 @@ export const actions: Actions<CommentStateTree, RootState> = {
     }
     return success
   },
-  async like ({ commit, dispatch }, id) {
-    const { success } = await api.likeComment(id)
+  async like ({ commit, dispatch, rootState }, id) {
+    const { success } = await api.likeComment(id, {
+      user: rootState.app.user
+    })
     if (success) {
       commit(LIKE, id)
       dispatch('app/updateHistory', { commentId: id }, { root: true })
