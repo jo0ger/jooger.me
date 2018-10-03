@@ -90,7 +90,7 @@ export const getOffset = element => {
   }
 }
 
-export const scrollTo = (element: Element | null | number = null, duration = 500, options: any = {}) => {
+export const scrollTo = (element: string | Element | null | number = null, duration = 500, options: any = {}) => {
   if (typeof element === 'string') {
     element = $(element)
   }

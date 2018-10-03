@@ -1,0 +1,150 @@
+/**
+ * @desc ComemntItem
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-10-03 14:23:07
+ */
+
+@import '~@/assets/style/init'
+
+.comment-item {
+  position relative
+  padding $padding-md 0
+  border-bottom 1px dashed $border-color-3
+
+  .header {
+    flexLayout(, space-between)
+
+    .user-info {
+      flexLayout(, flex-start, center)
+
+      .author {
+        flexLayout(, flex-start, center)
+
+        .avatar {
+          display inline-block
+          width 24px
+          height @width
+          margin-right 10px
+          border-radius 100%
+          border 1px solid $border-color
+
+          img {
+            width 100%
+            height @width
+            border-radius 100%
+          }
+        }
+
+        &.no-site {
+          cursor default
+        }
+      }
+
+      .reply {
+        .text {
+          margin 0 10px
+          color $text-color-secondary
+        }
+        .name {
+          text-decoration underline
+        }
+      }
+
+      .name {
+        font-weight 700
+        font-size $font-size-base
+      }
+    }
+
+    .meta {
+      color rgba($black, .2)
+      font-size $font-size-sm
+
+      > span {
+        margin-left 10px
+      }
+
+      .icon {
+        color rgba($black, .2)
+        font-size $font-size-sm
+        margin-right 4px
+      }
+    }
+  }
+
+  .content {
+    margin $padding-sm 0 $padding-md
+  }
+
+  .status {
+    &-item {
+      display inline-block
+      margin-right 20px
+      padding 3px 6px
+      border-radius 2px
+      font-size $font-size-sm
+      color $text-color-secondary
+
+      .icon {
+        margin-right 6px
+        font-size $font-size-sm
+      }
+
+      &.like
+      &.subcomments {
+        &:hover {
+          opacity .8
+        }
+      }
+    }
+
+    .like {
+      color $text-color-secondary
+
+      .icon {
+        color $text-color-secondary
+        transition()
+      }
+
+      &.liking {
+        opacity .6
+        cursor not-allowed
+      }
+
+      &.liked {
+        background linear-gradient(135deg, #fad7a1 0%, #e80505 100%)
+
+        .icon
+        span {
+          -webkit-text-fill-color transparent
+          text-shadow 0 2px 20px rgba(#E80505, .2)
+        }
+
+        &:hover {
+          opacity 1
+        }
+      }
+
+      &:hover {
+        color $text-color
+
+        .icon {
+          color $text-color
+        }
+      }
+    }
+    .subcomments {
+      color $text-color-secondary
+
+      .icon {
+        margin-right 2px
+        color $text-color-secondary
+      }
+    }
+
+    .time {
+      float right
+      margin-right 0
+    }
+  }
+}

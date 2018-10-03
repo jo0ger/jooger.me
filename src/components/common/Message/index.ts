@@ -9,7 +9,7 @@ import { Component, Watch } from '@/utils/decorators'
 import { isType, noop } from '@/utils'
 
 export interface MessageOption {
-  type?: 'success' | 'error' | 'warning' | 'info'
+  type?: 'success' | 'error' | 'warn' | 'info'
   visible?: boolean
   message: string
   duration?: number

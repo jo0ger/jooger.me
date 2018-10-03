@@ -82,3 +82,31 @@ export const findExtendsItem = (ext, key) => {
   const hit = ext.find(item => item.key === key)
   return hit && hit.value || ''
 }
+
+/**
+ * 将毫秒数转换为规定格式
+ * @param  {[Number]} ms 毫秒数差值
+ * @return {[String]}    规定格式结果
+ */
+export const fmtDateFromNow = ms => {
+  const time = parseFloat(ms) / 1000
+  let result = ''
+  if (time) {
+    if (time > 60 && time < 3600) {
+      result = parseInt(time / 60.0 + '') + '分钟前'
+    } else if (time >= 3600 && time < 24 * 3600) {
+      result = parseInt(time / 3600.0 + '') + '小时前'
+    } else if (time >= 24 * 3600 && time < 30 * 24 * 3600) {
+      result = parseInt(time / 3600.0 / 24.0 + '') + '天前'
+    } else if (time >= 30 * 24 * 3600 && time < 12 * 30 * 24 * 3600) {
+      result = parseInt(time / 3600.0 / 24.0 / 30 + '') + '个月前'
+    } else if (time >= 12 * 30 * 24 * 3600) {
+      result = parseInt(time / 3600.0 / 24.0 / 30.0 / 12.0 + '') + '年前'
+    } else if (time < 10) {
+      result = '刚刚'
+    } else {
+      result = parseInt(time / 1.0 + '') + '秒前'
+    }
+  }
+  return result
+}

@@ -29,7 +29,7 @@ const Message: any = (opts: MessageOption['message'] | MessageOption) => {
   return instance.vm
 }
 
-['success', 'error', 'warning', 'info'].forEach(type => {
+['success', 'error', 'warn', 'info'].forEach(type => {
   Message[type] = (opts) => {
     if (isType(opts, 'String')) {
       opts = {

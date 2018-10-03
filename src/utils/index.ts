@@ -9,6 +9,8 @@ export * from './validate'
 
 export * from './dom'
 
+export * from './meta-parse'
+
 export {
   storage,
   decorators,

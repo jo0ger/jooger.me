@@ -34,11 +34,14 @@ export default class ReadTool extends Base {
   }
 
   private like () {
+    if (this.liking) return
     if (this.liked) return this.$message.info('你已经点过赞了')
     this.$emit('on-like')
   }
 
-  private gotoComment () {}
+  private gotoComment () {
+    this.$scrollToComments()
+  }
 
   private share ({ key }) {
     this.$share.share(key)

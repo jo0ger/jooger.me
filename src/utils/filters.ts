@@ -1,6 +1,6 @@
 import * as constant from './constant'
 import { Constant } from './constant'
-import { findExtendsItem, moment } from './share'
+import { findExtendsItem, moment, fmtDateFromNow } from './share'
 
 /**
  * 常量的filter
@@ -21,6 +21,13 @@ export const extendsFilter = findExtendsItem
 export const dateFormat = (val: any, format: string = 'YYYY-MM-DD HH:mm') => {
     return moment(val).format(format)
 }
+
+/**
+ * filter 获取根据规定格式获取time到当前时刻的时间
+ * @param  {[type]} time [description]
+ * @return {[type]}      [description]
+ */
+export const getDateFromNow = (time = new Date()) => fmtDateFromNow(new Date().valueOf() - new Date(time).valueOf())
 
 export const countFilter = (num: number = 0, limit: number = 999) => {
   if (num > limit) {

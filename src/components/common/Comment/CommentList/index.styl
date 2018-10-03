@@ -1,0 +1,67 @@
+/**
+ * @desc CommentList
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-10-03 14:22:54
+ */
+
+@import '~@/assets/style/init'
+
+.comment-list {
+  margin-bottom $padding-md
+  padding $padding-md $padding-lg
+
+  .list-header {
+    flexLayout(, space-between)
+
+    .count {
+      color $keyword-color
+    }
+
+    .sort {
+      font-weight 400
+      flexLayout(, space-between)
+
+      .seprate {
+        width 1px
+        height 12px
+        margin 0 6px
+        background $border-color
+      }
+      &-type {
+        color $text-color-secondary
+
+        &:hover {
+          color $text-color
+        }
+
+        &.active {
+          color $base-color
+        }
+      }
+    }
+  }
+
+  .list {
+    margin-bottom $padding-md
+  }
+
+  &.loading {
+    .list-header {
+      .sort-type {
+        cursor not-allowed
+        color $text-color-secondary
+      }
+    }
+  }
+
+  &.sub-comment-list {
+    margin-top 16px
+    padding 0 16px
+    background-color alpha($grey-4, .3)
+    font-size $font-size-sm
+
+    &.empty {
+      background transparent
+    }
+  }
+}

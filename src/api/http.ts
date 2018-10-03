@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios'
 import { WHITE_API_LIST, AXIOS_DEFAULT_CONFIG } from '@/config'
 
+const isClient = process.client
 let msgVisible = false
 
 export default class Http {
@@ -41,7 +42,7 @@ export default class Http {
       // 如果在白名单内，就不全局处理了
       if (response.request.url && !WHITE_API_LIST.some(item => response.request.url.includes(item))) {
         errMsg = response.data.message || errMsg
-        if (window.Message) {
+        if (isClient) {
           window.Message.error(errMsg)
         }
         throw new Error(errMsg)
@@ -54,7 +55,7 @@ export default class Http {
     if (!msgVisible) {
       msgVisible = true
       if (err.response && err.response.status === 401) {
-        if (window.Message) {
+        if (isClient) {
           window.Message.error({
             content: err.response.data.message,
             onClose: () => {
@@ -68,7 +69,7 @@ export default class Http {
       if (axios.isCancel(err)) {
         console.error(err)
       } else {
-        if (window.Message) {
+        if (isClient) {
           window.Message.error({
             content: err.response && err.response.data.message || '网络错误',
             onClose: () => {

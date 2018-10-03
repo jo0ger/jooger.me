@@ -23,7 +23,7 @@ export default class ArticleList extends Base {
   @aMod.Getter('list') public articleList!: WebApi.ArticleModule.Article[]
   @aMod.Getter('listFetching') public articleListFetching!: boolean
   @aMod.Getter public pageInfo!: WebApi.PageInfo
-  @aMod.Action('fetchList') public getArticleList!: () => void
+  @aMod.Action('fetchList') public getArticleList!: (...arg: any[]) => void
 
   @Prop()
   private mini!: boolean
@@ -35,6 +35,6 @@ export default class ArticleList extends Base {
   }
 
   private loadmore () {
-    this.getArticleList()
+    this.getArticleList({ page: this.pageInfo.current + 1 })
   }
 }

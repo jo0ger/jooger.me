@@ -110,12 +110,14 @@ module.exports = {
     { src: '@/plugins/router', ssr: false },
     { src: '@/plugins/bus', ssr: false },
     { src: '@/plugins/message', ssr: false },
+    { src: '@/plugins/modal', ssr: false },
     { src: '@/plugins/click-outside', ssr: false },
     { src: '@/plugins/storage-to-store', ssr: false },
     { src: '@/plugins/full-screen', ssr: false },
     { src: '@/plugins/share', ssr: false },
     { src: '@/plugins/swiper', ssr: false },
     { src: '@/plugins/copyright', ssr: false },
+    { src: '@/plugins/scroll-to', ssr: false },
   ],
   axios: {}
 }

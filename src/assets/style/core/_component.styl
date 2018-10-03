@@ -1,0 +1,24 @@
+.indicator {
+  text-align center
+  font-size $font-size-sm
+
+  p {
+    margin 0
+    color $text-color-secondary
+  }
+
+  .loadmore {
+    padding 6px 32px
+    border-radius 2px
+    border 1px solid $border-color
+    cursor pointer
+    transition(,,$ease-in-out)
+
+    &:hover {
+      padding 6px 48px
+      background $base-color
+      color $white
+      border-color @background
+    }
+  }
+}
