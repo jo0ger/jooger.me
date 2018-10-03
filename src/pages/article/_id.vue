@@ -62,7 +62,7 @@
             </div>
           </div>
         </Card>
-        <Card class="article-related" header="相关文章" v-if="article.related.length">
+        <Card class="article-related" :header="!mobileLayout && '相关文章'" v-if="article.related.length">
           <div class="related-list swiper" v-swiper:relatedSwiper="swiperOption">
             <div class="swiper-wrapper">
               <div class="related-item swiper-slide"
@@ -183,17 +183,18 @@ export default class extends Base {
 $action-widget-width = 36px
 
 .article-page {
-  flexLayout(, flex-start, flex-start)
+  position relative
   width 100%
 
   .action-widget {
-    flex 0 0 $action-widget-width
+    position absolute
+    top 0
+    left -($action-widget-width + $padding-md)
     width $action-widget-width
     margin-right $padding-md
   }
 
   .article-widget {
-    flex 1 0
     width 100%
     overflow hidden
   }
@@ -326,6 +327,7 @@ $action-widget-width = 36px
             position absolute
             left 50%
             width 100%
+            padding 0 $padding-xs
             transform translateX(-50%)
             font-weight 400
             color $white
