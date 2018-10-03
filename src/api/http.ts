@@ -40,12 +40,11 @@ export default class Http {
     }
     if (response.data.code !== 200) {
       // 如果在白名单内，就不全局处理了
-      if (response.request.url && !WHITE_API_LIST.some(item => response.request.url.includes(item))) {
+      if (response.request.responseURL && !WHITE_API_LIST.some(item => response.request.responseURL.includes(item))) {
         errMsg = response.data.message || errMsg
         if (isClient) {
           window.Message.error(errMsg)
         }
-        throw new Error(errMsg)
       }
     }
     return response

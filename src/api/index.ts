@@ -28,9 +28,9 @@ class ApiModule extends Api {
     return this.get<null, any>('/articles/archives')
   }
 
-  public likeArticle (id: string) {
+  public likeArticle (id: string, params: any = {}) {
     type Res = WebApi.ArticleModule.like.Res
-    return this.patch<null, Res>(`/articles/${id}/like`)
+    return this.patch<null, Res>(`/articles/${id}/like`, params)
   }
 
   public getCategoryList (params?: WebApi.CategoryModule.list.Req) {
@@ -72,9 +72,9 @@ class ApiModule extends Api {
     return this.post<Req, Res>('/comments', data)
   }
 
-  public likeComment (id: string) {
+  public likeComment (id: string, params: any = {}) {
     type Res = WebApi.CommentModule.like.Res
-    return this.patch<null, Res>(`/comments/${id}/like`)
+    return this.patch<null, Res>(`/comments/${id}/like`, params)
   }
 }
 

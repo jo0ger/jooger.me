@@ -161,7 +161,9 @@ export const actions: Actions<ArticleStateTree, RootState> = {
       return
     }
     commit(LIKE_REQUEST)
-    const { success } = await api.likeArticle(id)
+    const { success } = await api.likeArticle(id, {
+      user: rootState.app.user
+    })
     if (success) {
       commit(LIKE_SUCCESS, like)
       if (like) {
