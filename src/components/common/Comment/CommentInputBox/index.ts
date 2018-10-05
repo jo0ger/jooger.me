@@ -42,7 +42,6 @@ export default class CommentInputBox extends Base {
   @Prop({ type: Boolean, default: false })
   private isMessage!: boolean
 
-  @appMod.Getter private user!: WebApi.UserModule.User | null
   @appMod.Action private updateUser
   @articleMod.Getter('detail') private article!: WebApi.ArticleModule.Article
   @commentMod.Action private publish

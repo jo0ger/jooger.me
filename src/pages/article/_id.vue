@@ -167,7 +167,6 @@ export default class extends Base {
 
   private mounted () {
     this.$bus.$on('on-article-fontsize-change', (val) => {
-      console.log(val)
       this.setFontSize(val)
     })
   }
