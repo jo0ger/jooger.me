@@ -19,14 +19,6 @@
           class="title"
           :to="`/article/${item._id}`"
           :title="item.title">{{ item.title }}</nuxt-link>
-        <!-- <div class="meta">
-          <div class="meta-item comments">
-            {{ item.meta.comments }} 条评论
-          </div>
-          <div class="meta-item ups">
-            {{ item.meta.ups }} 人喜欢
-          </div>
-        </div> -->
       </li>
     </ul>
     <p class="no-data" v-else>暂无热门文章</p>

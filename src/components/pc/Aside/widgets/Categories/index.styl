@@ -1,0 +1,37 @@
+/**
+ * @desc Categories
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-10-05 16:24:15
+ */
+
+@import '~@/assets/style/init'
+
+.widget-categories {
+  .category-list {
+    .category {
+      flexLayout(, flex-start)
+      margin 4px -4px
+      padding $padding-xs
+      cursor pointer
+
+      &:last-child {
+        margin-bottom 0
+      }
+
+      .name {
+        flex 1 0
+        margin-left $padding-sm
+      }
+
+      .count {
+        font-size $font-size-sm
+        color $text-color-secondary
+      }
+
+      &:hover {
+        background-color $grey
+        border-radius 4px
+      }
+    }
+  }
+}
