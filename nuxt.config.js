@@ -110,7 +110,6 @@ module.exports = {
     { src: '@/plugins/router', ssr: false },
     { src: '@/plugins/bus', ssr: false },
     { src: '@/plugins/message', ssr: false },
-    { src: '@/plugins/modal', ssr: false },
     { src: '@/plugins/click-outside', ssr: false },
     { src: '@/plugins/storage-to-store', ssr: false },
     { src: '@/plugins/full-screen', ssr: false },

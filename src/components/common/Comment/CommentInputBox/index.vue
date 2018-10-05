@@ -4,7 +4,7 @@
  * @date 2018-10-03 14:23:17
  -->
 <template>
-  <Card class="comment-input-box" :class="{ 'child-input-box': isChild, loading }">
+  <Card class="comment-input-box" :class="{ 'child-input-box': isChild, loading, 'message-input-box': isMessage }" :no-margin="isMessage">
     <no-ssr>
       <div class="wrapper">
         <div class="author" v-if="!isChild || (isChild && !user)">
@@ -22,9 +22,9 @@
             </div>
             <div class="site">
               <i class="icon icon-site"></i>
-              <input type="text" placeholder="站点（eg: https://jooger.me）" required="required" name="site" autocomplete="false" v-model.trim="model.site.value">
+              <input type="text" placeholder="站点" required="required" name="site" autocomplete="false" v-model.trim="model.site.value">
             </div>
-            <div class="clear" v-if="user && !mobileLayout">
+            <div class="clear" v-if="user && !mobileLayout && !isMessage">
               <button @click="clear" title="退出">
                 <i class="icon icon-close"></i>
               </button>

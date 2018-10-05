@@ -52,6 +52,7 @@ export const mutations: Mutations<CommentStateTree> = {
     state.list.pageInfo = pageInfo
   },
   [CLEAR_LIST]: state => {
+    state.sort = getDefaultSort()
     state.list.fetching = false
     state.list.data = []
     state.list.pageInfo = getDefaultPageInfo()
@@ -95,8 +96,7 @@ export const actions: Actions<CommentStateTree, RootState> = {
     const args = {
       page: params && params.page || 1,
       sortBy: state.sort.sortBy,
-      order: state.sort.order,
-      type: 0
+      order: state.sort.order
     }
     commit(FETCH_LIST_REQUEST)
     const { success, data } = await api.getCommentList(Object.assign({}, params, args))
@@ -119,7 +119,7 @@ export const actions: Actions<CommentStateTree, RootState> = {
   },
   async publish ({ commit, dispatch }, params: WebApi.CommentModule.create.Req) {
     const args = {
-      type: 0
+      type: params.article ? 0 : 1
     }
     const { success, data } = await api.publishComment(Object.assign({}, params, args))
     if (success) {

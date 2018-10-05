@@ -39,6 +39,9 @@ export default class CommentInputBox extends Base {
   @Prop({ type: Object, default: () => null})
   private reply!: WebApi.CommentModule.Comment
 
+  @Prop({ type: Boolean, default: false })
+  private isMessage!: boolean
+
   @appMod.Getter private user!: WebApi.UserModule.User | null
   @appMod.Action private updateUser
   @articleMod.Getter('detail') private article!: WebApi.ArticleModule.Article
@@ -52,7 +55,7 @@ export default class CommentInputBox extends Base {
   private content = ''
 
   private get typeText () {
-    return this.isChild ? '回复' : '评论'
+    return this.isMessage ? '留言' : this.isChild ? '回复' : '评论'
   }
 
   @Watch('user')
