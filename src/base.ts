@@ -24,6 +24,7 @@ const { Getter, Action } = namespace('app')
   }
 })
 export default class Base extends Vue {
+  @Getter protected theme!: AppStateTree['theme']
   @Getter protected mobileLayout!: boolean
   @Getter protected fullColumn!: boolean
   @Getter protected fullScreen!: boolean

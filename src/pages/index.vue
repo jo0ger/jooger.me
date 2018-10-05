@@ -68,14 +68,14 @@ export default class extends Base {
       a {
         width 100%
         text-decoration none
-        color $white
+        color var(--light-color)
       }
 
       .background {
         full()
         background-size cover
         background-position center center
-        transition(,,$ease)
+        transition()
 
         &-image {
           width 100%
@@ -85,8 +85,8 @@ export default class extends Base {
 
       .mask {
         full()
-        background-color rgba($black, .6)
-        transition(,,$ease)
+        background-color var(--overlay-color)
+        transition()
       }
 
       .content {
@@ -97,7 +97,7 @@ export default class extends Base {
 
         .icon {
           font-size 28px
-          color $white
+          color var(--light-color)
         }
 
         .name {
@@ -111,7 +111,7 @@ export default class extends Base {
         }
 
         .mask {
-          background-color rgba($black, .8)
+          background-color var(--overlay-color-dark)
         }
       }
     }

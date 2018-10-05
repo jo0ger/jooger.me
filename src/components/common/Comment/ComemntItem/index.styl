@@ -9,7 +9,7 @@
 .comment-item {
   position relative
   padding $padding-md 0
-  border-bottom 1px dashed $border-color-3
+  border-bottom 1px dashed var(--border-color)
 
   .header {
     flexLayout(, space-between)
@@ -26,7 +26,7 @@
           height @width
           margin-right 10px
           border-radius 100%
-          border 1px solid $border-color
+          border 1px solid var(--border-color)
 
           img {
             width 100%
@@ -43,7 +43,7 @@
       .reply {
         .text {
           margin 0 10px
-          color $text-color-secondary
+          color var(--text-color-secondary)
         }
       }
 
@@ -54,7 +54,7 @@
     }
 
     .meta {
-      color rgba($black, .1)
+      color var(--text-color-secondary)
       font-size $font-size-sm
 
       > span {
@@ -62,7 +62,7 @@
       }
 
       .icon {
-        color rgba($black, .1)
+        color var(--text-color-secondary)
         font-size $font-size-sm
         margin-right 4px
       }
@@ -80,7 +80,7 @@
       padding 3px 6px
       border-radius 2px
       font-size $font-size-sm
-      color $text-color-secondary
+      color var(--text-color-secondary)
 
       .icon {
         margin-right 6px
@@ -96,10 +96,10 @@
     }
 
     .like {
-      color $text-color-secondary
+      color var(--text-color-secondary)
 
       .icon {
-        color $text-color-secondary
+        color var(--text-color-secondary)
         transition()
       }
 
@@ -132,11 +132,11 @@
     }
 
     .subcomments {
-      color $text-color-secondary
+      color var(--text-color-secondary)
 
       .icon {
         margin-right 2px
-        color $text-color-secondary
+        color var(--text-color-secondary)
       }
     }
 

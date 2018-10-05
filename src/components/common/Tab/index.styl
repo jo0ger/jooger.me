@@ -23,56 +23,42 @@
     height 4px
     width 0
     border-radius 2px
-    background-color $base-color
-    box-shadow 0 2px 5px 0 rgba($black, .3)
-    transition(,,$ease)
+    background-color var(--primary-color)
+    box-shadow 0 2px 5px 0 var(--dark-color-light)
+    transition()
     z-index 2
   }
 
   .tab-item {
     display inline-block
     margin-right $padding-lg
-    color $text-color-secondary
+    color var(--text-color-secondary)
 
     .icon {
       display inline-block
       margin-right $padding-xs
-      color $grey-5
       font-size $font-size-base
-      transition(,,$ease)
+      transition()
     }
 
     .title {
       display inline-block
       font-weight bold
     }
-    
+
     &:hover {
-      color $text-color
+      color var(--text-color)
       .icon {
-        color $text-color
+        color var(--text-color)
       }
     }
 
     &.actived {
-      color $base-color
+      color var(--primary-color)
 
       .icon {
-        color $base-color
+        color var(--primary-color)
       }
-    }
-  }
-
-  &.tab-bordered {
-    &::after {
-      content ''
-      position absolute
-      right 0
-      bottom 0
-      left 0
-      width 100%
-      height 1px
-      background $border-color-4
     }
   }
 }

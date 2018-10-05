@@ -10,10 +10,10 @@
   display inline-block
   margin 0 8px 8px 0
   padding 4px 8px
-  border 1px solid $border-color
+  border 1px solid var(--border-color)
   font-size $font-size-sm
   border-radius 4px
-  transition(,,$ease)
+  transition()
 
   .icon {
     margin-right 4px
@@ -25,8 +25,8 @@
   }
 
   &:hover {
-    background-color rgba($base-color, .1)
-    border-color rgba($base-color, .1)
-    color $base-color
+    background-color var(--primary-color-light)
+    border-color var(--primary-color-light)
+    color var(--primary-color)
   }
 }

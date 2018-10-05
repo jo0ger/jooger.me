@@ -26,7 +26,7 @@
                 height @width
                 line-height @width
                 margin-right $padding-xs
-                background-color $grey3
+                background-color var(--border-color)
                 border-radius 4px
                 text-align center
                 font-size $font-size-sm
@@ -46,7 +46,7 @@
             .meta {
                 flexLayout(, flex-start)
                 font-size $font-size-sm
-                color $text-color-secondary
+                color var(--text-color-secondary)
 
                 &-item {
                 flexLayout(, flex-start)
@@ -58,7 +58,7 @@
                     width 2px
                     height @width
                     margin-right 4px
-                    border 1px solid $text-color-secondary
+                    border 1px solid var(--text-color-secondary)
                     border-radius 1px
                 }
                 }

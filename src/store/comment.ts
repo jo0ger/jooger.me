@@ -52,7 +52,6 @@ export const mutations: Mutations<CommentStateTree> = {
     state.list.pageInfo = pageInfo
   },
   [CLEAR_LIST]: state => {
-    state.sort = getDefaultSort()
     state.list.fetching = false
     state.list.data = []
     state.list.pageInfo = getDefaultPageInfo()
