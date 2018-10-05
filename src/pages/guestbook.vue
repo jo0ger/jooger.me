@@ -7,7 +7,12 @@ import Base from '@/base'
 import { Component } from '@/utils/decorators'
 
 @Component({
-  name: 'Guestbook'
+  name: 'Guestbook',
+  head () {
+    return {
+      title: '留言墙'
+    }
+  }
 })
 export default class extends Base {
 }

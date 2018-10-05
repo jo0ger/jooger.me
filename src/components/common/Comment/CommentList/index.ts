@@ -99,6 +99,11 @@ export default class CommentList extends Base {
 
   private handleSetReply (index) {
     this.replyTarget = this.list[index]
+    const inputBox = this.$refs.inputBox as any
+    inputBox.$refs.editor.$refs.input.focus()
+    this.$scrollTo(inputBox.$el, 500, {
+      offset: -document.body.clientHeight / 2
+    })
   }
 
   private handleReplyPublish (reply) {

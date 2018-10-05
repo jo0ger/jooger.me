@@ -7,7 +7,12 @@ import Base from '@/base'
 import { Component } from '@/utils/decorators'
 
 @Component({
-  name: 'Archive'
+  name: 'Archive',
+  head () {
+    return {
+      title: '归档'
+    }
+  }
 })
 export default class extends Base {
 }

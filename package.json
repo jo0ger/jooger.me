@@ -20,7 +20,7 @@
     "bezier-easing": "^2.1.0",
     "dayjs": "^1.7.5",
     "normalize.css": "^8.0.0",
-    "nuxt": "2.0.0",
+    "nuxt": "^2.1.0",
     "nuxt-property-decorator": "^1.2.0",
     "particles.js": "^2.0.0",
     "raven-js": "^3.27.0",

@@ -7,8 +7,8 @@
   <div class="header">
     <div class="wrapper">
       <router-link to="/" class="logo">
-        <img :src="setting.site.logo" alt="" srcset="">
-        <span class="logo-text" v-if="setting.personal.user">{{ setting.personal.user.name }}</span>
+        <!-- <img :src="setting.site.logo" alt="" srcset=""> -->
+        <span class="logo-text" v-if="setting.personal.user">{{ setting.personal.user.name }}.me</span>
       </router-link>
       <Tab class="menus" :list="config.MENUS" :router="true" ref="menu"></Tab>
       <div class="search">

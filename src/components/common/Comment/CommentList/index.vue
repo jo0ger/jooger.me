@@ -41,6 +41,7 @@
       </div>
     </template>
     <CommentInputBox v-if="isChild"
+      ref="inputBox"
       is-child
       :parent="parent"
       :reply="replyTarget"

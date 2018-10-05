@@ -37,11 +37,6 @@
         Design by
         <a class="link" target="_blank" rel="noopener" :href="'https://github.com/jo0ger'" v-if="setting.personal.user">{{ setting.personal.user.name }}</a>
       </div>
-      <div class="logo">
-        <nuxt-link to="/">
-          <i class="icon icon-logo"></i>
-        </nuxt-link>
-      </div>
     </div>
   </footer>
 </template>
