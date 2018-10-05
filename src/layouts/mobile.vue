@@ -46,7 +46,7 @@
       flex 1 0 auto
       flexLayout(, flex-start, flex-start)
       width 100%
-      padding-top 48px
+      padding-top 64px
     }
   }
 </style>

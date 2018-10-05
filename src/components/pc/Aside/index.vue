@@ -5,8 +5,9 @@
  -->
 <template>
   <div class="aside">
-    <Hots></Hots>
+    <Hots v-if="$route.name !== 'archive'"></Hots>
     <Affix offset-top="76">
+      <Categories v-if="['archive', 'article-id'].includes($route.name)"></Categories>
       <Tags></Tags>
     </Affix>
   </div>

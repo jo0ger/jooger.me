@@ -44,7 +44,7 @@ export interface ArticleStateTree {
   archive: {
     fetching: boolean
     data: any[]
-    count: number
+    total: number
   }
 }
 

@@ -10,6 +10,7 @@ import { Affix } from '@/components/common'
 import Hots from './widgets/Hots/index.vue'
 import Calendar from './widgets/Calendar/index.vue'
 import Tags from './widgets/Tags/index.vue'
+import Categories from './widgets/Categories/index.vue'
 
 @Component({
   name: 'Aside',
@@ -17,6 +18,7 @@ import Tags from './widgets/Tags/index.vue'
     Affix,
     Hots,
     Calendar,
+    Categories,
     Tags
   }
 })

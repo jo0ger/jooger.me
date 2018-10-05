@@ -38,7 +38,7 @@ export const state = (): ArticleStateTree => ({
   archive: {
     fetching: false,
     data: [],
-    count: 0
+    total: 0
   }
 })
 
@@ -50,7 +50,7 @@ export const getters: Getters<ArticleStateTree, RootState> = {
   detailFetching: state => state.detail.fetching,
   detailLiking: state => state.detail.liking,
   archives: state => state.archive.data,
-  archivesCount: state => state.archive.count,
+  archivesCount: state => state.archive.total,
   archivesFetching: state => state.archive.fetching
 }
 
@@ -73,10 +73,10 @@ export const mutations: Mutations<ArticleStateTree> = {
   },
   [FETCH_ARCHIVE_REQUEST]: state => (state.archive.fetching = true),
   [FETCH_ARCHIVE_FAILURE]: state => (state.archive.fetching = false),
-  [FETCH_ARCHIVE_SUCCESS]: (state, { list, count }) => {
+  [FETCH_ARCHIVE_SUCCESS]: (state, { list, total }) => {
     state.archive.fetching = false
     state.archive.data = list
-    state.archive.count = count
+    state.archive.total = total
   },
   [FETCH_DETAIL_REQUEST]: state => (state.detail.fetching = true),
   [FETCH_DETAIL_FAILURE]: state => (state.detail.fetching = false),
