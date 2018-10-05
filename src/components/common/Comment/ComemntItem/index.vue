@@ -24,8 +24,10 @@
           <span v-if="comment.meta.location.city">&nbsp;-&nbsp;</span>
           <span>{{ comment.meta.location.city }}</span>
         </span>
-        <span class="os" v-html="OSParse(comment.meta.ua)" v-if="comment.meta.ua"></span>
-        <span class="ua" v-html="UAParse(comment.meta.ua)" v-if="comment.meta.ua"></span>
+        <template v-if="!mobileLayout">
+          <span class="os" v-html="OSParse(comment.meta.ua)" v-if="comment.meta.ua"></span>
+          <span class="ua" v-html="UAParse(comment.meta.ua)" v-if="comment.meta.ua"></span>
+        </template>
       </span>
     </div>
     <div class="content markdown-body" style="font-size: 14px;" v-html="comment.renderedContent"></div>

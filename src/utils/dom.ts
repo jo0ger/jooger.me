@@ -70,7 +70,7 @@ export const getScroll = (target, top?: boolean) => {
   const prop = top ? 'pageYOffset' : 'pageXOffset'
   let ret = target[prop]
   if (typeof ret !== 'number') {
-    ret = window.document.documentElement[top ? 'scrollTop' : 'scrollLeft']
+    ret = (window.document.documentElement as any)[top ? 'scrollTop' : 'scrollLeft']
   }
   return ret
 }
@@ -143,14 +143,14 @@ export const scrollTo = (element: string | Element | null | number = null, durat
 }
 
 export const getFullscreenElement = () => {
-  return document.fullscreenElement
-    || document.webkitFullscreenElement
-    || document.mozFullScreenElement
-    || document.msFullscreenElement
+  return (document as any).fullscreenElement
+    || (document as any).webkitFullscreenElement
+    || (document as any).mozFullScreenElement
+    || (document as any).msFullscreenElement
 }
 
 export const requestFullscreen = () => {
-  const docElm = document.documentElement
+  const docElm = document.documentElement as any
   const requestEvent = docElm.requestFullscreen
      || docElm.mozRequestFullScreen
      || docElm.webkitRequestFullScreen
@@ -159,9 +159,9 @@ export const requestFullscreen = () => {
 }
 
 export const exitFullscreen = () => {
-  const exitEvent = document.exitFullscreen
-    || document.webkitExitFullscreen
-    || document.mozCancelFullScreen
-    || document.msExitFullscreen
+  const exitEvent = (document as any).exitFullscreen
+    || (document as any).webkitExitFullscreen
+    || (document as any).mozCancelFullScreen
+    || (document as any).msExitFullscreen
   if (exitEvent) exitEvent.call(document)
 }

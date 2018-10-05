@@ -8,6 +8,7 @@ declare interface Window {
   gtag: (...args: any[]) => void
   onNuxtReady: (...args: any[]) => void
   Message: any
+  fullscreenElement: HTMLElement
 }
 
 declare interface HTMLElement {

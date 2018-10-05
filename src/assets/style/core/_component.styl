@@ -11,6 +11,7 @@
     padding 6px 32px
     border-radius 2px
     border 1px solid $border-color
+    background $white
     cursor pointer
     transition(,,$ease-in-out)
 
@@ -19,6 +20,12 @@
       background $base-color
       color $white
       border-color @background
+    }
+  }
+
+  .app.mobile-layout & {
+    button {
+      width 100%
     }
   }
 }
