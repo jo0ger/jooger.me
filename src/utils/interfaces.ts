@@ -15,6 +15,7 @@ export interface Actions<S, R> extends ActionTree<S, R> { }
 export interface ActionCtx<S, R> extends ActionContext<S, R> { }
 
 export interface AppStateTree {
+  theme: 'light' | 'dark'
   mobileLayout: boolean
   fullScreen: boolean
   fullColumn: boolean

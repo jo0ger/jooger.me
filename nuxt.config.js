@@ -93,11 +93,13 @@ module.exports = {
   build: {
     analyze: false,
     publicPath: '/resource/',
-    vendor: [
-      'axios',
-      'particles.js',
-      'validator',
-    ]
+    cache: true,
+    parallel: true,
+    splitChunks: {
+      layouts: false,
+      pages: true,
+      commons: true
+    }
   },
   modules: [
     '@nuxtjs/axios',

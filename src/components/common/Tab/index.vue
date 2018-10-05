@@ -4,9 +4,7 @@
  * @date 2018-09-24 14:33:15
  -->
 <template>
-  <div class="tab" :class="{
-    'tab-bordered': bordered
-  }">
+  <div class="tab">
     <div class="wrapper">
       <template v-if="!router">
         <a v-for="(item, index) in list"

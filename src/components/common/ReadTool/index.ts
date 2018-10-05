@@ -6,13 +6,12 @@
 
 import Base from '@/base'
 import { Component, Prop } from '@/utils/decorators'
-import { Like, Popover } from '@/components/common'
+import { Popover } from '@/components/common'
 import { requestFullscreen, exitFullscreen } from '@/utils'
 
 @Component({
   name: 'ReadTool',
   components: {
-    Like,
     Popover
   }
 })

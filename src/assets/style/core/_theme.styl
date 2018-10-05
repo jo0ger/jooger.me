@@ -1,0 +1,53 @@
+bindCssVars($dark, $light, $primary, $body, $border, $button, $keyword) {
+  {--dark-color} $dark
+  {--dark-color-light} rgba($dark, .2)
+  {--light-color} $light
+  {--light-color-light} rgba($light, .2)
+  {--body-color} $body
+  {--primary-color} $primary
+  {--primary-color-light} rgba($primary, .2)
+  {--overlay-color} rgba($dark, .6)
+  {--overlay-color-dark} rgba($dark, .8)
+  {--heading-color} rgba($dark, .85)
+  {--text-color} rgba($dark, .65)
+  {--text-color-secondary} rgba($dark, .43)
+  {--disabled-color} rgba($dark, .25)
+  {--link-color} rgba($dark, .65)
+  {--link-color-hover} rgba($dark, .85)
+  {--card-color} rgba($light, .8)
+  {--border-color} $border
+  {--border-color-dark} darken($border, 10%)
+  {--keyword-color} $keyword
+  {--keyword-color-light} rgba($keyword, .2)
+  {--button-color} $button
+  {--button-color-hover} darken($button, 5%)
+  {--selection-color} rgba($primary, .25)
+  {--code-color} lighten($body, 20%)
+}
+
+body {
+  &.theme-light {
+    bindCssVars(
+      $black,
+      $white,
+      #302e31,
+      darken($white, 5%),
+      darken($white, 10%),
+      darken($white, 5%),
+      $orange-6
+    )
+  }
+
+  &.theme-dark {
+    bindCssVars(
+      $white,
+      lighten($black, 20%),
+      #D0D2CF,
+      lighten($black, 10%),
+      lighten($black, 10%),
+      lighten($black, 5%),
+      $red-6
+    )
+  }
+}
+

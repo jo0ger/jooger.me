@@ -7,11 +7,16 @@
 import Base from '@/base'
 import { Component } from '@/utils/decorators'
 import { getScroll } from '@/utils'
+import { namespace } from 'vuex-class'
+
+const { Mutation } = namespace('app')
 
 @Component({
   name: 'Tool',
 })
 export default class Tool extends Base {
+  @Mutation('SET_THEME') private setTheme
+
   private showScrollTop = false
 
   private mounted () {

@@ -140,7 +140,7 @@ export default class extends Base {
       line-height 1.8
       margin 0 auto
       font-size $font-size-lger
-      text-shadow 0 5px 20px rgba($black, .2)
+      text-shadow 0 5px 20px var(--light-color-light)
 
       .icon {
         position absolute
@@ -161,13 +161,10 @@ export default class extends Base {
     .submit-btn {
       margin 36px 0 $padding-md
       padding 6px 32px
-      border-radius 2px
       background linear-gradient(135deg, #f21368 0%, #E80505 100%)
-      color $white
+      color var(--light-color)
       border none
       box-shadow 0 4px 8px rgba(#E80505, .3)
-      cursor pointer
-      transition(,,$ease-in-out)
 
       &:hover {
         box-shadow 0 4px 25px rgba(#E80505, .4)
@@ -175,7 +172,7 @@ export default class extends Base {
     }
 
     .count {
-      color $text-color-secondary
+      color var(--text-color-secondary)
     }
   }
 

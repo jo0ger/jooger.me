@@ -36,6 +36,13 @@
       PCFooter,
       PCTool,
       Background
+    },
+    head () {
+      return {
+        bodyAttrs: {
+          class: 'theme-' + this.theme
+        }
+      }
     }
   })
   export default class LayoutDefault extends Base {

@@ -8,8 +8,8 @@
 
 .popover {
   position absolute
-  background-color $white
-  box-shadow 0 0 15px 0 rgba($black,.2)
+  background-color var(--light-color)
+  box-shadow 0 0 15px 0 var(--dark-color-light)
   border-radius 4px
   z-index 9999
 
@@ -28,7 +28,7 @@
       left 50%
       transform translateX(-50%)
       border-width 8px 8px 0
-      border-color $white transparent transparent
+      border-color var(--light-color) transparent transparent
     }
   }
 
@@ -41,7 +41,7 @@
       left -8px
       transform translateY(-50%)
       border-width 8px 8px 8px 0
-      border-color transparent $white transparent transparent
+      border-color transparent var(--light-color) transparent transparent
     }
   }
 
@@ -54,7 +54,7 @@
       left 50%
       transform translateX(-50%)
       border-width 0 8px 8px
-      border-color transparent transparent $white
+      border-color transparent transparent var(--light-color)
     }
   }
 
@@ -67,7 +67,7 @@
       right -8px
       transform translateY(-50%)
       border-width 8px 0px 8px 8px
-      border-color transparent transparent transparent $white
+      border-color transparent transparent transparent var(--light-color)
     }
   }
 }

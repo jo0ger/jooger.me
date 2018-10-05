@@ -60,7 +60,7 @@
       top 50%
       left 50%
       transform translate3d(-50%, -50%, 0)
-      text-shadow 0 1px 10px $text-color-secondary
+      text-shadow 0 1px 10px var(--text-color-secondary)
 
       .error-code {
         font-size 9rem
@@ -73,14 +73,14 @@
       .error-link {
         padding 6px 32px
         border-radius 2px
-        border 1px solid $text-color-secondary
+        border 1px solid var(--text-color-secondary)
         text-shadow none
         transition()
 
         &:hover {
           padding 6px 48px
-          background $base-color
-          color $white
+          background var(--primary-color)
+          color var(--light-color)
           border-color @background
           font-weight 700
         }

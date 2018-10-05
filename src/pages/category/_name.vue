@@ -70,34 +70,34 @@ export default class extends Base {
     height 150px
     position relative
     margin-bottom $padding-sm
-    background-color $card-color
+    background-color var(--card-color)
     overflow hidden
     text-align center
 
     .background {
       width 100%
       height auto
-      transition(,,$ease)
+      transition()
       filter blur(5px)
     }
 
     .mask {
       full()
-      background-color rgba($black, .6)
-      transition(,,$ease)
+      background-color var(--overlay-color)
+      transition()
     }
 
     .content {
       position absolute
       top 50%
       left 50%
-      color $white
+      color var(--light-color)
       transform translate(-50%, -50%)
 
       .icon {
         font-size 42px
         font-weight 400
-        color $white
+        color var(--light-color)
       }
 
       .name {
@@ -111,7 +111,7 @@ export default class extends Base {
       }
 
       .mask {
-        background-color rgba($black, .8)
+        background-color var(--overlay-color-dark)
       }
     }
   }

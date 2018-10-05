@@ -14,42 +14,55 @@
 }
 
 body {
-    font-family $font-family-base
-    line-height 1.42857143
-    background-color $body-bg-color
-    color $text-color
-    font-size $font-size-base
-    -moz-osx-font-smoothing grayscale
-    -webkit-font-smoothing antialiased
-    -moz-osx-font-smoothing antialiased
-    text-rendering optimizeLegibility
+  font-family $font-family-base
+  line-height 1.42857143
+  background-color var(--body-color)
+  color var(--text-color)
+  font-size $font-size-base
+  -moz-osx-font-smoothing grayscale
+  -webkit-font-smoothing antialiased
+  -moz-osx-font-smoothing antialiased
+  text-rendering optimizeLegibility
 
-    a {
-        color inherit
-        background transparent
-        text-decoration none
-        outline none
-        cursor pointer
-        transition all $animation-duration-slow $ease
+  a {
+    color var(--link-color)
+    background transparent
+    text-decoration none
+    outline none
+    cursor pointer
+    transition()
 
-        &:focus {
-            text-decoration none
-            text-decoration-skip ink
-        }
-
-        &:active,
-        &:hover {
-            color $text-color
-            outline 0
-            text-decoration none
-        }
-
-        &[disabled] {
-            color $text-color-placeholder
-            cursor not-allowed
-            pointer-events none
-        }
+    &:focus {
+      text-decoration none
+      text-decoration-skip ink
     }
+
+    &:active,
+    &:hover {
+      color var(--link-color-hover)
+      outline 0
+      text-decoration none
+    }
+
+    &[disabled] {
+      color var(--disabled-color)
+      cursor not-allowed
+      pointer-events none
+    }
+  }
+
+  button {
+    background var(--button-color)
+    border-radius 2px
+    border 1px solid var(--border-color)
+    cursor pointer
+    transition()
+
+    &:hover {
+      background var(--button-color-hover)
+      border-color var(--border-color-dark)
+    }
+  }
 }
 
 // unify the setting of elements's margin and padding for browsers
@@ -112,33 +125,33 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-input-placeholder {
-  color rgba($black, .3)
+  color var(--disabled-color)
 }
 
 :-moz-placeholder {
-  color rgba($black, .3)
+  color var(--disabled-color)
 }
 
 ::-moz-placeholder {
-  color rgba($black, .3)
+  color var(--disabled-color)
 }
 
 :-ms-input-placeholder {
-  color rgba($black, .3)
+  color var(--disabled-color)
 }
 
 ::selection {
-  background rgba($base-color, .3)
+  background var(--selection-color)
 }
 
 ::webkit-selection {
-  background rgba($base-color, .3)
+  background var(--selection-color)
 }
 
 ::moz-selection {
-  background rgba($base-color, .3)
+  background var(--selection-color)
 }
 
 .icon {
-  color $text-color
+  color var(--text-color)
 }

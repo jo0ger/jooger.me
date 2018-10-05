@@ -90,7 +90,7 @@ export default class extends Base {
       > .title {
         margin-bottom 10px
         padding-bottom 10px
-        border-bottom 1px dashed $border-color
+        border-bottom 1px dashed var(--border-color)
       }
 
 
@@ -117,7 +117,7 @@ export default class extends Base {
           flexLayout(, flex-start)
           position relative
           margin-bottom $padding-sm
-          color $text-color-secondary
+          color var(--text-color-secondary)
 
           &::before {
             content ''
@@ -127,7 +127,7 @@ export default class extends Base {
             transform translateY(-50%)
             width 2px
             height @width
-            border 1px solid $text-color-secondary
+            border 1px solid var(--text-color-secondary)
             border-radius 1px
           }
         }
@@ -142,12 +142,12 @@ export default class extends Base {
         .link {
           flex 1 0
           display inline-block
-          color $text-color
+          color var(--text-color)
           text-decoration underline
           lineLimit(1)
 
           &:hover {
-            color $base-color
+            color var(--primary-color)
             transform translateX(5px)
           }
         }
@@ -165,8 +165,8 @@ export default class extends Base {
           transition(opacity)
 
           &.original {
-            color $base-color
-            background-color rgba($base-color, .2)
+            color var(--primary-color)
+            background-color var(--primary-color-light)
           }
 
           &.reprint {

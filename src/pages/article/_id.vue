@@ -91,7 +91,7 @@
 import Base from '@/base'
 import { Component, Prop, Watch } from '@/utils/decorators'
 import { namespace } from 'vuex-class'
-import { Affix, Card, Tag, Like, ReadTool, Comment } from '@/components/common'
+import { Affix, Card, Tag, ReadTool, Comment } from '@/components/common'
 
 const appMod = namespace('app')
 const articleMod = namespace('article')
@@ -102,7 +102,6 @@ const articleMod = namespace('article')
     Affix,
     Card,
     Tag,
-    Like,
     ReadTool,
     Comment
   },
@@ -218,13 +217,13 @@ $action-widget-width = 36px
       font-size $font-size-sm
 
       &.original {
-        background-color rgba($base-color, .2)
-        color $base-color
+        color var(--primary-color)
+        background-color var(--primary-color-light)
       }
 
       &.reprint {
-        background-color rgba($orange, .2)
-        color $orange
+        color var(--keyword-color)
+        background-color var(--keyword-color-light)
       }
     }
 
@@ -237,25 +236,26 @@ $action-widget-width = 36px
     .meta {
       flexLayout(, center)
       margin 10px 0 20px
-      color $text-color-secondary
+      color var(--text-color-secondary)
       font-size $font-size-sm
 
       .category {
         .icon {
-          margin-right 6px
+          margin-right $padding-xs
         }
       }
+
       &-item {
         flexLayout(, flex-start)
         position relative
-        margin-right 12px
+        margin-right $padding-sm
 
         &::before {
           content ''
           width 2px
           height @width
           margin-right 4px
-          border 1px solid $text-color-secondary
+          border 1px solid var(--text-color-secondary)
           border-radius 1px
         }
       }
@@ -264,7 +264,7 @@ $action-widget-width = 36px
     .tags {
       margin-top $padding-md
       padding-top $padding-md
-      border-top 1px dashed $border-color-3
+      border-top 1px dashed var(--border-color)
       text-align center
     }
 
@@ -276,8 +276,8 @@ $action-widget-width = 36px
       margin-top $padding-xs
       padding $padding-xs
       line-height 2
-      background-color $grey
-      border-left 4px solid rgba($base-color, .2)
+      background-color var(--body-color)
+      border-left 4px solid var(--primary-color-light)
       font-weight 300
 
       a {
@@ -300,7 +300,7 @@ $action-widget-width = 36px
           display inline-block
           width 250px
           height 100%
-          border 8px solid $grey3
+          border 8px solid var(--border-color)
           text-align center
 
           .item-box {
@@ -316,13 +316,13 @@ $action-widget-width = 36px
             height 100%
             background-size cover
             background-position center
-            transition(,,$ease)
+            transition()
           }
 
           .mask {
             full()
-            background-color rgba($black, .6)
-            transition(,,$ease)
+            background-color var(--overlay-color)
+            transition()
           }
 
           .title
@@ -333,7 +333,7 @@ $action-widget-width = 36px
             padding 0 $padding-xs
             transform translateX(-50%)
             font-weight 400
-            color $white
+            color var(--light-color)
           }
 
           .title {
@@ -351,7 +351,7 @@ $action-widget-width = 36px
             }
 
             .mask {
-              background-color rgba($black, .8)
+              background-color var(--overlay-color-dark)
             }
           }
         }

@@ -24,6 +24,13 @@
     components: {
       MobileHeader,
       MobileFooter
+    },
+    head () {
+      return {
+        bodyAttrs: {
+          class: 'theme-' + this.theme
+        }
+      }
     }
   })
   export default class LayoutDefault extends Base {
@@ -46,7 +53,7 @@
       flex 1 0 auto
       flexLayout(, flex-start, flex-start)
       width 100%
-      padding-top 64px
+      padding-top 48px
     }
   }
 </style>

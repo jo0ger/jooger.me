@@ -3,6 +3,7 @@ import { isType, storage } from '@/utils'
 import api from '@/api'
 import { AppStateTree, Getters, RootState, Mutations, Actions } from '@/utils/interfaces'
 
+const SET_THEME = 'SET_THEME'
 const SET_MOBILE_LAYOUT = 'SET_MOBILE_LAYOUT'
 const SET_FULL_SCREEN = 'SET_FULL_SCREEN'
 const SET_FULL_COLUMN = 'SET_FULL_COLUMN'
@@ -15,6 +16,7 @@ const FETCH_TAG_LIST = 'FETCH_TAG_LIST'
 const SET_ARTICLE_FONTSIZE = 'SET_ARTICLE_FONTSIZE'
 
 export const state = (): AppStateTree => ({
+  theme: 'light',
   mobileLayout: false,
   fullScreen: false,
   fullColumn: false,
@@ -31,6 +33,7 @@ export const state = (): AppStateTree => ({
 })
 
 export const getters: Getters<AppStateTree, RootState> = {
+  theme: state => state.theme,
   mobileLayout: state => state.mobileLayout,
   fullScreen: state => state.fullScreen,
   fullColumn: state => state.fullColumn,
@@ -44,6 +47,7 @@ export const getters: Getters<AppStateTree, RootState> = {
 }
 
 export const mutations: Mutations<AppStateTree> = {
+  [SET_THEME]: (state, theme) => (state.theme = theme),
   [SET_MOBILE_LAYOUT]: (state, mobileLayout) => (state.mobileLayout = mobileLayout),
   [SET_FULL_COLUMN]: (state, fullColumn) => (state.fullColumn = fullColumn),
   [SET_FULL_SCREEN]: (state, fullScreen) => (state.fullScreen = fullScreen),

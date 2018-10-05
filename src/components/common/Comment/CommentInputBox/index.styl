@@ -9,14 +9,6 @@
 .comment-input-box {
   padding $padding-md $padding-lg
 
-  button {
-    background $grey
-    border-radius 2px
-    border none
-    cursor pointer
-    transition all $animation-duration-slow $ease-in-out
-  }
-
   .wrapper {
     .clear {
       flex 0 0 !important
@@ -24,16 +16,15 @@
       button {
         height 36px
         width @height
-        background $grey
 
         .icon {
-          color $text-color-secondary
+          color var(--text-color-secondary)
           transition(color)
         }
 
         &:hover {
           .icon {
-            color $text-color
+            color var(--text-color)
           }
         }
       }
@@ -71,7 +62,7 @@
             top 50%
             left 8px
             transform translateY(-50%)
-            color $text-color-secondary
+            color var(--text-color-secondary)
           }
 
           input {
@@ -79,9 +70,9 @@
             height 36px
             padding $padding-xs $padding-sm $padding-xs 30px
             border none
-            background $grey
+            background var(--button-color)
             background-image none
-            transition all $animation-duration-slow $ease
+            transition()
           }
 
           &:last-child {
@@ -97,17 +88,17 @@
         }
 
         .status {
-          color $text-color-secondary
+          color var(--text-color-secondary)
           font-size $font-size-sm
         }
 
         .action {
           &-item {
-            margin-left 10px
+            margin-left $padding-sm
           }
 
           .exit {
-            color $text-color-secondary
+            color var(--text-color-secondary)
           }
         }
       }
@@ -123,7 +114,7 @@
         line-height @height
         margin-right 12px
         padding 0 8px
-        background $grey3
+        background var(--button-color)
       }
 
       .clear {
@@ -146,24 +137,19 @@
       .cancel-btn {
         margin-right 12px
         background transparent
-        color $text-color-secondary
-        border 1px solid $border-color
+        color var(--text-color-secondary)
+        border 1px solid var(--border-color)
 
         &:hover {
           background $bg
           border-color @background
-          color $text-color
+          color var(--text-color)
         }
       }
 
       .submit-btn {
         width 100%
         padding 6px 32px
-        border 1px solid $border-color
-
-        &:hover {
-          background-color $grey3
-        }
       }
     }
   }
@@ -175,18 +161,6 @@
 
     .card-body {
       padding 0
-    }
-
-    .content {
-      .editor {
-        background $grey3
-      }
-    }
-
-    .clear {
-      button {
-        background $grey3
-      }
     }
   }
 
@@ -204,7 +178,7 @@
   }
 
   &.message-input-box {
-    background $white
+    background var(--light-color)
 
     .submit {
       width 100%

@@ -10,7 +10,7 @@
   position relative
   margin-bottom $padding-md
   padding 0 $padding-md
-  background-color $card-color
+  background-color var(--card-color)
 
   &.card-bordered {
     border 1px solid $border-color-3
@@ -23,33 +23,34 @@
 
     .icon {
       margin-right 4px
-      color rgba($base-color, .2)
+      color var(--disabled-color)
       font-weight normal
     }
 
     .info-header {
       margin-bottom 10px
       text-align center
+
       .icon {
-        color $grey-6
+        color var(--disabled-color)
         font-size 42px
         font-weight 400
       }
 
       .keyword {
         font-size $font-size-lger
-        color $keyword-color
+        color var(--keyword-color)
         letter-spacing 1px
       }
 
       .count {
         font-weight 400
-        color $text-color-secondary
+        color var(--text-color-secondary)
         font-size $font-size-sm
 
         .num {
           margin 0 6px
-          color $keyword-color
+          color var(--keyword-color)
           font-weight 700
         }
       }

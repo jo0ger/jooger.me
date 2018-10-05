@@ -7,7 +7,7 @@
 @import '~@/assets/style/init'
 
 .md-editor {
-  background $grey
+  background var(--button-color)
 
   textarea {
     width 100%
@@ -16,7 +16,7 @@
     border none
     background transparent
     background-image none
-    transition all $animation-duration-slow $ease
+    transition()
   }
 
   .command-bar {
@@ -33,16 +33,16 @@
         line-height 1
         font-weight 400
         cursor pointer
-        transition all $animation-duration-slow $ease
+        transition()
 
         .icon {
-          color $text-color-secondary
+          color var(--text-color-secondary)
           font-size $font-size-lg
         }
 
         &.active
         &:hover {
-          color $text-color
+          color var(--text-color)
         }
       }
     }

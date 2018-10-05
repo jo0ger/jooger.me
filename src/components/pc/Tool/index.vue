@@ -11,8 +11,12 @@
           :href="'mailto:' + setting.personal.user.email">
           <i class="icon icon-feedback"></i>
         </a>
-        <a class="tool-item theme" key="theme">
-          <i class="icon icon-dark"></i>
+        <a class="tool-item theme"
+          key="theme"
+          @click="setTheme(
+            theme === 'light' ? 'dark' : 'light'
+          )">
+          <i class="icon" :class="['icon-' + (theme === 'light' ? 'dark' : 'light')]"></i>
         </a>
         <a class="tool-item up" key="up" v-if="showScrollTop" @click="goTop">
           <i class="icon icon-arrow-up"></i>

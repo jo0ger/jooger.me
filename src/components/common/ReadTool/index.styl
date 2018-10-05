@@ -23,11 +23,6 @@ $tool-width = 36px
         height $tool-width
         line-height @height
         text-align center
-
-        &.active
-        &:hover {
-          background-color rgba($base-color, .1)
-        }
       }
     }
 
@@ -43,11 +38,11 @@ $tool-width = 36px
           line-height 1
           padding 2px 4px
           font-size $font-size-sm
-          background alpha($base-color, .3)
-          color $white
+          background var(--primary-color-light)
+          color var(--light-color)
           font-style italic
           border-radius 8px
-          transition all $animation-duration-slow $ease
+          transition()
         }
       }
 
@@ -79,7 +74,6 @@ $tool-width = 36px
           }
 
           .count {
-            color $white
             background linear-gradient(135deg, #FAD7A1 0%, #E80505 100%)
             box-shadow 0 10px 20px -12px #E80505
           }
@@ -108,7 +102,7 @@ $tool-width = 36px
       }
 
       &:hover {
-        background-color rgba($base-color, .1)
+        background-color var(--button-color-hover)
       }
   }
 }

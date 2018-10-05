@@ -15,9 +15,6 @@ export default class Tab extends Base {
   @Prop()
   public list!: any[]
 
-  @Prop()
-  public bordered!: boolean
-
   @Prop({ default: false })
   public router!: boolean
 

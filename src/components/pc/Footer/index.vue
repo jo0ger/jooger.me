@@ -6,25 +6,6 @@
 <template>
   <footer class="footer">
     <div class="wrapper">
-      <div class="menu-list">
-        <nuxt-link v-for="menu in config.MENUS"
-          ref="menu"
-          class="menu-item"
-          :key="menu.key"
-          :to="{ name: menu.key }"
-          exact>
-          {{ menu.title }}
-        </nuxt-link>
-      </div>
-      <div class="social-list">
-        <a :href="social.url" class="social-item" target="_blank" rel="noopener"
-          :class="[`social-${social.icon}`]"
-          v-for="social in config.SOCIALS"
-          :key="social.icon"
-          :title="social.title">
-          <i class="icon" :class="[`icon-${social.icon}`]"></i>
-        </a>
-      </div>
       <div class="copyright">
         <span>版权所有 © {{ new Date() | dateFormat('YYYY') }} <nuxt-link to="/about" v-if="setting.personal.user">{{ setting.personal.user.name }}</nuxt-link>. 保留所有权利</span>
         <a href="http://www.miitbeian.gov.cn" target="_blank" rel="noopener" class="record">
