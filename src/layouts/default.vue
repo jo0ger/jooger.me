@@ -15,13 +15,14 @@
       </main>
       <PCFooter></PCFooter>
     </div>
+    <PCTool></PCTool>
   </div>
 </template>
 
 <script lang="ts">
   import Base from '@/base'
   import { Component  } from '@/utils/decorators'
-  import { PCHeader, PCAside, PCFooter } from '@/components/pc'
+  import { PCHeader, PCAside, PCFooter, PCTool } from '@/components/pc'
   import { Background  } from '@/components/common'
   import { namespace } from 'vuex-class'
 
@@ -33,6 +34,7 @@
       PCHeader,
       PCAside,
       PCFooter,
+      PCTool,
       Background
     }
   })

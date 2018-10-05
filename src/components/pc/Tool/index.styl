@@ -1,0 +1,28 @@
+/**
+ * @desc Tool
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-10-05 17:12:13
+ */
+
+@import '~@/assets/style/init'
+
+.tool {
+  position fixed
+  right 0
+  bottom 36px
+
+  .tool-item {
+    display block
+    width 36px
+    height @width
+    line-height @width
+    text-align center
+    background $card-color
+    cursor pointer
+    transition()
+
+    &:hover {
+      background $grey3
+    }
+  }
+}

@@ -1,0 +1,33 @@
+/**
+ * @desc Tool
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-10-05 17:12:13
+ */
+
+import Base from '@/base'
+import { Component } from '@/utils/decorators'
+import { getScroll } from '@/utils'
+
+@Component({
+  name: 'Tool',
+})
+export default class Tool extends Base {
+  private showScrollTop = false
+
+  private mounted () {
+    this.init()
+  }
+
+  private init () {
+    window.addEventListener('scroll', () => {
+      const scrollTop = getScroll(document.body, true)
+      this.showScrollTop = scrollTop * 2 > window.screen.availHeight
+    })
+  }
+
+  private goTop () {
+    this.$scrollTo(0, 500, {
+      easing: 'ease'
+    })
+  }
+}
