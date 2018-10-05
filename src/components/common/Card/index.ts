@@ -19,4 +19,17 @@ export default class Card extends Base {
 
   @Prop({ default: false })
   public bordered!: boolean
+
+  @Prop({ type: Boolean, default: false })
+  private noMargin!: boolean
+
+  private get style () {
+    const style: {
+      [key: string]: any
+    } = {}
+    if (this.noMargin) {
+      style.margin = 0
+    }
+    return style
+  }
 }

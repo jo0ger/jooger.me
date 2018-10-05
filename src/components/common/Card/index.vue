@@ -6,7 +6,8 @@
 <template>
   <div class="card" :class="{
     'card-bordered': bordered
-  }">
+  }"
+  :style="style">
     <div class="card-header" v-if="$slots.header || header">
       <slot name="header">{{ header }}</slot>
     </div>

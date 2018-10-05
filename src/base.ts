@@ -49,7 +49,7 @@ export default class Base extends Vue {
     this.setFullColumn = this.setFullColumn.bind(this)
   }
 
-  private setFullColumn (val) {
+  protected setFullColumn (val: boolean) {
     this.$store.commit('app/SET_FULL_COLUMN', val)
     if (!val) {
       setTimeout(() => {

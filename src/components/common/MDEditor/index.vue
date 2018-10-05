@@ -26,7 +26,7 @@
             @click.prevent="handleCommandClick(item)">
             <i class="icon" :class="[`icon-${item.key}`]"></i>
             <span v-if="item.text">{{ item.text }}</span>
-            <Propover placement="bottom" v-model="showEmoji" v-if="item.key === 'emoji'">
+            <Propover placement="top" v-model="showEmoji" v-if="item.key === 'emoji'">
               <div class="emoji-list">
                 <a class="emoji-item" v-for="item in emoji"
                   :key="item.value"

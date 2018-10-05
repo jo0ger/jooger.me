@@ -114,7 +114,10 @@ const articleMod = namespace('article')
     const article = params.id
     return Promise.all([
       store.dispatch('article/fetchDetail', article),
-      store.dispatch('comment/fetchList', { article })
+      store.dispatch('comment/fetchList', {
+        article,
+        type: 0
+      })
     ])
   },
   head () {
@@ -157,7 +160,8 @@ export default class extends Base {
   @Watch('fullColumn')
   private watchFullColumn (val) {
     setTimeout(() => {
-      (this as any).relatedSwiper.update()
+      const swiper = (this as any).relatedSwiper
+      if (swiper) swiper.update()
     }, 300)
   }
 
