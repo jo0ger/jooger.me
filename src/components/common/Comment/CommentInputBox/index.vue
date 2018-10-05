@@ -24,7 +24,7 @@
               <i class="icon icon-site"></i>
               <input type="text" placeholder="站点" required="required" name="site" autocomplete="false" v-model.trim="model.site.value">
             </div>
-            <div class="clear" v-if="user && !mobileLayout && !isMessage">
+            <div class="clear" v-if="user && !mobileLayout">
               <button @click="clear" title="退出">
                 <i class="icon icon-close"></i>
               </button>

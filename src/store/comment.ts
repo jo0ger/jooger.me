@@ -75,6 +75,7 @@ export const mutations: Mutations<CommentStateTree> = {
     }
   },
   [PUBLISH]: (state, comment) => {
+    const isMessage = !comment.article
     if (comment.parent) {
       const replyId = comment.parent._id || comment.parent
       if (replyId) {
@@ -85,16 +86,20 @@ export const mutations: Mutations<CommentStateTree> = {
         }
       }
     }
+    if (isMessage) {
+      state.list.data.unshift(comment)
+    }
   }
 }
 
 export const actions: Actions<CommentStateTree, RootState> = {
-  async fetchList ({ commit, state }, params: WebApi.CommentModule.list.Req) {
+  async fetchList ({ commit, state, rootGetters }, params: WebApi.CommentModule.list.Req) {
     if (state.list.fetching) {
       return
     }
     const args = {
       page: params && params.page || 1,
+      limit: params && params.limit || state.list.pageInfo.limit || 20,
       sortBy: state.sort.sortBy,
       order: state.sort.order
     }
@@ -118,14 +123,17 @@ export const actions: Actions<CommentStateTree, RootState> = {
     return success
   },
   async publish ({ commit, dispatch }, params: WebApi.CommentModule.create.Req) {
+    const isMessage = !params.article
     const args = {
-      type: params.article ? 0 : 1
+      type: isMessage ? 1 : 0
     }
     const { success, data } = await api.publishComment(Object.assign({}, params, args))
     if (success) {
       commit(PUBLISH, data)
-      commit('article/COMMENT_SUCCESS', null, { root: true })
       dispatch('app/updateUser', data.author, { root: true })
+      if (!isMessage) {
+        commit('article/COMMENT_SUCCESS', null, { root: true })
+      }
     }
     return { success, data }
   }

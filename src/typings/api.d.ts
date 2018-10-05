@@ -318,8 +318,9 @@ declare namespace WebApi {
                 referer: string,
             }
             parent: Comment
-            forward: Comment,
+            forward: Comment
             subCount: number
+            liked: boolean
         }
 
         namespace list {

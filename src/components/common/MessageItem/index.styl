@@ -1,0 +1,91 @@
+/**
+ * @desc MessageItem
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-10-05 14:33:59
+ */
+
+@import '~@/assets/style/init'
+
+.message-item {
+  position relative
+  overflow hidden
+
+  &.identified {
+    .tag {
+      position absolute
+      top -24px
+      right -24px
+      display block
+      width 50px
+      height 50px
+      padding-top 30px
+      text-align center
+      background-color rgba($orange-6, .2)
+      font-size $font-size-sm
+      color $orange-6
+      transform rotate(45deg)
+    }
+  }
+
+
+  .user {
+    flexLayout(, flex-start)
+
+    .avatar {
+      width 18px
+      height @width
+      border-radius 50%
+      margin-right $padding-sm
+    }
+  }
+
+  .content {
+    margin $padding-sm 0
+  }
+
+  .meta {
+    flexLayout(, space-between)
+
+    .time
+    .icon {
+      color $text-color-secondary
+      font-size $font-size-sm
+    }
+
+    .like {
+      color $text-color-secondary
+
+      .icon {
+        color $text-color-secondary
+        transition()
+      }
+
+      &.liking {
+        opacity .6
+        cursor not-allowed
+      }
+
+      &.liked {
+        background linear-gradient(135deg, #fad7a1 0%, #e80505 100%)
+
+        .icon
+        span {
+          -webkit-text-fill-color transparent
+          text-shadow 0 2px 20px rgba(#E80505, .2)
+        }
+
+        &:hover {
+          opacity 1
+        }
+      }
+
+      &:hover {
+        color $text-color
+
+        .icon {
+          color $text-color
+        }
+      }
+    }
+  }
+}
