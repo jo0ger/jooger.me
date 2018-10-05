@@ -5,9 +5,13 @@
  -->
 <template>
   <div class="aside">
-    <Hots v-if="$route.name !== 'archive'"></Hots>
+    <transition name="fade" mode="out-in">
+      <Hots v-if="$route.name !== 'archive'"></Hots>
+    </transition>
     <Affix offset-top="76">
-      <Categories v-if="['archive', 'article-id'].includes($route.name)"></Categories>
+      <transition name="fade" mode="out-in">
+        <Categories v-if="['archive', 'article-id'].includes($route.name)"></Categories>
+      </transition>
       <Tags></Tags>
     </Affix>
   </div>
