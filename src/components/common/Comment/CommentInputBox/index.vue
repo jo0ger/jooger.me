@@ -26,7 +26,7 @@
             </div>
             <div class="clear" v-if="user && !mobileLayout">
               <button @click="clear" title="退出">
-                <i class="icon icon-close"></i>
+                退出
               </button>
             </div>
           </div>

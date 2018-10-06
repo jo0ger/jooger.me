@@ -163,4 +163,8 @@ export default class CommentInputBox extends Base {
     }
     return false
   }
+
+  private focus () {
+    (this.$refs.editor as any).focus()
+  }
 }

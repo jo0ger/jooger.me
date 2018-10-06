@@ -6,11 +6,11 @@
 <template>
   <div class="aside">
     <transition name="fade" mode="out-in">
-      <Hots v-if="$route.name !== 'archive'"></Hots>
+      <Hots></Hots>
     </transition>
     <Affix offset-top="76">
       <transition name="fade" mode="out-in">
-        <Categories v-if="['archive', 'article-id'].includes($route.name)"></Categories>
+        <Categories v-if="['archive', 'article-id', 'category-name', 'tag-name'].includes($route.name)"></Categories>
       </transition>
       <Tags></Tags>
     </Affix>

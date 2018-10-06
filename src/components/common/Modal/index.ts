@@ -5,7 +5,7 @@
  */
 
 import Base from '@/base'
-import { Component, Prop } from '@/utils/decorators'
+import { Component, Prop, Watch } from '@/utils/decorators'
 
 @Component({
   name: 'Modal',
@@ -14,6 +14,9 @@ export default class Modal extends Base {
   @Prop({ type: Boolean, default: false })
   private value!: boolean
 
+  @Prop({ type: String, default: '' })
+  private title!: string
+
   @Prop({ type: [Number, String], default: 600 })
   private width!: number
 
@@ -21,6 +24,11 @@ export default class Modal extends Base {
     return {
       width: this.width + 'px'
     }
+  }
+
+  @Watch('value')
+  private watchValue (val) {
+    document.body.style.overflow = val ? 'hidden' : ''
   }
 
   private close () {

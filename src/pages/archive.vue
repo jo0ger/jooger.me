@@ -64,7 +64,6 @@ const { Getter } = namespace('article')
     }
   },
   fetch ({ store }) {
-    // store.commit('app/SET_FULL_COLUMN', true)
     return store.dispatch('article/fetchArchives')
   }
 })
