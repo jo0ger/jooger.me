@@ -7,10 +7,7 @@
 import Base from '@/base'
 import { Component, Prop } from '@/utils/decorators'
 import { CommentStateTree } from 'utils/interfaces'
-import { namespace } from 'vuex-class'
 import { UAParse, OSParse } from '@/utils'
-
-const appMod = namespace('app')
 
 @Component({
   name: 'ComemntItem',

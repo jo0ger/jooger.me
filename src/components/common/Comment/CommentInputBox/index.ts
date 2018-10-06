@@ -6,7 +6,8 @@
 
 import Base from '@/base'
 import { Component, Prop, Watch } from '@/utils/decorators'
-import { Card, Loading } from '@/components/common'
+import Card from '../../Card/index.vue'
+import Loading from '../../Loading/index.vue'
 import { namespace } from 'vuex-class'
 import MDEditor from '../../MDEditor/index.vue'
 import { isEmail, isSiteUrl } from '@/utils'

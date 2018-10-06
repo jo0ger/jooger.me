@@ -65,7 +65,7 @@ module.exports = {
     ],
     link: [
       { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=Oleo+Script:700' },
+      { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=Damion|Source+Code+Pro' },
       { rel: 'dns-prefetch', href: '//api.jooger.me' },
       { rel: 'dns-prefetch', href: '//static.jooger.me' }
     ]

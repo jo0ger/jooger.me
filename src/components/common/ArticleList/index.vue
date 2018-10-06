@@ -6,7 +6,7 @@
 <template>
   <div class="article-list">
     <div class="list" v-if="articleList.length">
-      <ArticleItem v-for="item in articleList" :key="item._id" :article="item" :mini="mini"></ArticleItem>
+      <ArticleItem v-for="item in articleList" :key="item._id" :article="item" :mini="mini" :keyword="keyword"></ArticleItem>
     </div>
     <div class="indicator">
       <transition name="fade" mode="out-in">

@@ -11,12 +11,19 @@ import { Component, Prop } from '@/utils/decorators'
   name: 'ArticleItem',
 })
 export default class ArticleItem extends Base {
-  @Prop()
+  @Prop({ type: Object })
   private article!: any
 
-  @Prop()
+  @Prop({ type: Boolean, default: false })
   private noThumb!: boolean
 
-  @Prop()
+  @Prop({ type: Boolean, default: false })
   private compact!: boolean
+
+  @Prop({ type: String, default: '' })
+  private keyword!: string
+
+  private get title () {
+    return this.article.title.replace(new RegExp(this.keyword, 'g'), `<span class="keyword">${this.keyword}</span>`)
+  }
 }

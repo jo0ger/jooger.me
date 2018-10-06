@@ -6,7 +6,8 @@
 
 import Base from '@/base'
 import { Component, Prop } from '@/utils/decorators'
-import { Card, Loading } from '@/components/common'
+import Card from '../../Card/index.vue'
+import Loading from '../../Loading/index.vue'
 import CommentItem from '../ComemntItem/index.vue'
 import CommentInputBox from '../CommentInputBox/index.vue'
 import { namespace } from 'vuex-class'

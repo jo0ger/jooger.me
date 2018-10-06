@@ -14,7 +14,7 @@
             </div>
           </div>
         <div class="list-content">
-          <ArticleList></ArticleList>
+          <ArticleList :keyword="$route.params.keyword"></ArticleList>
         </div>
       </Card>
     </section>

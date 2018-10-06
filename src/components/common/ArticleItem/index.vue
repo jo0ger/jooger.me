@@ -7,7 +7,7 @@
   <article class="article-item" :class="{ 'no-desc': !article.description }" :title="article.title">
     <nuxt-link class="article-link"
       :to="`/article/${article._id}`">
-      <h3 class="title">{{ article.title }}</h3>
+      <h3 class="title" v-html="title">{{ article.title }}</h3>
       <div class="summary" v-if="!compact">
         <div class="thumb" v-if="article.thumb && !noThumb && !mobileLayout">
           <img v-lazy="article.thumb" alt="">
