@@ -9,6 +9,7 @@ export default ({ app, store }) => {
   app.router.afterEach((to, from) => {
     if (from.name === 'article-id') {
       store.commit('article/CLEAR_DETAIL')
+      store.commit('app/SET_ARTICLE_TITLE_VISIBLE', false)
     }
   })
 }

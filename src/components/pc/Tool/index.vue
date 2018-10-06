@@ -13,7 +13,7 @@
         </a>
         <a class="tool-item theme"
           key="theme"
-          @click="setTheme(
+          @click="updateTheme(
             theme === 'light' ? 'dark' : 'light'
           )">
           <i class="icon" :class="['icon-' + (theme === 'light' ? 'dark' : 'light')]"></i>
