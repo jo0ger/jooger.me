@@ -25,8 +25,11 @@ export default class ArticleList extends Base {
   @aMod.Getter public pageInfo!: WebApi.PageInfo
   @aMod.Action('fetchList') public getArticleList!: (...arg: any[]) => void
 
-  @Prop()
+  @Prop({ type: Boolean, default: false })
   private mini!: boolean
+
+  @Prop({ type: String, default: '' })
+  private keyword!: string
 
   private get hasNoMore () {
     return this.pageInfo.total > 0
