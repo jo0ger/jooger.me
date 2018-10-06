@@ -7081,6 +7081,10 @@ thread-loader@^1.2.0:
     loader-runner "^2.3.0"
     loader-utils "^1.1.0"
 
+throttle-debounce@^2.0.1:
+  version "2.0.1"
+  resolved "http://registry.npm.taobao.org/throttle-debounce/download/throttle-debounce-2.0.1.tgz#7307ddd6cd9acadb349132fbf6c18d78c88a5e62"
+
 through2@^2.0.0, through2@^2.0.2:
   version "2.0.3"
   resolved "http://registry.npm.taobao.org/through2/download/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
@@ -7448,6 +7452,13 @@ uuid@3.3.2, uuid@^3.3.2:
   version "3.3.2"
   resolved "http://registry.npm.taobao.org/uuid/download/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
 
+v-viewer@^1.2.1:
+  version "1.2.1"
+  resolved "http://registry.npm.taobao.org/v-viewer/download/v-viewer-1.2.1.tgz#1d04fd42a188c82cf70e4432e69d2a467909c3b2"
+  dependencies:
+    throttle-debounce "^2.0.1"
+    viewerjs "^1.0.0"
+
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
   resolved "http://registry.npm.taobao.org/validate-npm-package-license/download/validate-npm-package-license-3.0.4.tgz#fc91f6b9c7ba15c857f4cb2c5defeec39d4f410a"
@@ -7466,6 +7477,10 @@ vary@~1.1.2:
 vendors@^1.0.0:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/vendors/download/vendors-1.0.2.tgz#7fcb5eef9f5623b156bcea89ec37d63676f21801"
+
+viewerjs@^1.0.0:
+  version "1.2.0"
+  resolved "http://registry.npm.taobao.org/viewerjs/download/viewerjs-1.2.0.tgz#22254b86e50898c7c7593891a1e36e6577eb8462"
 
 vm-browserify@0.0.4:
   version "0.0.4"
