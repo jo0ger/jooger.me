@@ -1810,10 +1810,10 @@ browserslist@^3.2.6:
     electron-to-chromium "^1.3.47"
 
 browserslist@^4.0.0, browserslist@^4.1.0, browserslist@^4.1.2:
-  version "4.1.2"
-  resolved "http://registry.npm.taobao.org/browserslist/download/browserslist-4.1.2.tgz#632feb46d1cbdd6bb1a6eb660eff68f2345ae7e7"
+  version "4.2.0"
+  resolved "http://registry.npm.taobao.org/browserslist/download/browserslist-4.2.0.tgz#3e5e5edf7fa9758ded0885cf88c1e4be753a591c"
   dependencies:
-    caniuse-lite "^1.0.30000888"
+    caniuse-lite "^1.0.30000889"
     electron-to-chromium "^1.3.73"
     node-releases "^1.0.0-alpha.12"
 
@@ -1975,7 +1975,7 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30000884, caniuse-lite@^1.0.30000888:
+caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30000884, caniuse-lite@^1.0.30000888, caniuse-lite@^1.0.30000889:
   version "1.0.30000889"
   resolved "http://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30000889.tgz#53e266c83e725ad3bd2e4a3ea76d5031a8aa4c3e"
 
@@ -6745,8 +6745,8 @@ source-map@^0.6.0, source-map@^0.6.1, source-map@~0.6.0, source-map@~0.6.1:
   resolved "http://registry.npm.taobao.org/source-map/download/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
 
 spdx-correct@^3.0.0:
-  version "3.0.1"
-  resolved "http://registry.npm.taobao.org/spdx-correct/download/spdx-correct-3.0.1.tgz#434434ff9d1726b4d9f4219d1004813d80639e30"
+  version "3.0.2"
+  resolved "http://registry.npm.taobao.org/spdx-correct/download/spdx-correct-3.0.2.tgz#19bb409e91b47b1ad54159243f7312a858db3c2e"
   dependencies:
     spdx-expression-parse "^3.0.0"
     spdx-license-ids "^3.0.0"
@@ -7062,8 +7062,8 @@ terser-webpack-plugin@^1.1.0:
     worker-farm "^1.5.2"
 
 terser@^3.8.1:
-  version "3.9.2"
-  resolved "http://registry.npm.taobao.org/terser/download/terser-3.9.2.tgz#d139d8292eb3a23091304c934fb539d9f456fb19"
+  version "3.9.3"
+  resolved "http://registry.npm.taobao.org/terser/download/terser-3.9.3.tgz#14d13207f58b7a25ba7dd11def76c9e73cca5036"
   dependencies:
     commander "~2.17.1"
     source-map "~0.6.1"
@@ -7737,8 +7737,8 @@ write-file-atomic@^2.0.0:
     signal-exit "^3.0.2"
 
 ws@^6.0.0:
-  version "6.0.0"
-  resolved "http://registry.npm.taobao.org/ws/download/ws-6.0.0.tgz#eaa494aded00ac4289d455bac8d84c7c651cef35"
+  version "6.1.0"
+  resolved "http://registry.npm.taobao.org/ws/download/ws-6.1.0.tgz#119a9dbf92c54e190ec18d10e871d55c95cf9373"
   dependencies:
     async-limiter "~1.0.0"
 

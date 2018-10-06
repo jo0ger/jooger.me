@@ -14,6 +14,7 @@ const FETCH_HOT_LIST = 'FETCH_HOT_LIST'
 const FETCH_CATEGORY_LIST = 'FETCH_CATEGORY_LIST'
 const FETCH_TAG_LIST = 'FETCH_TAG_LIST'
 const SET_ARTICLE_FONTSIZE = 'SET_ARTICLE_FONTSIZE'
+const SET_ARTICLE_TITLE_VISIBLE = 'SET_ARTICLE_TITLE_VISIBLE'
 
 export const state = (): AppStateTree => ({
   theme: 'light',
@@ -29,7 +30,8 @@ export const state = (): AppStateTree => ({
   categoryList: [],
   hotList: [],
   tagList: [],
-  articleFontSize: 16
+  articleFontSize: 16,
+  showArticleTitle: false
 })
 
 export const getters: Getters<AppStateTree, RootState> = {
@@ -43,7 +45,8 @@ export const getters: Getters<AppStateTree, RootState> = {
   hotList: state => state.hotList,
   categoryList: state => state.categoryList,
   tagList: state => state.tagList,
-  articleFontSize: state => state.articleFontSize
+  articleFontSize: state => state.articleFontSize,
+  showArticleTitle: state => state.showArticleTitle
 }
 
 export const mutations: Mutations<AppStateTree> = {
@@ -52,6 +55,7 @@ export const mutations: Mutations<AppStateTree> = {
   [SET_FULL_COLUMN]: (state, fullColumn) => (state.fullColumn = fullColumn),
   [SET_FULL_SCREEN]: (state, fullScreen) => (state.fullScreen = fullScreen),
   [SET_USER]: (state, user) => (state.user = user),
+  [SET_ARTICLE_TITLE_VISIBLE]: (state, visible) => (state.showArticleTitle = visible),
   [SET_HISTORY]: (state, history: any = {}) => {
     const { articles, comments, articleId, commentId } = history
     if (articles && isType(articles, 'Array')) {

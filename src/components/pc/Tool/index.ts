@@ -23,11 +23,17 @@ export default class Tool extends Base {
     this.init()
   }
 
+  private beforeDestroy () {
+    window.removeEventListener('scroll', this.handleScroll)
+  }
+
   private init () {
-    window.addEventListener('scroll', () => {
-      const scrollTop = getScroll(document.body, true)
-      this.showScrollTop = scrollTop * 2 > window.screen.availHeight
-    })
+    window.addEventListener('scroll', this.handleScroll)
+  }
+
+  private handleScroll () {
+    const scrollTop = getScroll(document.body, true)
+    this.showScrollTop = scrollTop * 2 > window.screen.availHeight
   }
 
   private goTop () {

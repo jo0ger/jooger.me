@@ -13,14 +13,14 @@ $header-height = 48px
   width 100%
   height $header-height
   z-index 99
-  box-shadow 0 5px 10px 0 var(--dark-color-light)
+  // box-shadow 0 5px 10px 0 var(--dark-color-light)
 
   .wrapper {
     flexLayout(, space-between)
     position relative
     height 100%
     padding 0 $padding-xs
-    background-color var(--light-color)
+    background-color var(--card-color)
     z-index 2
 
     & > a {
@@ -58,15 +58,16 @@ $header-height = 48px
     font-family $font-family-logo
     text-align center
 
-    img {
-      height 14px
-    }
-
     &-text {
       display inline-block
       font-size 18px
       color var(--text-color)
     }
+  }
+
+  .article-title {
+    font-size $font-size-lg
+    font-weight 700
   }
 
   .search-trigger {
@@ -119,7 +120,7 @@ $header-height = 48px
 
     &-item {
       flexLayout(, flex-start)
-      padding $padding-md $padding-sm
+      padding $padding-sm $padding-sm
       font-size $font-size-lg
       border-radius 4px
 
@@ -128,7 +129,12 @@ $header-height = 48px
       }
 
       &.active {
-        background var(--dark-color-light)
+        background var(--primary-color)
+        color var(--light-color)
+
+        .icon {
+          color var(--light-color)
+        }
       }
     }
   }

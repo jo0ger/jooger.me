@@ -12,7 +12,7 @@
       <div class="article-widget">
         <Card class="article-detail">
           <article class="article" v-if="article">
-            <span class="source" :class="[article.source ? 'reprint' : 'original']">{{ article.source | constantFilter('ARTICLE_SOURCE') }}</span>
+            <span v-if="!mobileLayout" class="source" :class="[article.source ? 'reprint' : 'original']">{{ article.source | constantFilter('ARTICLE_SOURCE') }}</span>
             <h2 class="title">{{ article.title }}</h2>
             <div class="meta">
               <nuxt-link :to="`/category/${article.category.name}`" class="meta-item category">
@@ -42,6 +42,13 @@
                 :icon="findExtendsItem(tag.extends, 'icon') || 'tag'"
                 :link="true">
               </Tag>
+            </div>
+            <div class="action" v-if="mobileLayout">
+              <ReadTool
+                :article="article"
+                :liked="liked"
+                :liking="articleLiking"
+                @on-like="like"></ReadTool>
             </div>
           </article>
           <div class="article-info">
@@ -92,6 +99,7 @@ import Base from '@/base'
 import { Component, Prop, Watch } from '@/utils/decorators'
 import { namespace } from 'vuex-class'
 import { Affix, Card, Tag, ReadTool, Comment } from '@/components/common'
+import { getScroll } from '@/utils'
 
 const appMod = namespace('app')
 const articleMod = namespace('article')
@@ -132,7 +140,9 @@ const articleMod = namespace('article')
 })
 export default class extends Base {
   @appMod.Getter private articleFontSize!: number
+  @appMod.Getter private showArticleTitle!: boolean
   @appMod.Mutation('SET_ARTICLE_FONTSIZE') private setFontSize
+  @appMod.Mutation('SET_ARTICLE_TITLE_VISIBLE') private setArticleTitleVisible
   @articleMod.Getter('detail') private article!: WebApi.ArticleModule.Article
   @articleMod.Getter('detailFetching') private articleFetching!: boolean
   @articleMod.Getter('detailLiking') private articleLiking!: boolean
@@ -150,6 +160,7 @@ export default class extends Base {
     slidesPerView: 'auto',
     spaceBetween: 16
   }
+  private scrollTop = 0
 
   private get liked () {
     if (!this.article) return false
@@ -168,6 +179,28 @@ export default class extends Base {
     this.$bus.$on('on-article-fontsize-change', (val) => {
       this.setFontSize(val)
     })
+    window.addEventListener('scroll', this.handleScroll)
+  }
+
+  private beforeDestroy () {
+    window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  private handleScroll (e) {
+    const scrollTop = getScroll(document.body, true)
+    if (scrollTop < 80) {
+      this.scrollTop = scrollTop
+      if (this.showArticleTitle) {
+        this.setArticleTitleVisible(false)
+      }
+      return
+    }
+    if (scrollTop > this.scrollTop && !this.showArticleTitle) {
+      this.setArticleTitleVisible(true)
+    } else if (this.scrollTop > scrollTop  && this.showArticleTitle) {
+      this.setArticleTitleVisible(false)
+    }
+    this.scrollTop = scrollTop
   }
 
   private like () {
@@ -194,6 +227,7 @@ $action-widget-width = 36px
     left -($action-widget-width + $padding-md)
     width $action-widget-width
     margin-right $padding-md
+    z-index 999
   }
 
   .article-widget {
@@ -201,7 +235,7 @@ $action-widget-width = 36px
   }
 
   .article-detail {
-    padding $padding-md $padding-lg
+    padding $padding-md
     overflow hidden
 
     .source {
@@ -360,6 +394,7 @@ $action-widget-width = 36px
   }
 
   .app.mobile-layout & {
+
     .article-related {
       .swiper-wrapper {
         height 100px

@@ -92,14 +92,7 @@ module.exports = {
   },
   build: {
     analyze: false,
-    publicPath: '/resource/',
-    cache: true,
-    parallel: true,
-    splitChunks: {
-      layouts: false,
-      pages: true,
-      commons: true
-    }
+    publicPath: '/resource/'
   },
   modules: [
     '@nuxtjs/axios',

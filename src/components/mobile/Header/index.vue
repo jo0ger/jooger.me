@@ -12,10 +12,14 @@
           <span class="line"></span>
         </div>
       </a>
-      <router-link to="/" class="logo">
-        <!-- <img :src="setting.site.logo" alt="" srcset=""> -->
-        <span class="logo-text" v-if="setting.personal.user">{{ setting.personal.user.name }}.me</span>
-      </router-link>
+      <div class="title">
+        <transition name="slide-down" mode="out-in">
+          <router-link to="/" class="logo" v-if="!showArticleTitle">
+            <span class="logo-text" v-if="setting.personal.user">{{ setting.personal.user.name }}.me</span>
+          </router-link>
+          <div class="article-title" v-else>{{ article.title }}</div>
+        </transition>
+      </div>
       <a class="search-trigger" @click="searchOpened = true">
         <i class="icon icon-search"></i>
       </a>

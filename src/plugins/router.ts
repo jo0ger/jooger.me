@@ -5,4 +5,10 @@ export default ({ app, store }) => {
     }
     next()
   })
+
+  app.router.afterEach((to, from) => {
+    if (from.name === 'article-id') {
+      store.commit('article/CLEAR_DETAIL')
+    }
+  })
 }

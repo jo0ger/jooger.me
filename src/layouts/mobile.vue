@@ -28,7 +28,7 @@
     head () {
       return {
         bodyAttrs: {
-          class: 'theme-' + this.theme
+          class: 'mobile theme-' + this.theme
         }
       }
     }
