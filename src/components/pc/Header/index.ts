@@ -7,7 +7,10 @@
 import Base from '@/base'
 import { Component } from '@/utils/decorators'
 import { Tab } from '@/components/common'
+import { namespace } from 'vuex-class'
 
+const appMod = namespace('app')
+const articleMod = namespace('article')
 @Component({
   name: 'Header',
   components: {
@@ -15,6 +18,9 @@ import { Tab } from '@/components/common'
   }
 })
 export default class Header extends Base {
+  @appMod.Getter private showArticleTitle!: boolean
+  @articleMod.Getter('detail') private article
+
   private keyword: string = ''
 
   private search () {

@@ -40,7 +40,7 @@
     head () {
       return {
         bodyAttrs: {
-          class: 'theme-' + this.theme
+          class: this.theme ? ('theme-' + this.theme) : ''
         }
       }
     }

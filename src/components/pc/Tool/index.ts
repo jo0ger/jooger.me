@@ -9,13 +9,13 @@ import { Component } from '@/utils/decorators'
 import { getScroll } from '@/utils'
 import { namespace } from 'vuex-class'
 
-const { Mutation } = namespace('app')
+const { Action } = namespace('app')
 
 @Component({
   name: 'Tool',
 })
 export default class Tool extends Base {
-  @Mutation('SET_THEME') private setTheme
+  @Action private updateTheme
 
   private showScrollTop = false
 

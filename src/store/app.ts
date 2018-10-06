@@ -1,4 +1,4 @@
-import { USER_LIKE_KEY, USER_KEY } from '@/config'
+import { USER_LIKE_KEY, USER_KEY, THEME_KEY } from '@/config'
 import { isType, storage } from '@/utils'
 import api from '@/api'
 import { AppStateTree, Getters, RootState, Mutations, Actions } from '@/utils/interfaces'
@@ -80,6 +80,12 @@ export const mutations: Mutations<AppStateTree> = {
 }
 
 export const actions: Actions<AppStateTree, RootState> = {
+  updateTheme ({ commit, state }, theme) {
+    if (theme) {
+      commit(SET_THEME, theme)
+      storage.set(THEME_KEY, state.theme)
+    }
+  },
   updateHistory ({ commit, state }, history = {}) {
     commit(SET_HISTORY, history)
     storage.set(USER_LIKE_KEY, state.history)
