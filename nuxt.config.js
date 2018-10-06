@@ -81,6 +81,7 @@ module.exports = {
     */
   css: [
     'normalize.css',
+    'viewerjs/dist/viewer.css',
     { src: '@/assets/style/index.styl', lang: 'stylus' }
   ],
   router: {
@@ -110,6 +111,7 @@ module.exports = {
     { src: '@/plugins/full-screen', ssr: false },
     { src: '@/plugins/share', ssr: false },
     { src: '@/plugins/swiper', ssr: false },
+    { src: '@/plugins/viewer', ssr: false },
     { src: '@/plugins/copyright', ssr: false },
     { src: '@/plugins/scroll-to', ssr: false },
   ],

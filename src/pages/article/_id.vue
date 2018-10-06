@@ -31,6 +31,22 @@
             </div>
             <div class="content markdown-body"
               v-copyright
+              v-viewer.static="{
+                movable: false,
+                toolbar: {
+                    zoomIn: true,
+                    zoomOut: true,
+                    rotateLeft: false,
+                    rotateRight: false,
+                    flipHorizontal: false,
+                    flipVertical: false,
+                    prev: true,
+                    play: true,
+                    next: true,
+                    oneToOne: true,
+                    reset: true,
+                }
+              }"
               :style="{
                 fontSize: articleFontSize + 'px'
               }"
