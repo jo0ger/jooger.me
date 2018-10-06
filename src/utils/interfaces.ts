@@ -29,6 +29,7 @@ export interface AppStateTree {
   categoryList: WebApi.CategoryModule.Category[]
   tagList: WebApi.TagModule.Tag[]
   articleFontSize: number
+  showArticleTitle: boolean
 }
 
 export interface ArticleStateTree {

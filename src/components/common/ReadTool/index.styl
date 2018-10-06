@@ -80,6 +80,47 @@ $tool-width = 36px
         }
       }
     }
+
+    .app.mobile-layout & {
+      justify-content center
+      margin-bottom $padding-md
+
+      .tool-meta
+      .tool-action {
+        flex 0 0 100%
+        width 100%
+        text-align center
+      }
+
+      .tool-meta {
+        margin $padding-lg 0
+
+        .like {
+          width 36px
+          margin 0 auto
+
+          .icon {
+            font-size 24px
+          }
+        }
+      }
+
+      .share-list {
+        flexLayout()
+        margin 0 (0 - $padding-xs)
+
+        .share-item {
+          flex 1 0
+          margin 0 $padding-xs
+          padding 4px
+          background-color var(--button-color)
+
+          &:hover {
+            background-color var(--button-color-hover)
+          }
+        }
+      }
+    }
 }
 
 .pop-list {

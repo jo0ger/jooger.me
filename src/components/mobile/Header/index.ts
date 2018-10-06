@@ -6,11 +6,18 @@
 
 import Base from '@/base'
 import { Component, Watch } from '@/utils/decorators'
+import { namespace } from 'vuex-class'
+
+const appMod = namespace('app')
+const articleMod = namespace('article')
 
 @Component({
   name: 'Header',
 })
 export default class Header extends Base {
+  @appMod.Getter private showArticleTitle!: boolean
+  @articleMod.Getter('detail') private article
+
   private menuOpened = false
   private searchOpened = false
   private keyword = ''

@@ -13,9 +13,9 @@
           条{{ listType }}
         </div>
         <div class="sort">
-          <a class="sort-type" :class="{ active: latestSort }" @click="handleSort('createdAt', -1)">最新排序</a>
+          <a class="sort-type" :class="{ active: latestSort }" @click="handleSort('createdAt', -1)">最新</a>
           <i class="seprate"></i>
-          <a class="sort-type" :class="{ active: hottestSort }" @click="handleSort('ups', -1)">最热排序</a>
+          <a class="sort-type" :class="{ active: hottestSort }" @click="handleSort('ups', -1)">最热</a>
         </div>
       </div>
       <div class="list-content">
