@@ -195,11 +195,11 @@ export default class extends Base {
     this.$bus.$on('on-article-fontsize-change', (val) => {
       this.setFontSize(val)
     })
-    window.addEventListener('scroll', this.handleScroll)
+    // window.addEventListener('scroll', this.handleScroll)
   }
 
   private beforeDestroy () {
-    window.removeEventListener('scroll', this.handleScroll)
+    // window.removeEventListener('scroll', this.handleScroll)
   }
 
   private handleScroll (e) {

@@ -8,6 +8,7 @@
     <div class="modal" v-if="value">
       <div class="overlay" @click="close"></div>
       <div class="wrapper" :style="wrapperStyle">
+        <h3 class="title" v-if="title">{{ title }}</h3>
         <slot></slot>
       </div>
     </div>

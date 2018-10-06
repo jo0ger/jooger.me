@@ -23,6 +23,9 @@ export default class Card extends Base {
   @Prop({ type: Boolean, default: false })
   private noMargin!: boolean
 
+  @Prop({ type: Boolean, default: false })
+  private noPadding!: boolean
+
   private get style () {
     const style: {
       [key: string]: any

@@ -5,7 +5,8 @@
  -->
 <template>
   <div class="card" :class="{
-    'card-bordered': bordered
+    'card-bordered': bordered,
+    'card-no-padding': noPadding
   }"
   :style="style">
     <div class="card-header" v-if="$slots.header || header">

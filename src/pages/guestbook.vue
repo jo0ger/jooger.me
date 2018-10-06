@@ -1,18 +1,12 @@
 <template>
     <section class="guestbook-page">
-      <Modal v-model="showInputBox">
-        <CommentInputBox is-message @on-publish="publishSuccess"></CommentInputBox>
+      <Modal title="我的留言" v-model="showInputBox">
+        <CommentInputBox ref="inputBox" is-message @on-publish="publishSuccess"></CommentInputBox>
       </Modal>
       <div class="submit-field">
-        <div class="slogan">
+        <div class="welcome" v-if="setting.site.welcome">
           <i class="icon icon-quote-up"></i>
-          人的平均寿命77岁
-          一共28105天
-          67w小时
-          4047w分钟
-          24亿秒左右
-          这10秒你在读这段话，这10秒你属于我
-          你好陌生人，我爱你 ❤️
+          {{ setting.site.welcome }}
           <i class="icon icon-quote-down"></i>
         </div>
         <div class="submit">
@@ -27,6 +21,7 @@
           <MessageItem v-for="m in item" :key="m._id" :message="m"></MessageItem>
         </transition-group>
       </transition-group>
+      <p class="no-data" v-if="pageInfo.total < 1 && !messageListFetching">空空如也</p>
       <transition name="fade" mode="out-in">
         <div class="indicator" v-if="messageListFetching || !hasNoMore">
           <Loading v-if="messageListFetching" no-text></Loading>
@@ -77,6 +72,10 @@ export default class extends Base {
   private showInputBox = false
   private columnNum = 3
 
+  private get from () {
+    return this.$route.query.from
+  }
+
   private get columnData () {
     return this.mobileLayout ? [this.messageList] : this.messageList.reduce((sum, item, index) => {
       sum[index % this.columnNum].push(item)
@@ -92,6 +91,17 @@ export default class extends Base {
 
   private get hasNoMore () {
     return this.pageInfo.total > 0 && this.pageInfo.current >= this.pageInfo.pages && this.pageInfo.pages >= 1
+  }
+
+  private mounted ()  {
+    if (this.from === 'about') {
+      this.openBox()
+      this.$nextTick(() => {
+        const inputBox = this.$refs.inputBox as any
+        inputBox.content = `友链申请\n称呼：\n网站：\n`
+        inputBox.focus()
+      })
+    }
   }
 
   private openBox () {
@@ -133,7 +143,7 @@ export default class extends Base {
     margin 48px 0
     text-align center
 
-    .slogan {
+    .welcome {
       position relative
       width 600px
       max-width calc(100% - 64px)

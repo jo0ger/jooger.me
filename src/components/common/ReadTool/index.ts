@@ -58,6 +58,7 @@ export default class ReadTool extends Base {
       exitFullscreen()
     } else {
       requestFullscreen()
+      this.setFullColumn(true)
     }
   }
 }
