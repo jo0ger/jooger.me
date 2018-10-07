@@ -1,14 +1,15 @@
 <template>
   <section class="home-page">
     <div class="category-panel">
-      <div class="category"
+      <Card class="category"
+        no-padding
         v-for="item in categoryList"
         :key="item._id">
         <router-link :to="`/category/${item.name}`">
           <img class="background-image" v-if="findExtendsItem(item.extends, 'image')"
             :src="findExtendsItem(item.extends, 'image')" alt="">
           <div class="background" :style="{
-            backgroundImage: `url(${findExtendsItem(item.extends, 'image') || 'https://static.jooger.me/img/common/banner-03.jpg'})`
+            backgroundImage: `url(${findExtendsItem(item.extends, 'image')})`
           }"></div>
           <div class="mask"></div>
           <div class="content">
@@ -16,7 +17,7 @@
             <h3 class="name">{{ item.name }}</h3>
           </div>
         </router-link>
-      </div>
+      </Card>
     </div>
     <Card class="article-panel">
       <ArticleList></ArticleList>
