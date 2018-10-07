@@ -108,7 +108,8 @@ export default class extends Base {
       }
 
       .month {
-        font-size $font-size-md
+        font-size $font-size-lger
+        font-family Damion
       }
 
       .article-list {

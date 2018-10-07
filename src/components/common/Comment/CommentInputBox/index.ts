@@ -148,6 +148,19 @@ export default class CommentInputBox extends Base {
         this.$scrollToComments()
       }
     }
+    if (this.isMessage) {
+      window.gtag('event', 'site_message_publish', {
+        event_category: 'site_message_publish',
+        event_label: '站内留言',
+        value: 1
+      })
+    } else {
+      window.gtag('event', 'article_comment_publish', {
+        event_category: 'article_comment_publish',
+        event_label: '文章评论',
+        value: 1
+      })
+    }
   }
 
   private checkUserInfoChange () {

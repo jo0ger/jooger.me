@@ -93,6 +93,11 @@ export default class ComemntItem extends Base {
         child.ups += (like ? 1 : -1)
       }
     }
+    window.gtag('event', 'article_comment_like', {
+      event_category: 'article_comment_like',
+      event_label: '文章评论点赞',
+      value: 1
+    })
   }
 
   private handleToggleSubComments () {

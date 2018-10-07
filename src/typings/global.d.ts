@@ -9,6 +9,7 @@ declare interface Window {
   onNuxtReady: (...args: any[]) => void
   Message: any
   fullscreenElement: HTMLElement
+  _hmt: any
 }
 
 declare interface HTMLElement {
