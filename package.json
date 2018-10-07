@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
+    "@nuxtjs/pwa": "^2.6.0",
     "bezier-easing": "^2.1.0",
     "dayjs": "^1.7.5",
     "normalize.css": "^8.0.0",
