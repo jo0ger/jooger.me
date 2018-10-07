@@ -1,107 +1,126 @@
-$common-padding = 12px;
+$common-padding=12px;
 
 .markdown-body {
-    font-size: $font-size-lg;
-    font-weight: 300;
-    color: var(--heading-color);
-    font-family: $font-family-markdown;
+  font-size: $font-size-lg;
+  font-weight: 300;
+  color: var(--heading-color);
+  font-family: $font-family-markdown;
 
-    h1, h2, h3, h4, h5, h6 {
-        font-weight: bold;
-        margin: 1em 0;
-        color: var(--dark);
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+    margin: 1em 0;
+    color: var(--dark);
+  }
+
+  hr {
+    height: 0.05em;
+    border: 0;
+    color: var(--border-color);
+    background-color: var(--border-color);
+  }
+
+  blockquote {
+    margin: 1em 0;
+    border-left: 4px solid var(--border-color);
+    padding: 0 1em;
+    color: var(--text-color-secondary);
+  }
+
+  pre {
+    font-size: inherit;
+    padding: 16px;
+    overflow: auto;
+    line-height: 1.45;
+    background-color: var(--code-color);
+    border-radius: 3px;
+  }
+
+  code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: var(--code-color);
+    border-radius: 3px;
+    font-family: $font-family-code;
+  }
+
+  pre>code {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background-color: var(--code-color);
+    font-size: 85%;
+  }
+
+  a,
+  a:visited {
+    padding-bottom 4px
+    border-bottom 2px dashed var(--border-color)
+    color: var(--primary-color);
+    background-color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+    cursor zoom-in border 8px solid var(--border-color)
+  }
+
+  p,
+  div {
+    line-height: 1.7em;
+  }
+
+  ul,
+  ol {
+    padding-left: 2em;
+    list-style: disc;
+
+    li {
+      line-height 1.8
+    }
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    tr {
+      background-color: var(--dark);
+      border-top: 1px solid var(--border-color);
+
+      &:nth-child(2n) {
+        background-color: #f6f8fa;
+      }
     }
 
-    hr {
-        height: 0.05em;
-        border: 0;
-        color: var(--border-color);
-        background-color: var(--border-color);
+    th,
+    td {
+      padding: 6px 13px;
+      border: 1px solid #dfe2e5;
     }
 
-    blockquote{
-        margin: 1em 0;
-        border-left: 4px solid var(--border-color);
-        padding: 0 1em;
-        color: var(--text-color-secondary);
+    th {
+      font-weight: 600;
     }
+  }
 
-    pre {
-        font-size: inherit;
-        padding: 16px;
-        overflow: auto;
-        line-height: 1.45;
-        background-color: var(--code-color);
-        border-radius: 3px;
-    }
-    code {
-        padding: 0.2em 0.4em;
-        margin: 0;
-        font-size: 85%;
-        background-color: var(--code-color);
-        border-radius: 3px;
-        font-family: $font-family-code;
-    }
-
-    pre > code {
-        border: 0;
-        margin: 0;
-        padding: 0;
-        background-color: var(--code-color);
-        font-size: 85%;
-    }
-
-    a, a:visited {
-        color: var(--primary-color);
-        background-color: inherit;
-        text-decoration: none;
-    }
-
-    img {
-        max-width: 100%;
-        cursor zoom-in
-        border 8px solid var(--border-color)
-    }
-
-    p, div{
-        line-height: 1.7em;
-    }
-
-    ul, ol{
-        padding-left: 2em;
-        list-style: disc;
-
-        li {
-          line-height 1.8
-        }
-    }
-
-    table{
-        display: block;
-        width: 100%;
-        overflow: hidden;
-        border-spacing: 0;
-        border-collapse: collapse;
-
-        tr{
-            background-color: var(--dark);
-            border-top: 1px solid var(--border-color);
-            &:nth-child(2n) {
-                background-color: #f6f8fa;
-            }
-        }
-
-        th, td{
-            padding: 6px 13px;
-            border: 1px solid #dfe2e5;
-        }
-        th{
-            font-weight: 600;
-        }
-    }
-
-    p, blockquote, ul, ol, dl, table, pre{
-        margin-top: 0;
-        margin-bottom: .72em;
-    }
+  p,
+  blockquote,
+  ul,
+  ol,
+  dl,
+  table,
+  pre {
+    margin-top: 0;
+    margin-bottom: .72em;
+  }
 }
