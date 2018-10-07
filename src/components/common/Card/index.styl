@@ -11,14 +11,16 @@
   margin-bottom $padding-md
   padding 0 $padding-md
   background-color var(--card-color)
+  box-shadow 0px 0px 14px 2px var(--box-shadow-color)
+  border-radius 2px
 
   &.card-bordered {
-    border 1px solid $border-color-3
+    border 1px solid var(--border-color)
   }
 
   &-header {
     padding 12px 0 6px
-    border-bottom 1px solid $border-color-4
+    border-bottom 1px solid var(--border-color)
     font-weight 700
 
     .icon {
@@ -67,5 +69,9 @@
     .card-body {
       padding 0
     }
+  }
+
+  .app.mobile-layout & {
+    box-shadow none
   }
 }

@@ -1,2 +1,9 @@
 node_modules/
 .git/
+dist/
+.nuxt/
+cli/
+.editorconfig
+.release-it.json
+REAMDME.md
+.gitignore

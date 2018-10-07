@@ -170,8 +170,8 @@ export default class extends Base {
           }
 
           &.reprint {
-            color $orange
-            background-color rgba($orange, .2)
+            color var(--keyword-color)
+            background-color var(--keyword-color-light)
           }
         }
       }

@@ -4,7 +4,7 @@
  * @date 2018-10-05 17:12:13
  -->
 <template>
-  <div class="tool">
+  <Card class="tool" no-padding>
     <div class="wrapper">
       <transition-group tag="div" name="fade" class="tool-list">
         <a class="tool-item feedback" key="feedback"
@@ -23,7 +23,7 @@
         </a>
       </transition-group>
     </div>
-  </div>
+  </Card>
 </template>
 
 <script lang="ts" src="./index.ts"></script>

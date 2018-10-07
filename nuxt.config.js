@@ -20,7 +20,7 @@ const host =
     'localhost'
 
 const isProd = process.env.NODE_ENV === 'production'
-const description = 'On the way to life'
+const description = '吃喝玩乐，戎码一生'
 const themeColor = '#302e31'
 
 module.exports = {
@@ -64,7 +64,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: description }
     ],
     link: [
-      { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'shortcut icon', type: 'image/x-icon', href: '//static.jooger.me/img/common/favicon/favicon.ico' },
       { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=Damion|Source+Code+Pro' },
       { rel: 'dns-prefetch', href: '//api.jooger.me' },
       { rel: 'dns-prefetch', href: '//static.jooger.me' }
