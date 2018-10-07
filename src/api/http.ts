@@ -36,6 +36,9 @@ export default class Http {
   private processResponse(response: AxiosResponse <WebApi.IResponse>) {
     let errMsg = '接口错误，请稍后重试'
     if (!response || !response.data) {
+      if (isClient) {
+        window.Message.error(errMsg)
+      }
       throw new Error(errMsg)
     }
     if (response.data.code !== 200) {
@@ -72,8 +75,8 @@ export default class Http {
           window.Message.error({
             content: err.response && err.response.data.message || '网络错误',
             onClose: () => {
-                msgVisible = false
-              },
+              msgVisible = false
+            },
           })
         }
       }
