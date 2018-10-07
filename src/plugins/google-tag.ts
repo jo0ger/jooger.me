@@ -1,12 +1,12 @@
-import { GA_TRACK_ID } from '@/config'
+import { GA_TRACK_ID, IS_PROD } from '@/config'
 import { noop } from '@/utils'
 
 function gtag (...args: any[]) {
-  window.dataLayer.push(arguments)
+  window.dataLayer.push(args)
 }
 
-export default ({ app }) => {
-  if (process.env.NODE_ENV === 'production' && process.client) {
+export default () => {
+  if (process.client && IS_PROD) {
     // Google tag分析脚本
     const script = document.createElement('script')
     script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_TRACK_ID
@@ -20,7 +20,7 @@ export default ({ app }) => {
     gtag('config', GA_TRACK_ID)
 
     window.onNuxtReady(app => {
-      app.$nuxt.$on('routeChanged', (to, from) => {
+      app.$nuxt.$on('routeChanged', () => {
         gtag('event', 'page_view', {
           send_to: GA_TRACK_ID
         })

@@ -73,7 +73,7 @@
           <h2 class="title">Contacts</h2>
           <ul class="social-list">
             <li class="social-item" v-for="social in config.SOCIALS" :key="social.icon">
-              <a :href="social.url" target="_blank" rel="noopener"
+              <a :href="social.icon === 'email' ? `mailto:${social.url}` : social.url" target="_blank" rel="noopener"
                 :class="social.icon"
                 :title="social.title">
                 <i class="icon" :class="[`icon-${social.icon}`]"></i>

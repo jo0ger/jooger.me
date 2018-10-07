@@ -113,6 +113,11 @@ export default class extends Base {
     if (success) {
       message.liked = true
     }
+    window.gtag('event', 'site_message_like', {
+      event_category: 'site_message_like',
+      event_label: '站内留言点赞',
+      value: 1
+    })
   }
 
   private loadmore () {

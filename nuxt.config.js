@@ -101,6 +101,10 @@ module.exports = {
   ],
   plugins: [
     { src: '@/plugins/google-tag', ssr: false },
+    { src: '@/plugins/baidu-stat', ssr: false },
+    { src: '@/plugins/baidu-seo-push', ssr: false },
+    { src: '@/plugins/sentry', ssr: false },
+    { src: '@/plugins/console-say-hi', ssr: false },
     { src: '@/plugins/particles', ssr: false },
     { src: '@/plugins/lazyload', ssr: false },
     { src: '@/plugins/router', ssr: false },

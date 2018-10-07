@@ -195,11 +195,11 @@ export default class extends Base {
     this.$bus.$on('on-article-fontsize-change', (val) => {
       this.setFontSize(val)
     })
-    // window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('scroll', this.handleScroll)
   }
 
   private beforeDestroy () {
-    // window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('scroll', this.handleScroll)
   }
 
   private handleScroll (e) {
@@ -223,6 +223,11 @@ export default class extends Base {
     this.likeArticle({
       id: this.article._id,
       like: !this.liked
+    })
+    window.gtag('event', 'article_like', {
+      event_category: 'article_like',
+      event_label: '文章点赞',
+      value: 1
     })
   }
 }
