@@ -7,12 +7,16 @@
 import Base from '@/base'
 import { Component } from '@/utils/decorators'
 import { getScroll } from '@/utils'
+import { Card } from '@/components/common'
 import { namespace } from 'vuex-class'
 
 const { Action } = namespace('app')
 
 @Component({
   name: 'Tool',
+  components: {
+    Card
+  }
 })
 export default class Tool extends Base {
   @Action private updateTheme

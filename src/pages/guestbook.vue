@@ -1,7 +1,7 @@
 <template>
     <section class="guestbook-page">
       <Modal title="我的留言" v-model="showInputBox">
-        <CommentInputBox ref="inputBox" is-message @on-publish="publishSuccess"></CommentInputBox>
+        <CommentInputBox style="box-shadow: none;" ref="inputBox" is-message @on-publish="publishSuccess"></CommentInputBox>
       </Modal>
       <div class="submit-field">
         <div class="welcome" v-if="setting.site.welcome">

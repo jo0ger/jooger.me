@@ -7,6 +7,7 @@
   <div class="header">
     <div class="wrapper">
       <router-link to="/" class="logo">
+        <img :src="setting.site.logo" alt="">
         <span class="logo-text" v-if="setting.personal.user">{{ setting.personal.user.name }}.me</span>
       </router-link>
       <transition name="slide-down" mode="out-in">
