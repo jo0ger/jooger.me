@@ -19,7 +19,7 @@ export default () => {
       '|_____| |_| |_| |_|  \\____/ \\___/ \\___/ \\__, |\\___|_|   ',
       '                                         __/ |          ',
       '                                        |___/           ',
-      `%c联系我：`,
+      `联系我：`,
       SOCIALS.map(social => {
         return `${social.title}: ${social.url}`
       }).join('\n')
