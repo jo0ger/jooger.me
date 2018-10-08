@@ -5,8 +5,15 @@ function gtag (...args: any[]) {
   window.dataLayer.push(args)
 }
 
+function gtagEvent (...args: any[]) {
+  const config = args[1] || {}
+  config.send_to = GA_TRACK_ID
+  args.splice(1, 1, config)
+  gtag('event', ...args)
+}
+
 export default () => {
-  if (process.client && IS_PROD) {
+  if (process.client) {
     // Google tag分析脚本
     const script = document.createElement('script')
     script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_TRACK_ID
@@ -16,17 +23,19 @@ export default () => {
 
     window.dataLayer = window.dataLayer || []
     window.gtag = gtag
+    window.gtagEvent = gtagEvent
     gtag('js', new Date())
     gtag('config', GA_TRACK_ID)
 
     window.onNuxtReady(app => {
-      app.$nuxt.$on('routeChanged', () => {
-        gtag('event', 'page_view', {
-          send_to: GA_TRACK_ID
+      app.$nuxt.$on('routeChanged', (to) => {
+        gtagEvent('page_view')
+        gtag('config', GA_TRACK_ID, {
+          page_path: to.fullPath
         })
       })
     })
   } else {
-    window.gtag = noop
+    window.gtag = window.gtagEvent = noop
   }
 }

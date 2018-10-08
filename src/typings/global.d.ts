@@ -6,6 +6,7 @@ declare interface Window {
   mozCancelAnimationFrame: (...arg: any[]) => void
   dataLayer: any[]
   gtag: (...args: any[]) => void
+  gtagEvent: (...args: any[]) => void
   onNuxtReady: (...args: any[]) => void
   Message: any
   fullscreenElement: HTMLElement

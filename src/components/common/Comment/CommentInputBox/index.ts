@@ -149,13 +149,13 @@ export default class CommentInputBox extends Base {
       }
     }
     if (this.isMessage) {
-      window.gtag('event', 'site_message_publish', {
+      window.gtagEvent('site_message_publish', {
         event_category: 'site_message_publish',
         event_label: '站内留言',
         value: 1
       })
     } else {
-      window.gtag('event', 'article_comment_publish', {
+      window.gtagEvent('article_comment_publish', {
         event_category: 'article_comment_publish',
         event_label: '文章评论',
         value: 1
