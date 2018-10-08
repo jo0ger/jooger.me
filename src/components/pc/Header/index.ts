@@ -28,7 +28,7 @@ export default class Header extends Base {
     this.$router.push(`/search/${this.keyword}`)
     if (this.$refs.menu) (this.$refs.menu as any).clear()
     this.keyword = ''
-    window.gtag('event', 'article_search', {
+    window.gtagEvent('article_search', {
       event_category: 'article_search',
       event_label: '文章搜索',
       value: 1

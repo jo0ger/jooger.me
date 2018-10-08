@@ -54,7 +54,7 @@ export default class Header extends Base {
     if (this.$refs.menu) (this.$refs.menu as any).clear()
     this.keyword = ''
     this.searchOpened = false
-    window.gtag('event', 'article_search', {
+    window.gtagEvent('article_search', {
       event_category: 'article_search',
       event_label: '文章搜索',
       value: 1

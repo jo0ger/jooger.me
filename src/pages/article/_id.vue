@@ -224,7 +224,7 @@ export default class extends Base {
       id: this.article._id,
       like: !this.liked
     })
-    window.gtag('event', 'article_like', {
+    window.gtagEvent('article_like', {
       event_category: 'article_like',
       event_label: '文章点赞',
       value: 1
