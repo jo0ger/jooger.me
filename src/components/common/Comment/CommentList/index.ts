@@ -100,11 +100,13 @@ export default class CommentList extends Base {
 
   private handleSetReply (index) {
     this.replyTarget = this.list[index]
-    const inputBox = this.$refs.inputBox as any
-    inputBox.focus()
-    this.$scrollTo(inputBox.$el, 500, {
-      offset: -document.body.clientHeight / 2
-    })
+    if (!this.mobileLayout) {
+      const inputBox = this.$refs.inputBox as any
+      inputBox.focus()
+      this.$scrollTo(inputBox.$el, 500, {
+        offset: -document.body.clientHeight / 2
+      })
+    }
   }
 
   private handleReplyPublish (reply) {
