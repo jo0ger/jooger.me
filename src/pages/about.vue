@@ -58,12 +58,12 @@
         <Card class="github-follow" v-if="mine.github.login">
           <div class="status">
             <div class="follower">
-              <span class="count">{{ mine.github.followers }}</span>
+              <CountTo :start-val="0" :end-val="mine.github.followers" :duration='2000' separator="," class="count"></CountTo>
               <div class="label">Follower</div>
             </div>
             <span class="divider"></span>
             <div class="following">
-              <span class="count">{{ mine.github.following }}</span>
+              <CountTo :start-val="0" :end-val="mine.github.following" :duration='2000' separator="," class="count"></CountTo>
               <div class="label">Following</div>
             </div>
           </div>
