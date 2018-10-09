@@ -76,6 +76,11 @@ class ApiModule extends Api {
     type Res = WebApi.CommentModule.like.Res
     return this.patch<null, Res>(`/comments/${id}/like`, params)
   }
+
+  public getVoice () {
+    type Res = WebApi.AgentModule.voice.Res
+    return this.get<null, Res>('/agent/voice')
+  }
 }
 
 export default new ApiModule()

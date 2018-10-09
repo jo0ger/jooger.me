@@ -15,6 +15,7 @@
       </main>
       <PCFooter></PCFooter>
     </div>
+    <Voice></Voice>
     <PCTool></PCTool>
   </div>
 </template>
@@ -23,7 +24,7 @@
   import Base from '@/base'
   import { Component  } from '@/utils/decorators'
   import { PCHeader, PCAside, PCFooter, PCTool } from '@/components/pc'
-  import { Background  } from '@/components/common'
+  import { Background, Voice } from '@/components/common'
   import { namespace } from 'vuex-class'
 
   const { Getter } = namespace('app')
@@ -35,7 +36,8 @@
       PCAside,
       PCFooter,
       PCTool,
-      Background
+      Background,
+      Voice
     },
     head () {
       return {

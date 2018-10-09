@@ -195,7 +195,7 @@ export default class extends Base {
 
       &.tag {
         .icon {
-          color $pink-5
+          color $green-5
         }
       }
 
