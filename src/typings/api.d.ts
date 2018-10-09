@@ -498,4 +498,15 @@ declare namespace WebApi {
             }>
         }
     }
+
+  namespace AgentModule {
+
+    namespace voice {
+      export type Res = IResponse<{
+        text: string
+        author: string
+        source: string
+      }>
+    }
+  }
 }

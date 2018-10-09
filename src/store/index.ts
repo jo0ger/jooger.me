@@ -9,12 +9,12 @@ export const actions = {
       commit('app/SET_MOBILE_LAYOUT', true)
       commit('app/SET_ARTICLE_FONTSIZE', -2)
     }
-    await dispatch('app/getSettingData')
-    const initTask = [
+    return Promise.all([
+      dispatch('app/getSettingData'),
+      dispatch('app/getVoice'),
       dispatch('app/getHotList'),
       dispatch('app/getCategoryList'),
       dispatch('app/getTagList'),
-    ]
-    return Promise.all(initTask)
+    ])
   }
 }

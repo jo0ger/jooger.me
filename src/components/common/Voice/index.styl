@@ -1,0 +1,35 @@
+/**
+ * @desc Voice
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 2018-10-09 01:37:54
+ */
+
+@import '~@/assets/style/init'
+
+.voice {
+  position fixed
+  top 60px
+  right 30px
+  padding $padding-md
+  writing-mode vertical-rl
+  font-family $font-family-logo
+  color var(--disabled-color)
+  font-size $font-size-lg
+  user-select text
+  transition()
+
+  .text {
+    height 200px
+  }
+
+  .source {
+    position absolute
+    left -10px
+    top 200px
+    height max-content
+  }
+
+  &:hover {
+    color var(--text-color)
+  }
+}

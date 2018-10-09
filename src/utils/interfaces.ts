@@ -30,6 +30,7 @@ export interface AppStateTree {
   tagList: WebApi.TagModule.Tag[]
   articleFontSize: number
   showArticleTitle: boolean
+  voice: WebApi.AgentModule.voice.Res['data']
 }
 
 export interface ArticleStateTree {
