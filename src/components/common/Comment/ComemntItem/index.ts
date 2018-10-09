@@ -107,7 +107,7 @@ export default class ComemntItem extends Base {
       if (this.showSub) {
         this.handleSubSort({
           sortBy: 'createdAt',
-          order: -1
+          order: 1
         })
       }
     } else {

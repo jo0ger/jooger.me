@@ -322,8 +322,8 @@ export default class extends Base {
     }
 
     .social-item {
-      flex 0 0 (100% / 4)
-      width (100% / 4)
+      flex 0 0 (100% / 5)
+      width (100% / 5)
       text-align center
 
       a {
@@ -357,6 +357,10 @@ export default class extends Base {
 
         &.netease-music {
           color $red-6
+        }
+
+        &.juejin {
+          color $blue-6
         }
       }
     }
