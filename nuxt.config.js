@@ -124,6 +124,7 @@ module.exports = {
     { src: '@/plugins/viewer', ssr: false },
     { src: '@/plugins/copyright', ssr: false },
     { src: '@/plugins/scroll-to', ssr: false },
+    { src: '@/plugins/count-to', ssr: false },
   ],
   modules: [
     '@nuxtjs/axios',
