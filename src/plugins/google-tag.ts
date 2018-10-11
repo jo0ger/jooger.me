@@ -2,14 +2,14 @@ import { GA_TRACK_ID, IS_PROD } from '@/config'
 import { noop } from '@/utils'
 
 function gtag (...args: any[]) {
-  window.dataLayer.push(args)
+  window.dataLayer.push(arguments)
 }
 
 function gtagEvent (...args: any[]) {
   const config = args[1] || {}
   config.send_to = GA_TRACK_ID
   args.splice(1, 1, config)
-  gtag('event', ...args)
+  gtag.call(window, 'event', ...args)
 }
 
 export default () => {
