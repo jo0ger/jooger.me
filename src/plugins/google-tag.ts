@@ -13,7 +13,7 @@ function gtagEvent (...args: any[]) {
 }
 
 export default () => {
-  if (process.client) {
+  if (process.client && IS_PROD) {
     // Google tag分析脚本
     const script = document.createElement('script')
     script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_TRACK_ID
