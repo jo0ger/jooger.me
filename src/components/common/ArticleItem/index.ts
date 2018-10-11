@@ -24,6 +24,9 @@ export default class ArticleItem extends Base {
   private keyword!: string
 
   private get title () {
-    return this.article.title.replace(new RegExp(this.keyword, 'g'), `<span class="keyword">${this.keyword}</span>`)
+    if (this.keyword) {
+      return this.article.title.replace(new RegExp(this.keyword, 'g'), `<span class="keyword">${this.keyword}</span>`)
+    }
+    return this.article.title
   }
 }

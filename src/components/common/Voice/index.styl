@@ -6,6 +6,8 @@
 
 @import '~@/assets/style/init'
 
+$text-height = 300px
+
 .voice {
   position fixed
   top 60px
@@ -16,17 +18,16 @@
   color var(--disabled-color)
   font-size $font-size-lg
   user-select text
-  z-index -1
   transition()
 
   .text {
-    height 200px
+    max-height $text-height
   }
 
   .source {
     position absolute
     left -10px
-    top 200px
+    top $text-height
     height max-content
   }
 
