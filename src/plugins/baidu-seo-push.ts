@@ -31,7 +31,7 @@ function push (href?: string) {
 
 export default () => {
   if (process.client && IS_PROD) {
-    push()
+    window.addEventListener('load', () => push())
     window.onNuxtReady(app => {
       app.$nuxt.$on('routeChanged', to => {
         push(window.location.origin + to.fullPath)
