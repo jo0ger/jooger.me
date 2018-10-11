@@ -11,9 +11,10 @@ export default () => {
   if (process.client && IS_PROD) {
     const hm = document.createElement('script')
     hm.src = '//hm.baidu.com/hm.js?cb9683e3a9b2dbea389ab751f46873fc'
-    const s = document.getElementsByTagName('script')[0]
-    if (s && s.parentNode) {
-      s.parentNode.insertBefore(hm, s)
+    const script = document.getElementsByTagName('script')[0]
+    script.async = !0
+    if (script && script.parentNode) {
+      script.parentNode.insertBefore(hm, script)
     }
 
     window.onNuxtReady(app => {
