@@ -33,6 +33,8 @@ export const USER_LIKE_KEY = IS_PROD ? 'jooger.me.user.like_history' : 'jooger.m
 
 export const THEME_KEY = IS_PROD ? 'jooger.me.theme' : 'jooger.me.theme_dev'
 
+export const FONT_SIZE_KEY = IS_PROD ? 'jooger.me.font_size' : 'jooger.me.font_size_dev'
+
 export const SITE = 'https://jooger.me'
 
 export const CDN = 'https://static.jooger.me'

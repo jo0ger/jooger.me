@@ -29,6 +29,9 @@
                 {{ article.meta.pvs }} 次阅读
               </div>
             </div>
+            <div class="thumb" v-if="article.thumb && !mobileLayout">
+              <img v-lazy="thumb" alt="">
+            </div>
             <div class="content markdown-body"
               v-copyright
               v-viewer.static="{
@@ -157,7 +160,7 @@ const articleMod = namespace('article')
 export default class extends Base {
   @appMod.Getter private articleFontSize!: number
   @appMod.Getter private showArticleTitle!: boolean
-  @appMod.Mutation('SET_ARTICLE_FONTSIZE') private setFontSize
+  @appMod.Action('updateFontSize') private updateFontSize
   @appMod.Mutation('SET_ARTICLE_TITLE_VISIBLE') private setArticleTitleVisible
   @articleMod.Getter('detail') private article!: WebApi.ArticleModule.Article
   @articleMod.Getter('detailFetching') private articleFetching!: boolean
@@ -183,6 +186,10 @@ export default class extends Base {
     return !!this.history.articles.find(item => item === this.article._id)
   }
 
+  private get thumb () {
+    return this.article.thumb + '?x-oss-process=image/resize,m_fill,w_600,h_360,limit_0/auto-orient,1/quality,q_100'
+  }
+
   @Watch('fullColumn')
   private watchFullColumn (val) {
     setTimeout(() => {
@@ -193,7 +200,7 @@ export default class extends Base {
 
   private mounted () {
     this.$bus.$on('on-article-fontsize-change', (val) => {
-      this.setFontSize(val)
+      this.updateFontSize(this.articleFontSize + val)
     })
     window.addEventListener('scroll', this.handleScroll)
   }
@@ -291,7 +298,7 @@ $action-widget-width = 36px
 
     .meta {
       flexLayout(, center)
-      margin 10px 0 20px
+      margin $padding-sm 0 $padding-md
       color var(--text-color-secondary)
       font-size $font-size-sm
 
@@ -314,6 +321,14 @@ $action-widget-width = 36px
           border 1px solid var(--text-color-secondary)
           border-radius 1px
         }
+      }
+    }
+
+    .thumb {
+      img {
+        width 100%
+        margin-bottom $padding-md
+        border 6px solid var(--border-color)
       }
     }
 

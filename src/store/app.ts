@@ -1,4 +1,4 @@
-import { USER_LIKE_KEY, USER_KEY, THEME_KEY } from '@/config'
+import { USER_LIKE_KEY, USER_KEY, THEME_KEY, FONT_SIZE_KEY } from '@/config'
 import { isType, storage } from '@/utils'
 import api from '@/api'
 import { AppStateTree, Getters, RootState, Mutations, Actions } from '@/utils/interfaces'
@@ -79,12 +79,7 @@ export const mutations: Mutations<AppStateTree> = {
   [FETCH_HOT_LIST]: (state, list) => (state.hotList = list),
   [FETCH_CATEGORY_LIST]: (state, list) => (state.categoryList = list),
   [FETCH_TAG_LIST]: (state, list) => (state.tagList = list),
-  [SET_ARTICLE_FONTSIZE]: (state, diff) => {
-    let size = state.articleFontSize + diff
-    if (size < 12) size = 12
-    if (size > 18) size = 18
-    state.articleFontSize = size
-  }
+  [SET_ARTICLE_FONTSIZE]: (state, size) => (state.articleFontSize = size)
 }
 
 export const actions: Actions<AppStateTree, RootState> = {
@@ -104,6 +99,14 @@ export const actions: Actions<AppStateTree, RootState> = {
       storage.set(USER_KEY, state.user)
     } else {
       storage.remove(USER_KEY)
+    }
+  },
+  updateFontSize ({ commit, state }, fontSize) {
+    if (fontSize) {
+      if (fontSize < 12) fontSize = 12
+      if (fontSize > 18) fontSize = 18
+      commit(SET_ARTICLE_FONTSIZE, fontSize)
+      storage.set(FONT_SIZE_KEY, state.articleFontSize)
     }
   },
   async getSettingData ({ commit }) {

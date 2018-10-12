@@ -1,4 +1,4 @@
-import { USER_LIKE_KEY, USER_KEY, THEME_KEY } from '@/config'
+import { USER_LIKE_KEY, USER_KEY, THEME_KEY, FONT_SIZE_KEY } from '@/config'
 import { storage } from '@/utils'
 
 export default ({ store }) => {
@@ -8,7 +8,13 @@ export default ({ store }) => {
     const theme = storage.get(THEME_KEY)
     if (theme) {
       setTimeout(() => {
-        store.commit('app/SET_THEME', storage.get(THEME_KEY))
+        store.commit('app/SET_THEME', theme)
+      }, 0)
+    }
+    const fontSize = storage.get(FONT_SIZE_KEY)
+    if (fontSize) {
+      setTimeout(() => {
+        store.dispatch('app/updateFontSize', fontSize)
       }, 0)
     }
   }

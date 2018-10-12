@@ -82,7 +82,7 @@ module.exports = {
     ],
     link: [
       { rel: 'shortcut icon', type: 'image/x-icon', href: '//static.jooger.me/img/common/favicon/favicon.ico' },
-      { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=Damion|Source+Code+Pro' },
+      { rel: 'stylesheet', type: 'text/css', href: '//fonts.googleapis.com/css?family=Damion' },
       { rel: 'dns-prefetch', href: '//api.jooger.me' },
       { rel: 'dns-prefetch', href: '//static.jooger.me' }
     ]
