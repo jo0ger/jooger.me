@@ -3,7 +3,7 @@ $common-padding=12px;
 .markdown-body {
   font-size: $font-size-lg;
   font-weight: 300;
-  color: var(--heading-color);
+  color: var(--markdown-color);
   font-family: $font-family-markdown;
 
   h1,
@@ -32,12 +32,13 @@ $common-padding=12px;
   }
 
   pre {
+    position relative
     font-size: inherit;
     padding: 16px;
     overflow: auto;
     line-height: 1.45;
-    background-color: var(--code-color);
-    border-radius: 3px;
+    background-color: var(--code-color-light);
+    border-radius: 2px;
   }
 
   code {
@@ -47,28 +48,117 @@ $common-padding=12px;
     background-color: var(--code-color);
     border-radius: 3px;
     font-family: $font-family-code;
+    color var(--keyword-color)
+
+    &.language-cpp:after,
+    &.language-java:after,
+    &.language-c:after,
+    &.language-cs:after,
+    &.language-js:after,
+    &.language-javascript:after,
+    &.language-ts:after,
+    &.language-typescript:after,
+    &.language-jsx:after,
+    &.language-bash:after,
+    &.language-html:after,
+    &.language-css:after,
+    &.language-py:after,
+    &.language-rb:after,
+    &.language-swift:after,
+    &.language-go:after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: block;
+      text-align: right;
+      font-size: 80%;
+      font-family: $font-family-code;
+      padding: 0 10px;
+      height: 24px;
+      line-height: @height;
+      color: var(--text-color-secondary);
+      background-color var(--code-color-dark)
+      border-bottom-left-radius: 2px;
+    }
+
+    &.language-cpp:after {
+      content: 'C++';
+    }
+    &.language-java:after {
+      content: 'Java';
+    }
+    &.language-c:after {
+      content: 'C';
+    }
+    &.language-cs:after {
+      content: 'C#';
+    }
+    &.language-html:after {
+      content: 'Html';
+    }
+    &.language-css:after {
+      content: 'Css';
+    }
+    &.language-js:after
+    &.language-javascript:after {
+      content: 'JavaScript';
+    }
+    &.language-ts:after
+    &.language-typescript:after {
+      content: 'TavaScript';
+    }
+    &.language-jsx:after {
+      content: 'Jsx';
+    }
+    &.language-bash:after {
+      content: 'Bash';
+    }
+    &.language-py:after {
+      content: 'Python';
+    }
+    &.language-rb:after {
+      content: 'Ruby';
+    }
+    &.language-swift:after {
+      content: 'Swift';
+    }
+    &.language-go:after {
+      content: 'Go';
+    }
   }
 
-  pre>code {
+  pre > code {
     border: 0;
     margin: 0;
     padding: 0;
-    background-color: var(--code-color);
+    background-color: var(--code-color-light);
     font-size: 85%;
+    color: var(--text-color);
   }
 
   a,
   a:visited {
     padding-bottom 4px
-    border-bottom 2px dashed var(--border-color)
-    color: var(--primary-color);
+    color: var(--text-color);
     background-color: inherit;
     text-decoration: none;
+    font-weight: 700;
+
+    &:hover {
+      text-decoration underline
+    }
   }
 
   img {
     max-width: 100%;
-    cursor zoom-in border 8px solid var(--border-color)
+    cursor zoom-in
+    border 6px solid var(--border-color)
+  }
+
+  .image-alt {
+    text-align center
+    color var(--text-color-secondary)
+    font-size 80%
   }
 
   p,

@@ -22,8 +22,11 @@ bindCssVars($dark, $light, $primary, $body, $border, $button, $keyword, $selecti
   {--button-color} $button
   {--button-color-hover} darken($button, 10%)
   {--selection-color} $selection
-  {--code-color} lighten($body, 20%)
+  {--code-color} darken($body, 3%)
+  {--code-color-light} $body
+  {--code-color-dark} darken($body, 5%)
   {--box-shadow-color} $box-shadow
+  {--markdown-color} rgba($dark, .85)
 }
 
 body {
@@ -51,7 +54,7 @@ body {
       lighten($black, 20%),
       #D0D2CF,
       lighten($black, 10%),
-      lighten($black, 10%),
+      lighten($black, 15%),
       lighten($black, 5%),
       $red-6,
       $blue-3,

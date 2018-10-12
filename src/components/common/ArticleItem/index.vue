@@ -10,7 +10,7 @@
       <h3 class="title" v-html="title">{{ article.title }}</h3>
       <div class="summary" v-if="!compact">
         <div class="thumb" v-if="article.thumb && !noThumb && !mobileLayout">
-          <img v-lazy="article.thumb" alt="">
+          <img v-lazy="thumb" alt="">
         </div>
         <p class="description">{{ article.description }}</p>
       </div>
