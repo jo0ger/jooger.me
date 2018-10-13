@@ -12,7 +12,7 @@
       <div class="article-widget">
         <Card class="article-detail">
           <article class="article" v-if="article">
-            <span v-if="!mobileLayout" class="source" :class="[article.source ? 'reprint' : 'original']">{{ article.source | constantFilter('ARTICLE_SOURCE') }}</span>
+            <span v-if="!mobileLayout" class="source" :class="[getConstantItem('ARTICLE_SOURCE', article.source, 'code')]">{{ article.source | constantFilter('ARTICLE_SOURCE') }}</span>
             <h2 class="title">{{ article.title }}</h2>
             <div class="meta">
               <nuxt-link :to="`/category/${article.category.name}`" class="meta-item category">
@@ -54,6 +54,27 @@
                 fontSize: articleFontSize + 'px'
               }"
               v-html="article.renderedContent"></div>
+            <div class="article-info">
+              <div class="from" v-if="article.from">
+                原文链接：
+                <a :href="article.from" target="_blank">{{ article.from }}</a>
+              </div>
+              <div class="translator" v-if="article.source === 3">
+                翻译人员：
+                <a :href="setting.personal.github.html_url" target="_blank">{{ setting.personal.user.name }}</a>
+              </div>
+              <div class="created-at">
+                发布时间：{{ article.createdAt | dateFormat('YYYY-MM-DD HH:mm') }}
+              </div>
+              <div class="updated-at" v-if="article.createdAt !== article.updatedAt">
+                更新时间：{{ article.updatedAt | dateFormat('YYYY-MM-DD HH:mm') }}
+              </div>
+              <div class="copyright">
+                版权声明：自由转载-署名-非商业性使用<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                <a href="https://creativecommons.org/licenses/by-nc/3.0/cn/deed.zh" target="_blank"
+                  rel="external nofollow noopenter">CC BY-NC 3.0 CN</a>
+              </div>
+            </div>
             <div class="tags">
               <Tag v-for="tag in article.tag"
                 :key="tag._id"
@@ -70,23 +91,6 @@
                 @on-like="like"></ReadTool>
             </div>
           </article>
-          <div class="article-info">
-            <div class="from" v-if="article.from">
-              转载来源：
-              <a :href="article.from" target="_blank">{{ article.from }}</a>
-            </div>
-            <div class="created-at">
-              发布时间：{{ article.createdAt | dateFormat('YYYY-MM-DD HH:mm') }}
-            </div>
-            <div class="updated-at" v-if="article.createdAt !== article.updatedAt">
-              更新时间：{{ article.updatedAt | dateFormat('YYYY-MM-DD HH:mm') }}
-            </div>
-            <div class="copyright">
-              版权声明：自由转载-署名-非商业性使用<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-              <a href="https://creativecommons.org/licenses/by-nc/3.0/cn/deed.zh" target="_blank"
-                rel="external nofollow noopenter">CC BY-NC 3.0 CN</a>
-            </div>
-          </div>
         </Card>
         <Card class="article-related" :header="!mobileLayout && '相关文章'" v-if="article.related.length">
           <div class="related-list swiper" v-swiper:relatedSwiper="swiperOption">
@@ -278,16 +282,6 @@ $action-widget-width = 36px
       transform rotateZ(-45deg)
       text-align center
       font-size $font-size-sm
-
-      &.original {
-        color var(--primary-color)
-        background-color var(--primary-color-light)
-      }
-
-      &.reprint {
-        color var(--keyword-color)
-        background-color var(--keyword-color-light)
-      }
     }
 
     .title {

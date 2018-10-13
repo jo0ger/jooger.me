@@ -37,8 +37,11 @@ import { Card, ArticleList, ArticleItem, Loading } from '@/components/common'
     ArticleList,
     Loading
   },
-  head: {
-    title: '首页'
+  head () {
+    const data = this.article || {}
+    return {
+      title: 'Jooger.me - ' + this.setting.personal.slogan
+    }
   },
   async fetch ({ store }) {
     store.commit('article/CLEAR_LIST')

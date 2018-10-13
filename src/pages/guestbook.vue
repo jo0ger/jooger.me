@@ -55,8 +55,6 @@ const { Getter, Action } = namespace('comment')
   },
   fetch ({ store }) {
     store.commit('app/SET_FULL_COLUMN', true)
-    // FIX: 修复从文章详情页到留言墙没有清空article，导致留言发布到文章下了
-    store.commit('article/CLEAR_DETAIL')
     store.commit('comment/CLEAR_LIST')
     return store.dispatch('comment/fetchList', {
       type: 1,
@@ -96,6 +94,8 @@ export default class extends Base {
   }
 
   private mounted ()  {
+    // FIX: 修复从文章详情页到留言墙没有清空article，导致留言发布到文章下了
+    this.$store.commit('article/CLEAR_DETAIL')
     if (this.from === 'about') {
       this.openBox()
       this.$nextTick(() => {

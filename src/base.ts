@@ -5,10 +5,11 @@
 import Vue from 'vue'
 import api from '@/api'
 import { Component } from '@/utils/decorators'
-import { processModel, findExtendsItem, moment, filters } from '@/utils'
+import { processModel, findExtendsItem, moment, filters, constant } from '@/utils'
 import * as config from '@/config'
 import { namespace } from 'vuex-class'
 import { AppStateTree } from '@/utils/interfaces'
+import { ConstantItem } from './utils/constant';
 
 const { Getter, Action } = namespace('app')
 
@@ -17,7 +18,7 @@ const { Getter, Action } = namespace('app')
   filters: {
     ...filters
   },
-  layout ({ store }) {
+  layout({ store }) {
     const mobileLayout = store.getters['app/mobileLayout']
     if (mobileLayout) return 'mobile'
     return 'default'
@@ -34,6 +35,7 @@ export default class Base extends Vue {
   @Getter protected hotList!: WebApi.ArticleModule.Article[]
   @Getter protected categoryList!: WebApi.CategoryModule.Category[]
   @Getter protected tagList!: WebApi.TagModule.Tag[]
+  protected constant = constant
   @Action protected updateHistory
 
   protected config = config
@@ -44,19 +46,29 @@ export default class Base extends Vue {
   protected moment = moment
   protected formatDate = filters.dateFormat
 
-  constructor () {
+  constructor() {
     super()
     // 如果需要在组件template中直接访问Base的方法，需要先在constructor中bind
     // this.exampleMethod = this.exampleMethod.bind(this)
     this.setFullColumn = this.setFullColumn.bind(this)
   }
 
-  protected setFullColumn (val: boolean) {
+  protected setFullColumn(val: boolean) {
     this.$store.commit('app/SET_FULL_COLUMN', val)
     if (!val) {
       setTimeout(() => {
         this.$bus.$emit('affix-reset')
       }, 300)
     }
+  }
+
+  protected getConstantItem(name: string, value: string | number, findKey: string = 'label') {
+    const con: ConstantItem = this.constant[name as any]
+    let find: string | number = ''
+    if (con) {
+      const hit = con.find(item => item.value === value)
+      find = hit && hit[findKey]
+    }
+    return find || ''
   }
 }

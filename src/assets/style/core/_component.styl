@@ -26,3 +26,25 @@
     }
   }
 }
+
+.source {
+  &.original {
+    color var(--primary-color)
+    background-color var(--primary-color-light)
+  }
+
+  &.reprint {
+    color $orange-6
+    background-color rgba($orange-6, .2)
+  }
+
+  &.hybrid {
+    color $blue-6
+    background-color rgba($blue-6, .2)
+  }
+
+  &.translate {
+    color $cyan-6
+    background-color rgba($cyan-6, .2)
+  }
+}

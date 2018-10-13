@@ -18,7 +18,7 @@
         Powered by
         <a class="link" target="_blank" rel="noopener" href="https://github.com/nuxt/nuxt.js">Nuxt.js</a>、
         Design by
-        <a class="link" target="_blank" rel="noopener" :href="'https://github.com/jo0ger'" v-if="setting.personal.user">{{ setting.personal.user.name }}</a>
+        <a class="link" target="_blank" rel="noopener" :href="setting.personal.github.html_url" v-if="setting.personal.user">{{ setting.personal.user.name }}</a>
       </div>
     </div>
   </footer>
