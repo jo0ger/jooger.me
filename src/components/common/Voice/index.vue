@@ -5,7 +5,7 @@
  -->
 <template>
   <transition name="fade" mode="out-in">
-    <div class="voice" v-if="data.text" :key="data.text">
+    <div class="voice" v-if="data && data.text" :key="data.text">
       <p class="text">{{ data.text }}</p>
       <p class="source" v-if="data.source || data.author">
         —— {{ data.author}}

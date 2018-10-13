@@ -269,7 +269,6 @@ $action-widget-width = 36px
   .article-detail {
     padding $padding-md
     overflow hidden
-    user-select text
 
     .source {
       position absolute
