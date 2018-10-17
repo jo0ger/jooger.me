@@ -31,6 +31,6 @@ export default class ArticleItem extends Base {
   }
 
   private get thumb () {
-    return this.article.thumb + '?x-oss-process=image/resize,m_fill,w_300,h_180,limit_0/auto-orient,1/quality,q_60/watermark,text_am9vZ2VyLm1l,type_ZmFuZ3poZW5naGVpdGk,size_16,t_80,shadow_100,color_f9f9f9,g_ne,y_10,x_10'
+    return this.article.thumb + '?x-oss-process=style/watermark'
   }
 }

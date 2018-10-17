@@ -191,7 +191,7 @@ export default class extends Base {
   }
 
   private get thumb () {
-    return this.article.thumb + '?x-oss-process=image/resize,m_fill,w_600,h_360,limit_0/auto-orient,1/quality,q_100'
+    return this.article.thumb + '?x-oss-process=style/banner'
   }
 
   @Watch('fullColumn')
