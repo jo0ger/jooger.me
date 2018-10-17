@@ -6,8 +6,6 @@
 
 @import '~@/assets/style/init'
 
-$text-height = 300px
-
 .voice {
   position fixed
   top 60px
@@ -21,13 +19,13 @@ $text-height = 300px
   transition()
 
   .text {
-    max-height $text-height
+    max-height 300px
   }
 
   .source {
     position absolute
     left -10px
-    top $text-height
+    bottom -50%
     height max-content
   }
 
