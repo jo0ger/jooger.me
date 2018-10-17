@@ -40,7 +40,7 @@
           <h2 class="title">Friends</h2>
           <ul class="link-list">
             <li class="link-item" v-for="link in setting.site.links" :key="link._id">
-              <a :href="link.site || 'javascript:;'">
+              <a :href="link.site || 'javascript:;'" target="_blank">
                 <img class="avatar" :src="link.avatar" :alt="link.name">
                 <div class="info">
                   <h4 class="name">{{ link.name }}</h4>
