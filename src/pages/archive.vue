@@ -24,7 +24,7 @@
                           <time class="time" :datatitme="article.createdAt">
                             {{ article.createdAt | dateFormat('MM-DD') }}
                           </time>
-                          <span class="source" :class="[article.source ? 'reprint' : 'original']">
+                          <span class="source" :class="[getConstantItem('ARTICLE_SOURCE', article.source, 'code')]">
                             {{ article.source | constantFilter('ARTICLE_SOURCE') }}
                           </span>
                           <nuxt-link class="link"
@@ -163,16 +163,6 @@ export default class extends Base {
           font-size $font-size-sm
           border-radius 2px
           transition(opacity)
-
-          &.original {
-            color var(--primary-color)
-            background-color var(--primary-color-light)
-          }
-
-          &.reprint {
-            color var(--keyword-color)
-            background-color var(--keyword-color-light)
-          }
         }
       }
     }
