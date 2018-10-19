@@ -136,7 +136,7 @@ export default class ComemntItem extends Base {
     this.$emit('on-reply-publish')
     this.handleSubSort({
       sortBy: 'createdAt',
-      order: -1
+      order: 1
     }, {
       page: 1
     })

@@ -413,6 +413,7 @@ export default class extends Base {
     .links {
       .link-item {
         flex-basis 100%
+        width 1px
       }
     }
 

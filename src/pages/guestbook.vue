@@ -100,7 +100,7 @@ export default class extends Base {
       this.openBox()
       this.$nextTick(() => {
         const inputBox = this.$refs.inputBox as any
-        inputBox.content = `友链申请\n称呼：\n网站：\n`
+        inputBox.content = `友链申请\n称呼：\n网站：\nGithub(如果有)：\n`
         inputBox.focus()
       })
     }
