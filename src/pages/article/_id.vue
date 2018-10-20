@@ -55,7 +55,7 @@
               }"
               v-html="article.renderedContent"></div>
             <div class="article-info">
-              <div class="from" v-if="article.from">
+              <div class="from" v-if="[1, 3].includes(article.source) && article.from">
                 原文链接：
                 <a :href="article.from" target="_blank">{{ article.from }}</a>
               </div>
@@ -69,7 +69,7 @@
               <div class="updated-at" v-if="article.createdAt !== article.updatedAt">
                 更新时间：{{ article.updatedAt | dateFormat('YYYY-MM-DD HH:mm') }}
               </div>
-              <div class="copyright">
+              <div class="copyright" v-if="article.source !== 1">
                 版权声明：自由转载-署名-非商业性使用<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
                 <a href="https://creativecommons.org/licenses/by-nc/3.0/cn/deed.zh" target="_blank"
                   rel="external nofollow noopenter">CC BY-NC 3.0 CN</a>
