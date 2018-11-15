@@ -139,7 +139,7 @@ declare namespace WebApi {
             state?: number
             source?: number
             content?: string
-            renderedContnt?: string
+            renderedContent?: string
             keywords?: string[]
             thumb?: string
             category?: CategoryModule.Category | string

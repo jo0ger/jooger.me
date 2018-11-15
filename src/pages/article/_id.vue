@@ -29,6 +29,10 @@
                 {{ article.meta.pvs }} 次阅读
               </div>
             </div>
+            <div class="word-count">
+              <span>全文共 <span class="num">{{ words }}</span> 字</span>
+              <span>预计阅读时长 <span class="num">{{ readingTime}}</span> 分钟</span>
+            </div>
             <div class="thumb" v-if="article.thumb && !mobileLayout">
               <img v-lazy="thumb" alt="">
             </div>
@@ -123,6 +127,7 @@ import { Component, Prop, Watch } from '@/utils/decorators'
 import { namespace } from 'vuex-class'
 import { Affix, Card, Tag, ReadTool, Comment } from '@/components/common'
 import { getScroll } from '@/utils'
+import { wordCount, timeCalc } from '@jooger/word-counter'
 
 const appMod = namespace('app')
 const articleMod = namespace('article')
@@ -192,6 +197,14 @@ export default class extends Base {
 
   private get thumb () {
     return this.article.thumb + '?x-oss-process=style/banner'
+  }
+
+  private get words () {
+    return wordCount(this.article.renderedContent || '')
+  }
+
+  private get readingTime () {
+    return timeCalc(this.article.renderedContent || '')
   }
 
   @Watch('fullColumn')
@@ -314,6 +327,19 @@ $action-widget-width = 36px
           border 1px solid var(--text-color-secondary)
           border-radius 1px
         }
+      }
+    }
+
+    .word-count {
+      text-align center
+      margin $padding-sm 0 $padding-md
+      color var(--text-color-secondary)
+      font-size $font-size-sm
+
+      .num {
+        font-style italic
+        text-decoration underline
+        color var(--text-color)
       }
     }
 

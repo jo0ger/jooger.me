@@ -16,15 +16,17 @@
     "cli": "node cli/index.js"
   },
   "dependencies": {
+    "@jooger/word-counter": "^1.1.0",
     "@nuxtjs/axios": "^5.0.0",
     "@nuxtjs/pwa": "^2.6.0",
     "bezier-easing": "^2.1.0",
     "dayjs": "^1.7.5",
     "normalize.css": "^8.0.0",
-    "nuxt": "^2.1.0",
+    "nuxt": "^2.2.0",
     "nuxt-property-decorator": "^1.2.0",
     "particles.js": "^2.0.0",
     "raven-js": "^3.27.0",
+    "striptags": "^3.1.1",
     "v-viewer": "^1.2.1",
     "validator": "^10.7.1",
     "vue-awesome-swiper": "^3.1.3",
