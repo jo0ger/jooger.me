@@ -24,6 +24,7 @@ export interface AppStateTree {
     comments: string[]
   }
   user: null | WebApi.UserModule.User,
+  isAdmin: boolean,
   setting: null | WebApi.SettingModule.Setting
   hotList: WebApi.ArticleModule.Article[]
   categoryList: WebApi.CategoryModule.Category[]

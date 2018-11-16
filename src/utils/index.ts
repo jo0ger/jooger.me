@@ -1,4 +1,5 @@
 import storage from './storage'
+import Cookies from 'js-cookie'
 import * as constant from './constant'
 import * as decorators from './decorators'
 import * as filters from './filters'
@@ -15,5 +16,6 @@ export {
   storage,
   decorators,
   constant,
-  filters
+  filters,
+  Cookies
 }

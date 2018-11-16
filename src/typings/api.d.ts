@@ -244,6 +244,14 @@ declare namespace WebApi {
             }
             export type Res = IResponse<User>
         }
+
+        namespace checkAdmin {
+            export interface Req {
+                userId: string
+                token: string
+            }
+            export type Res = IResponse<boolean>
+        }
     }
 
     namespace NotificationModule {

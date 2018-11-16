@@ -9,6 +9,7 @@ const SET_FULL_SCREEN = 'SET_FULL_SCREEN'
 const SET_FULL_COLUMN = 'SET_FULL_COLUMN'
 const SET_HISTORY = 'SET_HISTORY'
 const SET_USER = 'SET_USER'
+const SET_IS_ADMIN = 'SET_IS_ADMIN'
 const FETCH_SETTING = 'FETCH_SETTING'
 const FETCH_VOICE = 'FETCH_VOICE'
 const FETCH_HOT_LIST = 'FETCH_HOT_LIST'
@@ -27,6 +28,7 @@ export const state = (): AppStateTree => ({
     comments: []
   },
   user: null,
+  isAdmin: false,
   setting: null,
   voice: {
     text: '',
@@ -47,6 +49,7 @@ export const getters: Getters<AppStateTree, RootState> = {
   fullColumn: state => state.fullColumn,
   history: state => state.history,
   user: state => state.user,
+  isAdmin: state => state.isAdmin,
   setting: state => state.setting,
   voice: state => state.voice,
   hotList: state => state.hotList,
@@ -62,6 +65,7 @@ export const mutations: Mutations<AppStateTree> = {
   [SET_FULL_COLUMN]: (state, fullColumn) => (state.fullColumn = fullColumn),
   [SET_FULL_SCREEN]: (state, fullScreen) => (state.fullScreen = fullScreen),
   [SET_USER]: (state, user) => (state.user = user),
+  [SET_IS_ADMIN]: (state, isAdmin) => (state.isAdmin = isAdmin),
   [SET_ARTICLE_TITLE_VISIBLE]: (state, visible) => (state.showArticleTitle = visible),
   [SET_HISTORY]: (state, history: any = {}) => {
     const { articles, comments, articleId, commentId } = history

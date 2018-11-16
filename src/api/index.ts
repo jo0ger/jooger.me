@@ -81,6 +81,12 @@ class ApiModule extends Api {
     type Res = WebApi.AgentModule.voice.Res
     return this.get<null, Res>('/agent/voice')
   }
+
+  public checkAdmin (params: WebApi.UserModule.checkAdmin.Req) {
+    type Req = WebApi.UserModule.checkAdmin.Req
+    type Res = WebApi.UserModule.checkAdmin.Res
+    return this.get<Req, Res>('/users/admin/check', params)
+  }
 }
 
 export default new ApiModule()

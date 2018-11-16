@@ -30,6 +30,7 @@ export default class Base extends Vue {
   @Getter protected fullColumn!: boolean
   @Getter protected fullScreen!: boolean
   @Getter protected user!: WebApi.UserModule.User | null
+  @Getter protected isAdmin!: boolean
   @Getter protected history!: AppStateTree['history']
   @Getter protected setting!: WebApi.SettingModule.Setting
   @Getter protected hotList!: WebApi.ArticleModule.Article[]
