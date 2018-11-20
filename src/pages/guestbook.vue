@@ -18,7 +18,7 @@
       </div>
       <transition-group tag="div" name="fade" mode="out-in" class="list-field">
         <transition-group tag="div" name="fade" mode="out-in" class="column" :style="columnStyle" v-for="(item, index) in columnData" :key="index">
-          <MessageItem v-for="m in item" :key="m._id" :message="m"></MessageItem>
+          <MessageItem class="guest-message" v-for="m in item" :key="m._id" :message="m"></MessageItem>
         </transition-group>
       </transition-group>
       <p class="no-data" v-if="pageInfo.total < 1 && !messageListFetching">空空如也</p>
@@ -200,7 +200,15 @@ export default class extends Base {
     .column {
       flex 1 0
       padding 0 $padding-xs
-      overflow hidden
+    }
+
+    .guest-message {
+      transition all .3s $ease
+
+      &:hover {
+        transform translateY(-4px)
+        box-shadow 0px 4px 20px 2px var(--box-shadow-color-dark)
+      }
     }
   }
 
