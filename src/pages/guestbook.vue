@@ -157,7 +157,7 @@ export default class extends Base {
       line-height 1.8
       margin 0 auto
       font-size $font-size-lger
-      text-shadow 0 5px 20px var(--light-color-light)
+      text-shadow 0 5px 20px var(--box-shadow-color-dark)
 
       .icon {
         position absolute

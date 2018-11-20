@@ -46,14 +46,4 @@ export default class Tool extends Base {
       easing: 'ease'
     })
   }
-
-  private toggleMusic () {
-    const bus = this.$bus as any
-    if (bus.control.loading) return
-    if (bus.control.playing) {
-      bus.pause()
-    } else {
-      bus.play()
-    }
-  }
 }

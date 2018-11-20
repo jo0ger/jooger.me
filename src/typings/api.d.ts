@@ -518,6 +518,10 @@ declare namespace WebApi {
         cover: string
       }
       url: string
+      artists: {
+        id: number
+        name: string
+      }[]
     }
 
     namespace voice {

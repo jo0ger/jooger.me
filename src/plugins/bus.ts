@@ -42,6 +42,10 @@ class PlayerMixin extends Vue {
     wave: false
   }
 
+  public get song () {
+    return this.control.playlist[this.control.index] || {}
+  }
+
   private created () {
     this.$on('on-app-mounted', () => this.startMusic())
   }
@@ -141,8 +145,7 @@ class PlayerMixin extends Vue {
         this.control.loading = false
         this.control.playing = true
         Howler.volume(this.control.volume)
-        // 先不做进度条的
-        // requestAnimationFrame(this.step.bind(this))
+        requestAnimationFrame(this.step.bind(this))
       },
       onplayerror: (id, err) => {
         this.log(song.name + ' --- 播放失败', err)
