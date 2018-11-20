@@ -7,7 +7,7 @@
 import Base from '@/base'
 import { Component } from '@/utils/decorators'
 import { getScroll } from '@/utils'
-import { Card } from '@/components/common'
+import { Card, Loading } from '@/components/common'
 import { namespace } from 'vuex-class'
 
 const { Action } = namespace('app')
@@ -15,7 +15,8 @@ const { Action } = namespace('app')
 @Component({
   name: 'Tool',
   components: {
-    Card
+    Card,
+    Loading
   }
 })
 export default class Tool extends Base {
@@ -44,5 +45,15 @@ export default class Tool extends Base {
     this.$scrollTo(0, 500, {
       easing: 'ease'
     })
+  }
+
+  private toggleMusic () {
+    const bus = this.$bus as any
+    if (bus.control.loading) return
+    if (bus.control.playing) {
+      bus.pause()
+    } else {
+      bus.play()
+    }
   }
 }

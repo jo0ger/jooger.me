@@ -34,6 +34,9 @@
     }
   })
   export default class LayoutDefault extends Base {
+    private mounted () {
+      this.$bus.$emit('on-app-mounted')
+    }
   }
 </script>
 

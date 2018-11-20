@@ -10,6 +10,7 @@
   position fixed
   right 0
   bottom 36px
+  background none
 
   .tool-item {
     display block
@@ -31,6 +32,63 @@
 
     &:last-child {
       border-bottom-left-radius 2px
+    }
+
+    &.music {
+      flexLayout()
+
+      .col {
+        flex 1 0
+        flexLayout(, space-around, flex-end)
+        width 100%
+        height @width
+        padding $padding-xs
+
+        .line {
+          display inline-block
+          width 2px
+          background-color var(--link-color)
+          border-radius 1px
+          animation linear 0s infinite normal none
+
+          &:nth-child(odd) {
+            height 8px
+          }
+
+          &:nth-child(even) {
+            height 16px
+          }
+
+          &:nth-child(1) {
+            background-color $purple-6
+            animation-duration 2.5s
+          }
+
+          &:nth-child(2) {
+            background-color $blue-6
+            animation-duration 3s
+          }
+
+          &:nth-child(3) {
+            background-color $yellow-6
+            animation-duration 3.5s
+          }
+
+          &:nth-child(4) {
+            background-color $orange-6
+            animation-duration 4s
+          }
+        }
+      }
+
+
+      &.playing {
+        .col {
+          .line {
+            animation-name music
+          }
+        }
+      }
     }
   }
 }

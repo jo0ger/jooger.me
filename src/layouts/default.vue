@@ -1,6 +1,6 @@
 <template>
   <div class="app" :class="appClass">
-    <Background></Background>
+    <Background v-if="config.IS_PROD"></Background>
     <PCHeader></PCHeader>
     <div class="wrapper">
       <main class="main">
@@ -52,6 +52,10 @@
       return {
         'full-column': this.fullColumn
       }
+    }
+
+    private mounted () {
+      this.$bus.$emit('on-app-mounted')
     }
   }
 </script>

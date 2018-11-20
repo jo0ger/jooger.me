@@ -28,7 +28,6 @@ export default async ({ store }) => {
 async function checkAdmin (user: WebApi.UserModule.User, store) {
   const cookieUserId = Cookies.get('node-server_userid')
   const cookieToken = Cookies.get('node-server_token')
-  console.log(cookieUserId, cookieToken)
   if (!cookieToken || !cookieUserId || user._id !== cookieUserId) return false
   const res = await api.checkAdmin({
     userId: cookieUserId,

@@ -87,6 +87,16 @@ class ApiModule extends Api {
     type Res = WebApi.UserModule.checkAdmin.Res
     return this.get<Req, Res>('/users/admin/check', params)
   }
+
+  public getPlayList () {
+    type Res = WebApi.AgentModule.playlist.Res
+    return this.get<null, Res>('/agent/music')
+  }
+
+  public getSong (songId: number) {
+    type Res = WebApi.AgentModule.song.Res
+    return this.get<null, Res>(`/agent/music/song/${songId}`)
+  }
 }
 
 export default new ApiModule()
