@@ -13,13 +13,11 @@
           </div>
           <span class="name">
             {{ comment.author.name }}
-            <i class="icon icon-crown admin-tag"></i>
           </span>
         </a>
         <span class="reply" v-if="forward">
           <span class="text">回复</span>
           <a class="name" :href="forward.author.site || 'javascript:;'" target="_blank" rel="noopener">@{{ forward.author.name }}</a>
-          <i class="icon icon-crown admin-tag"></i>
         </span>
       </div>
       <span class="meta">
