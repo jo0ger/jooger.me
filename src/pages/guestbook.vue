@@ -1,6 +1,6 @@
 <template>
     <section class="guestbook-page">
-      <Modal title="我的留言" v-model="showInputBox">
+      <Modal :title="'我的留言' + (applyFriend ? '（友链申请）' : '')" v-model="showInputBox">
         <CommentInputBox style="box-shadow: none;" ref="inputBox" is-message @on-publish="publishSuccess"></CommentInputBox>
       </Modal>
       <div class="submit-field">
@@ -93,14 +93,18 @@ export default class extends Base {
     return this.pageInfo.total > 0 && this.pageInfo.current >= this.pageInfo.pages && this.pageInfo.pages >= 1
   }
 
+  private get applyFriend () {
+    return this.from === 'about'
+  }
+
   private mounted ()  {
     // FIX: 修复从文章详情页到留言墙没有清空article，导致留言发布到文章下了
     this.$store.commit('article/CLEAR_DETAIL')
-    if (this.from === 'about') {
+    if (this.applyFriend) {
       this.openBox()
       this.$nextTick(() => {
         const inputBox = this.$refs.inputBox as any
-        inputBox.content = `友链申请\n称呼：\n网站：\nGithub(如果有)：\n`
+        inputBox.content = `友链申请\n称呼：\n头像：\n简介：\n网站：\nGithub(如果有)：\n`
         inputBox.focus()
       })
     }

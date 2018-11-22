@@ -104,6 +104,10 @@ import { Card } from '@/components/common'
     return {
       title: '关于'
     }
+  },
+  fetch ({ store }) {
+    store.commit('app/SET_FULL_COLUMN', true)
+    return Promise.resolve()
   }
 })
 export default class extends Base {

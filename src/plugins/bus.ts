@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import { mixins } from 'vue-class-component'
 import { Component } from 'nuxt-property-decorator'
+import { Howl, Howler } from 'howler'
 import { IS_PROD } from '@/config'
 import api from '@/api'
-import { Howl, Howler } from 'howler'
+import { throttlen } from '@/utils'
 
 export default ({ store }) => {
   const mobileLayout = store.getters['app/mobileLayout']
@@ -44,6 +45,21 @@ class PlayerMixin extends Vue {
 
   public get song () {
     return this.control.playlist[this.control.index] || {}
+  }
+
+  private get step () {
+    const handler = function () {
+      if (this.control.sound) {
+        const seek = this.control.sound.seek() || 0
+        this.control.progress = (100 * seek / this.control.sound.duration()) || 0
+        if (this.control.sound.playing()) {
+          requestAnimationFrame(this.step.bind(this))
+        }
+      }
+    }
+    return throttlen(handler.bind(this), 600, {
+      leading: false
+    })
   }
 
   private created () {
@@ -110,9 +126,10 @@ class PlayerMixin extends Vue {
     song.howlId = ''
     this.control.wave = false
     this.control.playing = false
-    this.control.ready = true
+    this.control.ready = false
     this.control.loading = false
-    setTimeout(() => this.next(), 2000)
+    this.control.playlist.splice(this.control.index, 1)
+    setTimeout(() => this.play(), 2000)
   }
 
   private getHowl (song: PlaySong) {
@@ -140,7 +157,6 @@ class PlayerMixin extends Vue {
         this.log(song.name + ' --- 播放')
         song.loaderror = false
         this.control.wave = true
-        this.control.progress = 0
         this.control.ready = true
         this.control.loading = false
         this.control.playing = true
@@ -250,16 +266,6 @@ class PlayerMixin extends Vue {
   public seek (per) {
     if (!this.control.loading && this.control.sound && this.control.sound.playing()) {
       this.control.sound.seek(this.control.sound.duration() * per / 100)
-    }
-  }
-
-  private step () {
-    if (this.control.sound) {
-      const seek = this.control.sound.seek() || 0
-      this.control.progress = (100 * seek / this.control.sound.duration()) || 0
-      if (this.control.sound.playing()) {
-        requestAnimationFrame(this.step.bind(this))
-      }
     }
   }
 }

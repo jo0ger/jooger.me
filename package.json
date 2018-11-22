@@ -23,6 +23,7 @@
     "dayjs": "^1.7.5",
     "howler": "^2.0.15",
     "js-cookie": "^2.2.0",
+    "lodash.throttle": "^4.1.1",
     "normalize.css": "^8.0.0",
     "nuxt": "^2.2.0",
     "nuxt-property-decorator": "^1.2.0",

@@ -1,6 +1,8 @@
 <template>
   <div class="app" :class="appClass">
-    <Background v-if="config.IS_PROD"></Background>
+    <transition name="fade">
+      <Background v-if="config.IS_PROD && $route.name !== 'music'"></Background>
+    </transition>
     <PCHeader></PCHeader>
     <div class="wrapper">
       <main class="main">

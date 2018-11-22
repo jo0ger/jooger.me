@@ -521,6 +521,11 @@ declare namespace WebApi {
       artists: {
         id: number
         name: string
+      }[],
+      lyric: {
+        lrc: string
+        tlrc: string
+        time: number
       }[]
     }
 

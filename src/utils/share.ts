@@ -1,9 +1,12 @@
 import dayjs from 'dayjs'
+import throttle from 'lodash.throttle'
 import {
   isType
 } from './validate'
 
 export const moment = dayjs
+
+export const throttlen = throttle
 
 /* tslint:disable:no-empty */
 export const noop = () => {}

@@ -9,9 +9,11 @@
         </div>
       </div>
       <div class="control-panel">
-        <div class="album">
-          <div class="cover" :style="coverStyle"></div>
-        </div>
+        <transition name="fade" mode="out-in">
+          <div class="album" :key="coverStyle.backgroundImage">
+            <div class="cover" :style="coverStyle"></div>
+          </div>
+        </transition>
         <div class="controls">
           <div class="prev" @click="$bus.prev"><i class="icon icon-prev-song"></i></div>
           <div class="pause" v-if="$bus.control.playing" @click="$bus.pause"><i class="icon icon-pause"></i></div>
@@ -23,13 +25,21 @@
           </div>
         </div>
       </div>
+      <div class="lrc-list" ref="lrcList" v-if="song && song.lyric && song.lyric.length">
+        <ul class="list" :style="lrcListStyle">
+          <li class="line" :class="{ active: activeLyricIndex === index }" v-for="(lrc, index) in song.lyric" :key="lrc.time">
+            <p>{{ lrc.lrc }}</p>
+            <p v-if="lrc.tlrc">{{ lrc.tlrc }}</p>
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
 </template>
 
 <script lang="ts">
 import Base from '@/base'
-import { Component } from '@/utils/decorators'
+import { Component, Watch } from '@/utils/decorators'
 import { namespace } from 'vuex-class'
 
 const { Getter } = namespace('article')
@@ -57,6 +67,10 @@ export default class extends Base {
     return this.song && this.song.artists ? this.song.artists.map(a => a.name).join('、') : '---'
   }
 
+  private get displayedLyricList () {
+    return this.song.lyric.slice()
+  }
+
   private get claz () {
     const bus = this.$bus as any
     return {
@@ -80,6 +94,42 @@ export default class extends Base {
     }
   }
 
+  private get playedTimeFromSeconds () {
+    const bus = this.$bus as any
+    return this.song ? this.song.duration / 1000 * (bus.control.progress / 100) : 0
+  }
+
+  // 当前播放处歌词的索引
+  private get activeLyricIndex () {
+    if (!this.song || !this.song.lyric || !this.song.lyric.length) return -1
+    const playedTimeFromSeconds = this.playedTimeFromSeconds
+    const lrcList = this.song.lyric
+    return lrcList.findIndex((item, index) => {
+      return item.time <= playedTimeFromSeconds && (!lrcList[index + 1] || lrcList[index + 1].time > playedTimeFromSeconds)
+    })
+  }
+
+  private get lrcListStyle () {
+    const $list = this.$refs.lrcList as HTMLElement
+    let target = 0
+    const index = this.activeLyricIndex + 1
+    if ($list) {
+      const activeElem = $list.querySelector(`.line:nth-child(${index})`) as HTMLElement
+      if (activeElem) {
+        const listHeight = $list.clientHeight
+        const offsetTop = activeElem.offsetTop
+        const elemHeight = activeElem.clientHeight
+        target = offsetTop - listHeight / 2 + elemHeight / 2
+        if (target < 0) {
+          target = 0
+        }
+      }
+    }
+    return {
+      transform: `translate3d(0, ${-target}px, 0)`
+    }
+  }
+
   private setVolume () {
     const bus = this.$bus as any
     const cache = this.cacheVolume
@@ -96,14 +146,13 @@ $player-height = 120px
 $album-radius = $player-height * 0.9
 
 .music-page {
-  flexLayout()
+  flexLayout(column)
   height calc(100vh - 60px - 112px - 16px - 100px)
 
   .player {
     position relative
     width 50%
     height $player-height
-    margin auto
 
     .info {
       position absolute
@@ -224,6 +273,35 @@ $album-radius = $player-height * 0.9
       }
     }
 
+    .lrc-list {
+      position absolute
+      top $player-height
+      left 50%
+      transform translateX(-50%)
+      width 100%
+      max-height 300px
+      margin-top 120px
+      overflow hidden
+      text-align center
+
+      .list {
+        transition transform .6s $ease
+      }
+
+      .line {
+        margin $padding-sm 0
+        line-height 1.5
+        color var(--text-color-secondary)
+        text-shadow 0 5px 20px var(--box-shadow-color-dark)
+        transition all .6s $ease
+
+        &.active {
+          color var(--keyword-color)
+          transform scale(1.2)
+        }
+      }
+    }
+
     &.playing {
       .info {
         top (0 - $player-height * 2 / 3)
@@ -242,5 +320,6 @@ $album-radius = $player-height * 0.9
       }
     }
   }
+
 }
 </style>
