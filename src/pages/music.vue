@@ -280,7 +280,7 @@ $album-radius = $player-height * 0.9
       transform translateX(-50%)
       width 100%
       max-height 300px
-      margin-top 120px
+      margin-top 30px
       overflow hidden
       text-align center
 
