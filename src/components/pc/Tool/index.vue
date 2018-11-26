@@ -4,7 +4,7 @@
  * @date 2018-10-05 17:12:13
  -->
 <template>
-  <Card class="tool" no-padding>
+  <Card class="tool site-tool" no-padding>
     <div class="wrapper">
       <transition-group tag="div" name="fade" class="tool-list">
         <nuxt-link class="tool-item music" :class="{ playing: $bus.control.playing }" key="music" to="/music">
