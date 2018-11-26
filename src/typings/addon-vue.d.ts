@@ -21,6 +21,7 @@ declare module 'vue/types/vue' {
         $modal: any
         $scrollTo: (element: string | Element | null | number, duration?: number, options?: any) => void
         $scrollToComments: (...args: any[]) => void
+        $loadImg: (url: string, opt?: any) => void
     }
     interface VueConstructor<V extends Vue> {}
 }

@@ -127,6 +127,7 @@ module.exports = {
     { src: '@/plugins/scroll-to', ssr: false },
     { src: '@/plugins/count-to', ssr: false },
     { src: '@/plugins/tab-active', ssr: false },
+    { src: '@/plugins/load-image', ssr: false },
   ],
   modules: [
     '@nuxtjs/axios',

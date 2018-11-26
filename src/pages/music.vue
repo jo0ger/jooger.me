@@ -25,13 +25,14 @@
           </div>
         </div>
       </div>
-      <div class="lrc-list" ref="lrcList" v-if="song && song.lyric && song.lyric.length">
-        <ul class="list" :style="lrcListStyle">
+      <div class="lrc-list" ref="lrcList">
+        <ul class="list" :style="lrcListStyle" v-if="song && song.lyric && song.lyric.length">
           <li class="line" :class="{ active: activeLyricIndex === index }" v-for="(lrc, index) in song.lyric" :key="lrc.time">
             <p>{{ lrc.lrc }}</p>
             <p v-if="lrc.tlrc">{{ lrc.tlrc }}</p>
           </li>
         </ul>
+        <p class="no-lrc" v-else>纯音乐，请静心欣赏~~~</p>
       </div>
     </div>
   </section>
@@ -67,6 +68,11 @@ export default class extends Base {
     return this.song && this.song.artists ? this.song.artists.map(a => a.name).join('、') : '---'
   }
 
+  private get cover () {
+    const bus = (this.$bus as any)
+    return bus.loadedCover || ''
+  }
+
   private get displayedLyricList () {
     return this.song.lyric.slice()
   }
@@ -83,7 +89,7 @@ export default class extends Base {
 
   private get coverStyle () {
     return {
-      backgroundImage: this.song && this.song.album ? `url(${this.song.album.cover})` : null
+      backgroundImage: this.cover ? `url(${this.cover})` : null
     }
   }
 
@@ -225,6 +231,7 @@ $album-radius = $player-height * 0.9
           background-position center
           background-repeat no-repeat
           background-size cover
+          background-color var(--dark-color)
           animation rotate 3s linear infinite
           animation-fill-mode forwards
           animation-play-state paused
@@ -279,10 +286,11 @@ $album-radius = $player-height * 0.9
       left 50%
       transform translateX(-50%)
       width 100%
-      max-height 300px
-      margin-top 30px
+      max-height 200px
+      margin-top 50px
       overflow hidden
       text-align center
+      color var(--text-color-secondary)
 
       .list {
         transition transform .6s $ease
@@ -291,7 +299,6 @@ $album-radius = $player-height * 0.9
       .line {
         margin $padding-sm 0
         line-height 1.5
-        color var(--text-color-secondary)
         text-shadow 0 5px 20px var(--box-shadow-color-dark)
         transition all .6s $ease
 

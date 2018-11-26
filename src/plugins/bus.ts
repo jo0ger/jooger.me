@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { mixins } from 'vue-class-component'
-import { Component } from 'nuxt-property-decorator'
+import { Component, Watch } from 'nuxt-property-decorator'
 import { Howl, Howler } from 'howler'
 import { IS_PROD } from '@/config'
 import api from '@/api'
@@ -31,6 +31,7 @@ interface PlaySong extends WebApi.AgentModule.Song {
 class PlayerMixin extends Vue {
   private songlist: WebApi.AgentModule.Song[] = []
   private loading = false
+  private loadedCover = ''
   private control = {
     sound: null as any,
     playlist: [] as PlaySong[],
@@ -47,6 +48,10 @@ class PlayerMixin extends Vue {
     return this.control.playlist[this.control.index] || {}
   }
 
+  private get originCover () {
+    return this.song && this.song.album && this.song.album.cover || ''
+  }
+
   private get step () {
     const handler = function () {
       if (this.control.sound) {
@@ -60,6 +65,12 @@ class PlayerMixin extends Vue {
     return throttlen(handler.bind(this), 600, {
       leading: false
     })
+  }
+
+  @Watch('originCover', { immediate: true })
+  private watchOriginCover (val: string) {
+    this.loadedCover = ''
+    this.loadCover()
   }
 
   private created () {
@@ -267,5 +278,14 @@ class PlayerMixin extends Vue {
     if (!this.control.loading && this.control.sound && this.control.sound.playing()) {
       this.control.sound.seek(this.control.sound.duration() * per / 100)
     }
+  }
+
+  private loadCover () {
+    if (!this.originCover) return
+    this.$loadImg(this.originCover, {
+      success: () => {
+        this.loadedCover = this.originCover
+      }
+    })
   }
 }
