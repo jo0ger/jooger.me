@@ -1,6 +1,6 @@
 <template>
     <section class="category-page">
-      <div class="info">
+      <Card class="info" no-padding>
         <img class="background" v-if="findExtendsItem(category.extends, 'image')"
           :src="findExtendsItem(category.extends, 'image')" alt="">
         <div class="mask"></div>
@@ -13,7 +13,7 @@
             篇文章
           </div>
         </div>
-      </div>
+      </Card>
       <Card>
         <ArticleList :params="params"></ArticleList>
       </Card>

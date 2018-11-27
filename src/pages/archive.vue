@@ -24,9 +24,7 @@
                           <time class="time" :datatitme="article.createdAt">
                             {{ article.createdAt | dateFormat('MM-DD') }}
                           </time>
-                          <span class="source" :class="[getConstantItem('ARTICLE_SOURCE', article.source, 'code')]">
-                            {{ article.source | constantFilter('ARTICLE_SOURCE') }}
-                          </span>
+                          <ArticleSource class="source" :data="article.source"></ArticleSource>
                           <nuxt-link class="link"
                             :to="`/article/${article._id}`">
                             {{ article.title }}
@@ -47,7 +45,7 @@
 <script lang="ts">
 import Base from '@/base'
 import { Component } from '@/utils/decorators'
-import { Card, Tag } from '@/components/common'
+import { Card, Tag, ArticleSource } from '@/components/common'
 import { namespace } from 'vuex-class'
 
 const { Getter } = namespace('article')
@@ -56,7 +54,8 @@ const { Getter } = namespace('article')
   name: 'Archive',
   components: {
     Card,
-    Tag
+    Tag,
+    ArticleSource
   },
   head () {
     return {
@@ -154,15 +153,9 @@ export default class extends Base {
 
         .source {
           flex 0 0 36px
-          display inline-block
           width 36px
-          height 20px
           margin-right $padding-sm
-          line-height @height
-          text-align center
           font-size $font-size-sm
-          border-radius 2px
-          transition(opacity)
         }
       }
     }

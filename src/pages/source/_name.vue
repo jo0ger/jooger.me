@@ -1,6 +1,6 @@
 <template>
     <section class="source-page" :class="[source.code && `source-page-${source.code}`]">
-      <div class="info">
+      <Card class="info">
         <div class="content">
           <i class="icon" :class="[`icon-${source.code || 'source'}`]"></i>
           <h3 class="name">{{ source.label }}</h3>
@@ -10,7 +10,7 @@
             篇文章
           </div>
         </div>
-      </div>
+      </Card>
       <Card>
         <ArticleList :params="params"></ArticleList>
       </Card>
