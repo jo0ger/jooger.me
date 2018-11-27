@@ -170,6 +170,7 @@ $album-radius = $player-height * 0.9
       background-color var(--light-color-light)
       padding $padding-md $padding-md $padding-md ($padding-lg + $album-radius + $padding-md)
       border-radius $padding-sm
+      box-shadow 0 30px 56px 6px var(--box-shadow-color)
       transition all .5s $ease
 
       .name {
@@ -232,7 +233,7 @@ $album-radius = $player-height * 0.9
           background-repeat no-repeat
           background-size cover
           background-color var(--dark-color)
-          animation rotate 3s linear infinite
+          animation rotate 5s linear infinite
           animation-fill-mode forwards
           animation-play-state paused
         }

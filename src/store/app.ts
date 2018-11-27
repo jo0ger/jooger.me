@@ -107,8 +107,13 @@ export const actions: Actions<AppStateTree, RootState> = {
   },
   updateFontSize ({ commit, state }, fontSize) {
     if (fontSize) {
-      if (fontSize < 12) fontSize = 12
-      if (fontSize > 18) fontSize = 18
+      if (fontSize < 12) {
+        fontSize = 12
+        window.Message.info(`已经是最小${fontSize}号字体了`)
+      } else if (fontSize > 18) {
+        fontSize = 18
+        window.Message.info(`已经是最大${fontSize}号字体了`)
+      }
       commit(SET_ARTICLE_FONTSIZE, fontSize)
       storage.set(FONT_SIZE_KEY, state.articleFontSize)
     }
