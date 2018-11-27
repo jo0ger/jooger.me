@@ -14,7 +14,7 @@
             </div>
           </div>
         <div class="list-content">
-          <ArticleList :keyword="$route.params.keyword"></ArticleList>
+          <ArticleList :keyword="$route.params.keyword" :params="params"></ArticleList>
         </div>
       </Card>
     </section>
@@ -53,6 +53,12 @@ const { Getter } = namespace('article')
 export default class extends Base {
   @Getter private pageInfo!: WebApi.PageInfo
   @Getter private listFetching!: boolean
+
+  private get params () {
+    return {
+      keyword: this.$route.params.keyword
+    }
+  }
 }
 </script>
 

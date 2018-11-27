@@ -58,7 +58,8 @@ export default class extends Base {
   private get source () {
     const sourceName = this.$route.params.name
     return constant.ARTICLE_SOURCE.find(item => item.label === sourceName) || {
-      label: sourceName
+      label: sourceName,
+      value: ''
     }
   }
 

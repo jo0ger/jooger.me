@@ -15,7 +15,7 @@
         </div>
       </div>
       <Card>
-        <ArticleList></ArticleList>
+        <ArticleList :params="params"></ArticleList>
       </Card>
     </section>
 </template>
@@ -57,6 +57,12 @@ export default class extends Base {
   private get category () {
     return this.categoryList.find(item => item.name === this.$route.params.name) || {
       name: this.$route.params.name
+    }
+  }
+
+  private get params () {
+    return {
+      source: this.category.name
     }
   }
 }
