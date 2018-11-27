@@ -12,7 +12,7 @@
       <div class="article-widget">
         <Card class="article-detail">
           <article class="article" v-if="article">
-            <span v-if="!mobileLayout" class="source" :class="[getConstantItem('ARTICLE_SOURCE', article.source, 'code')]">{{ article.source | constantFilter('ARTICLE_SOURCE') }}</span>
+            <span v-if="!mobileLayout" class="source article-source" :class="[getConstantItem('ARTICLE_SOURCE', article.source, 'code')]">{{ article.source | constantFilter('ARTICLE_SOURCE') }}</span>
             <h2 class="title">{{ article.title }}</h2>
             <div class="meta">
               <nuxt-link :to="`/category/${article.category.name}`" class="meta-item category">

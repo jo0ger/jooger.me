@@ -36,9 +36,9 @@ export default class Base extends Vue {
   @Getter protected hotList!: WebApi.ArticleModule.Article[]
   @Getter protected categoryList!: WebApi.CategoryModule.Category[]
   @Getter protected tagList!: WebApi.TagModule.Tag[]
-  protected constant = constant
   @Action protected updateHistory
 
+  protected constant = constant
   protected config = config
   protected api = api
 
@@ -46,6 +46,7 @@ export default class Base extends Vue {
   protected findExtendsItem = findExtendsItem
   protected moment = moment
   protected formatDate = filters.dateFormat
+  protected filtConstant = filters.constantFilter
 
   constructor() {
     super()

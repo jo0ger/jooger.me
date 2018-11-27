@@ -6,9 +6,13 @@
 
 import Base from '@/base'
 import { Component, Prop } from '@/utils/decorators'
+import ArticleSource from '../ArticleSource'
 
 @Component({
   name: 'ArticleItem',
+  components: {
+    ArticleSource
+  }
 })
 export default class ArticleItem extends Base {
   @Prop({ type: Object })
