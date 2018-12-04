@@ -82,6 +82,11 @@ class ApiModule extends Api {
     return this.get<null, Res>('/agent/voice')
   }
 
+  public getMoments () {
+    type Res = WebApi.MomentModule.list.Res
+    return this.get<null, Res>('/moments')
+  }
+
   public checkAdmin (params: WebApi.UserModule.checkAdmin.Req) {
     type Req = WebApi.UserModule.checkAdmin.Req
     type Res = WebApi.UserModule.checkAdmin.Res

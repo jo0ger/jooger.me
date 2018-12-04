@@ -545,4 +545,18 @@ declare namespace WebApi {
       export type Res = IResponse<Song>
     }
   }
+
+  namespace MomentModule {
+    type Moment = ModuleShare & {
+      content: string
+      location: any,
+    }
+
+    namespace list {
+      export type Req = IPageableRequest & {
+        keyword?: string,
+      }
+      export type Res = IPageableResponse<Moment>
+    }
+  }
 }

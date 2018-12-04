@@ -9,9 +9,10 @@ export const actions = {
       commit('app/SET_MOBILE_LAYOUT', true)
       dispatch('app/updateFontSize', 14)
     }
-    return Promise.all([
+    await Promise.all([
       dispatch('app/getSettingData'),
       dispatch('app/getVoice'),
+      dispatch('app/getMoments'),
       dispatch('app/getHotList'),
       dispatch('app/getCategoryList'),
       dispatch('app/getTagList'),

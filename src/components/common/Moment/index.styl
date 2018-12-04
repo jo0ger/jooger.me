@@ -1,0 +1,60 @@
+/**
+ * @desc Moment
+ * @author jo0ger <iamjooger@gmail.com>
+ * @date 2018-12-04 17:48:19
+ */
+
+@import '~@/assets/style/init'
+
+.moment {
+  .wrapper {
+    flexLayout(row, flex-start)
+    height 48px
+    overflow hidden
+
+    > .icon {
+      margin 0 $padding-md
+      color var(--text-color-secondary)
+    }
+
+    .content {
+      flex 1 0
+      overflow hidden
+      height 100%
+    }
+
+    .action {
+      flex 0 0 36px
+      text-align center
+
+      > div {
+        cursor pointer
+
+        .icon {
+          font-size $font-size-sm
+          color var(--text-color-secondary)
+        }
+
+        &:hover {
+          .icon {
+            color var(--text-color)
+          }
+        }
+      }
+    }
+
+    .swiper {
+      &-wrapper {
+        height 48px
+      }
+    }
+
+    .moment-item {
+      line-height 48px
+
+      .text {
+        textOverflow()
+      }
+    }
+  }
+}

@@ -33,6 +33,7 @@ export default class Base extends Vue {
   @Getter protected isAdmin!: boolean
   @Getter protected history!: AppStateTree['history']
   @Getter protected setting!: WebApi.SettingModule.Setting
+  @Getter('moment') protected momentList!: WebApi.MomentModule.Moment
   @Getter protected hotList!: WebApi.ArticleModule.Article[]
   @Getter protected categoryList!: WebApi.CategoryModule.Category[]
   @Getter protected tagList!: WebApi.TagModule.Tag[]

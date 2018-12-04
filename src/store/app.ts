@@ -12,6 +12,7 @@ const SET_USER = 'SET_USER'
 const SET_IS_ADMIN = 'SET_IS_ADMIN'
 const FETCH_SETTING = 'FETCH_SETTING'
 const FETCH_VOICE = 'FETCH_VOICE'
+const FETCH_MOMENT = 'FETCH_MOMENT'
 const FETCH_HOT_LIST = 'FETCH_HOT_LIST'
 const FETCH_CATEGORY_LIST = 'FETCH_CATEGORY_LIST'
 const FETCH_TAG_LIST = 'FETCH_TAG_LIST'
@@ -35,6 +36,7 @@ export const state = (): AppStateTree => ({
     author: '',
     source: ''
   },
+  moment: [],
   categoryList: [],
   hotList: [],
   tagList: [],
@@ -52,6 +54,7 @@ export const getters: Getters<AppStateTree, RootState> = {
   isAdmin: state => state.isAdmin,
   setting: state => state.setting,
   voice: state => state.voice,
+  moment: state => state.moment,
   hotList: state => state.hotList,
   categoryList: state => state.categoryList,
   tagList: state => state.tagList,
@@ -80,6 +83,7 @@ export const mutations: Mutations<AppStateTree> = {
   },
   [FETCH_SETTING]: (state, data) => (state.setting = data),
   [FETCH_VOICE]: (state, voice) => (state.voice = voice),
+  [FETCH_MOMENT]: (state, moment) => (state.moment = moment),
   [FETCH_HOT_LIST]: (state, list) => (state.hotList = list),
   [FETCH_CATEGORY_LIST]: (state, list) => (state.categoryList = list),
   [FETCH_TAG_LIST]: (state, list) => (state.tagList = list),
@@ -129,6 +133,13 @@ export const actions: Actions<AppStateTree, RootState> = {
     const { success, data } = await api.getVoice()
     if (success) {
         commit(FETCH_VOICE, data)
+    }
+    return success
+  },
+  async getMoments ({ commit }) {
+    const { success, data } = await api.getMoments()
+    if (success) {
+        commit(FETCH_MOMENT, data.list)
     }
     return success
   },

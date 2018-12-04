@@ -19,6 +19,9 @@
         </router-link>
       </Card>
     </div>
+    <div class="moment-panel" v-if="momentList && momentList.length">
+      <Moment></Moment>
+    </div>
     <Card class="article-panel">
       <ArticleList></ArticleList>
     </Card>
@@ -28,14 +31,15 @@
 <script lang="ts">
 import Base from '@/base'
 import { Component } from '@/utils/decorators'
-import { Card, ArticleList, ArticleItem, Loading } from '@/components/common'
+import { Card, ArticleList, ArticleItem, Loading, Moment } from '@/components/common'
 
 @Component({
   name: 'Index',
   components: {
     Card,
     ArticleList,
-    Loading
+    Loading,
+    Moment
   },
   head () {
     const data = this.article || {}
@@ -123,6 +127,7 @@ export default class extends Base {
   }
 
   .mobile-layout & {
+    width 100%
     padding-top $padding-xs
   }
 }

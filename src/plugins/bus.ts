@@ -74,7 +74,9 @@ class PlayerMixin extends Vue {
   }
 
   private created () {
-    this.$on('on-app-mounted', () => this.startMusic())
+    if (IS_PROD) {
+      this.$on('on-app-mounted', () => this.startMusic())
+    }
   }
 
   public async startMusic () {
