@@ -8,9 +8,9 @@ export default () => {
 }
 
 interface Option {
-  success?: () => any
-  fail?: () => any
-  load?: () => any
+  success?: (...args: any[]) => any
+  fail?: (...args: any[]) => any
+  load?: (...args: any[]) => any
   crossOrigin?: boolean
 }
 
@@ -36,18 +36,20 @@ function loadImg (url = '', opt: Option = {}) {
   img.src = url
   if (img.complete) {
     if (img[prop]) {
-      if (!!success) success.call(img, img, url)
+      if (!!success) success(img, url)
     } else {
       _fail(opt, img, url)
     }
   } else {
     if (!!load) load()
-    img.onload = success && success.bind(img, img, url)
+    img.onload = () => {
+      success && success(img, url)
+    }
     img.onerror = () => _fail(opt, img, url)
   }
 }
 
 function _fail (opt, img, url) {
   const fail = typeof opt.fail === 'function' ? opt.fail : noop
-  fail.call(img, img, url)
+  fail(img, url)
 }
