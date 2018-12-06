@@ -93,6 +93,11 @@ class ApiModule extends Api {
     return this.get<Req, Res>('/users/admin/check', params)
   }
 
+  public getUser (userId: string) {
+    type Res = WebApi.UserModule.item.Res
+    return this.get<null, Res>(`/users/${userId}`)
+  }
+
   public getPlayList () {
     type Res = WebApi.AgentModule.playlist.Res
     return this.get<null, Res>('/agent/music')
