@@ -38,6 +38,9 @@
         </Card>
         <Card class="links">
           <h2 class="title">Friends</h2>
+          <div class="link-apply">
+            <router-link to="/guestbook?from=about">申请友链</router-link>
+          </div>
           <ul class="link-list">
             <li class="link-item" v-for="link in setting.site.links" :key="link._id">
               <a :href="link.site || 'javascript:;'" target="_blank">
@@ -49,9 +52,6 @@
               </a>
             </li>
           </ul>
-          <div class="link-apply">
-            <router-link to="/guestbook?from=about">申请友链</router-link>
-          </div>
         </Card>
       </div>
       <div class="column column-right">

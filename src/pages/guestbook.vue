@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import Base from '@/base'
-import { Component } from '@/utils/decorators'
+import { Component, Watch } from '@/utils/decorators'
 import CommentInputBox from '@/components/common/Comment/CommentInputBox'
 import { Modal, MessageItem, Loading } from '@/components/common'
 import { namespace } from 'vuex-class'
@@ -97,6 +97,18 @@ export default class extends Base {
     return this.from === 'about'
   }
 
+  @Watch('showInputBox')
+  private watchShowInputBox (val) {
+    if (!val && this.applyFriend) {
+      // FIX: 关闭的时候需要清空申请友链路由
+      console.log(1);
+
+      this.$router.replace({
+        query: {}
+      })
+    }
+  }
+
   private mounted ()  {
     // FIX: 修复从文章详情页到留言墙没有清空article，导致留言发布到文章下了
     this.$store.commit('article/CLEAR_DETAIL')
@@ -112,6 +124,10 @@ export default class extends Base {
 
   private openBox () {
     this.showInputBox = true
+  }
+
+  private closeBox () {
+    this.showInputBox = false
   }
 
   private async like (message) {
@@ -135,7 +151,7 @@ export default class extends Base {
   }
 
   private publishSuccess () {
-    this.showInputBox = false
+    this.closeBox()
     this.fetchMessageList({
       page: 1,
       type: 1

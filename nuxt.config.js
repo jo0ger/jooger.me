@@ -162,7 +162,7 @@ module.exports = {
         runtimeCaching: [
           // route离线缓存
           {
-            urlPattern: fixUrl('/.*'),
+            urlPattern: fixUrl('https?://jooger.me/.*'),
             handler: 'networkFirst',
             method: 'GET',
             strategyOptions: {
@@ -175,7 +175,7 @@ module.exports = {
           },
           // js,css等resource文件缓存，因为有hash所以可以设置cacheFirst策略
           {
-            urlPattern: fixUrl('/resource/.*'),
+            urlPattern: fixUrl('https?://jooger.me/resource/.*'),
             handler: 'cacheFirst',
             strategyOptions: {
               cacheName: 'resource-cache',
@@ -186,7 +186,7 @@ module.exports = {
             }
           },
           {
-            urlPattern: fixUrl('/proxy/.*'),
+            urlPattern: fixUrl('https?://jooger.me/proxy/.*'),
             handler: 'cacheFirst',
             strategyOptions: {
               cacheName: 'proxy-cache',

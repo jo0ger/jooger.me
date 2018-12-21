@@ -43,7 +43,7 @@ function loadImg (url = '', opt: Option = {}) {
   } else {
     if (!!load) load()
     img.onload = () => {
-      success && success(img, url)
+      if (!!success) success(img, url)
     }
     img.onerror = () => _fail(opt, img, url)
   }

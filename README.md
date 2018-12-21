@@ -1,6 +1,6 @@
 [C-CLIENT]: https://jooger.me
 [S-CLIENT]: https://api.jooger.me
-[nuxt]: https://eggjs.org
+[nuxt]: https://nuxtjs.org
 [nuxt-image]: https://img.shields.io/badge/Powered%20By-Nuxt.js-ff69b4.svg?style=flat-square
 [david-image]: https://img.shields.io/david/jo0ger/jooger.me.svg?style=flat-square
 [david-url]: https://david-dm.org/jo0ger/jooger.me
