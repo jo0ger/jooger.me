@@ -91,7 +91,7 @@ export default class Affix extends Base {
     const scrollTop = getScroll(window, true)
     const elOffset = getOffset(this.$el)
     const windowHeight = window.innerHeight
-    const elHeight = this.$el.offsetHeight
+    const elHeight = (this.$el as HTMLElement).offsetHeight
     let parent: Node | null = null
     let parentOffset: any = null
     // Fixed Top
@@ -104,7 +104,7 @@ export default class Affix extends Base {
       this.style = {
         top: `${this.offsetTop}px`,
         left: `${(isResize && fixed) ? parentOffset.left : elOffset.left}px`,
-        width: `${(isResize && fixed) ? (parent as any).offsetWidth : this.$el.offsetWidth}px`
+        width: `${(isResize && fixed) ? (parent as any).offsetWidth : (this.$el as HTMLElement).offsetWidth}px`
       }
       this.$emit('on-change', true)
     } else if ((this.initialOffset.top - this.offsetTop) > scrollTop && this.offsetType === 'top' && fixed) {
@@ -122,7 +122,7 @@ export default class Affix extends Base {
       this.style = {
         bottom: `${this.offsetBottom}px`,
         left: `${(isResize && fixed) ? parentOffset.left : elOffset.left}px`,
-        width: `${(isResize && fixed) ? (parent as any).offsetWidth : this.$el.offsetWidth}px`
+        width: `${(isResize && fixed) ? (parent as any).offsetWidth : (this.$el as HTMLElement).offsetWidth}px`
       }
       this.$emit('on-change', true)
     } else if ((this.initialOffset.top + this.offsetBottom + elHeight) < (scrollTop + windowHeight) && this.offsetType === 'bottom' && fixed) {
