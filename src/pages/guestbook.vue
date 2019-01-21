@@ -223,6 +223,7 @@ export default class extends Base {
     }
 
     .guest-message {
+      word-break break-all
       transition all .3s $ease
 
       &:hover {

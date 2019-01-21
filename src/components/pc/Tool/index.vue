@@ -7,14 +7,14 @@
   <Card class="tool site-tool" no-padding>
     <div class="wrapper">
       <transition-group tag="div" name="fade" class="tool-list">
-        <nuxt-link class="tool-item music" :class="{ playing: $bus.control.playing }" key="music" to="/music">
+        <!-- <nuxt-link class="tool-item music" :class="{ playing: $bus.control.playing }" key="music" to="/music">
           <transition name="fade" mode="out-in">
             <Loading v-if="$bus.control.loading" size="small" no-text></Loading>
             <div class="col" v-else>
               <i class="line" v-for="item in 4" :key="item"></i>
             </div>
           </transition>
-        </nuxt-link>
+        </nuxt-link> -->
         <a class="tool-item feedback" key="feedback"
           :href="'mailto:' + setting.personal.user.email">
           <i class="icon icon-feedback"></i>
