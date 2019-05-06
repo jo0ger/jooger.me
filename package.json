@@ -9,6 +9,7 @@
     }
   },
   "scripts": {
+    "lint": "tslint --project tsconfig.json",
     "dev": "nuxt --version && nuxt",
     "build": "nuxt --version && nuxt build",
     "start": "nuxt --version && nuxt start",
@@ -21,9 +22,12 @@
     "@nuxtjs/pwa": "^2.6.0",
     "bezier-easing": "^2.1.0",
     "dayjs": "^1.7.5",
+    "fundebug-javascript": "^1.7.3",
+    "fundebug-vue": "^0.0.1",
     "howler": "^2.0.15",
     "js-cookie": "^2.2.0",
     "lodash.throttle": "^4.1.1",
+    "logrocket": "^0.6.21",
     "normalize.css": "^8.0.0",
     "nuxt": "^2.2.0",
     "nuxt-property-decorator": "^1.2.0",

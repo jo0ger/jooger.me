@@ -1,0 +1,50 @@
+/**
+ * @desc 用户行为追溯
+ * @author Jooger <iamjooger@gmail.com>
+ * @date 06 May 2019
+ */
+
+import { IS_PROD } from '@/config'
+import Vue from 'vue'
+import * as fundebug from 'fundebug-javascript'
+import fundebugVue from 'fundebug-vue'
+import LogRocket from 'logrocket'
+
+export default () => {
+  if (process.client && IS_PROD) {
+    setupFundebug()
+    setupFullstory()
+    setupLogRocket()
+  }
+}
+
+// SEE: https://www.fundebug.com/dashboard/5cd00c0ed11b9a056bba4d83/errors/inbox
+function setupFundebug () {
+  fundebug.apikey = 'ce3171cd3a4fcfdfcb3c626c565fa3d7bfc9d61ee64f7aea6ea65e1190696e1c'
+  fundebugVue(fundebug, Vue)
+}
+
+// SEE: https://app.fullstory.com
+function setupFullstory() {
+  const win = window as any
+  win._fs_debug = false;
+  win._fs_host = 'fullstory.com';
+  win._fs_org = 'KV7F5';
+  win._fs_namespace = 'FS';
+  (function (m: any, n: any, e: any, t: any, l: any, o?: any, g?: any, y?: any) {
+    if (e in m) { if (m.console && m.console.log) { m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].'); } return; }
+    g = m[e] = function (a, b, s) { g.q ? g.q.push([a, b, s]) : g._api(a, b, s); }; g.q = [];
+    o = n.createElement(t); o.async = 1; o.crossOrigin = 'anonymous'; o.src = 'https://' + win._fs_host + '/s/fs.js';
+    y = n.getElementsByTagName(t)[0]; y.parentNode.insertBefore(o, y);
+    g.identify = function (i, v, s) { g(l, { uid: i }, s); if (v) g(l, v, s) }; g.setUserVars = function (v, s) { g(l, v, s) }; g.event = function (i, v, s) { g('event', { n: i, p: v }, s) };
+    g.shutdown = function () { g('rec', !1) }; g.restart = function () { g('rec', !0) };
+    g.consent = function (a) { g('consent', !arguments.length || a) };
+    g.identifyAccount = function (i, v) { o = 'account'; v = v || {}; v.acctId = i; g(o, v) };
+    g.clearUserCookie = function () {/** */};
+  })(window, document, win._fs_namespace, 'script', 'user');
+}
+
+// SEE: https://app.logrocket.com
+function setupLogRocket () {
+  LogRocket.init('evanfe/joogerme')
+}

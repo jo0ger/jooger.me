@@ -3822,6 +3822,14 @@ function-bind@^1.1.0, function-bind@^1.1.1:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/function-bind/download/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
 
+fundebug-javascript@^1.7.3:
+  version "1.7.3"
+  resolved "https://registry.npmjs.org/fundebug-javascript/-/fundebug-javascript-1.7.3.tgz#7b789f22d3809796c7c6ef6edaf51cfc563fffd9"
+
+fundebug-vue@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.npmjs.org/fundebug-vue/-/fundebug-vue-0.0.1.tgz#aae1a6a0bb580c2da5835f1702fae583e2fe7609"
+
 gauge@~2.7.3:
   version "2.7.4"
   resolved "http://registry.npm.taobao.org/gauge/download/gauge-2.7.4.tgz#2c03405c7538c39d7eb37b317022e325fb018bf7"
@@ -4959,6 +4967,10 @@ log-update@^2.3.0:
     ansi-escapes "^3.0.0"
     cli-cursor "^2.0.0"
     wrap-ansi "^3.0.1"
+
+logrocket@^0.6.21:
+  version "0.6.21"
+  resolved "https://registry.npmjs.org/logrocket/-/logrocket-0.6.21.tgz#f19749a4bc2ea51821a0f5acb08e811ac3d3f314"
 
 loose-envify@^1.0.0:
   version "1.4.0"
