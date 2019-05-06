@@ -5485,7 +5485,7 @@ nuxt-property-decorator@^1.2.0:
     reflect-metadata "^0.1.12"
     vue-class-component "^6.0.2"
 
-nuxt@^2.2.0:
+nuxt@2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/nuxt/-/nuxt-2.2.0.tgz#19547b67f2b561455bcbdcabf87071c4331be48a"
   dependencies:

@@ -29,7 +29,7 @@
     "lodash.throttle": "^4.1.1",
     "logrocket": "^0.6.21",
     "normalize.css": "^8.0.0",
-    "nuxt": "^2.2.0",
+    "nuxt": "2.2.0",
     "nuxt-property-decorator": "^1.2.0",
     "particles.js": "^2.0.0",
     "raven-js": "^3.27.0",
