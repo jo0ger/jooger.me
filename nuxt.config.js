@@ -31,7 +31,7 @@ const title = name + ' - ' + description
 // 站点关键字
 const keywords = 'Jooger,jooger.me,Blog,FE,前端,Vue,Angular,React,Node.js,微服务'
 // 站点主题色
-const themeColor = '#302e31'
+const themeColor = '#ffffff'
 // Viewport meta
 const viewport = 'width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover'
 // 项目根目录
