@@ -3826,6 +3826,10 @@ fundebug-javascript@^1.7.3:
   version "1.7.3"
   resolved "https://registry.npmjs.org/fundebug-javascript/-/fundebug-javascript-1.7.3.tgz#7b789f22d3809796c7c6ef6edaf51cfc563fffd9"
 
+fundebug-revideo@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/fundebug-revideo/-/fundebug-revideo-0.2.0.tgz#713a28b893cbd66fef0a8ae0d0d44c2335e56098"
+
 fundebug-vue@^0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/fundebug-vue/-/fundebug-vue-0.0.1.tgz#aae1a6a0bb580c2da5835f1702fae583e2fe7609"

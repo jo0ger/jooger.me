@@ -6,6 +6,11 @@
 <template>
   <Card class="tool site-tool" no-padding>
     <div class="wrapper">
+      <no-ssr>
+        <a class="tool-item" v-if="debug" @click="debugIt">
+          <i class="icon icon-debug"></i>
+        </a>
+      </no-ssr>
       <transition-group tag="div" name="fade" class="tool-list">
         <!-- <nuxt-link class="tool-item music" :class="{ playing: $bus.control.playing }" key="music" to="/music">
           <transition name="fade" mode="out-in">

@@ -23,6 +23,7 @@
     "bezier-easing": "^2.1.0",
     "dayjs": "^1.7.5",
     "fundebug-javascript": "^1.7.3",
+    "fundebug-revideo": "^0.2.0",
     "fundebug-vue": "^0.0.1",
     "howler": "^2.0.15",
     "js-cookie": "^2.2.0",

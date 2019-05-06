@@ -37,6 +37,7 @@ export default class Base extends Vue {
   @Getter protected hotList!: WebApi.ArticleModule.Article[]
   @Getter protected categoryList!: WebApi.CategoryModule.Category[]
   @Getter protected tagList!: WebApi.TagModule.Tag[]
+  @Getter protected debug!: boolean
   @Action protected updateHistory
 
   protected constant = constant

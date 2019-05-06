@@ -3,6 +3,8 @@ export default ({ app, store }) => {
     if (from.name !== to.name && ['article-id', 'guestbook', 'archive', 'about', 'music'].find(item => from.name === item)) {
       store.commit('app/SET_FULL_COLUMN', false)
     }
+    console.log(to.query.debug);
+    store.commit('app/SET_DEBUG', !!to.query.debug)
     next()
   })
 

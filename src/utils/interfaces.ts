@@ -33,6 +33,7 @@ export interface AppStateTree {
   showArticleTitle: boolean
   voice: WebApi.AgentModule.voice.Res['data']
   moment: WebApi.MomentModule.list.Res['data']['list']
+  debug: boolean
 }
 
 export interface ArticleStateTree {

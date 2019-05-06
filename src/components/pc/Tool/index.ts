@@ -46,4 +46,14 @@ export default class Tool extends Base {
       easing: 'ease'
     })
   }
+
+  private debugIt () {
+    if ('fundebug' in window) {
+      (window as any).notify('Test', 'Hello, I\'m Jooger', {
+        metaData: {
+          debug: this.debug
+        }
+      })
+    }
+  }
 }

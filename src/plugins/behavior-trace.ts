@@ -8,6 +8,7 @@ import { IS_PROD } from '@/config'
 import Vue from 'vue'
 import * as fundebug from 'fundebug-javascript'
 import fundebugVue from 'fundebug-vue'
+import 'fundebug-revideo'
 import LogRocket from 'logrocket'
 
 export default () => {

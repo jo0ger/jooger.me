@@ -18,6 +18,7 @@ const FETCH_CATEGORY_LIST = 'FETCH_CATEGORY_LIST'
 const FETCH_TAG_LIST = 'FETCH_TAG_LIST'
 const SET_ARTICLE_FONTSIZE = 'SET_ARTICLE_FONTSIZE'
 const SET_ARTICLE_TITLE_VISIBLE = 'SET_ARTICLE_TITLE_VISIBLE'
+const SET_DEBUG = 'SET_DEBUG'
 
 export const state = (): AppStateTree => ({
   theme: 'light',
@@ -41,7 +42,8 @@ export const state = (): AppStateTree => ({
   hotList: [],
   tagList: [],
   articleFontSize: 16,
-  showArticleTitle: false
+  showArticleTitle: false,
+  debug: false
 })
 
 export const getters: Getters<AppStateTree, RootState> = {
@@ -59,7 +61,8 @@ export const getters: Getters<AppStateTree, RootState> = {
   categoryList: state => state.categoryList,
   tagList: state => state.tagList,
   articleFontSize: state => state.articleFontSize,
-  showArticleTitle: state => state.showArticleTitle
+  showArticleTitle: state => state.showArticleTitle,
+  debug: state => state.debug
 }
 
 export const mutations: Mutations<AppStateTree> = {
@@ -87,7 +90,8 @@ export const mutations: Mutations<AppStateTree> = {
   [FETCH_HOT_LIST]: (state, list) => (state.hotList = list),
   [FETCH_CATEGORY_LIST]: (state, list) => (state.categoryList = list),
   [FETCH_TAG_LIST]: (state, list) => (state.tagList = list),
-  [SET_ARTICLE_FONTSIZE]: (state, size) => (state.articleFontSize = size)
+  [SET_ARTICLE_FONTSIZE]: (state, size) => (state.articleFontSize = size),
+  [SET_DEBUG]: (state, isDebug) => (state.debug = isDebug)
 }
 
 export const actions: Actions<AppStateTree, RootState> = {
