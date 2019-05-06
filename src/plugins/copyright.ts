@@ -7,10 +7,13 @@ export default () => {
       bind (el: HTMLElement) {
         el[ctx] = e => {
           if (!window.getSelection) return
-          const content = window.getSelection().toString()
-          e.clipboardData.setData('text/plain', copyText(content))
-          e.clipboardData.setData('text/html', copyText(content))
-          e.preventDefault()
+          const selection = window.getSelection()
+          if (selection) {
+            const content = selection.toString()
+            e.clipboardData.setData('text/plain', copyText(content))
+            e.clipboardData.setData('text/html', copyText(content))
+            e.preventDefault()
+          }
         }
       },
       inserted (el: HTMLElement) {

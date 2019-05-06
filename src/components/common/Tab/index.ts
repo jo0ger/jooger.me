@@ -49,7 +49,7 @@ export default class Tab extends Base {
   private init () {
     if (this.router) {
       const name = this.$route.name
-      const index = this.list.findIndex(item => item.key === name)
+      const index = this.list && this.list.findIndex(item => item.key === name) || -1
       this.value = index
     }
   }
