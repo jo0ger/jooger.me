@@ -16,6 +16,7 @@ export default () => {
     setupFundebug()
     setupFullstory()
     setupLogRocket()
+    setupGrowingIO()
   }
 }
 
@@ -27,12 +28,12 @@ function setupFundebug () {
 
 // SEE: https://app.fullstory.com
 function setupFullstory() {
-  const win = window as any
+  const win = window
   win._fs_debug = false;
   win._fs_host = 'fullstory.com';
   win._fs_org = 'KV7F5';
   win._fs_namespace = 'FS';
-  (function (m: any, n: any, e: any, t: any, l: any, o?: any, g?: any, y?: any) {
+  (function (m, n, e, t, l, o, g, y) {
     if (e in m) { if (m.console && m.console.log) { m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].'); } return; }
     g = m[e] = function (a, b, s) { g.q ? g.q.push([a, b, s]) : g._api(a, b, s); }; g.q = [];
     o = n.createElement(t); o.async = 1; o.crossOrigin = 'anonymous'; o.src = 'https://' + win._fs_host + '/s/fs.js';
@@ -48,4 +49,14 @@ function setupFullstory() {
 // SEE: https://app.logrocket.com
 function setupLogRocket () {
   LogRocket.init('evanfe/joogerme')
+}
+
+function setupGrowingIO () {
+  !function (e, t, n, g, i) {
+    e[i] = e[i] || function () {
+      (e[i].q = e[i].q || []).push(arguments)
+    }, n = t.createElement("script"), tag = t.getElementsByTagName("script")[0], n.async = 1, n.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + g, tag.parentNode.insertBefore(n, tag)
+  }(window, document, "script", "assets.growingio.com/2.1/gio.js", "gio");
+  gio('init', '9c24b896d23d1d67', {});​
+  gio('send');
 }
