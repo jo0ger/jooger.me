@@ -56,7 +56,7 @@ function setupGrowingIO () {
     e[i] = e[i] || function () {
       (e[i].q = e[i].q || []).push(arguments)
     }
-    const n = t.createElement("script")
+    n = t.createElement("script")
     const tag = t.getElementsByTagName("script")[0]
     n.async = 1
     n.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + g
