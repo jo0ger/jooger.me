@@ -17,6 +17,7 @@ export default () => {
     setupFullstory()
     setupLogRocket()
     setupGrowingIO()
+    setupMouseFlow()
   }
 }
 
@@ -59,4 +60,14 @@ function setupGrowingIO () {
   }(window, document, "script", "assets.growingio.com/2.1/gio.js", "gio");
   gio('init', '9c24b896d23d1d67', {});​
   gio('send');
+}
+
+function setupMouseFlow () {
+  window._mfq = window._mfq || [];
+    (function() {
+        var mf = document.createElement("script");
+        mf.type = "text/javascript"; mf.async = true;
+        mf.src = "//cdn.mouseflow.com/projects/06a8431b-afe8-4ed1-852b-facec4be2c70.js";
+        document.getElementsByTagName("head")[0].appendChild(mf);
+    })();
 }
