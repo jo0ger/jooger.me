@@ -1230,6 +1230,10 @@ ajv@^6.0.1, ajv@^6.1.0:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
+alife-logger@^1.8.3:
+  version "1.8.3"
+  resolved "https://registry.npmjs.org/alife-logger/-/alife-logger-1.8.3.tgz#1e7743ebeb3992e9a078ca57a26638ba4546c487"
+
 alphanum-sort@^1.0.0:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/alphanum-sort/download/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"

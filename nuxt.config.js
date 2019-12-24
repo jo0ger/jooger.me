@@ -111,6 +111,7 @@ module.exports = {
     // { src: '@/plugins/baidu-stat', ssr: false },
     { src: '@/plugins/baidu-seo-push', ssr: false },
     { src: '@/plugins/sentry', ssr: false },
+    { src: '@/plugins/ali-logger', ssr: false },
     // { src: '@/plugins/behavior-trace', ssr: false },
     { src: '@/plugins/console-say-hi', ssr: false },
     { src: '@/plugins/particles', ssr: false },
