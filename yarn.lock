@@ -1028,9 +1028,9 @@
   version "0.7.0"
   resolved "http://registry.npm.taobao.org/@sindresorhus/is/download/@sindresorhus/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
 
-"@types/node@10.5.5":
-  version "10.5.5"
-  resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-10.5.5.tgz#8e84d24e896cd77b0d4f73df274027e3149ec2ba"
+"@types/node@^13.1.0":
+  version "13.1.0"
+  resolved "https://registry.npmjs.org/@types/node/-/node-13.1.0.tgz#225cbaac5fdb2b9ac651b02c070d8aa3c37cc812"
 
 "@vue/component-compiler-utils@^2.0.0":
   version "2.2.0"
