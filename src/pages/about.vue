@@ -322,8 +322,8 @@ export default class extends Base {
     }
 
     .social-item {
-      flex 0 0 (100% / 5)
-      width (100% / 5)
+      flex 0 0 (100% / 6)
+      width (100% / 6)
       text-align center
 
       a {
@@ -361,6 +361,10 @@ export default class extends Base {
 
         &.juejin {
           color $blue-6
+        }
+
+        &.yuque {
+          color #30c971;
         }
       }
     }
