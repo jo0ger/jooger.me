@@ -50,8 +50,9 @@ export const SOCIALS = [
   { title: 'Email', icon: 'email', url: 'iamjooger@gmail.com' },
   { title: 'GitHub', icon: 'github', url: 'https://github.com/jo0ger' },
   { title: '知乎', icon: 'zhihu', url: 'https://www.zhihu.com/people/bubblypoker' },
-  { title: '网易云音乐', icon: 'netease-music', url: 'http://music.163.com/#/user/home?id=36877861' },
-  { title: '掘金', icon: 'juejin', url: 'https://juejin.im/user/5882cfef2f301e006978d714' }
+  { title: '掘金', icon: 'juejin', url: 'https://juejin.im/user/5882cfef2f301e006978d714' },
+  { title: '语雀', icon: 'yuque', url: 'https://www.yuque.com/jooger' },
+  { title: '网易云音乐', icon: 'netease-music', url: 'http://music.163.com/#/user/home?id=36877861' }
 ]
 
 export const SHARES = [
