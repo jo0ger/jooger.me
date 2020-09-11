@@ -1624,7 +1624,7 @@ babel-plugin-syntax-exponentiation-operator@^6.8.0:
 
 babel-plugin-syntax-object-rest-spread@^6.8.0:
   version "6.13.0"
-  resolved "http://registry.npmjs.org/babel-plugin-syntax-object-rest-spread/-/babel-plugin-syntax-object-rest-spread-6.13.0.tgz#fd6536f2bce13836ffa3a5458c4903a597bb3bf5"
+  resolved "https://registry.npmjs.org/babel-plugin-syntax-object-rest-spread/-/babel-plugin-syntax-object-rest-spread-6.13.0.tgz#fd6536f2bce13836ffa3a5458c4903a597bb3bf5"
 
 babel-plugin-syntax-trailing-function-commas@^6.22.0:
   version "6.22.0"
@@ -5346,8 +5346,8 @@ no-case@^2.2.0:
     lower-case "^1.1.1"
 
 node-fetch@^2.1.1, node-fetch@^2.2.0:
-  version "2.2.0"
-  resolved "http://registry.npm.taobao.org/node-fetch/download/node-fetch-2.2.0.tgz#4ee79bde909262f9775f731e3656d0db55ced5b5"
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
 
 node-libs-browser@^2.0.0:
   version "2.1.0"
