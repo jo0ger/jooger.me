@@ -35,7 +35,7 @@
     "nuxt-property-decorator": "^1.2.0",
     "particles.js": "^2.0.0",
     "raven-js": "^3.27.0",
-    "striptags": "^3.1.1",
+    "striptags": "^3.2.0",
     "v-viewer": "^1.2.1",
     "validator": "^10.7.1",
     "vue-awesome-swiper": "^3.1.3",
